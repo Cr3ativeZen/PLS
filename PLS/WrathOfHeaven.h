@@ -43,7 +43,7 @@ void __fastcall WrathOfHeaven(IChar IPlayer, int pPacket, int pPos)
 
 
 					if (Target.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*WOHBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*WOHAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvE) + (nSkillGrade*WOHPerGradeMultiPvE);
+						nDmg = (IPlayer.GetAttack()*WOHBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*WOHAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvP) + (nSkillGrade*WOHPerGradeMultiPvP);
 
 					IPlayer.OktayDamageSingle(Target,nDmg,33);
 				} else {

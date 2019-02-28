@@ -52,7 +52,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			if (IPlayer.IsOnline() && ID == D4Instance::QuestID && D4InstanceON == true)
 			{
-				if (IPlayer.IsBuff(240))
+				/*if (IPlayer.IsBuff(240))
 				{
 					int Time = IPlayer.GetBuffRemain(240) / 60;
 					std::string msg = "You need to wait ";
@@ -68,7 +68,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 					IPlayer.SystemMessage(msg.c_str(), TEXTCOLOR_RED);
 					return;
-				}
+				}*/
 
 				if (D4Instance::IsUp == true)
 				{
@@ -100,7 +100,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (Party)
 				{
-					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+					/*for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
 						IChar IMembers((void*)*(DWORD*)((void*)i));
@@ -114,7 +114,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							IPlayer.SystemMessage("Some of your partymates still have Instance Cooldown.", TEXTCOLOR_RED);
 							return;
 						}
-					}
+					}*/
 
 					void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
@@ -958,7 +958,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				}
 
-				if (SkillID == 20 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(335) && CounterAttackON == true)
+				if (SkillID == 20 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(4848) && CounterAttackON == true)
 				{
 					int pSkill = IPlayer.GetSkillPointer(20);
 
@@ -970,19 +970,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 						if (IPlayer.GetCurMp() >= nMana && nSkillGrade)
 						{
-							IPlayer.Buff(335, 30, 0);
-							IPlayer.Buff(336, 35, 0);
+							IPlayer.Buff(4848, 30, 0);
+							IPlayer.Buff(4849, 35, 0);
 							IPlayer.SetBuffIcon(30000, 0, 2019, 217);
 							IPlayer.DecreaseMana(nMana);
 							IPlayer._ShowBattleAnimation(IPlayer, 20);
-							CChar::CancelAllBuff(IPlayer.GetOffset(), 337);
+							CChar::CancelAllBuff(IPlayer.GetOffset(), 4877);
 						}
 					}
 
 					return;
 				}
 
-				if (SkillID == 63 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(337) && CounterOffensiveON==true)
+				if (SkillID == 63 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(4877) && CounterOffensiveON==true)
 				{
 					int pSkill = IPlayer.GetSkillPointer(63);
 
@@ -994,12 +994,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 						if (IPlayer.GetCurMp() >= nMana && nSkillGrade)
 						{
-							IPlayer.Buff(337, 30, 0);
-							IPlayer.Buff(338, 35, 0);
+							IPlayer.Buff(4877, 30, 0);
+							IPlayer.Buff(4878, 35, 0);
 							IPlayer.SetBuffIcon(30000, 0, 2427, 323);
 							IPlayer.DecreaseMana(nMana);
 							IPlayer._ShowBattleAnimation(IPlayer, 63);
-							CChar::CancelAllBuff(IPlayer.GetOffset(), 335);
+							CChar::CancelAllBuff(IPlayer.GetOffset(), 4848);
 						}
 					}
 					return;

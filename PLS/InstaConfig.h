@@ -432,8 +432,8 @@ void ZenConfig()
 	CABaseDamagePvE = GetPrivateProfileIntA("CounterAttack", "CABaseDamagePvE", 1, "./Skills/ThiefSecondJob.txt");
 	CABaseDamagePvP = GetPrivateProfileIntA("CounterAttack", "CABaseDamagePvP", 1, "./Skills/ThiefSecondJob.txt");
 
-	DoKDamageMultiPvE = GetPrivateProfileIntA("DanceOfKilling", "DoKDamageMultiPvE", 1, "./Skills/ThiefSecondJob.txt");
-	DoKDamageMultiPvP = GetPrivateProfileIntA("DanceOfKilling", "DoKDamageMultiPvP", 1, "./Skills/ThiefSecondJob.txt");
+	//DoKDamageMultiPvE = GetPrivateProfileIntA("DanceOfKilling", "DoKDamageMultiPvE", 1, "./Skills/ThiefSecondJob.txt");
+	//DoKDamageMultiPvP = GetPrivateProfileIntA("DanceOfKilling", "DoKDamageMultiPvP", 1, "./Skills/ThiefSecondJob.txt");
 
 	SABaseDmgMultiPvE = GetPrivateProfileIntA("SpinAttack", "SABaseDmgMultiPvE", 1, "./Skills/ThiefSecondJob.txt");
 	SAAgiMultiPvE = GetPrivateProfileIntA("SpinAttack", "SAAgiMultiPvE", 1, "./Skills/ThiefSecondJob.txt");
@@ -703,7 +703,7 @@ void ZenConfig()
 		SummonsON = GetPrivateProfileIntA("SecondJobSkill", "Summons", 0, "./Skills/SkillONOFF.txt");
 		TwinBladeStrikeON = GetPrivateProfileIntA("SecondJobSkill", "TwinBladeStrike", 0, "./Skills/SkillONOFF.txt");
 		VitalStrikeON = GetPrivateProfileIntA("SecondJobSkill", "VitalStrike", 0, "./Skills/SkillONOFF.txt");
-		DanceOfKillingON = GetPrivateProfileIntA("SecondJobSkill", "DanceOfKilling", 0, "./Skills/SkillONOFF.txt");
+		//DanceOfKillingON = GetPrivateProfileIntA("SecondJobSkill", "DanceOfKilling", 0, "./Skills/SkillONOFF.txt");
 		CounterOffensiveON = GetPrivateProfileIntA("SecondJobSkill", "CounterOffensive", 0, "./Skills/SkillONOFF.txt");
 		CounterAttackON = GetPrivateProfileIntA("SecondJobSkill", "CounterAttack", 0, "./Skills/SkillONOFF.txt");
 

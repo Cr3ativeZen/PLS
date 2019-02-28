@@ -70,6 +70,8 @@ int __fastcall Tick(void *Player, void *edx)
 		IPlayer.CancelBuff(500);
 		IPlayer.CancelBuff(501);
 	}
+
+
 	//if (IPlayer.IsOnline() &&!IPlayer.IsBuff(505)&&IPlayer.IsBuff(506))
 	//{
 	//	int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 505);
@@ -107,6 +109,18 @@ int __fastcall Tick(void *Player, void *edx)
 			IPlayer.DecreaseHp(*(DWORD*)(Buff + 12));
 		}
 
+	}
+
+	if (IPlayer.IsOnline() && !IPlayer.IsBuff(4877) && IPlayer.IsBuff(4878))
+	{
+		IPlayer.CancelBuff(4878);
+		IPlayer.RemoveBuffIcon(0, 0, 2427, 323);
+	}
+
+	if (IPlayer.IsOnline() && !IPlayer.IsBuff(4848) && IPlayer.IsBuff(4849))
+	{
+		IPlayer.CancelBuff(4849);
+		IPlayer.RemoveBuffIcon(0, 0, 2019, 217);
 	}
 
 	//i changed it here

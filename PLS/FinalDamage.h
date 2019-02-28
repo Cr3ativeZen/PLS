@@ -16,7 +16,7 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 
 	if (ITarget.IsValid() && ITarget.GetType() == 0 && ITarget.GetClass() == 3 && CheckDamage &&CounterOffensiveON == true)
 	{
-		if (ITarget.IsBuff(337))
+		if (ITarget.IsBuff(4877))
 		{
 			int pSkill = ITarget.GetSkillPointer(63);
 			ISkill xSkill((void*)pSkill);
@@ -47,7 +47,7 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 			}
 		}
 	}
-		if (ITarget.IsValid() && ITarget.GetType() == 0 && ITarget.GetClass() == 3 && CheckDamage && ITarget.IsBuff(335) && CounterAttackON==true)
+		if (ITarget.IsValid() && ITarget.GetType() == 0 && ITarget.GetClass() == 3 && CheckDamage && ITarget.IsBuff(4848) && CounterAttackON==true)
 		{
 			int pSkill = ITarget.GetSkillPointer(20);
 			ISkill xSkill((void*)pSkill);

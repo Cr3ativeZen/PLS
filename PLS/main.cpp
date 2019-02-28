@@ -484,8 +484,8 @@ int CADamageMultiPvP;
 int CABaseDamagePvE;
 int CABaseDamagePvP;
 
-int DoKDamageMultiPvE;
-int DoKDamageMultiPvP;
+//int DoKDamageMultiPvE;
+//int DoKDamageMultiPvP;
 
 int SABaseDmgMultiPvE;
 int SAAgiMultiPvE;
@@ -1078,7 +1078,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
 		//DetourAttach(&(PVOID&)CSkill::ExecuteTransformSkill, ExecuteTransformSkill);
-		DetourAttach(&(PVOID&)CPlayer::Attack, NormalHit);
+		//DetourAttach(&(PVOID&)CPlayer::Attack, NormalHit);
 		DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
 		//DetourAttach(&(PVOID&)CMonsterMagic::Create, CMonsterMagicCreate);
 		//DetourAttach(&(PVOID&)CSkill::MagicTick, MagicTick);
@@ -1107,7 +1107,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
 		//DetourDetach(&(PVOID&)CSkill::ExecuteTransformSkill, ExecuteTransformSkill);
-		DetourDetach(&(PVOID&)CPlayer::Attack, NormalHit);
+		//DetourDetach(&(PVOID&)CPlayer::Attack, NormalHit);
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
 		//DetourDetach(&(PVOID&)CMonsterMagic::Create, CMonsterMagicCreate);
 		//DetourDetach(&(PVOID&)CSkill::MagicTick, MagicTick);

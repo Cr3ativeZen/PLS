@@ -224,7 +224,7 @@ void __fastcall ExecuteSkill(void *pSkill, void* edx, signed int SkillID, int pP
 //	return;
 //}
 //
-///*if (IPlayer.GetClass() == 3 && SkillID == 13 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(333))
+//*if (IPlayer.GetClass() == 3 && SkillID == 13 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(333))
 //{
 //	int pSkill = IPlayer.GetSkillPointer(13);
 //

@@ -39,10 +39,10 @@ void __fastcall StormActivateShiny(IChar IPlayer, IChar Target)
 							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
 							}
 							else {
-								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAPerGradeMultiPvE);
+								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);
 
 								if (Object.GetType() == 0)
-									nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAPerGradeMultiPvP);
+									nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAActivationPerGradeMultiPvP);
 
 								Caster.OktayDamageArea(Object, nDmg, 67);
 
@@ -122,10 +122,10 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
 							}
 							else {
-								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAPerGradeMultiPvE);
+								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);
 
 								if (Object.GetType() == 0)
-									nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAPerGradeMultiPvP);
+									nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAActivationPerGradeMultiPvP);
 
 								Caster.OktayDamageArea(Object, nDmg, 67);
 

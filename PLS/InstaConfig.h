@@ -112,7 +112,8 @@ void ZenConfig()
 	
 	AmensiaBaseDmgMulti = GetPrivateProfileIntA("Amnesia", "AmensiaBaseDmgMulti", 1, "./Skills/ZenSkillConfig.txt");
 	AmnesiaWisMulti = GetPrivateProfileIntA("Amnesia", "AmnesiaWisMulti", 1, "./Skills/ZenSkillConfig.txt");
-	
+	AmnesiaDmgPercentIncreaseBless = GetPrivateProfileIntA("Amnesia", "AmnesiaDmgPercentIncreaseBless", 1, "./Skills/ZenSkillConfig.txt");
+
 	BlowUpBaseDmgMultiPvE = GetPrivateProfileIntA("BlowUpArrow", "BlowUpBaseDmgMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
 	BlowUpAgiMultiPvE = GetPrivateProfileIntA("BlowUpArrow", "BlowUpAgiMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
 	BlowUpStrMultiPvE = GetPrivateProfileIntA("BlowUpArrow", "BlowUpStrMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
@@ -341,7 +342,8 @@ void ZenConfig()
 	PoBStrMultiPvE = GetPrivateProfileIntA("ProvocationOfBlow", "PoBStrMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
 	PoBPerGradeMultiPvE = GetPrivateProfileIntA("ProvocationOfBlow", "PoBPerGradeMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
 	PoBHostilityMultiplier = GetPrivateProfileIntA("ProvocationOfBlow", "PoBHostilityMultiplier", 1, "./Skills/ThirdJobSkills.txt");
-	
+	PoBDmgPercentIncreasePDPvE = GetPrivateProfileIntA("ProvocationOfBlow", "PoBDmgPercentIncreasePDPvE", 1, "./Skills/ThirdJobSkills.txt");
+
 	PoBBaseDmgMultiPvP = GetPrivateProfileIntA("ProvocationOfBlow", "PoBBaseDmgMultiPvP", 1, "./Skills/ThirdJobSkills.txt");
 	PoBAgiMultiPvP = GetPrivateProfileIntA("ProvocationOfBlow", "PoBAgiMultiPvP", 1, "./Skills/ThirdJobSkills.txt");
 	PoBStrMultiPvP = GetPrivateProfileIntA("ProvocationOfBlow", "PoBStrMultiPvP", 1, "./Skills/ThirdJobSkills.txt");

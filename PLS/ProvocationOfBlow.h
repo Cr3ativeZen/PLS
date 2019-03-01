@@ -59,10 +59,13 @@ void __fastcall ProvocationOfBlow(IChar IPlayer, int pPacket, int pPos)
 					{
 						int nDmg = (IPlayer.GetAttack()*PoBBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*PoBAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*PoBStrMultiPvE) + (nSkillGrade*PoBPerGradeMultiPvE);
 
-
 						if (Object.GetType() == 0)
 							nDmg = (IPlayer.GetAttack()*PoBBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*PoBAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*PoBStrMultiPvP) + (nSkillGrade*PoBPerGradeMultiPvP);
 
+						if (Object.GetType() == 1&&IPlayer.IsBuff(284))
+						{
+							nDmg *= (PoBDmgPercentIncreasePDPvE / 100);
+						}
 
 						IPlayer.OktayDamageArea(Object, nDmg, 42);
 

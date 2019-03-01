@@ -42,7 +42,10 @@ void __fastcall Amnesia(void *pSkill, void *pPlayer, int pPacket, int pPos)
 			{
 				int nDmg = (IPlayer.GetAttack()*AmensiaBaseDmgMulti)+IPlayer.GetWis()*AmnesiaWisMulti;
 
-
+				if (IPlayer.IsBuff(24))
+				{
+					nDmg *= (AmnesiaDmgPercentIncreaseBless / 100);
+				}
 				IPlayer.OktayDamageArea(Object, nDmg, 61);
 				IPlayer._ShowBattleAnimation(Object, 61);
 			}

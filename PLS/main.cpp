@@ -170,6 +170,7 @@ int CallofHealPerGradePercentage;
 
 int AmensiaBaseDmgMulti;
 int AmnesiaWisMulti;
+int AmnesiaDmgPercentIncreaseBless;
 
 int BlowUpBaseDmgMultiPvE;
 int BlowUpAgiMultiPvE;
@@ -394,6 +395,7 @@ int PoBBaseDmgMultiPvE;
 int PoBAgiMultiPvE;
 int PoBStrMultiPvE;
 int PoBPerGradeMultiPvE;
+int PoBDmgPercentIncreasePDPvE;
 
 int PoBBaseDmgMultiPvP;
 int PoBAgiMultiPvP;

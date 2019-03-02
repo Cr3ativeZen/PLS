@@ -1,9 +1,9 @@
 #ifndef _AMNESIA_H
 #define _AMNESIA_H
-void __fastcall Amnesia(void *pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall Amnesia(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 	IChar IPlayer(pPlayer);
-	ISkill ISkill(pSkill);
+	ISkill ISkill((void*)pSkill);
 
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);

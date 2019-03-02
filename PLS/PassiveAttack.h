@@ -3,10 +3,10 @@
 #include "ServerFunctions.h"
 #include "PKKill.h"
 
-void __fastcall PassiveAttack(void *pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall PassiveAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 
-	ISkill ISkill(pSkill);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

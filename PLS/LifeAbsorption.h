@@ -1,9 +1,9 @@
 #ifndef LIFEABSORPTION_H
 #define LIFEABSORPTION_H
 
-void __fastcall LifeAbsorption(void *pSkill, void *edx, void *pPlayer, char *pPacket, char *pPos)
+void __fastcall LifeAbsorption(int pSkill, void *edx, void *pPlayer, char *pPacket, char *pPos)
 {
-	ISkill ISkill(pSkill);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

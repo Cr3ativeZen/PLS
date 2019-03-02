@@ -1,6 +1,6 @@
 #ifndef _CALLS_H
 #define _CALLS_H
-void __fastcall Calls(void *pSkill, void *edx, int Player, int pPacket, int pPos)
+void __fastcall Calls(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
 	IChar IPlayer((void*)Player);
 	ISkill ISkill((void*)pSkill);

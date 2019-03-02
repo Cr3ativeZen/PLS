@@ -2,10 +2,10 @@
 #define _FLAMYARROW_H
 #include "ServerFunctions.h"
 
-void __fastcall FlamyArrow(void *pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 
-	ISkill ISkill(pSkill);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

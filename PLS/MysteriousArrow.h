@@ -1,11 +1,11 @@
 #ifndef _MYSTERIOUSARROW_H
 #define _MYSTERIOUSARROW_H
-void __fastcall MysteriousArrow(void *pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 
 
 
-	ISkill ISkill(pSkill);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

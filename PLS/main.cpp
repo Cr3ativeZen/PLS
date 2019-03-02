@@ -1064,7 +1064,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
 		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
 		DetourAttach(&(PVOID&)CMonsterReal::Die, MonsterDie);
-		DetourAttach(&(PVOID&)CMonsterReal::Tick, MonsterTick);
 		DetourAttach(&(PVOID&)CPlayer::PKKill, PKKill);
 		DetourAttach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
@@ -1084,7 +1083,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
 		DetourDetach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
 		DetourDetach(&(PVOID&)CMonsterReal::Die, MonsterDie);
-		DetourDetach(&(PVOID&)CMonsterReal::Tick, MonsterTick);
 		DetourDetach(&(PVOID&)CPlayer::PKKill, PKKill);
 		DetourDetach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);

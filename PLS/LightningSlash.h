@@ -2,11 +2,11 @@
 #define _LIGHTNINGSLASH_H
 #include "ServerFunctions.h"
 
-void __fastcall LightningSlash(void *pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall LightningSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 
 	int i = 0;
-	ISkill ISkill(pSkill);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

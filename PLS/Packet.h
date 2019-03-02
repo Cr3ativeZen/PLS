@@ -410,7 +410,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		{
 			int SkillID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
-			IPlayer.GetSkillPointer(SkillID);
 			if (SkillID == 16)
 			{
 				CheckFocus[IPlayer.GetPID()] = GetTickCount();
@@ -420,6 +419,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		if (packet == 43)
 		{
 			int SkillID = 0;
+			int pSkill = IPlayer.GetSkillPointer(SkillID);
 			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
 			if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
 			{
@@ -499,11 +499,53 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if ((SkillID == 19 || SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
+				if (SkillID == 27 && CallsON == true)
+				{
+					CallOfEvasion(IPlayer, kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 31 && CallsON == true)
+				{
+					CallOfOTP(IPlayer, kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 23 && CallsON == true)
+				{
+					CallOfRecovery(IPlayer, kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 32 && CallsON == true)
+				{
+					CallOfPhysicalAttack(IPlayer, kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 19 && CallsON == true)
+				{
+					CallOfDefense(IPlayer, kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 29 && CallsON == true)
+				{
+					CallOfHeal(IPlayer, kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 28 && CallsON == true)
+				{
+					CallOfPuri(IPlayer, kappa, pPos);
+					return;
+				}
+
+				/*if ((SkillID == 19 || SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
 				{
 					Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
 					return;
-				}
+				}*/
 
 				if (SkillID == 26 && SacrificeON == true)
 				{
@@ -1058,7 +1100,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 
 			}
-
 		}
 
 		if (packet == 84)

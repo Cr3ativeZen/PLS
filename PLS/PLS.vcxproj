@@ -165,13 +165,11 @@
     <ClInclude Include="ChainLightning.h" />
     <ClInclude Include="ChatCommand.h" />
     <ClInclude Include="CombativeSpirit.h" />
-    <ClInclude Include="CreateBuff.h" />
     <ClInclude Include="CriticalDiffusion.h" />
     <ClInclude Include="CriticalStrike.h" />
     <ClInclude Include="Cure.h" />
     <ClInclude Include="D4Instance.h" />
     <ClInclude Include="DestroyingArmor.h" />
-    <ClInclude Include="EggSkill.h" />
     <ClInclude Include="EggThunderbolt.h" />
     <ClInclude Include="ExecuteSkill.h" />
     <ClInclude Include="FatalWound.h" />
@@ -193,7 +191,6 @@
     <ClInclude Include="InstaConfig.h" />
     <ClInclude Include="IQuest.h" />
     <ClInclude Include="ISkill.h" />
-    <ClInclude Include="ItemUse.h" />
     <ClInclude Include="LifeAbsorption.h" />
     <ClInclude Include="LightningArrow.h" />
     <ClInclude Include="LightningSlash.h" />
@@ -202,7 +199,6 @@
     <ClInclude Include="MonsterTick.h" />
     <ClInclude Include="MuscleSolidation.h" />
     <ClInclude Include="MysteriousArrow.h" />
-    <ClInclude Include="NormalHit.h" />
     <ClInclude Include="OneHitStrike.h" />
     <ClInclude Include="ArrowsoftheMaster.h" />
     <ClInclude Include="Packet.h" />
@@ -213,7 +209,6 @@
     <ClInclude Include="ProvocationOfBlow.h" />
     <ClInclude Include="Punishment.h" />
     <ClInclude Include="Purification.h" />
-    <ClInclude Include="Quest.h" />
     <ClInclude Include="ReleasingTheEnergy.h" />
     <ClInclude Include="ResetContinueSkill.h" />
     <ClInclude Include="RevolveAttack.h" />

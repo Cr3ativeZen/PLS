@@ -65,6 +65,7 @@ void __fastcall ContinueSpinBlade(IChar IPlayer)
 
 void __fastcall SpinBlade(IChar IPlayer)
 {
+
 	int pSkill = IPlayer.GetSkillPointer(36);
 
 	if (IPlayer.IsValid() && pSkill)

@@ -36,4 +36,6 @@ public:
 	void SetLevelLimit(int Value);
 	int GetItemPointerFromIID(void *Player, int IID);
 	int GetGrade();
+	bool IsWeaponMixed();
+	bool IsItemEquipped();
 };

@@ -464,6 +464,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			else {
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
 			}
+
 			
 			if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
 			{

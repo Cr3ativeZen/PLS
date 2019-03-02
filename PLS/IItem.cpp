@@ -84,6 +84,8 @@ int IItem::GetTOA()
 	return *(DWORD *)((int)this->Offset + 112);
 }
 
+
+
 int IItem::GetUpgrade()
 {
 	return *(DWORD *)((int)this->Offset + 124);
@@ -158,3 +160,29 @@ int IItem::GetGrade()
 {
 	return *(DWORD *)(*(DWORD *)((int)this->Offset + 40) + 80);
 }
+
+bool IItem::IsWeaponMixed()
+{
+	if (CItem::IsState((int)this->GetOffset(), 131072))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+bool IItem::IsItemEquipped()
+{
+	if (CItem::IsState((int)this->GetOffset(), 1))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+

@@ -201,16 +201,7 @@
     <ClInclude Include="ChatCommand.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="CreateBuff.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="D4Instance.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="EggSkill.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="ExecuteSkill.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
     <ClInclude Include="FinalDamage.h">
@@ -234,9 +225,6 @@
     <ClInclude Include="MonsterTick.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="NormalHit.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="UpdateProperty.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
@@ -249,16 +237,10 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="Quest.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="ServerFunctions.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
     <ClInclude Include="Summon.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemUse.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
     <ClInclude Include="WhirlwindFeather.h">
@@ -320,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="CriticalDiffusion.h">
       <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecuteSkill.h">
+      <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

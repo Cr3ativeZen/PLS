@@ -942,8 +942,6 @@ namespace Mautareta
 #include <string>
 #include "ServerFunctions.h"
 #include "IChar.h"
-#include "CreateBuff.h"
-#include "Quest.h"
 #include "IQuest.h"
 #include "IItem.h"
 #include "Heal.h"
@@ -954,7 +952,6 @@ namespace Mautareta
 #include "InstaConfig.h"
 #include "Player.h"
 #include "D4Instance.h"
-#include "ItemUse.h"
 #include "BlowUpArrow.h"
 #include "Calls.h"
 #include "MuscleSolidation.h"
@@ -993,8 +990,6 @@ namespace Mautareta
 #include "IceArrow.h"
 #include "Fireball.h"
 #include "LightningArrow.h"
-#include "EggSkill.h"
-#include "NormalHit.h"
 #include "SpinAttack.h"
 #include "ArmorBreaker.h"
 #include "CanAttack.h"
@@ -1065,25 +1060,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CIOServer::Start, Start);
 		DetourAttach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
 		DetourAttach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
-		//DetourAttach(&(PVOID&)CBuff::CBuffPrtyExIsExpired, CBuffCBuffPrtyExIsExpired);
-		//DetourAttach(&(PVOID&)CBuff::CreateBuff, CreateBuff);
 		DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
 		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
-		//DetourAttach(&(PVOID&)CSkill::ExecuteSkill, ExecuteSkill);
-		//DetourAttach(&(PVOID&)CQuest::Run, Quest);
-		//DetourAttach(&(PVOID&)CItemGeneral::Use, ItemUse);
 		DetourAttach(&(PVOID&)CMonsterReal::Die, MonsterDie);
 		DetourAttach(&(PVOID&)CMonsterReal::Tick, MonsterTick);
 		DetourAttach(&(PVOID&)CPlayer::PKKill, PKKill);
 		DetourAttach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
-		//DetourAttach(&(PVOID&)CSkill::ExecuteTransformSkill, ExecuteTransformSkill);
-		//DetourAttach(&(PVOID&)CPlayer::Attack, NormalHit);
 		DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
-		//DetourAttach(&(PVOID&)CMonsterMagic::Create, CMonsterMagicCreate);
-		//DetourAttach(&(PVOID&)CSkill::MagicTick, MagicTick);
 		DetourTransactionCommit();
 		break;
 	}
@@ -1094,25 +1080,18 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CIOServer::Start, Start);
 		DetourDetach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
 		DetourDetach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
-		//DetourDetach(&(PVOID&)CBuff::CBuffPrtyExIsExpired, CBuffCBuffPrtyExIsExpired);
-		//DetourDetach(&(PVOID&)CBuff::CreateBuff, CreateBuff);
 		DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourDetach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
 		DetourDetach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
-		//DetourDetach(&(PVOID&)CSkill::ExecuteSkill, ExecuteSkill);
-		//DetourDetach(&(PVOID&)CQuest::Run, Quest);
-		//DetourDetach(&(PVOID&)CItemGeneral::Use, ItemUse);
 		DetourDetach(&(PVOID&)CMonsterReal::Die, MonsterDie);
 		DetourDetach(&(PVOID&)CMonsterReal::Tick, MonsterTick);
 		DetourDetach(&(PVOID&)CPlayer::PKKill, PKKill);
 		DetourDetach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
-		//DetourDetach(&(PVOID&)CSkill::ExecuteTransformSkill, ExecuteTransformSkill);
-		//DetourDetach(&(PVOID&)CPlayer::Attack, NormalHit);
+
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
-		//DetourDetach(&(PVOID&)CMonsterMagic::Create, CMonsterMagicCreate);
-		//DetourDetach(&(PVOID&)CSkill::MagicTick, MagicTick);
+
 		DetourTransactionCommit();
 		break;
 	}

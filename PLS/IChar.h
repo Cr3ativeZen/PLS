@@ -200,28 +200,5 @@ public:
 	void RemoveMinMagicAttack(int amount);
 	void RemoveMaxMagicAttack(int amount);
 
-
-
-
-	//std::vector<IChar> GetPlayerList()
-	//{
-	//	static void* (__thiscall *MoveTo)(void *Value, int Argument) = (void* (__thiscall*)(void*, int))0x00438C40;
-	//	static void(__thiscall *Enter)(void *Section) = (void(__thiscall*)(void*))0x00423640;
-	//	static int(__thiscall *Leave)(void *Section) = (int(__thiscall*)(void*))0x004236D0;
-
-	//	std::vector<IChar> PlayerList;
-	//	Enter((void*)0x4e2078);
-	//	Enter((void*)0x4e2098);
-	//	MoveTo((void*)0x4e200c, (int)0x4e2004);
-	//	Leave((void*)0x4e2098);
-	//	int* Playerp = 0;
-	//	for (DWORD i = *(DWORD*)0x4e2004; i != 0x4e2004; i = *(DWORD*)i)
-	//	{
-	//		Playerp = (int*)(i - 428);
-	//		PlayerList.push_back(IChar(Playerp));
-	//	}
-	//	Leave((void*)0x4e2078);
-	//	return PlayerList;
-	//}
 };
 #endif

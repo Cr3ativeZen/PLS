@@ -9,6 +9,12 @@ void __fastcall ShoutOfFightingSpirit(IChar IPlayer)
 		if (IPlayer.IsValid() && pSkill)
 		{
 			ISkill xSkill((void*)pSkill);
+
+			int nSkillGrade = xSkill.GetGrade();
+
+			if (!nSkillGrade)
+				return;
+
 			int Mana = 180 + static_cast<int>((1.25 * (xSkill.GetGrade() * (IPlayer.GetLevel() + xSkill.GetGrade()))));
 
 			if (IPlayer.GetCurMp() <= Mana)

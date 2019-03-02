@@ -9,6 +9,10 @@ void __fastcall ArrowsOfTheMaster(IChar IPlayer, int pPacket, int pPos)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int nTargetID = 0, nMana = 0; char bType = 0; void *pTarget = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 

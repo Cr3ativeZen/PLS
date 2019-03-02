@@ -85,6 +85,11 @@ void __fastcall Icicle(IChar IPlayer)
 		IPlayer.Buff(5556, 10, 0);
 		IPlayer.DecreaseMana(nMana);
 		ISkill xSkill((void*)pSkill);
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		CheckContinueSkill[IPlayer.GetPID()].PlayerX = IPlayer.GetX();
 		CheckContinueSkill[IPlayer.GetPID()].PlayerY = IPlayer.GetY();
 		CheckContinueSkill[IPlayer.GetPID()].PlayerSkillID = 66;

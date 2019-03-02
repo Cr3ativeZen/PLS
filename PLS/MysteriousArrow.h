@@ -1,17 +1,15 @@
 #ifndef _MYSTERIOUSARROW_H
 #define _MYSTERIOUSARROW_H
-void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 {
 
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(21));
 
-
-	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
 		return;
 
-	IChar IPlayer(pPlayer);
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.DecreaseMana();

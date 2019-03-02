@@ -9,6 +9,10 @@ void __fastcall Bombing(IChar IPlayer)
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
 
+		if (!nSkillGrade)
+			return;
+
+
 		if (IPlayer.IsValid() && nSkillGrade)
 		{
 			int nMana = 180 + static_cast<int>((1.25 * (nSkillGrade * (IPlayer.GetLevel() + nSkillGrade))));

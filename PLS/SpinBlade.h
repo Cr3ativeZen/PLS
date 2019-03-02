@@ -5,7 +5,11 @@ void __fastcall ContinueSpinBlade(IChar IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(36);
 	ISkill xSkill((void*)pSkill);
+
 	int nSkillGrade = xSkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
 	if (IPlayer.IsValid()&&!IPlayer.IsBuff(329))
 	{
 		if (CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)

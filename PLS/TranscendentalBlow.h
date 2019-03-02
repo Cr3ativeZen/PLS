@@ -2,17 +2,16 @@
 #define _TRANSCENDENTALBLOW_H
 #include "ServerFunctions.h"
 
-void __fastcall TranscendentalBlow(int pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall TranscendentalBlow(IChar IPlayer,int pPacket, int pPos)
 {
 
 	int i = 0;
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(5));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
 		return;
 
-	IChar IPlayer(pPlayer);
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.DecreaseMana();

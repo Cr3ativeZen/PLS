@@ -1,15 +1,19 @@
 #ifndef _PURIFICATION_H
 #define _PURIFICATION_H
 #include "ResetContinueSkill.h"
-void __fastcall Purification(int pSkill, void *edx, int Player, int Target, int a3)
+void __fastcall Purification(IChar IPlayer,int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(54));
+
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
 
 	int nTargetID = 0;
 	char bType = 0;
 	void *pTarget = 0;
-	CPacket::Read((char*)Target, (char*)a3, "bd", &bType, &nTargetID);
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.DecreaseMana();
 
 	if (bType == 0 && nTargetID)
@@ -24,21 +28,6 @@ void __fastcall Purification(int pSkill, void *edx, int Player, int Target, int 
 	IChar ITarget((void*)pTarget);
 	if (pTarget && ITarget.IsValid() && IPlayer.IsValid())
 	{
-
-		//if (ITarget.IsBuff(348))
-		//{
-		//	std::map<int, PlayerFarContinueSkill>::iterator it;
-		//	for (it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); it++)
-		//	{
-		//		if (it->second.PlayerTarget == ITarget.GetOffset())
-		//		{
-		//			IChar Attacker((void*)it->first);
-		//		ResetFarContinueSkill(Attacker);
-		//			break;
-		//		}
-		//	}
-		//}
-
 
 		//ITarget.CancelBuff(350);
 		//ITarget.CancelBuff(339);

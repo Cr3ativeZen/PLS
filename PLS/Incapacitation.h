@@ -8,7 +8,12 @@ void __fastcall Incapacitation(IChar IPlayer)
 	if (pSkill && IPlayer.IsValid())
 	{
 		ISkill xSkill((void*)pSkill);
+
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int Mana = static_cast<int>((1.85 * (200 + (nSkillGrade * (20 + (nSkillGrade - 1))))));
 
 		if (IPlayer.GetCurMp() < Mana)

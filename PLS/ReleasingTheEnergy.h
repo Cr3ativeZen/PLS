@@ -11,6 +11,12 @@ void __fastcall ReleasingTheEnergy(IChar IPlayer)
 	if (IPlayer.IsOnline() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
+
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int Mana = (15 + (xSkill.GetGrade() * 5));
 
 		if (IPlayer.GetCurMp() < Mana)

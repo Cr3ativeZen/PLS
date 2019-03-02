@@ -9,6 +9,10 @@ void __fastcall CriticalDiffusion(IChar IPlayer)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int Mana = 180 + static_cast<int>((1.25 * (nSkillGrade * (IPlayer.GetLevel() + nSkillGrade))));
 
 		if (IPlayer.GetCurMp() <= Mana)

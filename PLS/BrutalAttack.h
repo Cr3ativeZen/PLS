@@ -1,14 +1,13 @@
 #ifndef BRUTALATTACK_H
 #define BRUTALATTACK_H
-void __fastcall BrutalAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall BrutalAttack(IChar IPlayer,int pPacket, int pPos)
 {
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(17));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
 		return;
 
-	IChar IPlayer(pPlayer);
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.DecreaseMana();

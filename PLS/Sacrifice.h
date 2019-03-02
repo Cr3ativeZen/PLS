@@ -2,15 +2,19 @@
 #define _SACRIFICE_H
 #include "ServerFunctions.h"
 
-void __fastcall Sacrifice(int pSkill, void *edx, int Player, int Target, int a3)
+void __fastcall Sacrifice(IChar IPlayer,int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(26));
+
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
 
 	int nTargetID = 0;
 	char bType = 0;
 	void *pTarget = 0;
-	CPacket::Read((char*)Target, (char*)a3, "bd", &bType, &nTargetID);
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 
 	if (bType == 0 && nTargetID)
 		pTarget = CPlayer::FindPlayer(nTargetID);

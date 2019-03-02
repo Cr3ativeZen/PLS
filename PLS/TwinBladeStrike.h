@@ -51,6 +51,13 @@ void __fastcall TwinBladeStrike(IChar IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(23);
 
+	ISkill xSkill((void*)pSkill);
+
+	int nSkillGrade = xSkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
+
 	if (IPlayer.IsValid() && pSkill)
 	{
 		int nTargetID = 0; char bType = 0; void *pTarget = 0;

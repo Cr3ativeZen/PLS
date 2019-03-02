@@ -10,6 +10,10 @@ void __fastcall ShadowSlash(IChar IPlayer, int pPacket, int pPos)
 
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int nTargetID = 0; char bType = 0; void *pTarget = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 		int nMana = static_cast<int>(230 + (((IPlayer.GetLevel() + nSkillGrade) * nSkillGrade) * 0.63));

@@ -9,6 +9,10 @@ void __fastcall DestroyingArmor(IChar IPlayer)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int nMana = 180 + static_cast<int>((1.25 * (nSkillGrade * (IPlayer.GetLevel() + nSkillGrade))));
 
 		if (IPlayer.GetCurMp() < nMana)

@@ -9,6 +9,10 @@ void __fastcall SpinSlash(IChar IPlayer)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nMana = (xSkill.GetGrade() == 1) ? 209 : (200 + (xSkill.GetGrade() * 20));
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
 
 		if (IPlayer.GetCurMp() < nMana)
 			return;

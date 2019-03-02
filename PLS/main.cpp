@@ -1087,7 +1087,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
-
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
 
 		DetourTransactionCommit();

@@ -1,6 +1,5 @@
 #include "ServerFunctions.h"
 
-
 int __fastcall MonsterDie(int mob,void* edx,int tankerID, int a3, int a4, int a5)
 {
 	IChar IMonster((void*)mob);

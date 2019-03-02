@@ -60,6 +60,10 @@ void __fastcall ArrowExplosion(IChar IPlayer, int pPacket, int pPos)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int nTargetID = 0; char bType = 0; void *pTarget = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 		int nMana = 20 + (IPlayer.GetLevel() * 4);

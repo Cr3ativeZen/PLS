@@ -1,9 +1,14 @@
 #ifndef _CALLS_H
 #define _CALLS_H
-void __fastcall Calls(int pSkill, void *edx, int Player, int pPacket, int pPos)
+void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
+	IChar IPlayer(Player);
 	ISkill ISkill((void*)pSkill);
+
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
 
 
 	//Call of Evasion

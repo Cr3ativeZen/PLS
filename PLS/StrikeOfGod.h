@@ -8,6 +8,12 @@ void __fastcall StrikeOfGod(IChar IPlayer)
 	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
+
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int nMana = static_cast<int>(180 + (1.25 * (xSkill.GetGrade() * (IPlayer.GetLevel() + xSkill.GetGrade()))));
 
 		if (IPlayer.GetCurMp() < nMana)

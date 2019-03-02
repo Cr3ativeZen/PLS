@@ -4,10 +4,17 @@ void __fastcall AnkleAmputate(IChar IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(15);
 
+
+
 	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
+
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int nTargetID = 0; char bType = 0; void *pTarget = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 

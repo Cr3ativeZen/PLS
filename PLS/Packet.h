@@ -446,7 +446,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 
 
-
 			if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
 			{
 				CdTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.CooldownConfig;
@@ -502,50 +501,50 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if ((SkillID == 19 || SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
 				{
-					Calls(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+					Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 26 && SacrificeON == true)
 				{
-					Sacrifice(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+					Sacrifice(IPlayer,kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 15 && ShieldAttackON== true)
 				{
-					ShieldAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					ShieldAttack(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 3 && LightningSlashON == true)
 				{
-					LightningSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					LightningSlash(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 5 && TranscendentalBlowON == true)
 				{
-					TranscendentalBlow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					TranscendentalBlow(IPlayer, kappa, pPos);
 					return;
 				}
 
 
 				if (SkillID == 16 && PowerfulUpwardSlashON == true)
 				{
-					PowerfulUpwardSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					PowerfulUpwardSlash(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 17 && BrutalAttackON == true)
 				{
-					BrutalAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					BrutalAttack(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 25 && HalfSwingON == true)
 				{
-					HalfSwing(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					HalfSwing(IPlayer, kappa, pPos);
 					return;
 				}
 
@@ -573,10 +572,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-
-
-
-
 			}
 
 			//Mage skills
@@ -585,45 +580,57 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			{
 				if (SkillID == 8 && HealON == true)
 				{
-					Heal(pSkill, kappa, (int)IPlayer.GetOffset());
+					Heal(IPlayer);
 					return;
 				}
 
-				if ((SkillID == 10 || SkillID == 22 || SkillID == 29 || SkillID == 35 || SkillID == 55) && CureON == true)
+				if ((SkillID == 10) && CureON == true)
 				{
-					Cure(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+					Cure(IPlayer,kappa,pPos);
+					return;
+				}
+
+				if ((SkillID == 22) && CureON == true)
+				{
+					Cure2(IPlayer, kappa, pPos);
+					return;
+				}
+
+				if ((SkillID == 35) && CureON == true)
+				{
+					Cure3(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 9 && ShockWaveON == true)
 				{
-					ShockWave(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					ShockWave(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 61 && AmnesiaON == true)
 				{
-					Amnesia(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					Amnesia(IPlayer,kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 54 && PurificationON == true)
 				{
-					Purification(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+					Purification(IPlayer,kappa, pPos);
 				}
 
 				
 
 				if (SkillID == 34 && SummonsON == true)
 				{
-					Summons(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+					Summons(IPlayer,kappa, pPos);
 					return;
 				}
 
 
 				if (SkillID == 41 &&ChainLightningON==true)
 				{
-					ChainLightning(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					ChainLightning(IPlayer,kappa, pPos);
 					return;
 				}
 
@@ -720,47 +727,47 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			{
 				if (SkillID == 18 &&LifeAbsorptionON==true)
 				{
-					LifeAbsorption(pSkill, edx, IPlayer.GetOffset(), (char*)kappa, (char*)pPos);
+					LifeAbsorption(IPlayer,kappa,pPos);
 					return;
 				}
 
 				if (SkillID == 16 && IPlayer.IsValid() && FocusShotON== true)
 				{
-					FocusShot(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					FocusShot(IPlayer,kappa, pPos);
 					return;
 				}
 				if (SkillID == 21 && MysteriousArrowON == true)
 				{
-					MysteriousArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					MysteriousArrow(IPlayer,kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 6 && FlamyArrowON == true)
 				{
-					FlamyArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					FlamyArrow(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 4 && PassiveAttackON == true)
 				{
-					PassiveAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					PassiveAttack(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 14 && BlowUpArrowON == true)
 				{
-					BlowUpArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					BlowUpArrow(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 10 && MuscleSolidationON == true)
 				{
-					MuscleSolidation(pSkill, kappa, (int)IPlayer.GetOffset());
+					MuscleSolidation(IPlayer);
 					return;
 				}
 				if (SkillID == 45 && BuffRemoverON == true)
 				{
-					BuffRemover(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+					BuffRemover(IPlayer, kappa, pPos);
 				}
 
 				if (SkillID == 47 && IPlayer.GetSpecialty() == 23 && ArrowRainON == true)

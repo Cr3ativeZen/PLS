@@ -1,17 +1,17 @@
 #ifndef LIFEABSORPTION_H
 #define LIFEABSORPTION_H
 
-void __fastcall LifeAbsorption(int pSkill, void *edx, void *pPlayer, char *pPacket, char *pPos)
+void __fastcall LifeAbsorption(IChar IPlayer,int pPacket, int pPos)
 {
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(18));
+
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
 		return;
 
-	IChar IPlayer(pPlayer);
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
-	CPacket::Read(pPacket, pPos, "bd", &bType, &nTargetID);
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.GetGrade() * 6 + 20;
 
 	if (bType == 0 && nTargetID)

@@ -6,9 +6,17 @@ void __fastcall ShoutOfDefense(IChar IPlayer)
 	if (IPlayer.IsBuff(380))
 		return;
 
+
 	if (IPlayer.IsValid())
 	{
 		int pSkill = IPlayer.GetSkillPointer(90);
+		ISkill xSkill((void*)pSkill);
+
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int Mana = (20 + IPlayer.GetLevel()) + ((20 + (IPlayer.GetLevel() * 4)) / 10);
 
 		if (IPlayer.GetCurMp() <= Mana)
@@ -18,7 +26,7 @@ void __fastcall ShoutOfDefense(IChar IPlayer)
 		{
 			IPlayer.AddFxToTarget("island_boss03", 1, 0, 0);
 			IPlayer.DecreaseMana(Mana);
-			ISkill xSkill((void*)pSkill);
+
 			IPlayer.Buff(379, 25, 0);
 			IPlayer.Buff(380, 3600, 0);
 			//IPlayer._ShowBattleAnimation(IPlayer, 90);

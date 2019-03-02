@@ -15,6 +15,11 @@ void __fastcall TheBoomOfEarth(IChar IPlayer)
 			ISkill xSkill((void*)pSkill);
 			int Mana = 200 + (xSkill.GetGrade() * (20 + (xSkill.GetGrade() - 1)));
 
+			int nSkillGrade = xSkill.GetGrade();
+
+			if (!nSkillGrade)
+				return;
+
 			if (IPlayer.GetCurMp() <= Mana)
 				return;
 

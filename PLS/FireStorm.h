@@ -68,6 +68,10 @@ void __fastcall FireStorm(IChar IPlayer, int pPacket, int pPos)
 		CPacket::Read((char*)pPacket, (char*)pPos, "dd", &x, &y);
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		int nMana = 20 + (IPlayer.GetLevel() * 4);
 
 		if (x <= 0 || y <= 0)

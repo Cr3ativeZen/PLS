@@ -1,15 +1,19 @@
 
 #ifndef _BUFFREMOVER_H
 #define _BUFFREMOVER_H
-void __fastcall BuffRemover(int pSkill, void *edx, int Player, int Target, int a3)
+void __fastcall BuffRemover(IChar IPlayer,int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(45));
+
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
 
 	int nTargetID = 0;
 	char bType = 0;
 	void *pTarget = 0;
-	CPacket::Read((char*)Target, (char*)a3, "bd", &bType, &nTargetID);
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.DecreaseMana();
 
 	if (bType == 0 && nTargetID)

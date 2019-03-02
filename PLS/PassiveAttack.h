@@ -3,16 +3,15 @@
 #include "ServerFunctions.h"
 #include "PKKill.h"
 
-void __fastcall PassiveAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
+void __fastcall PassiveAttack(IChar IPlayer,int pPacket, int pPos)
 {
 
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(4));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
 		return;
 
-	IChar IPlayer(pPlayer);
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.DecreaseMana();

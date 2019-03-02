@@ -1,10 +1,15 @@
 #ifndef _MUSCLESOLIDATION_H
 #define _MUSCLESOLIDATION_H
 
-void __fastcall MuscleSolidation(int Skill, int a6, int Player)
+void __fastcall MuscleSolidation(IChar IPlayer)
 {
-	IChar IPlayer((void*)Player);
-	ISkill ISkill((void*)Skill);
+	ISkill ISkill((void*)IPlayer.GetSkillPointer(10));
+
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
+
 	IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 
 

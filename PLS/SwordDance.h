@@ -92,6 +92,10 @@ void __fastcall SwordDance(IChar IPlayer, int pPacket, int pPos)
 		ISkill xSkill((void*)pSkill);
 		int nTargetID = 0, nMana = 0, nSkillGrade = 0; char bType = 0; void *pTarget = 0;
 		nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
 		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 
 		if (nSkillGrade <= 1)

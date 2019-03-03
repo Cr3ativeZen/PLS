@@ -406,7 +406,8 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			}
 		}
 
-		if (packet == 43 && IPlayer.GetClass() == 2 && FocusShotON== true)
+
+		if (packet == 43 && IPlayer.GetClass() == 2 && FocusShotON == true)
 		{
 			int SkillID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
@@ -436,6 +437,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 			}
 		}
+
 		if (packet == 16)
 		{
 			int SkillID = 0;
@@ -1098,9 +1100,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					DestroyingArmor(IPlayer);
 					return;
 				}
-
 			}
 		}
+
+
+
 
 		if (packet == 84)
 		{

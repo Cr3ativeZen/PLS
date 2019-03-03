@@ -7,6 +7,18 @@
 class IChar
 {
 
+	enum ITEM_CLASS
+	{
+		IC_WEAPON,
+		IC_DEFENSE,
+		IC_ORNAMENT,
+		IC_GENERAL,
+		IC_QUEST,
+		IC_MONEY,
+		IC_TRANSFORM,
+		IC_TASK,
+	};
+
 public:
 	void* Offset;
 
@@ -199,6 +211,8 @@ public:
 	void RemoveMaxPhysAttack(int amount);
 	void RemoveMinMagicAttack(int amount);
 	void RemoveMaxMagicAttack(int amount);
+
+	int GetWearState();
 
 };
 #endif

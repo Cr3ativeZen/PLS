@@ -84,6 +84,8 @@ int IChar::GetMinPhyAttack()
 		return 0;
 }
 
+
+
 int IChar::GetMaxPhyAttack()
 {
 	if (this->IsOnline())
@@ -1844,6 +1846,14 @@ void IChar::RemoveMaxMagicAttack(int amount)
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 14, 0, amount);
 
+}
+
+int IChar::GetWearState()
+{
+	if (this->IsOnline())
+		return *(DWORD*)((int)this->GetOffset() + 0x1E0);
+	else
+		return 0;
 }
 
 

@@ -1851,7 +1851,7 @@ void IChar::RemoveMaxMagicAttack(int amount)
 int IChar::GetWearState()
 {
 	if (this->IsOnline())
-		return *(DWORD*)((int)this->GetOffset() + 0x1E0);
+		return *(DWORD*)((int)this->GetOffset() + 0x1e0);
 	else
 		return 0;
 }

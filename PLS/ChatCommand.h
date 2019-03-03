@@ -130,10 +130,6 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		return;
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/wear")
-	{
-		IPlayer.SystemMessage(Int2String(IPlayer.GetWearState()),TEXTCOLOR_RED);
-	}
 
 	CPlayer::ChatCommand(Player, command);
 }

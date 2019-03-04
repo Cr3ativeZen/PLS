@@ -2,22 +2,9 @@
 #define _ICHAR_H
 
 #include <iostream>
-#include <vector>
 #include "ServerFunctions.h"
 class IChar
 {
-
-	enum ITEM_CLASS
-	{
-		IC_WEAPON,
-		IC_DEFENSE,
-		IC_ORNAMENT,
-		IC_GENERAL,
-		IC_QUEST,
-		IC_MONEY,
-		IC_TRANSFORM,
-		IC_TASK,
-	};
 
 public:
 	void* Offset;
@@ -212,7 +199,6 @@ public:
 	void RemoveMinMagicAttack(int amount);
 	void RemoveMaxMagicAttack(int amount);
 
-	int GetWearState();
-
 };
+
 #endif

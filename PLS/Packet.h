@@ -406,22 +406,21 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			}
 		}
 
-
-		if (packet == 43 && IPlayer.GetClass() == 2 && FocusShotON == true)
-		{
-			int SkillID = 0;
-			CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
-			IPlayer.GetSkillPointer(SkillID);
-			if (SkillID == 16)
-			{
-				CheckFocus[IPlayer.GetPID()] = GetTickCount();
-			}
-		}
-
 		if (packet == 43)
 		{
 			int SkillID = 0;
-			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
+			int ID = 0;
+			CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID,&ID);
+
+			if (IPlayer.GetClass() == 2 && SkillID == 16 &&FocusShotON == true)
+			{
+				int pSkill = IPlayer.GetSkillPointer(16);
+				if (pSkill)
+				{
+					CheckFocus[IPlayer.GetPID()] = GetTickCount();
+				}
+			}
+
 			if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
 			{
 				if (CheckIceArrow.count(IPlayer.GetPID()) && CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
@@ -437,7 +436,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 			}
 		}
-
 		if (packet == 16)
 		{
 			int SkillID = 0;
@@ -1058,12 +1056,10 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					DestroyingArmor(IPlayer);
 					return;
 				}
+
 			}
 
 		}
-
-
-
 
 		if (packet == 84)
 		{

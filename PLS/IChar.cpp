@@ -1847,13 +1847,3 @@ void IChar::RemoveMaxMagicAttack(int amount)
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 14, 0, amount);
 
 }
-
-int IChar::GetWearState()
-{
-	if (this->IsOnline())
-		return *(DWORD*)((int)this->GetOffset() + 0x1e0);
-	else
-		return 0;
-}
-
-

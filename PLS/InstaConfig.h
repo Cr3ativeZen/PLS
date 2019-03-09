@@ -72,7 +72,23 @@ void ZenConfig()
 		}
 		fclose(filez);
 	}
-
+	FILE *filex = fopen("./Configs/Teleport.txt", "r");
+	if (filex != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, filez) != NULL)
+		{
+			int Index = 0, TeleportX = 0, TeleportY = 0, TeleportMap = 0, LevelLimit = 0;
+			if (sscanf(line, "(teleport (index %d)(X %d)(Y %d)(Map %d)(LvlLimit %d))", &Index, &TeleportX, &TeleportY, &TeleportMap, &LevelLimit) == 5)
+			{
+				ZenTP[Index].TeleportX = TeleportX;
+				ZenTP[Index].TeleportY = TeleportY;
+				ZenTP[Index].Map = TeleportMap;
+				ZenTP[Index].LevelLimit = LevelLimit;
+			}
+		}
+		fclose(filex);
+	}
 
 
 

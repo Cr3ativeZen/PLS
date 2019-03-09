@@ -76,12 +76,6 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 				}
 			}
 		}
-	
-
-	if (IPlayer.IsValid() && ITarget.IsValid() && CheckDamage && IPlayer.GetType() == 0 && ITarget.GetType() == 0 && CheckDamage >= 1000)
-	{
-		return CheckDamage;
-	}
 
 
 	

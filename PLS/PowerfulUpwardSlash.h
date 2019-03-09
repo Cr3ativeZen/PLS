@@ -38,7 +38,6 @@ void __fastcall PowerfulUpwardSlash(IChar IPlayer,int pPacket, int pPos)
 		{
 			
 			int nDmg = (IPlayer.GetAttack()*PUSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*PUSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*PUSStrMultiPvP) + (nSkillGrade*PUSPerGradeMultiPvP);
-			nDmg = 3000;
 			IPlayer.OktayDamageSingle(Target, nDmg, 16);
 			IPlayer._ShowBattleAnimation(Target, 16);
 			IPlayer.DecreaseMana(nMana);

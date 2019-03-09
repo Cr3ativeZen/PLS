@@ -5,7 +5,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 	{
 		//IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
-		/*if (packet == 33)
+		if (packet == 33)
 		{
 			int IID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "d", &IID);
@@ -21,8 +21,24 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			if (Item && IID)
 			{
 				IItem Itemx((void*)Item);
+				if (ZenTP.count(Itemx.CheckIndex()))
+				{
+					if (ZenTP[Itemx.CheckIndex()].LevelLimit < IPlayer.GetLevel())
+					{
+						IPlayer.Teleport(ZenTP[Itemx.CheckIndex()].Map, ZenTP[Itemx.CheckIndex()].TeleportX, ZenTP[Itemx.CheckIndex()].TeleportY);
+					}
+					else
+					{
+						std::string st = "Your character must be level ";
+						st += Int2String(ZenTP[Itemx.CheckIndex()].LevelLimit);
+						st += " or above to use this item!";
+						IPlayer.SystemMessage(st, TEXTCOLOR_RED);
+						return;
+					}
+				}
 
-				if (Itemx.CheckIndex() == 11620)
+
+				/*if (Itemx.CheckIndex() == 11620)
 				{
 					if (IPlayer.GetLevel() < 70)
 					{
@@ -39,10 +55,10 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				{
 					IPlayer.CancelBuff(222);
 					IPlayer.CancelBuff(240);
-				}
+				}*/
 			}
 
-		}*/
+		}
 
 		if (packet == 51)
 		{

@@ -113,8 +113,16 @@ struct CheckConfigEggCooldown
 	int EggDelayConfig;
 };
 
+struct Teleport
+{
+	int TeleportX;
+	int TeleportY;
+	int Map;
+	int LevelLimit;
+};
 
 
+std::map<int, Teleport>ZenTP;
 std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
 std::map<int, PlayerContinueSkill> CheckContinueSkill;
 std::map<int, RuptureContinueSkill> CheckRuptureContinueSkill;

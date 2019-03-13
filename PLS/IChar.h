@@ -17,6 +17,7 @@ public:
 	IChar(void* Object);
 	virtual ~IChar();
 
+
 	void *GetOffset();
 	int IsOnline();
 	void Announcement(std::string msg, int color);

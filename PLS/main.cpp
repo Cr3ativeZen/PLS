@@ -1046,6 +1046,7 @@ void __fastcall Start(int Start, void *edx, u_short hostshort)
 	RiftConfig();
 	MautaretaConfig();
 	ConsoleWriteBlue("CreativeZen's DLL loaded successfully");
+	Sleep(500);
 }
 
 

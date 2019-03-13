@@ -61,7 +61,7 @@ void __fastcall ContinueSwordDance(IChar IPlayer)
 					}
 					else {
 						if (IPlayer.IsOnline())
-							CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 800;
+							CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 700;
 
 						IPlayer._ShowBattleMiss(Target, 43);
 

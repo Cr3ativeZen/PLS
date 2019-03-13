@@ -372,13 +372,13 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 	}
 
-	if (IPlayer.IsOnline() && IPlayer.IsBuff(5565) && IPlayer.GetClass() == 2 &&ArrowExplosionON == true)
-	{
-		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-		{
-			ContinueArrowRain(IPlayer);
-		}
-	}
+	//if (IPlayer.IsOnline() && IPlayer.IsBuff(5565) && IPlayer.GetClass() == 2 &&ArrowRainON == true)
+	//{
+	//	if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
+	//	{
+	//		ContinueArrowRain(IPlayer);
+	//	}
+	//}
 
 	if (IPlayer.IsOnline() && IPlayer.IsBuff(5566) && IPlayer.GetClass() == 2 && ArrowExplosionON == true)
 	{

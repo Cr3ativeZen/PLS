@@ -87,6 +87,26 @@ int __fastcall SummonTick(void *Monster, void *edx)
 			}
 		}
 	}
+	//if (IMonster.GetMobIndex() == 697)
+	//{
+	//	if (!IMonster.IsBuff(697)&&IMonster.IsMobHaveTarget())
+	//	{
+	//		IMonster.Buff(697, 20, 0);
+	//		IMonster.AddFxToTarget("davi_M564_71", 1, 0, 0);
+	//		IChar IPlayer((void*)IMonster.GetMobTanker());
+	//		int Around = IPlayer.GetObjectListAround(2);
+	//		IMonster.OktayDamageSingle(IPlayer, 3000, 14);
+	//		while (Around)
+	//		{
+	//			IChar Object((void*)*(DWORD*)Around);
+	//			if (Object.GetType() == 0)
+	//			{
+	//				IMonster.OktayDamageSingle(Object, 3000, 14);
+	//			}
+	//			Around = CBaseList::Pop((void*)Around);
+	//		}
+	//	}
+	//}
 
 
 	//Change to Mautareta namespace...

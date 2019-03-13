@@ -117,6 +117,7 @@ void __fastcall FatalWound(IChar IPlayer, int pPacket, int pPos)
 					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 8;
 					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = 0;
 					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
+					CheckFarContinueSkill[IPlayer.GetPID()].CasterOffset = IPlayer.GetOffset();
 					IPlayer.Buff(5576, 16, 0);
 				}
 

@@ -2,8 +2,11 @@
 #define ICEARROW_H
 void __fastcall IceArrow(IChar IPlayer, int pPacket, int pPos)
 {
+
 	int pSkill = IPlayer.GetSkillPointer(74);
 	__int64 GState = 536870912, State = 64, StateEx = 65, CancelState = 1;
+
+
 
 	if (IPlayer.IsValid() && pSkill)
 	{
@@ -37,52 +40,119 @@ void __fastcall IceArrow(IChar IPlayer, int pPacket, int pPos)
 				if (!IPlayer.IsInRange(Target, 300))
 					return;
 
-				if (CheckIceArrow.find(IPlayer.GetPID())->second.Cooldown < GetTickCount())
+				if (IPlayer.IsBuff(295))
 				{
-					CheckIceArrow[IPlayer.GetPID()].Cooldown = GetTickCount() + 70000;
-					CheckIceArrow[IPlayer.GetPID()].Delay = GetTickCount() + 200;
+					if (CheckIceArrow[IPlayer.GetPID()].Cooldown > GetTickCount())
+					{
+						IPlayer.CancelBuff(5600);
+						IPlayer.CancelBuff(5605);
+						IPlayer.SendGStateExIceArrow(GState / 2);
+						IPlayer.SendGStateExIceArrow(State << 32);
+						for (int i = 0; i < 6; i++)
+						{
+							IPlayer.CancelBuff(290 + i);
+						}
+						IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
+						return;
+					}
+
+					if (CheckIceArrow.find(IPlayer.GetPID())->second.Cooldown < GetTickCount())
+					{
+						CheckIceArrow[IPlayer.GetPID()].Cooldown = GetTickCount() + 70000;
+						CheckIceArrow[IPlayer.GetPID()].Delay = GetTickCount() + 200;
+					}
+					IPlayer.CancelBuff(295);
+
+					if (xSkill.GetGrade() == 1)
+					{
+						IPlayer.Buff(5600, 18, 0);
+						IPlayer.Buff(5605, 18, 0);
+						IPlayer.SendGStateExIceArrow(GState);
+						IPlayer.SendGStateExIceArrow(State << 32);
+					}
+					else if (xSkill.GetGrade() == 2)
+					{
+						IPlayer.Buff(5601, 18, 0);
+						IPlayer.Buff(5605, 18, 0);
+						IPlayer.SendGStateExIceArrow(GState * 2);
+						IPlayer.SendGStateExIceArrow(State << 32);
+					}
+					else if (xSkill.GetGrade() == 3)
+					{
+						IPlayer.Buff(5602, 18, 0);
+						IPlayer.Buff(5605, 18, 0);
+						IPlayer.SendGStateExIceArrow(GState * 4);
+						IPlayer.SendGStateExIceArrow(State << 32);
+					}
+					else if (xSkill.GetGrade() == 4)
+					{
+						IPlayer.Buff(5603, 18, 0);
+						IPlayer.Buff(5605, 18, 0);
+						IPlayer.SendGStateExIceArrow(GState * 8);
+						IPlayer.SendGStateExIceArrow(State << 32);
+					}
+					else if (xSkill.GetGrade() == 5)
+					{
+						IPlayer.Buff(5604, 18, 0);
+						IPlayer.Buff(5605, 18, 0);
+						IPlayer.SendGStateExIceArrow(GState * 16);
+						IPlayer.SendGStateExIceArrow(StateEx << 32);
+					}
+					else {
+						return;
+					}
+
 				}
 
-				if (IPlayer.IsValid() && IPlayer.IsBuff(294))
+
+
+				if (IPlayer.IsValid() && IPlayer.IsBuff(5604))
 				{
-					IPlayer.CancelBuff(294);
-					IPlayer.Buff(293, 18, 0);
-					IPlayer.Buff(295, 18, 0);
+					IPlayer.CancelBuff(5604);
+					IPlayer.Buff(5603, 18, 0);
+					IPlayer.Buff(5605, 18, 0);
 					IPlayer.SendGStateExIceArrow(GState * 8);
 					IPlayer.SendGStateExIceArrow(State << 32);
 				}
-				else if (IPlayer.IsValid() && IPlayer.IsBuff(293))
+				else if (IPlayer.IsValid() && IPlayer.IsBuff(5603))
 				{
-					IPlayer.CancelBuff(293);
-					IPlayer.Buff(292, 18, 0);
-					IPlayer.Buff(295, 18, 0);
+					IPlayer.CancelBuff(5603);
+					IPlayer.Buff(5602, 18, 0);
+					IPlayer.Buff(5605, 18, 0);
 					IPlayer.SendGStateExIceArrow(GState * 4);
 					IPlayer.SendGStateExIceArrow(State << 32);
 				}
-				else if (IPlayer.IsValid() && IPlayer.IsBuff(292))
+				else if (IPlayer.IsValid() && IPlayer.IsBuff(5602))
 				{
-					IPlayer.CancelBuff(292);
-					IPlayer.Buff(291, 18, 0);
-					IPlayer.Buff(295, 18, 0);
+					IPlayer.CancelBuff(5602);
+					IPlayer.Buff(5601, 18, 0);
+					IPlayer.Buff(5605, 18, 0);
 					IPlayer.SendGStateExIceArrow(GState * 2);
 					IPlayer.SendGStateExIceArrow(State << 32);
 				}
-				else if (IPlayer.IsValid() && IPlayer.IsBuff(291))
+				else if (IPlayer.IsValid() && IPlayer.IsBuff(5601))
 				{
-					IPlayer.CancelBuff(291);
-					IPlayer.Buff(290, 18, 0);
-					IPlayer.Buff(295, 18, 0);
+					IPlayer.CancelBuff(5601);
+					IPlayer.Buff(5600, 18, 0);
+					IPlayer.Buff(5605, 18, 0);
 					IPlayer.SendGStateExIceArrow(GState);
 					IPlayer.SendGStateExIceArrow(State << 32);
 				}
-				else if (IPlayer.IsValid() && IPlayer.IsBuff(290))
+				else if (IPlayer.IsValid() && IPlayer.IsBuff(5600))
 				{
-					IPlayer.CancelBuff(290);
-					IPlayer.CancelBuff(295);
+					IPlayer.CancelBuff(5600);
+					IPlayer.CancelBuff(5605);
+					IPlayer.SendGStateExIceArrow(GState / 2);
+					IPlayer.SendGStateExIceArrow(State << 32);
+					for (int i = 0; i < 6; i++)
+					{
+						IPlayer.CancelBuff(290 + i);
+					}
 				}
 				else {
 					return;
 				}
+
 
 				int nDmg = (IPlayer.GetMagic()*IAMBaseDmgMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*IAMIntMultiPvE) + (nSkillGrade*IAMPerGradeMultiPvE);
 

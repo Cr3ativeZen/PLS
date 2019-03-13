@@ -77,6 +77,7 @@ struct PlayerFarContinueSkill
 	DWORD PlayerSkillDelay;
 	int PlayerSkillCount;
 	int PlayerDamage;
+	void* CasterOffset;
 };
 
 struct RuptureContinueSkill
@@ -87,6 +88,7 @@ struct RuptureContinueSkill
 	DWORD PlayerSkillDelay;
 	int PlayerSkillCount;
 	int PlayerDamage;
+	void* CasterOffset;
 };
 
 struct ConfigIceArrow

@@ -453,6 +453,15 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 	}
 
+	//if (IPlayer.IsOnline() && IPlayer.IsBuff(295))
+	//{
+	//	for (int i = 0; i < 6; i++)
+	//	{
+	//		IPlayer.CancelBuff(290 + i);
+	//	}/sum
+
+	//}
+
 
 
 	return CPlayer::Tick(Player);

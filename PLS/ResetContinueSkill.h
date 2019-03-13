@@ -31,6 +31,7 @@ void __fastcall ResetFarContinueSkill(IChar IPlayer)
 		CheckFarContinueSkill[IPlayer.GetPID()].PlayerDamage = 0;
 		CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = 0;
 		CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = 0;
+		CheckFarContinueSkill[IPlayer.GetPID()].CasterOffset = 0;
 	}
 }
 
@@ -43,6 +44,7 @@ void __fastcall ResetRuptureContinueSkill(IChar IPlayer)
 		CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 0;
 		CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = 0;
 		CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = 0;
+		CheckRuptureContinueSkill[IPlayer.GetPID()].CasterOffset = 0;
 	}
 }
 

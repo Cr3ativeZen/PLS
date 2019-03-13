@@ -940,7 +940,7 @@ void IChar::SendGStateEx(__int64 state)
 		if (this->IsBuff(159))
 			CChar::WriteInSight(this->GetOffset(), 148, "dI", this->GetID(), (__int64)0);
 
-		if (!this->IsBuff(159) && !this->IsBuff(290) && !this->IsBuff(291) && !this->IsBuff(292) && !this->IsBuff(293) && !this->IsBuff(294) && !this->IsBuff(295))
+		if (!this->IsBuff(159) && !this->IsBuff(5600) && !this->IsBuff(5601) && !this->IsBuff(5602) && !this->IsBuff(5603) && !this->IsBuff(5604) && !this->IsBuff(5605))
 			CChar::WriteInSight(this->GetOffset(), 148, "dI", this->GetID(), state);
 	}
 }

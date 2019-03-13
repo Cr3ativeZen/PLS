@@ -151,6 +151,7 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 9;
 						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1000;
 						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
+
 						while (Around)
 						{
 							IChar Object((void*)*(DWORD*)Around);
@@ -178,6 +179,7 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 9;
 						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1000;
 						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
+						CheckRuptureContinueSkill[IPlayer.GetPID()].CasterOffset = IPlayer.GetOffset();
 					}
 
 				}

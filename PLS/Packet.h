@@ -428,11 +428,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			int ID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID,&ID);
 
-			if (SkillID == 74)
-			{
-				SkillID = 97;
-				IPlayer.SystemMessage("kappawegweg", TEXTCOLOR_RED);
-			}
+
 
 			if (IPlayer.GetClass() == 2 && SkillID == 16 &&FocusShotON == true)
 			{
@@ -443,7 +439,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 			}
 
-			if (IPlayer.GetClass() == 1 && SkillID == 97 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
+			if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
 			{
 				if (CheckIceArrow.count(IPlayer.GetPID()) && CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
 				{
@@ -456,13 +452,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					IPlayer.SystemMessage("Invalid skill cooldown time detected!", TEXTCOLOR_RED);
 					return;
 				}
-				IPlayer.CancelBuff(290);
-				IPlayer.CancelBuff(291);
-				IPlayer.CancelBuff(292);
-				IPlayer.CancelBuff(293);
-				IPlayer.CancelBuff(294);
-				IPlayer.CancelBuff(295);
-				IPlayer.SystemMessage("kappawegweg", TEXTCOLOR_RED);
 			}
 		}
 		if (packet == 16)
@@ -473,7 +462,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			IPlayer.Buff(313, 3, 0);
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
-
+			
+			if (SkillID == 74 && IPlayer.GetClass() == 1)
+			{
+				SkillID = 99;
+			}
 
 			if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
 			{
@@ -484,14 +477,17 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
 				CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
 
-			if (CooldownCheck > GetTickCount())
+			if (CooldownCheck > GetTickCount()&&(!IPlayer.IsBuff(5605)&&!IPlayer.IsBuff(295)))
 			{
 				IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
+				IPlayer.SystemMessage("KAPUCZINO", TEXTCOLOR_RED);
 				return;
 			}
 			else {
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
 			}
+
+
 
 			
 			if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
@@ -712,10 +708,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if (SkillID == 74 && IPlayer.GetSpecialty() == 23 && !IPlayer.IsBuff(290) && !IPlayer.IsBuff(291) && !IPlayer.IsBuff(292) && !IPlayer.IsBuff(293) && !IPlayer.IsBuff(294) && !IPlayer.IsBuff(295) && IceArrowON == true)
+				if (SkillID == 99 && IPlayer.GetSpecialty() == 23 &&IceArrowON == true&&(IPlayer.IsBuff(295)||IPlayer.IsBuff(5605)))
 				{
 					IceArrow(IPlayer, kappa, pPos);
-					IPlayer.SystemMessage("sdfgvsdvsdvsdvsdvs", TEXTCOLOR_RED);
 					return;
 				}
 

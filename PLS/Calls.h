@@ -1,5 +1,6 @@
 #ifndef _CALLS_H
 #define _CALLS_H
+#include "ExecuteSkill.h"
 void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos)
 {
 	IChar IPlayer(Player);
@@ -467,6 +468,68 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 									}
 									IMembers.RemoveBuffIcon(0, 0, 0, 225);
 									IMembers.RemoveBuffIcon(0, 0, 0, 224);
+
+									if (IMembers.IsBuff(350))
+									{
+										IMembers.CancelBuff(350);
+										for (auto it = CheckRuptureContinueSkill.begin(); it != CheckRuptureContinueSkill.end(); ++it)
+										{
+											if (it->second.PlayerTarget == IMembers.GetOffset())
+											{
+
+												IChar Caster(it->second.CasterOffset);
+												if (Caster.IsOnline())
+												{
+													ResetRuptureContinueSkill(Caster);
+													Caster.CancelBuff(5577);
+													Caster.CancelBuff(353);
+												}
+											}
+										}
+									}
+									if (IMembers.IsBuff(348))
+									{
+										IMembers.CancelBuff(348);
+										for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
+										{
+											if (it->second.PlayerTarget == IMembers.GetOffset())
+											{
+
+												IChar Caster(it->second.CasterOffset);
+												if (Caster.IsOnline())
+												{
+													ResetFarContinueSkill(Caster);
+													Caster.CancelBuff(5576);
+												}
+											}
+										}
+									}
+									if (IMembers.IsBuff(339) || IMembers.IsBuff(340))
+									{
+										if (IMembers.IsBuff(339))
+											IMembers.CancelBuff(339);
+
+										if (IMembers.IsBuff(340))
+											IMembers.CancelBuff(340);
+
+										IMembers.RemoveBuffIcon(0, 0, 0, 219);
+
+										for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
+										{
+											if (it->second.PlayerTarget == IMembers.GetOffset())
+											{
+
+												IChar Caster(it->second.CasterOffset);
+												if (Caster.IsOnline())
+												{
+													ResetFarContinueSkill(Caster);
+													Caster.CancelBuff(5578);
+													Caster.CancelBuff(341);
+												}
+											}
+										}
+									}
+
 								}
 							}
 						}
@@ -482,6 +545,68 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 					}
 					IPlayer.RemoveBuffIcon(0, 0, 0, 225);
 					IPlayer.RemoveBuffIcon(0, 0, 0, 224);
+
+					if (IPlayer.IsBuff(350))
+					{
+						IPlayer.CancelBuff(350);
+						for (auto it = CheckRuptureContinueSkill.begin(); it != CheckRuptureContinueSkill.end(); ++it)
+						{
+							if (it->second.PlayerTarget == IPlayer.GetOffset())
+							{
+
+								IChar Caster(it->second.CasterOffset);
+								if (Caster.IsOnline())
+								{
+									ResetRuptureContinueSkill(Caster);
+									Caster.CancelBuff(5577);
+									Caster.CancelBuff(353);
+								}
+							}
+						}
+					}
+					if (IPlayer.IsBuff(348))
+					{
+						IPlayer.CancelBuff(348);
+						for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
+						{
+							if (it->second.PlayerTarget == IPlayer.GetOffset())
+							{
+
+								IChar Caster(it->second.CasterOffset);
+								if (Caster.IsOnline())
+								{
+									ResetFarContinueSkill(Caster);
+									Caster.CancelBuff(5576);
+								}
+							}
+						}
+					}
+					if (IPlayer.IsBuff(339) || IPlayer.IsBuff(340))
+					{
+						if (IPlayer.IsBuff(339))
+							IPlayer.CancelBuff(339);
+
+						if (IPlayer.IsBuff(340))
+							IPlayer.CancelBuff(340);
+
+						IPlayer.RemoveBuffIcon(0, 0, 0, 219);
+
+						for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
+						{
+							if (it->second.PlayerTarget == IPlayer.GetOffset())
+							{
+
+								IChar Caster(it->second.CasterOffset);
+								if (Caster.IsOnline())
+								{
+									ResetFarContinueSkill(Caster);
+									Caster.CancelBuff(5578);
+									Caster.CancelBuff(341);
+								}
+							}
+						}
+					}
+
 				}
 			}
 

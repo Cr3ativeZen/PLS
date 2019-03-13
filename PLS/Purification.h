@@ -29,13 +29,70 @@ void __fastcall Purification(IChar IPlayer,int pPacket, int pPos)
 	if (pTarget && ITarget.IsValid() && IPlayer.IsValid())
 	{
 
-		//ITarget.CancelBuff(350);
-		//ITarget.CancelBuff(339);
-		//ITarget.CancelBuff(340);
+		if (ITarget.IsBuff(350))
+		{
+			ITarget.CancelBuff(350);
+			for (auto it = CheckRuptureContinueSkill.begin(); it != CheckRuptureContinueSkill.end(); ++it)
+			{
+				if (it->second.PlayerTarget == ITarget.GetOffset())
+				{
+
+						IChar Caster(it->second.CasterOffset);
+						if (Caster.IsOnline())
+						{
+							ResetRuptureContinueSkill(Caster);
+							Caster.CancelBuff(5577);
+							Caster.CancelBuff(353);
+						}
+				}
+			}
+		}
+		if (ITarget.IsBuff(348))
+		{
+			ITarget.CancelBuff(348);
+			for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
+			{
+				if (it->second.PlayerTarget == ITarget.GetOffset())
+				{
+
+						IChar Caster(it->second.CasterOffset);
+						if (Caster.IsOnline())
+						{
+							ResetFarContinueSkill(Caster);
+							Caster.CancelBuff(5576);
+						}
+				}
+			}
+		}
+		if (ITarget.IsBuff(339) || ITarget.IsBuff(340))
+		{
+			if(ITarget.IsBuff(339))
+				ITarget.CancelBuff(339);
+
+			if (ITarget.IsBuff(340))
+				ITarget.CancelBuff(340);
+
+			ITarget.RemoveBuffIcon(0, 0, 0, 219);
+
+			for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
+			{
+				if (it->second.PlayerTarget == ITarget.GetOffset())
+				{
+
+					IChar Caster(it->second.CasterOffset);
+					if (Caster.IsOnline())
+					{
+						ResetFarContinueSkill(Caster);
+						Caster.CancelBuff(5578);
+						Caster.CancelBuff(341);
+					}
+				}
+			}
+		}
+
 		ITarget.CancelBuff(307);
 		ITarget.CancelBuff(342);
 		ITarget.CancelBuff(346);
-		ITarget.CancelBuff(348);
 		ITarget.CancelBuff(356);
 		ITarget.CancelBuff(390);
 		ITarget.CancelBuff(391);

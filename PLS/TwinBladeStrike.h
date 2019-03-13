@@ -93,7 +93,7 @@ void __fastcall TwinBladeStrike(IChar IPlayer, int pPacket, int pPos)
 					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillID = 23;
 					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 5;
 					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
-
+					CheckFarContinueSkill[IPlayer.GetPID()].CasterOffset = IPlayer.GetOffset();
 					if (!Target.IsBuff(339))
 						Target.SendGStateEx(Target.GetGStateEx() + 262144);
 
@@ -118,7 +118,6 @@ void __fastcall TwinBladeStrike(IChar IPlayer, int pPacket, int pPos)
 				}
 				else {
 					IPlayer._ShowBattleMiss(Target, 23);
-					IPlayer.CancelBuff(5578);
 				}
 
 				IPlayer.SetDirection(Target);

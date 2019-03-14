@@ -22,7 +22,6 @@ void __fastcall PassiveAttack(IChar IPlayer,int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
 
-
 	if (bType >= 2)
 		return;
 
@@ -31,7 +30,7 @@ void __fastcall PassiveAttack(IChar IPlayer,int pPacket, int pPos)
 	if (nTargetID)
 	{
 
-		if (IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (IPlayer.IsValid())
 		{
 			if (IPlayer.CheckHit(Target, 4))
 			{

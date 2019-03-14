@@ -42,7 +42,7 @@ void __fastcall Amnesia(IChar IPlayer,int pPacket, int pPos)
 			IChar Object((void*)*(DWORD*)Around);
 
 			
-			if (Object.GetType()==1&&Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0) && CChar::IsNormal((int)Object.GetOffset()))
+			if (Object.GetType()==1&&Object.IsValid() && IPlayer.IsValid() &&  CChar::IsNormal((int)Object.GetOffset()))
 			{
 				int nDmg = (IPlayer.GetAttack()*AmensiaBaseDmgMulti)+IPlayer.GetWis()*AmnesiaWisMulti;
 
@@ -51,12 +51,15 @@ void __fastcall Amnesia(IChar IPlayer,int pPacket, int pPos)
 					nDmg *= (AmnesiaDmgPercentIncreaseBless / 100);
 				}
 				IPlayer.OktayDamageArea(Object, nDmg, 61);
-				IPlayer._ShowBattleAnimation(Object, 61);
+
 			}
 
 			Around = CBaseList::Pop((void*)Around);
 		}
+
 	}
+	IPlayer._ShowBattleAnimation(ITarget, 61);
+
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 	IPlayer.DecreaseMana(nMana);
 }

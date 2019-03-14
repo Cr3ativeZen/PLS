@@ -29,7 +29,7 @@ void __fastcall HalfSwing(IChar IPlayer,int pPacket, int pPos)
 	while (Around)
 	{
 		IChar Object((void*)*(DWORD*)Around);
-		if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+		if (Object.IsValid() && IPlayer.IsValid())
 		{
 			int nDmg = (IPlayer.GetAttack()*HSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*HSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*HSStrMultiPvE) + (nSkillGrade*HSPerGradeMultiPvE);
 		

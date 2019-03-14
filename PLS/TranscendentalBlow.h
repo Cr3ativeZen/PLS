@@ -71,7 +71,7 @@ void __fastcall TranscendentalBlow(IChar IPlayer,int pPacket, int pPos)
 
 			if (Object.GetType() == 1)
 			{
-				if (IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
+				if (IPlayer.IsValid())
 				{
 					if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 					{

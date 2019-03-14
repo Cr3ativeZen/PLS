@@ -58,7 +58,7 @@ void __fastcall FlamyArrow(IChar IPlayer,int pPacket, int pPos)
 	if (pTarget && Target.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID() && bType == 1)
 	{
 
-		if (IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (IPlayer.IsValid())
 		{
 			if (IPlayer.CheckHit(Target, 6))
 			{

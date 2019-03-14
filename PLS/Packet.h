@@ -468,22 +468,29 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				SkillID = 99;
 			}
 
+			if (SkillID == 6 && IPlayer.GetClass() == 3&&IPlayer.IsBuff(329))
+			{
+				IPlayer.CancelBuff(329);
+				IPlayer.CancelBuff(40);
+				return;
+			}
+
 			if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
 			{
 				CdTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.CooldownConfig;
 				DelayTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.DelayConfig;
 			}
 
+
 			if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
 				CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
 
 			if (CooldownCheck > GetTickCount()&&(!IPlayer.IsBuff(5605)&&!IPlayer.IsBuff(295)))
 			{
-				if (!IPlayer.IsBuff(329) && !IPlayer.IsBuff(40))
-				{
+
 					IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
 					return;
-				}
+
 			}
 			else {
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;

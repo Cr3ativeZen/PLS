@@ -35,7 +35,7 @@ void __fastcall ShieldAttack(IChar IPlayer, int pPacket, int pPos)
 	if (nTargetID)
 	{
 
-		if (IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (IPlayer.IsValid())
 		{
 			if (IPlayer.CheckHit(Target, 15))
 			{

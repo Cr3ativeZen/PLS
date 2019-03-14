@@ -123,7 +123,16 @@ struct Teleport
 	int LevelLimit;
 };
 
+struct CallCheck
+{
+	void* CasterOffset;
+	void* ReciverOffset;
+	int SkillID;
 
+};
+
+
+std::map<int, CallCheck>Call;
 std::map<int, Teleport>ZenTP;
 std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
 std::map<int, PlayerContinueSkill> CheckContinueSkill;

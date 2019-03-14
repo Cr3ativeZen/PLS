@@ -479,9 +479,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			if (CooldownCheck > GetTickCount()&&(!IPlayer.IsBuff(5605)&&!IPlayer.IsBuff(295)))
 			{
-				IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
-				IPlayer.SystemMessage("KAPUCZINO", TEXTCOLOR_RED);
-				return;
+				if (!IPlayer.IsBuff(329) && !IPlayer.IsBuff(40))
+				{
+					IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
+					return;
+				}
 			}
 			else {
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;

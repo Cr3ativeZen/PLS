@@ -35,6 +35,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							{
 								if (IPlayer.IsInRange(IMembers, 20))
 								{
+
 									IMembers.Buff(70, 0, 0);
 									IMembers.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
 
@@ -42,6 +43,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 
 									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 									IMembers.AddFxToTarget("test_item_ef_09", 1, 0, 1);
+
+									//Call[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+									//Call[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+									//Call[IMembers.GetPID()].SkillID = nSkillGrade;
+
 								}
 							}
 

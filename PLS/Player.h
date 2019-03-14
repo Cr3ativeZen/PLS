@@ -458,8 +458,41 @@ int __fastcall Tick(void *Player, void *edx)
 	//	for (int i = 0; i < 6; i++)
 	//	{
 	//		IPlayer.CancelBuff(290 + i);
-	//	}/sum
+	//	}
+	//}
 
+	//if (IPlayer.IsOnline() && IPlayer.IsParty()&&IPlayer.IsBuff(550)&&IPlayer.IsBuff(70))
+	//{
+	//	void* CasterOffset = Call[IPlayer.GetPID()].CasterOffset;
+	//	IChar Caster(CasterOffset);
+	//	if (IPlayer.GetPartyID() == Caster.GetPartyID())
+	//	{
+	//		if (!IPlayer.IsInRange(Caster, 2))
+	//		{
+	//			int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
+
+	//			IPlayer.RemoveEva(*(DWORD*)(Buff + 12));
+
+	//			IPlayer.CancelBuff(70);
+	//			IPlayer.CancelBuff(550);
+	//		}
+	//	}
+	//}
+	//if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550))
+	//{
+	//	void* CasterOffset = Call[IPlayer.GetPID()].CasterOffset;
+	//	IChar Caster(CasterOffset);
+
+	//	if (IPlayer.GetPartyID() == Caster.GetPartyID())
+	//	{
+	//		if (IPlayer.IsInRange(Caster, 2))
+	//		{
+	//			ISkill ISkill((void*)Caster.GetSkillPointer(27));
+	//			IPlayer.Buff(70, 0, 0);
+	//			IPlayer.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
+	//			IPlayer.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
+	//		}
+	//	}
 	//}
 
 

@@ -22,45 +22,36 @@ void __fastcall Amnesia(IChar IPlayer,int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
 
-	if (bType >= 2)
+	if (bType >= 2 ||!pTarget||pTarget==IPlayer.GetOffset()||IPlayer.GetCurMp()<nMana)
 		return;
 
-	IChar ITarget(pTarget);
+	IChar Target(pTarget);
 
-	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
+	if (bType == 1)
 	{
-		if (IPlayer.GetCurMp() < nMana)
-			return;
-
-		if (!IPlayer.IsInRange(ITarget, 300))
-			return;
-
-		int Around = ITarget.GetObjectListAround(3);
-
+		IPlayer._ShowBattleAnimation(Target, 61);
+		int Around = Target.GetObjectListAround(3);
 		while (Around)
 		{
 			IChar Object((void*)*(DWORD*)Around);
 
-			
-			if (Object.GetType()==1&&Object.IsValid() && IPlayer.IsValid() &&  CChar::IsNormal((int)Object.GetOffset()))
+			if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{
-				int nDmg = (IPlayer.GetAttack()*AmensiaBaseDmgMulti)+IPlayer.GetWis()*AmnesiaWisMulti;
-
-				if (IPlayer.IsBuff(24))
+				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 				{
-					nDmg *= (AmnesiaDmgPercentIncreaseBless / 100);
+					int nDmg = (IPlayer.GetAttack()*AmensiaBaseDmgMulti) + IPlayer.GetWis()*AmnesiaWisMulti;
+					if (IPlayer.IsBuff(24))
+					{
+						nDmg *= (AmnesiaDmgPercentIncreaseBless / 100);
+					}
+					IPlayer.OktayDamageArea(Object, nDmg, 61);
 				}
-				IPlayer.OktayDamageArea(Object, nDmg, 61);
-
 			}
-
 			Around = CBaseList::Pop((void*)Around);
 		}
-
+	
 	}
-	IPlayer._ShowBattleAnimation(ITarget, 61);
-
-	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
+	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 	IPlayer.DecreaseMana(nMana);
 }
 #endif

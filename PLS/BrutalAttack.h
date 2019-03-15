@@ -19,61 +19,34 @@ void __fastcall BrutalAttack(IChar IPlayer,int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar Target(pTarget);
 
-
-
-	if (bType == 0 && nTargetID)
-	{
-		if (IPlayer.GetCurMp() < nMana)
-			return;
-
-		if (!IPlayer.IsInRange(Target, 300))
-			return;
-
-		if (IPlayer.CheckHit(Target, 17))
-		{
-			int nDmg = static_cast<int>(((IPlayer.GetAttack()*BRUTBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*BRUTAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*BRUTStrMultiPvP) + (nSkillGrade*BRUTPerGradeMultiPvP))*(0.5 + (IPlayer.GetDeathBlow()*0.1)));
-			IPlayer.OktayDamageSingle(Target, nDmg, 17);
-			IPlayer._ShowBattleAnimation(Target, 17);
-			IPlayer.DecreaseMana(nMana);
-			IPlayer.RemoveDeathBlow(IPlayer.GetDeathBlow());
-			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-			return;
-
-		}
-		else
-		{
-			IPlayer._ShowBattleMiss(Target, 17);
-			IPlayer.DecreaseMana(nMana);
-			IPlayer.RemoveDeathBlow(IPlayer.GetDeathBlow());
-		}
-
-	}
-
-	if (bType == 1 && nTargetID)
+	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 	{
 		if (IPlayer.CheckHit(Target, 17))
 		{
 			int nDmg = static_cast<int>(((IPlayer.GetAttack()*BRUTBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*BRUTAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*BRUTStrMultiPvE) + (nSkillGrade*BRUTPerGradeMultiPvE))*(0.5 + (IPlayer.GetDeathBlow()*0.1)));
+
+			if (Target.GetType() == 0)
+				nDmg = static_cast<int>(((IPlayer.GetAttack()*BRUTBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*BRUTAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*BRUTStrMultiPvP) + (nSkillGrade*BRUTPerGradeMultiPvP))*(0.5 + (IPlayer.GetDeathBlow()*0.1)));
+
+
 			IPlayer.OktayDamageSingle(Target, nDmg, 17);
 			IPlayer._ShowBattleAnimation(Target, 17);
-			IPlayer.DecreaseMana(nMana);
 			IPlayer.RemoveDeathBlow(IPlayer.GetDeathBlow());
-			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-			return;
 
 		}
 		else
 		{
 			IPlayer._ShowBattleMiss(Target, 17);
-			IPlayer.DecreaseMana(nMana);
 			IPlayer.RemoveDeathBlow(IPlayer.GetDeathBlow());
 		}
 	}
+
+	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 
 }

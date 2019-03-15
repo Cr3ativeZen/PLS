@@ -13,12 +13,12 @@ void __fastcall LifeAbsorption(IChar IPlayer,int pPacket, int pPos)
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 	int nMana = ISkill.GetGrade() * 6 + 20;
-
 	if (bType == 0 && nTargetID)
 		pTarget = CPlayer::FindPlayer(nTargetID);
 
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
+
 
 	if (bType >= 2)
 		return;
@@ -53,7 +53,8 @@ void __fastcall LifeAbsorption(IChar IPlayer,int pPacket, int pPos)
 
 				CChar::WriteInSight(IPlayer.GetOffset(), 63, "bddbbwwb", ISkill.GetIndex(), IPlayer.GetID(), ITarget.GetID(), 1, 1, NormalDamage, 0, GetType);
 		}
-		else {
+		else 
+		{
 			IPlayer._ShowBattleMiss(ITarget, ISkill.GetIndex());
 		}
 

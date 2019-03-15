@@ -19,52 +19,25 @@ void __fastcall PowerfulUpwardSlash(IChar IPlayer,int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
+
 
 	IChar Target(pTarget);
 
-
-
-	if (bType == 0 && nTargetID)
-	{
-		if (IPlayer.GetCurMp() < nMana)
-			return;
-
-		if (!IPlayer.IsInRange(Target, 300))
-			return;
-
-		if (IPlayer.CheckHit(Target, 16))
-		{
-			
-			int nDmg = (IPlayer.GetAttack()*PUSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*PUSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*PUSStrMultiPvP) + (nSkillGrade*PUSPerGradeMultiPvP);
-			IPlayer.OktayDamageSingle(Target, nDmg, 16);
-			IPlayer._ShowBattleAnimation(Target, 16);
-			IPlayer.DecreaseMana(nMana);
-			IPlayer.AddDeathBlow(1);
-			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-			return;
-
-		}
-		else
-		{
-			IPlayer._ShowBattleMiss(Target, 16);
-			IPlayer.DecreaseMana(nMana);
-		}
-
-	}
-
-	if (bType == 1 && nTargetID)
+	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 	{
 		if (IPlayer.CheckHit(Target, 16))
 		{
 			int nDmg = (IPlayer.GetAttack()*PUSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*PUSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*PUSStrMultiPvE) + (nSkillGrade*PUSPerGradeMultiPvE);
+
+			if (Target.GetType() == 0)
+				nDmg = (IPlayer.GetAttack()*PUSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*PUSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*PUSStrMultiPvP) + (nSkillGrade*PUSPerGradeMultiPvP);
+
 			IPlayer.OktayDamageSingle(Target, nDmg, 16);
 			IPlayer._ShowBattleAnimation(Target, 16);
 			IPlayer.DecreaseMana(nMana);
 			IPlayer.AddDeathBlow(1);
-			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-			return;
 
 		}
 		else

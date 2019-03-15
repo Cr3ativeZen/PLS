@@ -2,7 +2,6 @@
 #define _MYSTERIOUSARROW_H
 void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 {
-
 	ISkill ISkill((void*)IPlayer.GetSkillPointer(21));
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -21,12 +20,40 @@ void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar Target(pTarget);
 
-	if (bType == 0 && nTargetID)
+
+	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+	{
+		if (IPlayer.CheckHit(Target, 21))
+		{
+			int nDmg = 0;
+
+			if (Target.GetType() == 0)
+			{
+				Target.Buff(39, MADoTDuration, MADoTPerGradePvP*ISkill.GetGrade());
+				nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvP) + (ISkill.GetGrade()*MAPerGradeMultiPvP);
+			}
+			if (Target.GetType() == 1)
+			{
+				Target.Buff(39, MADoTDuration, MADoTPerGradePvE*ISkill.GetGrade());
+				int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
+			}
+			IPlayer.OktayDamageSingle(Target, nDmg, 21);
+			IPlayer._ShowBattleAnimation(Target, 21);
+		}
+		else
+		{
+			IPlayer._ShowBattleMiss(Target, 21);
+		}
+	}
+	IPlayer.DecreaseMana(nMana);
+	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+
+	/*if (bType == 0 && nTargetID)
 	{
 		if (IPlayer.GetCurMp() < nMana)
 			return;
@@ -70,6 +97,6 @@ void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 		}
 	}
 	IPlayer.DecreaseMana(nMana);
-	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);*/
 }
 #endif

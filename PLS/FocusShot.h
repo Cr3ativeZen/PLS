@@ -66,7 +66,6 @@ void __fastcall FocusShot(IChar IPlayer, int pPacket, int pPos)
 
 			IPlayer.OktayDamageSingle(Target, nDmg, 16);
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-			IPlayer.DecreaseMana(nMana);
 		}
 		else
 		{
@@ -74,5 +73,6 @@ void __fastcall FocusShot(IChar IPlayer, int pPacket, int pPos)
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}
 	}
+	IPlayer.DecreaseMana(nMana);
 }
 #endif

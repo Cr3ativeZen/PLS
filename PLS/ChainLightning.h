@@ -15,43 +15,38 @@ void __fastcall ChainLightning(IChar IPlayer,int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar ITarget(pTarget);
 
-	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
+	if (ITarget.IsValid() && IPlayer.IsValid())
 	{
-		if (IPlayer.GetCurMp() < nMana)
-			return;
-
-		if (!IPlayer.IsInRange(ITarget, 300))
-			return;
-
 		int Around = ITarget.GetObjectListAround(3);
-
+		IPlayer._ShowBattleAnimation(ITarget, 41);
 		while (Around)
 		{
 			IChar Object((void*)*(DWORD*)Around);
-
-
-			if (Object.IsValid() && IPlayer.IsValid() && CChar::IsNormal((int)Object.GetOffset()))
+			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{
-				int nDmg = (IPlayer.GetAttack()*CLBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvE;
+				if (Object.GetOffset() != ITarget.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
+				{
+					int nDmg = (IPlayer.GetAttack()*CLBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvE;
 
-				if(Object.GetType()==0)
-					nDmg = (IPlayer.GetAttack()*CLBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvP;
+					if (Object.GetType() == 0)
+						nDmg = (IPlayer.GetAttack()*CLBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvP;
 
-				IPlayer.OktayDamageArea(Object, nDmg, 41);
-				IPlayer._ShowBattleAnimation(Object, 41);
+					IPlayer.OktayDamageArea(Object, nDmg, 41);
 
-				if (Object.IsBuff(307)&&Object.IsValid()&&Object.GetCurHp()>0)
-					StormActivateShiny(IPlayer, Object);
+					if (Object.IsBuff(307) && Object.IsValid() && Object.GetCurHp() > 0)
+						StormActivateShiny(IPlayer, Object);
+				}
 			}
-
 			Around = CBaseList::Pop((void*)Around);
 		}
+		IPlayer._ShowBattleAnimation(ITarget, 41);
 	}
+
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 	IPlayer.DecreaseMana(nMana);
 }

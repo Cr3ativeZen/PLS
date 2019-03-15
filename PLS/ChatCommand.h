@@ -94,7 +94,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/aoff")
+	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/aoff"&& IPlayer.GetAdmin() >= 8)
 	{
 		IPlayer.CancelBuff(LawlessZone::BuffID);
 		for (int i = 0; i < 10; i++)
@@ -104,7 +104,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		}
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautconfig")
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautconfig"&& IPlayer.GetAdmin() >= 8)
 	{
 		if (Mautareta::IsUp == false)
 		{
@@ -119,7 +119,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	}
 
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautreload")
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautreload" && IPlayer.GetAdmin() >= 8)
 	{
 		if (Mautareta::IsUp == true)
 		{
@@ -129,6 +129,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		}
 		return;
 	}
+
 
 
 	CPlayer::ChatCommand(Player, command);

@@ -116,20 +116,16 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 		if (bType >= 2)
 			return;
 
+		IChar Target(pTarget);
+
 		if (pTarget && IPlayer.IsValid() && nSkillGrade)
 		{
-			IChar Target(pTarget);
-
 
 			if (IPlayer.GetCurMp() < nMana)
 				return;
 
 			if (pTarget == IPlayer.GetOffset())
 				return;
-
-
-
-
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
@@ -168,7 +164,7 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 
 						}
 					}
-					else
+					if (Target.GetType() == 0)
 					{
 						if (!Target.IsBuff(350))
 							Target.SendGStateEx(Target.GetGStateEx() + 65536);
@@ -183,7 +179,8 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 					}
 
 				}
-				else {
+				else 
+				{
 					IPlayer._ShowBattleMiss(Target, 17);
 					IPlayer.CancelBuff(5577);
 				}
@@ -192,6 +189,7 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 				IPlayer.DecreaseMana(nMana);
 			}
 		}
+		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 	}
 }
 

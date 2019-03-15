@@ -1,6 +1,9 @@
-void __fastcall Cure(IChar IPlayer,int pPacket, int pPos)
+void __fastcall Cure(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(10));
+
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)pSkill);
+
 
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -37,18 +40,20 @@ void __fastcall Cure(IChar IPlayer,int pPacket, int pPos)
 			IPlayer.IncreaseHp(Self1);
 			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 			IPlayer.DecreaseMana(nMana);
-			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-			return;
 		}
+		else
+		{
 
-		IPlayer.SetDirection(ITarget);
-		ITarget.IncreaseHp(nCure1HealAmount);
-		IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-		IPlayer.IncreaseHp(Self1);
-		IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			IPlayer.SetDirection(ITarget);
+			ITarget.IncreaseHp(nCure1HealAmount);
+			IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-		IPlayer.DecreaseMana(nMana);
+			IPlayer.IncreaseHp(Self1);
+			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+
+			IPlayer.DecreaseMana(nMana);
+		}
 		CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 		return;
 
@@ -57,9 +62,11 @@ void __fastcall Cure(IChar IPlayer,int pPacket, int pPos)
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall Cure2(IChar IPlayer, int pPacket, int pPos)
+void __fastcall Cure2(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(22));
+
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -93,18 +100,19 @@ void __fastcall Cure2(IChar IPlayer, int pPacket, int pPos)
 			IPlayer.IncreaseHp(Self2);
 			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 			IPlayer.DecreaseMana(nMana);
-			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-			return;
+
 		}
+		else
+		{
+			IPlayer.SetDirection(ITarget);
+			ITarget.IncreaseHp(nCure2HealAmount);
+			IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-		IPlayer.SetDirection(ITarget);
-		ITarget.IncreaseHp(nCure2HealAmount);
-		IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
+			IPlayer.IncreaseHp(Self2);
+			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 
-		IPlayer.IncreaseHp(Self2);
-		IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
-
-		IPlayer.DecreaseMana(nMana);
+			IPlayer.DecreaseMana(nMana);
+		}
 		CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 		return;
 
@@ -112,9 +120,11 @@ void __fastcall Cure2(IChar IPlayer, int pPacket, int pPos)
 
 }
 
-void __fastcall Cure3(IChar IPlayer, int pPacket, int pPos)
+void __fastcall Cure3(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(35));
+
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)pSkill);
 
 	int nTargetID = 0;
 	char bType = 0;
@@ -143,18 +153,20 @@ void __fastcall Cure3(IChar IPlayer, int pPacket, int pPos)
 			IPlayer.IncreaseHp(Self3);
 			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 			IPlayer.DecreaseMana(nMana);
-			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-			return;
 		}
+		else
+		{
 
-		IPlayer.SetDirection(ITarget);
-		ITarget.IncreaseHp(nCure3HealAmount);
-		IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-		IPlayer.IncreaseHp(Self3);
-		IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			IPlayer.SetDirection(ITarget);
+			ITarget.IncreaseHp(nCure3HealAmount);
+			IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-		IPlayer.DecreaseMana(nMana);
+			IPlayer.IncreaseHp(Self3);
+			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+
+			IPlayer.DecreaseMana(nMana);
+		}
 		CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 		return;
 

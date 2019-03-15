@@ -40,14 +40,17 @@ void __fastcall ShieldAttack(IChar IPlayer, int pPacket, int pPos)
 			if (IPlayer.CheckHit(Target, 15))
 			{
 				Target.Buff(7, ShieldAttackBaseStunTime, 0);
-				IPlayer.OktayDamageSingle(Target,IPlayer.GetAttack()*ShieldAttackDamageMulti , 15);
+
+				IPlayer.SetDirection(Target);
 				IPlayer._ShowBattleAnimation(Target, 15);
+				IPlayer.OktayDamageSingle(Target, IPlayer.GetAttack()*ShieldAttackDamageMulti, 15);
 				IPlayer.DecreaseMana(nMana);
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 			else
 			{
+				IPlayer.SetDirection(Target);
 				IPlayer._ShowBattleMiss(Target, 15);
 				IPlayer.DecreaseMana(nMana);
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);

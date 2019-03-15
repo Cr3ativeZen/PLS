@@ -33,8 +33,9 @@ void __fastcall ShockWave(IChar IPlayer,int pPacket, int pPos)
 	{
 
 			int nDmg = (IPlayer.GetAttack()*SWBaseDmgMultiPvP) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvP) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvP) + (ISkill.GetGrade()*SWPerGradeMultiPvP);
-			IPlayer.OktayDamageSingle(Target, nDmg,9);
+			IPlayer.SetDirection(Target);
 			IPlayer._ShowBattleAnimation(Target, 9);
+			IPlayer.OktayDamageSingle(Target, nDmg, 9);
 			IPlayer.DecreaseMana(nMana);
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 			return;
@@ -42,9 +43,10 @@ void __fastcall ShockWave(IChar IPlayer,int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 	{
 		int Around = Target.GetObjectListAround(2);
-		IPlayer.SetDirection(Target);
+
 		int nDmge = (IPlayer.GetAttack()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
 		IPlayer.OktayDamageSingle(Target, nDmge, 9);
+		IPlayer.SetDirection(Target);
 		IPlayer._ShowBattleAnimation(Target, 9);
 		while (Around &&i < SWPvEMaxHits - 1)
 		{
@@ -58,8 +60,8 @@ void __fastcall ShockWave(IChar IPlayer,int pPacket, int pPos)
 					if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 					{
 						int nDmg = (IPlayer.GetAttack()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
-						IPlayer.OktayDamageSingle(Object, nDmg, 9);
 						IPlayer._ShowBattleAnimation(Object, 9);
+						IPlayer.OktayDamageSingle(Object, nDmg, 9);
 						i++;
 					}
 				}

@@ -68,7 +68,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			if (IPlayer.IsOnline() && ID == D4Instance::QuestID && D4InstanceON == true)
 			{
-				/*if (IPlayer.IsBuff(240))
+				if (IPlayer.IsBuff(240))
 				{
 					int Time = IPlayer.GetBuffRemain(240) / 60;
 					std::string msg = "You need to wait ";
@@ -84,7 +84,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 					IPlayer.SystemMessage(msg.c_str(), TEXTCOLOR_RED);
 					return;
-				}*/
+				}
 
 				if (D4Instance::IsUp == true)
 				{
@@ -116,7 +116,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (Party)
 				{
-					/*for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
 						IChar IMembers((void*)*(DWORD*)((void*)i));
@@ -130,7 +130,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							IPlayer.SystemMessage("Some of your partymates still have Instance Cooldown.", TEXTCOLOR_RED);
 							return;
 						}
-					}*/
+					}
 
 					void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
@@ -620,19 +620,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if ((SkillID == 10) && CureON == true)
 				{
-					Cure(IPlayer,kappa,pPos);
+					Cure(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if ((SkillID == 22) && CureON == true)
 				{
-					Cure2(IPlayer, kappa, pPos);
+					Cure2(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if ((SkillID == 35) && CureON == true)
 				{
-					Cure3(IPlayer, kappa, pPos);
+					Cure3(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
@@ -772,25 +772,25 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 				if (SkillID == 21 && MysteriousArrowON == true)
 				{
-					MysteriousArrow(IPlayer,kappa, pPos);
+					MysteriousArrow(IPlayer, kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 6 && FlamyArrowON == true)
 				{
-					FlamyArrow(IPlayer, kappa, pPos);
+					FlamyArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 4 && PassiveAttackON == true)
 				{
-					PassiveAttack(IPlayer, kappa, pPos);
+					PassiveAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 14 && BlowUpArrowON == true)
 				{
-					BlowUpArrow(IPlayer, kappa, pPos);
+					BlowUpArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 

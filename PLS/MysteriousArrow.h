@@ -41,13 +41,10 @@ void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 			IPlayer.OktayDamageSingle(Target, nDmg, 21);
 			IPlayer._ShowBattleAnimation(Target, 21);
 			IPlayer.DecreaseMana(nMana);
-			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-			return;
 		}
 		else
 		{
 			IPlayer._ShowBattleMiss(Target, 21);
-			IPlayer.DecreaseMana(nMana);
 		}
 	}
 
@@ -65,16 +62,14 @@ void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 			int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
 			IPlayer.OktayDamageSingle(Target, nDmg, 21);
 			IPlayer._ShowBattleAnimation(Target, 21);
-			IPlayer.DecreaseMana(nMana);
-			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-			return;
 		}
 		else
 		{
 			IPlayer._ShowBattleMiss(Target, 21);
-			IPlayer.DecreaseMana(nMana);
+
 		}
 	}
+	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 #endif

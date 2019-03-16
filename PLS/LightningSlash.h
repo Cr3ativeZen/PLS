@@ -2,11 +2,13 @@
 #define _LIGHTNINGSLASH_H
 #include "ServerFunctions.h"
 
-void __fastcall LightningSlash(IChar IPlayer,int pPacket, int pPos)
+void __fastcall LightningSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 
-	int i = 0;
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(3));
+
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
+
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -64,6 +66,7 @@ void __fastcall LightningSlash(IChar IPlayer,int pPacket, int pPos)
 				IPlayer._ShowBattleMiss(Target, 3);
 			}
 		}
+		int i = 0;
 		while (Around&&i < LSPvEMaxHits - 1)
 		{
 

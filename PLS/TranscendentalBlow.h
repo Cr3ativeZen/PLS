@@ -2,10 +2,10 @@
 #define _TRANSCENDENTALBLOW_H
 #include "ServerFunctions.h"
 
-void __fastcall TranscendentalBlow(IChar IPlayer,int pPacket, int pPos)
+void __fastcall TranscendentalBlow(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(5));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

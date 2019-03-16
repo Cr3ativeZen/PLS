@@ -1,9 +1,10 @@
 #ifndef _PURIFICATION_H
 #define _PURIFICATION_H
 #include "ResetContinueSkill.h"
-void __fastcall Purification(IChar IPlayer,int pPacket, int pPos)
+void __fastcall Purification(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(54));
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
 

@@ -1,8 +1,9 @@
 #ifndef BRUTALATTACK_H
 #define BRUTALATTACK_H
-void __fastcall BrutalAttack(IChar IPlayer,int pPacket, int pPos)
+void __fastcall BrutalAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(17));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

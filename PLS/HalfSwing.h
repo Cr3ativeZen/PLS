@@ -1,8 +1,9 @@
 #ifndef HALFSWING_H
 #define HALFSWING_H
-void __fastcall HalfSwing(IChar IPlayer,int pPacket, int pPos)
+void __fastcall HalfSwing(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(25));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

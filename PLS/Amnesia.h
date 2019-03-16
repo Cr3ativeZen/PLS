@@ -1,8 +1,9 @@
 #ifndef _AMNESIA_H
 #define _AMNESIA_H
-void __fastcall Amnesia(IChar IPlayer,int pPacket, int pPos)
+void __fastcall Amnesia(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(61));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
 

@@ -2,9 +2,10 @@
 #define _SHOCKWAVE_H
 #include "ServerFunctions.h"
 
-void __fastcall ShockWave(IChar IPlayer,int pPacket, int pPos)
+void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(9));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

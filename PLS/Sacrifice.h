@@ -2,9 +2,10 @@
 #define _SACRIFICE_H
 #include "ServerFunctions.h"
 
-void __fastcall Sacrifice(IChar IPlayer,int pPacket, int pPos)
+void __fastcall Sacrifice(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(26));
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
 

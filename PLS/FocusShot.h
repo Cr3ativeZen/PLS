@@ -1,11 +1,10 @@
 #ifndef _FOCUSSHOT_H
 #define _FOCUSSHOT_H
 
-void __fastcall FocusShot(IChar IPlayer, int pPacket, int pPos)
+void __fastcall FocusShot(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	
-
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(16));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

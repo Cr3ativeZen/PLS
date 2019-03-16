@@ -1,8 +1,9 @@
 #ifndef CHAINLIGHTNING_H
 #define CHAINLIGHTNING_H
-void __fastcall ChainLightning(IChar IPlayer,int pPacket, int pPos)
+void __fastcall ChainLightning(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(41));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);

@@ -546,44 +546,44 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 26 && SacrificeON == true)
 				{
-					Sacrifice(IPlayer,kappa, pPos);
+					Sacrifice(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 15 && ShieldAttackON== true)
 				{
-					ShieldAttack(IPlayer, kappa, pPos);
+					ShieldAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 3 && LightningSlashON == true)
 				{
-					LightningSlash(IPlayer, kappa, pPos);
+					LightningSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 5 && TranscendentalBlowON == true)
 				{
-					TranscendentalBlow(IPlayer, kappa, pPos);
+					TranscendentalBlow(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 
 				if (SkillID == 16 && PowerfulUpwardSlashON == true)
 				{
-					PowerfulUpwardSlash(IPlayer, kappa, pPos);
+					PowerfulUpwardSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 17 && BrutalAttackON == true)
 				{
-					BrutalAttack(IPlayer, kappa, pPos);
+					BrutalAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 25 && HalfSwingON == true)
 				{
-					HalfSwing(IPlayer, kappa, pPos);
+					HalfSwing(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
@@ -619,7 +619,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			{
 				if (SkillID == 8 && HealON == true)
 				{
-					Heal(IPlayer);
+					Heal(pSkill, kappa, (int)IPlayer.GetOffset());
 					return;
 				}
 
@@ -643,33 +643,33 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 9 && ShockWaveON == true)
 				{
-					ShockWave(IPlayer, kappa, pPos);
+					ShockWave(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 61 && AmnesiaON == true)
 				{
-					Amnesia(IPlayer,kappa, pPos);
+					Amnesia(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 54 && PurificationON == true)
 				{
-					Purification(IPlayer,kappa, pPos);
+					Purification(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
 				}
 
 				
 
 				if (SkillID == 34 && SummonsON == true)
 				{
-					Summons(IPlayer,kappa, pPos);
+					Summons(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 
 				if (SkillID == 41 &&ChainLightningON==true)
 				{
-					ChainLightning(IPlayer,kappa, pPos);
+					ChainLightning(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
@@ -772,12 +772,13 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 16 && IPlayer.IsValid() && FocusShotON== true)
 				{
-					FocusShot(IPlayer, kappa, pPos);
+					FocusShot(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
+
 				if (SkillID == 21 && MysteriousArrowON == true)
 				{
-					MysteriousArrow(IPlayer, kappa, pPos);
+					MysteriousArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
@@ -801,12 +802,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 10 && MuscleSolidationON == true)
 				{
-					MuscleSolidation(IPlayer);
+					MuscleSolidation(pSkill, kappa, (int)IPlayer.GetOffset());
 					return;
 				}
 				if (SkillID == 45 && BuffRemoverON == true)
 				{
-					BuffRemover(IPlayer, kappa, pPos);
+					BuffRemover(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
 				}
 
 				if (SkillID == 47 && IPlayer.GetSpecialty() == 23 && ArrowRainON == true)

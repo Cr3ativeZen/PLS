@@ -1,9 +1,10 @@
 
 #ifndef _BUFFREMOVER_H
 #define _BUFFREMOVER_H
-void __fastcall BuffRemover(IChar IPlayer,int pPacket, int pPos)
+void __fastcall BuffRemover(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(45));
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
 

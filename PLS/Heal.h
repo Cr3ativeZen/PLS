@@ -1,8 +1,9 @@
 #include "ServerFunctions.h"
-void __fastcall Heal(IChar IPlayer)
+void __fastcall Heal(int Skill, int a4, int Player)
 {
 
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(8));
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)Skill);
 
 	int nSkillGrade = ISkill.GetGrade();
 

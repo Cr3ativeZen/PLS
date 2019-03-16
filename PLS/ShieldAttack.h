@@ -2,9 +2,10 @@
 #define _SHIELDATTACK_H
 #include "ServerFunctions.h"
 
-void __fastcall ShieldAttack(IChar IPlayer, int pPacket, int pPos)
+void __fastcall ShieldAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(15));
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

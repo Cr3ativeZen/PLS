@@ -1,10 +1,10 @@
 #ifndef _SUMMONS_H
 #define _SUMMONS_H
 #include "ServerFunctions.h"
-void __fastcall Summons(IChar IPlayer,int pPacket, int pPos)
+void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(34));
+	IChar IPlayer((void*)Player);
+	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
 

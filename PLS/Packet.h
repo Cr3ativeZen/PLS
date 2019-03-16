@@ -456,6 +456,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		}
 		if (packet == 16)
 		{
+
 			int SkillID = 0;
 			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
 			int pSkill = IPlayer.GetSkillPointer(SkillID);
@@ -496,8 +497,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
 			}
 
-
-
+			std::ofstream SkillLog;
+			time_t my_time = time(NULL);
+			std::string SkillLogFile = "./Log/LogSkillUse.txt";
+			SkillLog.open(SkillLogFile, std::ios_base::out | std::ios::app);
+			SkillLog << "------|Name: " << IPlayer.GetName() << "------|Class: " << IPlayer.GetClass() << "------|SkillID: " <<SkillID << std::endl;
+			SkillLog.close();
 			
 			if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
 			{
@@ -761,13 +766,13 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			{
 				if (SkillID == 18 &&LifeAbsorptionON==true)
 				{
-					LifeAbsorption(IPlayer,kappa,pPos);
+					LifeAbsorption(pSkill, edx, IPlayer.GetOffset(), (char*)kappa, (char*)pPos);
 					return;
 				}
 
 				if (SkillID == 16 && IPlayer.IsValid() && FocusShotON== true)
 				{
-					FocusShot(IPlayer,kappa, pPos);
+					FocusShot(IPlayer, kappa, pPos);
 					return;
 				}
 				if (SkillID == 21 && MysteriousArrowON == true)

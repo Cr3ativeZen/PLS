@@ -1,9 +1,11 @@
 #ifndef LIFEABSORPTION_H
 #define LIFEABSORPTION_H
 
-void __fastcall LifeAbsorption(IChar IPlayer,int pPacket, int pPos)
+void __fastcall LifeAbsorption(int pSkill, void *edx, void *pPlayer, char *pPacket, char *pPos)
 {
-	ISkill ISkill((void*)IPlayer.GetSkillPointer(18));
+
+	IChar IPlayer(pPlayer);
+	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -20,20 +22,14 @@ void __fastcall LifeAbsorption(IChar IPlayer,int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar ITarget(pTarget);
 
 	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
 	{
-		if (IPlayer.GetCurMp() < nMana)
-			return;
 
-		if (!IPlayer.IsInRange(ITarget, 300))
-			return;
-
-		(*(void(__thiscall **)(int, int))(*(DWORD*)ITarget.GetOffset() + 80))((int)ITarget.GetOffset(), (int)IPlayer.GetOffset());
 		int nDmg = (IPlayer.GetAttack()*LAbsBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*LAbsAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*LAbsStrMultiPvE) + (nSkillGrade*LAbsPerGradeMultiPvE);
 
 		if (ITarget.GetType() == 0)

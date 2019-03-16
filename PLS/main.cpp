@@ -155,90 +155,90 @@ std::map<int, DWORD> CODelay;
 std::map<int, int>CheckFocus;
 
 
-int HealBasePercentage;
-int HealPerGradePercentage;
-int HealBase;
-int HealWisdom;
+int HealBasePercentage = 0;
+int HealPerGradePercentage = 0;
+int HealBase = 0;
+int HealWisdom = 0;
 
-int SacrificeBaseHeal;
-int SacrificeBasePercentageHeal;
-int SacrificeHealPerGradePercentage;
+int SacrificeBaseHeal = 0;
+int SacrificeBasePercentageHeal = 0;
+int SacrificeHealPerGradePercentage = 0;
 
-int SacrificeBaseLoss;
-int SacrificeBasePercentageLoss;
-int SacrificeLossPerGradePercentage;
+int SacrificeBaseLoss = 0;
+int SacrificeBasePercentageLoss = 0;
+int SacrificeLossPerGradePercentage = 0;
 
-int CureBase;
-int CureBasePercentage;
-int CurePerGradePercentage;
-int CureWisdom;
+int CureBase = 0;
+int CureBasePercentage = 0;
+int CurePerGradePercentage = 0;
+int CureWisdom = 0;
 
-int CureBase2;
-int CureBasePercentage2;
-int CurePerGradePercentage2;
-int Cure2Wisdom;
+int CureBase2 = 0;
+int CureBasePercentage2 = 0;
+int CurePerGradePercentage2 = 0;
+int Cure2Wisdom = 0;
 
-int CureBase3;
-int CureBasePercentage3;
-int CurePerGradePercentage3;
-int Cure3Wisdom;
+int CureBase3 = 0;
+int CureBasePercentage3 = 0;
+int CurePerGradePercentage3 = 0;
+int Cure3Wisdom = 0;
 
-int CallofHealBase;
-int CallofHealBasePercentage;
-int CallofHealPerGradePercentage;
+int CallofHealBase = 0;
+int CallofHealBasePercentage = 0;
+int CallofHealPerGradePercentage = 0;
 
-int AmensiaBaseDmgMulti;
-int AmnesiaWisMulti;
-int AmnesiaDmgPercentIncreaseBless;
+int AmensiaBaseDmgMulti = 0;
+int AmnesiaWisMulti = 0;
+int AmnesiaDmgPercentIncreaseBless = 0;
 
-int BlowUpBaseDmgMultiPvE;
-int BlowUpAgiMultiPvE;
-int BlowUpStrMultiPvE;
-int BlowUpPerGradeMultiPvE;
+int BlowUpBaseDmgMultiPvE = 0;
+int BlowUpAgiMultiPvE = 0;
+int BlowUpStrMultiPvE = 0;
+int BlowUpPerGradeMultiPvE = 0;
 
-int BlowUpBaseDmgMultiPvP;
-int BlowUpAgiMultiPvP;
-int BlowUpStrMultiPvP;
-int BlowUpPerGradeMultiPvP;
-int BlowUpPvEMaxHits;
+int BlowUpBaseDmgMultiPvP = 0;
+int BlowUpAgiMultiPvP = 0;
+int BlowUpStrMultiPvP = 0;
+int BlowUpPerGradeMultiPvP = 0;
+int BlowUpPvEMaxHits = 0;
 
-int PassiveAttackBaseFreezeTime;
-int PassiveAttackPerGradeFreezeTime;
-
-
+int PassiveAttackBaseFreezeTime = 0;
+int PassiveAttackPerGradeFreezeTime = 0;
 
 
-int FABaseDamageMultiPvE;
-int FAAGiMultiPvE;
-int FAStrMultiPvE;
-int FAPerGradeMultiPvE;
-int FADoTBasePvE;
-int FADoTPerGradePvE;
-
-int FABaseDamageMultiPvP;
-int FAAGiMultiPvP;
-int FAStrMultiPvP;
-int FAPerGradeMultiPvP;
-int FADoTBasePvP;
-int FADoTPerGradePvP;
-
-int FADurationBase;
-int FADurationPerGrade;
 
 
-int MABaseDmgMultiPvE;
-int MAAgiMultiPvE;
-int MAStrMultiPvE;
-int MAPerGradeMultiPvE;
-int MADoTPerGradePvE;
+int FABaseDamageMultiPvE = 0;
+int FAAGiMultiPvE = 0;
+int FAStrMultiPvE = 0;
+int FAPerGradeMultiPvE = 0;
+int FADoTBasePvE = 0;
+int FADoTPerGradePvE = 0;
 
-int MABaseDmgMultiPvP;
-int MAAgiMultiPvP;
-int MAStrMultiPvP;
-int MAPerGradeMultiPvP;
-int MADoTPerGradePvP;
+int FABaseDamageMultiPvP = 0;
+int FAAGiMultiPvP = 0;
+int FAStrMultiPvP = 0;
+int FAPerGradeMultiPvP = 0;
+int FADoTBasePvP = 0;
+int FADoTPerGradePvP = 0;
 
-int MADoTDuration;
+int FADurationBase = 0;
+int FADurationPerGrade = 0;
+
+
+int MABaseDmgMultiPvE = 0;
+int MAAgiMultiPvE = 0;
+int MAStrMultiPvE = 0;
+int MAPerGradeMultiPvE = 0;
+int MADoTPerGradePvE = 0;
+
+int MABaseDmgMultiPvP = 0;
+int MAAgiMultiPvP = 0;
+int MAStrMultiPvP = 0;
+int MAPerGradeMultiPvP = 0;
+int MADoTPerGradePvP = 0;
+
+int MADoTDuration = 0;
 
 
 
@@ -260,568 +260,568 @@ int ShieldAttackDamageMulti = 1;
 
 
 
-int LSBaseDmgMultiPvE;
-int LSAgiMultiPvE;
-int LSStrMultiPvE;
-int LSPerGradeMultiPvE;
+int LSBaseDmgMultiPvE = 0;
+int LSAgiMultiPvE = 0;
+int LSStrMultiPvE = 0;
+int LSPerGradeMultiPvE = 0;
 
-int LSBaseDmgMultiPvP;
-int LSAgiMultiPvP;
-int LSStrMultiPvP;
-int LSPerGradeMultiPvP;
-int LSPvEMaxHits;
+int LSBaseDmgMultiPvP = 0;
+int LSAgiMultiPvP = 0;
+int LSStrMultiPvP = 0;
+int LSPerGradeMultiPvP = 0;
+int LSPvEMaxHits = 0;
 
 
-int TBBaseDmgMultiPvE;
-int TBAgiMultiPvE;
-int TBStrMultiPvE;
-int TBPerGradeMultiPvE;
+int TBBaseDmgMultiPvE = 0;
+int TBAgiMultiPvE = 0;
+int TBStrMultiPvE = 0;
+int TBPerGradeMultiPvE = 0;
 
-int TBBaseDmgMultiPvP;
-int TBAgiMultiPvP;
-int TBStrMultiPvP;
-int TBPerGradeMultiPvP;
-int TBPvEMaxHits;
+int TBBaseDmgMultiPvP = 0;
+int TBAgiMultiPvP = 0;
+int TBStrMultiPvP = 0;
+int TBPerGradeMultiPvP = 0;
+int TBPvEMaxHits = 0;
 
-int SWBaseDmgMultiPvE;
-int SWWisMultiPvE;
-int SWIntMultiPvE;
-int SWPerGradeMultiPvE;
+int SWBaseDmgMultiPvE = 0;
+int SWWisMultiPvE = 0;
+int SWIntMultiPvE = 0;
+int SWPerGradeMultiPvE = 0;
 
-int SWBaseDmgMultiPvP;
-int SWWisMultiPvP;
-int SWIntMultiPvP;
-int SWPerGradeMultiPvP;
-int SWPvEMaxHits;
+int SWBaseDmgMultiPvP = 0;
+int SWWisMultiPvP = 0;
+int SWIntMultiPvP = 0;
+int SWPerGradeMultiPvP = 0;
+int SWPvEMaxHits = 0;
 
 
 
 //Third job skills (my way)
-int ARBaseDmgMultiPvE;
-int ARAgiMultiPvE;
-int ARStrMultiPvE;
-int ARPerGradeMultiPvE;
-
-int ARBaseDmgMultiPvP;
-int ARAgiMultiPvP;
-int ARStrMultiPvP;
-int ARPerGradeMultiPvP;
-
-int CSBaseDmgMultiPvE;
-int CSAgiMultiPvE;
-int CSStrMultiPvE;
-int CSPerGradeMultiPvE;
-
-int CSBaseDmgMultiPvP;
-int CSAgiMultiPvP;
-int CSStrMultiPvP;
-int CSPerGradeMultiPvP;
-
-int AEBaseDmgMultiPvE;
-int AEAgiMultiPvE;
-int AEStrMultiPvE;
-int AEPerGradeMultiPvE;
-
-int AEBaseDmgMultiPvP;
-int AEAgiMultiPvP;
-int AEStrMultiPvP;
-int AEPerGradeMultiPvP;
-
-int VAPerGradeDoTPvE;
-int VABaseDoTPvE;
-
-int VAPerGradeDoTPvP;
-int VABaseDoTPvP;
-
-int VABaseDmgMultiPvE;
-int VAAgiMultiPvE;
-int VAStrMultiPvE;
-int VAPerGradeMultiPvE;
-
-int VABaseDmgMultiPvP;
-int VAAgiMultiPvP;
-int VAStrMultiPvP;
-int VAPerGradeMultiPvP;
-
-int VADuration;
-
-int SHSBaseDmgMultiPvE;
-int SHSAgiMultiPvE;
-int SHSStrMultiPvE;
-int SHSPerGradeMultiPvE;
-
-int SHSBaseDmgMultiPvP;
-int SHSAgiMultiPvP;
-int SHSStrMultiPvP;
-int SHSPerGradeMultiPvP;
-int SHSStunDuration;
-int SHSStunDurationPerGrade;
-
-int LSTBaseDmgMultiPvE;
-int LSTAgiMultiPvE;
-int LSTStrMultiPvE;
-int LSTPerGradeMultiPvE;
-
-int LSTBaseDmgMultiPvP;
-int LSTAgiMultiPvP;
-int LSTStrMultiPvP;
-int LSTPerGradeMultiPvP;
-
-int SBBaseDmgMultiPvE;
-int SBAgiMultiPvE;
-int SBStrMultiPvE;
-int SBPerGradeMultiPvE;
-
-int SBBaseDmgMultiPvP;
-int SBAgiMultiPvP;
-int SBStrMultiPvP;
-int SBPerGradeMultiPvP;
-
-int WOHBaseDmgMultiPvE;
-int WOHAgiMultiPvE;
-int WOHStrMultiPvE;
-int WOHPerGradeMultiPvE;
-
-int WOHBaseDmgMultiPvP;
-int WOHAgiMultiPvP;
-int WOHStrMultiPvP;
-int WOHPerGradeMultiPvP;
-
-int SSBaseDmgMultiPvE;
-int SSAgiMultiPvE;
-int SSStrMultiPvE;
-int SSPerGradeMultiPvE;
-
-int SSBaseDmgMultiPvP;
-int SSAgiMultiPvP;
-int SSStrMultiPvP;
-int SSPerGradeMultiPvP;
-
-int SSMultiWhenZerk;
+int ARBaseDmgMultiPvE = 0;
+int ARAgiMultiPvE = 0;
+int ARStrMultiPvE = 0;
+int ARPerGradeMultiPvE = 0;
+
+int ARBaseDmgMultiPvP = 0;
+int ARAgiMultiPvP = 0;
+int ARStrMultiPvP = 0;
+int ARPerGradeMultiPvP = 0;
+
+int CSBaseDmgMultiPvE = 0;
+int CSAgiMultiPvE = 0;
+int CSStrMultiPvE = 0;
+int CSPerGradeMultiPvE = 0;
+
+int CSBaseDmgMultiPvP = 0;
+int CSAgiMultiPvP = 0;
+int CSStrMultiPvP = 0;
+int CSPerGradeMultiPvP = 0;
+
+int AEBaseDmgMultiPvE = 0;
+int AEAgiMultiPvE = 0;
+int AEStrMultiPvE = 0;
+int AEPerGradeMultiPvE = 0;
+
+int AEBaseDmgMultiPvP = 0;
+int AEAgiMultiPvP = 0;
+int AEStrMultiPvP = 0;
+int AEPerGradeMultiPvP = 0;
+
+int VAPerGradeDoTPvE = 0;
+int VABaseDoTPvE = 0;
+
+int VAPerGradeDoTPvP = 0;
+int VABaseDoTPvP = 0;
+
+int VABaseDmgMultiPvE = 0;
+int VAAgiMultiPvE = 0;
+int VAStrMultiPvE = 0;
+int VAPerGradeMultiPvE = 0;
+
+int VABaseDmgMultiPvP = 0;
+int VAAgiMultiPvP = 0;
+int VAStrMultiPvP = 0;
+int VAPerGradeMultiPvP = 0;
+
+int VADuration = 0;
+
+int SHSBaseDmgMultiPvE = 0;
+int SHSAgiMultiPvE = 0;
+int SHSStrMultiPvE = 0;
+int SHSPerGradeMultiPvE = 0;
+
+int SHSBaseDmgMultiPvP = 0;
+int SHSAgiMultiPvP = 0;
+int SHSStrMultiPvP = 0;
+int SHSPerGradeMultiPvP = 0;
+int SHSStunDuration = 0;
+int SHSStunDurationPerGrade = 0;
+
+int LSTBaseDmgMultiPvE = 0;
+int LSTAgiMultiPvE = 0;
+int LSTStrMultiPvE = 0;
+int LSTPerGradeMultiPvE = 0;
+
+int LSTBaseDmgMultiPvP = 0;
+int LSTAgiMultiPvP = 0;
+int LSTStrMultiPvP = 0;
+int LSTPerGradeMultiPvP = 0;
+
+int SBBaseDmgMultiPvE = 0;
+int SBAgiMultiPvE = 0;
+int SBStrMultiPvE = 0;
+int SBPerGradeMultiPvE = 0;
+
+int SBBaseDmgMultiPvP = 0;
+int SBAgiMultiPvP = 0;
+int SBStrMultiPvP = 0;
+int SBPerGradeMultiPvP = 0;
+
+int WOHBaseDmgMultiPvE = 0;
+int WOHAgiMultiPvE = 0;
+int WOHStrMultiPvE = 0;
+int WOHPerGradeMultiPvE = 0;
+
+int WOHBaseDmgMultiPvP = 0;
+int WOHAgiMultiPvP = 0;
+int WOHStrMultiPvP = 0;
+int WOHPerGradeMultiPvP = 0;
+
+int SSBaseDmgMultiPvE = 0;
+int SSAgiMultiPvE = 0;
+int SSStrMultiPvE = 0;
+int SSPerGradeMultiPvE = 0;
+
+int SSBaseDmgMultiPvP = 0;
+int SSAgiMultiPvP = 0;
+int SSStrMultiPvP = 0;
+int SSPerGradeMultiPvP = 0;
+
+int SSMultiWhenZerk = 0;
 
-int SDBaseDmgMultiPvE;
-int SDAgiMultiPvE;
-int SDStrMultiPvE;
-int SDPerGradeMultiPvE;
+int SDBaseDmgMultiPvE = 0;
+int SDAgiMultiPvE = 0;
+int SDStrMultiPvE = 0;
+int SDPerGradeMultiPvE = 0;
 
-int SDBaseDmgMultiPvP;
-int SDAgiMultiPvP;
-int SDStrMultiPvP;
-int SDPerGradeMultiPvP;
+int SDBaseDmgMultiPvP = 0;
+int SDAgiMultiPvP = 0;
+int SDStrMultiPvP = 0;
+int SDPerGradeMultiPvP = 0;
 
 
-int PoBBaseDmgMultiPvE;
-int PoBAgiMultiPvE;
-int PoBStrMultiPvE;
-int PoBPerGradeMultiPvE;
-int PoBDmgPercentIncreasePDPvE;
+int PoBBaseDmgMultiPvE = 0;
+int PoBAgiMultiPvE = 0;
+int PoBStrMultiPvE = 0;
+int PoBPerGradeMultiPvE = 0;
+int PoBDmgPercentIncreasePDPvE = 0;
 
-int PoBBaseDmgMultiPvP;
-int PoBAgiMultiPvP;
-int PoBStrMultiPvP;
-int PoBPerGradeMultiPvP;
-int PoBHostilityMultiplier;
+int PoBBaseDmgMultiPvP = 0;
+int PoBAgiMultiPvP = 0;
+int PoBStrMultiPvP = 0;
+int PoBPerGradeMultiPvP = 0;
+int PoBHostilityMultiplier = 0;
 
 
-int TTBaseHeal;
-int TTPerGradeHeal;
-int TTWisdom;
-int TTDuration;
+int TTBaseHeal = 0;
+int TTPerGradeHeal = 0;
+int TTWisdom = 0;
+int TTDuration = 0;
 
-int ICIBaseDmgMultiPvE;
-int ICIIntMultiPvE;
-int ICIPerGradeMultiPvE;
+int ICIBaseDmgMultiPvE = 0;
+int ICIIntMultiPvE = 0;
+int ICIPerGradeMultiPvE = 0;
 
-int ICIBaseDmgMultiPvP;
-int ICIIntMultiPvP;
-int ICIPerGradeMultiPvP;
-int ICIColdBindDuration;
+int ICIBaseDmgMultiPvP = 0;
+int ICIIntMultiPvP = 0;
+int ICIPerGradeMultiPvP = 0;
+int ICIColdBindDuration = 0;
 
 
-int FIBaseDmgMultiPvE;
-int FIIntMultiPvE;
-int FIPerGradeMultiPvE;
+int FIBaseDmgMultiPvE = 0;
+int FIIntMultiPvE = 0;
+int FIPerGradeMultiPvE = 0;
 
-int FIBaseDmgMultiPvP;
-int FIIntMultiPvP;
-int FIPerGradeMultiPvP;
+int FIBaseDmgMultiPvP = 0;
+int FIIntMultiPvP = 0;
+int FIPerGradeMultiPvP = 0;
 
-int TBoltMBaseDmgMultiPvE;
-int TBoltMIntMultiPvE;
-int TBoltMPerGradeMultiPvE;
+int TBoltMBaseDmgMultiPvE = 0;
+int TBoltMIntMultiPvE = 0;
+int TBoltMPerGradeMultiPvE = 0;
 
-int TBoltMBaseDmgMultiPvP;
-int TBoltMIntMultiPvP;
-int TBoltMPerGradeMultiPvP;
+int TBoltMBaseDmgMultiPvP = 0;
+int TBoltMIntMultiPvP = 0;
+int TBoltMPerGradeMultiPvP = 0;
 
-int IAMBaseDmgMultiPvE;
-int IAMIntMultiPvE;
-int IAMPerGradeMultiPvE;
-
-int IAMBaseDmgMultiPvP;
-int IAMIntMultiPvP;
-int IAMPerGradeMultiPvP;
-
-int FBBaseDmgMultiPvE;
-int FBIntMultiPvE;
-int FBPerGradeMultiPvE;
-
-int FBBaseDmgMultiPvP;
-int FBIntMultiPvP;
-int FBPerGradeMultiPvP;
+int IAMBaseDmgMultiPvE = 0;
+int IAMIntMultiPvE = 0;
+int IAMPerGradeMultiPvE = 0;
+
+int IAMBaseDmgMultiPvP = 0;
+int IAMIntMultiPvP = 0;
+int IAMPerGradeMultiPvP = 0;
+
+int FBBaseDmgMultiPvE = 0;
+int FBIntMultiPvE = 0;
+int FBPerGradeMultiPvE = 0;
+
+int FBBaseDmgMultiPvP = 0;
+int FBIntMultiPvP = 0;
+int FBPerGradeMultiPvP = 0;
 
-int LABaseDmgMultiPvE;
-int LAIntMultiPvE;
-int LAPerGradeMultiPvE;
-
-int LABaseDmgMultiPvP;
-int LAIntMultiPvP;
-int LAPerGradeMultiPvP;
-
-int LAActivationBaseDmgMultiPvE;
-int LAActivationIntMultiPvE;
-int LAActivationPerGradeMultiPvE;
-
-int LAActivationBaseDmgMultiPvP;
-int LAActivationIntMultiPvP;
-int LAActivationPerGradeMultiPvP;
-
-int LADuration;
-
-
-int COChanceToPopBase;
-int COChanceToPopPerGrade;
-
-int CODamageMultiPvE;
-int CODamageMultiPvP;
-int COBaseDamagePvE;
-int COBaseDamagePvP;
-
-int CAChanceToPopBase;
-int CAChanceToPopPerGrade;
-
-int CADamageMultiPvE;
-int CADamageMultiPvP;
-int CABaseDamagePvE;
-int CABaseDamagePvP;
-
-//int DoKDamageMultiPvE;
-//int DoKDamageMultiPvP;
-
-int SABaseDmgMultiPvE;
-int SAAgiMultiPvE;
-int SAStrMultiPvE;
-int SAPerGradeMultiPvE;
-
-int SABaseDmgMultiPvP;
-int SAAgiMultiPvP;
-int SAStrMultiPvP;
-int SAPerGradeMultiPvP;
-
-int ABreakerAdditionalDamage;
-int ABreakerDuration;
-int ABreakerDurationPerGrade;
-int ABreakerAdditionalDamagePerGrade;
-
-int TBSBaseDmgMultiPvE;
-int TBSAgiMultiPvE;
-int TBSStrMultiPvE;
-
-int TBSBaseDmgMultiPvP;
-int TBSAgiMultiPvP;
-int TBSStrMultiPvP;
-
-int FWBaseDmgMultiPvE;
-int FWAgiMultiPvE;
-int FWStrMultiPvE;
-int FWPerGradeMultiPvE;
-
-int FWBaseDmgMultiPvP;
-int FWAgiMultiPvP;
-int FWStrMultiPvP;
-int FWPerGradeMultiPvP;
-
-int FinalBBaseDmgMultiPvE;
-int FinalBAgiMultiPvE;
-int FinalBStrMultiPvE;
-int FinalBPerGradeMultiPvE;
-int FinalBMultiWhenBelowPvE;
-
-int FinalBBaseDmgMultiPvP;
-int FinalBAgiMultiPvP;
-int FinalBStrMultiPvP;
-int FinalBPerGradeMultiPvP;
-int FinalBMultiWhenBelowPvP;
-
-int TSBDamagePerHPPvE;
-int TSBBaseDmgMultiPvE;
-int TSBAgiMultiPvE;
-int TSBStrMultiPvE;
-int TSBPerGradeMultiPvE;
-
-int TSBDamagePerHPPvP;
-int TSBBaseDmgMultiPvP;
-int TSBAgiMultiPvP;
-int TSBStrMultiPvP;
-int TSBPerGradeMultiPvP;
-
-int TSBHPPercent;
-
-
-int VSBaseDmgMultiPvE;
-int VSAgiMultiPvE;
-int VSStrMultiPvE;
-int VSPerGradeMultiPvE;
-int VSDmgMultiWhenBelowPvE;
+int LABaseDmgMultiPvE = 0;
+int LAIntMultiPvE = 0;
+int LAPerGradeMultiPvE = 0;
+
+int LABaseDmgMultiPvP = 0;
+int LAIntMultiPvP = 0;
+int LAPerGradeMultiPvP = 0;
+
+int LAActivationBaseDmgMultiPvE = 0;
+int LAActivationIntMultiPvE = 0;
+int LAActivationPerGradeMultiPvE = 0;
+
+int LAActivationBaseDmgMultiPvP = 0;
+int LAActivationIntMultiPvP = 0;
+int LAActivationPerGradeMultiPvP = 0;
+
+int LADuration = 0;
+
+
+int COChanceToPopBase = 0;
+int COChanceToPopPerGrade = 0;
+
+int CODamageMultiPvE = 0;
+int CODamageMultiPvP = 0;
+int COBaseDamagePvE = 0;
+int COBaseDamagePvP = 0;
+
+int CAChanceToPopBase = 0;
+int CAChanceToPopPerGrade = 0;
+
+int CADamageMultiPvE = 0;
+int CADamageMultiPvP = 0;
+int CABaseDamagePvE = 0;
+int CABaseDamagePvP = 0;
+
+//int DoKDamageMultiPvE = 0;
+//int DoKDamageMultiPvP = 0;
+
+int SABaseDmgMultiPvE = 0;
+int SAAgiMultiPvE = 0;
+int SAStrMultiPvE = 0;
+int SAPerGradeMultiPvE = 0;
+
+int SABaseDmgMultiPvP = 0;
+int SAAgiMultiPvP = 0;
+int SAStrMultiPvP = 0;
+int SAPerGradeMultiPvP = 0;
+
+int ABreakerAdditionalDamage = 0;
+int ABreakerDuration = 0;
+int ABreakerDurationPerGrade = 0;
+int ABreakerAdditionalDamagePerGrade = 0;
+
+int TBSBaseDmgMultiPvE = 0;
+int TBSAgiMultiPvE = 0;
+int TBSStrMultiPvE = 0;
+
+int TBSBaseDmgMultiPvP = 0;
+int TBSAgiMultiPvP = 0;
+int TBSStrMultiPvP = 0;
+
+int FWBaseDmgMultiPvE = 0;
+int FWAgiMultiPvE = 0;
+int FWStrMultiPvE = 0;
+int FWPerGradeMultiPvE = 0;
+
+int FWBaseDmgMultiPvP = 0;
+int FWAgiMultiPvP = 0;
+int FWStrMultiPvP = 0;
+int FWPerGradeMultiPvP = 0;
+
+int FinalBBaseDmgMultiPvE = 0;
+int FinalBAgiMultiPvE = 0;
+int FinalBStrMultiPvE = 0;
+int FinalBPerGradeMultiPvE = 0;
+int FinalBMultiWhenBelowPvE = 0;
+
+int FinalBBaseDmgMultiPvP = 0;
+int FinalBAgiMultiPvP = 0;
+int FinalBStrMultiPvP = 0;
+int FinalBPerGradeMultiPvP = 0;
+int FinalBMultiWhenBelowPvP = 0;
+
+int TSBDamagePerHPPvE = 0;
+int TSBBaseDmgMultiPvE = 0;
+int TSBAgiMultiPvE = 0;
+int TSBStrMultiPvE = 0;
+int TSBPerGradeMultiPvE = 0;
+
+int TSBDamagePerHPPvP = 0;
+int TSBBaseDmgMultiPvP = 0;
+int TSBAgiMultiPvP = 0;
+int TSBStrMultiPvP = 0;
+int TSBPerGradeMultiPvP = 0;
+
+int TSBHPPercent = 0;
+
+
+int VSBaseDmgMultiPvE = 0;
+int VSAgiMultiPvE = 0;
+int VSStrMultiPvE = 0;
+int VSPerGradeMultiPvE = 0;
+int VSDmgMultiWhenBelowPvE = 0;
 
-int VSBaseDmgMultiPvP;
-int VSAgiMultiPvP;
-int VSStrMultiPvP;
-int VSPerGradeMultiPvP;
-int VSDmgMultiWhenBelowPvP;
+int VSBaseDmgMultiPvP = 0;
+int VSAgiMultiPvP = 0;
+int VSStrMultiPvP = 0;
+int VSPerGradeMultiPvP = 0;
+int VSDmgMultiWhenBelowPvP = 0;
 
-int RupBaseDmgMultiPvE;
-int RupAgiMultiPvE;
-int RupStrMultiPvE;
-int RupPerGradeMultiPvE;
+int RupBaseDmgMultiPvE = 0;
+int RupAgiMultiPvE = 0;
+int RupStrMultiPvE = 0;
+int RupPerGradeMultiPvE = 0;
 
-int RupBaseDmgMultiPvP;
-int RupAgiMultiPvP;
-int RupStrMultiPvP;
-int RupPerGradeMultiPvP;
+int RupBaseDmgMultiPvP = 0;
+int RupAgiMultiPvP = 0;
+int RupStrMultiPvP = 0;
+int RupPerGradeMultiPvP = 0;
 
-int PUSBaseDmgMultiPvE;
-int PUSAgiMultiPvE;
-int PUSStrMultiPvE;
-int PUSPerGradeMultiPvE;
+int PUSBaseDmgMultiPvE = 0;
+int PUSAgiMultiPvE = 0;
+int PUSStrMultiPvE = 0;
+int PUSPerGradeMultiPvE = 0;
 
-int PUSBaseDmgMultiPvP;
-int PUSAgiMultiPvP;
-int PUSStrMultiPvP;
-int PUSPerGradeMultiPvP;
+int PUSBaseDmgMultiPvP = 0;
+int PUSAgiMultiPvP = 0;
+int PUSStrMultiPvP = 0;
+int PUSPerGradeMultiPvP = 0;
 
 
 
-int BRUTBaseDmgMultiPvE;
-int BRUTAgiMultiPvE;
-int BRUTStrMultiPvE;
-int BRUTPerGradeMultiPvE;
+int BRUTBaseDmgMultiPvE = 0;
+int BRUTAgiMultiPvE = 0;
+int BRUTStrMultiPvE = 0;
+int BRUTPerGradeMultiPvE = 0;
 
-int BRUTBaseDmgMultiPvP;
-int BRUTAgiMultiPvP;
-int BRUTStrMultiPvP;
-int BRUTPerGradeMultiPvP;
+int BRUTBaseDmgMultiPvP = 0;
+int BRUTAgiMultiPvP = 0;
+int BRUTStrMultiPvP = 0;
+int BRUTPerGradeMultiPvP = 0;
 
 
-int HSBaseDmgMultiPvE;
-int HSAgiMultiPvE;
-int HSStrMultiPvE;
-int HSPerGradeMultiPvE;
+int HSBaseDmgMultiPvE = 0;
+int HSAgiMultiPvE = 0;
+int HSStrMultiPvE = 0;
+int HSPerGradeMultiPvE = 0;
 
-int HSBaseDmgMultiPvP;
-int HSAgiMultiPvP;
-int HSStrMultiPvP;
-int HSPerGradeMultiPvP;
-
-int LAbsBaseDmgMultiPvE;
-int LAbsAgiMultiPvE;
-int LAbsStrMultiPvE;
-int LAbsPerGradeMultiPvE;
+int HSBaseDmgMultiPvP = 0;
+int HSAgiMultiPvP = 0;
+int HSStrMultiPvP = 0;
+int HSPerGradeMultiPvP = 0;
+
+int LAbsBaseDmgMultiPvE = 0;
+int LAbsAgiMultiPvE = 0;
+int LAbsStrMultiPvE = 0;
+int LAbsPerGradeMultiPvE = 0;
 
-int LAbsBaseDmgMultiPvP;
-int LAbsAgiMultiPvP;
-int LAbsStrMultiPvP;
-int LAbsPerGradeMultiPvP;
+int LAbsBaseDmgMultiPvP = 0;
+int LAbsAgiMultiPvP = 0;
+int LAbsStrMultiPvP = 0;
+int LAbsPerGradeMultiPvP = 0;
 
-//int LAbsHealBase;
-int LAbsHealPerGrade;
+//int LAbsHealBase = 0;
+int LAbsHealPerGrade = 0;
 
-int FSBaseDmgMultiPvE;
-int FSAgiMultiPvE;
-int FSStrMultiPvE;
-int FSPerGradeMultiPvE;
+int FSBaseDmgMultiPvE = 0;
+int FSAgiMultiPvE = 0;
+int FSStrMultiPvE = 0;
+int FSPerGradeMultiPvE = 0;
 
-int FSBaseDmgMultiPvP;
-int FSAgiMultiPvP;
-int FSStrMultiPvP;
-int FSPerGradeMultiPvP;
+int FSBaseDmgMultiPvP = 0;
+int FSAgiMultiPvP = 0;
+int FSStrMultiPvP = 0;
+int FSPerGradeMultiPvP = 0;
 
-
-int CLBaseDmgMultiPvE;
-int CLIntMultiPvE;
-int CLBaseDmgMultiPvP;
-int CLIntMultiPvP;
-
-
-int IStormBaseDmgMultiPvE;
-int IStormIntMultiPvE;
-int IStormBaseDmgMultiPvP;
-int IStormIntMultiPvP;
-
-int TStormBaseDmgMultiPvE;
-int TStormIntMultiPvE;
-int TStormBaseDmgMultiPvP;
-int TStormIntMultiPvP;
-
-int FStormBaseDmgMultiPvE;
-int FStormIntMultiPvE;
-int FStormBaseDmgMultiPvP;
-int FStormIntMultiPvP;
-
-
-int BSBaseDmgMultiPvE;
-int BSBaseDmgMultiPvP;
-
-int EggTBBaseDmgMultiPvE;
-int EggTBBaseDmgMultiPvP;
-
-int WFBaseDmgMultiPvE;
-int WFBaseDmgMultiPvP;
-
-int RABaseDmgMultiPvE;
-int RABaseDmgMultiPvP;
-
-int AnkleAPercentDamageIncreasePvE;
-int AnkleAPercentDamageIncreasePvP;
-
-
-int AOTMBaseDmgMultiPvE;
-int AOTMAgiMultiPvE;
-int AOTMStrMultiPvE;
-int AOTMPerGradeMultiPvE;
-
-int AOTMBaseDmgMultiPvP;
-int AOTMAgiMultiPvP;
-int AOTMStrMultiPvP;
-int AOTMPerGradeMultiPvP;
-
-int OHSBaseDmgMultiPvE;
-int OHSAgiMultiPvE;
-int OHSStrMultiPvE;
-int OHSPerGradeMultiPvE;
-
-int OHSBaseDmgMultiPvP;
-int OHSAgiMultiPvP;
-int OHSStrMultiPvP;
-int OHSPerGradeMultiPvP;
-
-int MFBaseDmgMultiPvE;
-int MFAgiMultiPvE;
-int MFStrMultiPvE;
-int MFPerGradeMultiPvE;
-
-int MFBaseDmgMultiPvP;
-int MFAgiMultiPvP;
-int MFStrMultiPvP;
-int MFPerGradeMultiPvP;
-
-int SOTABaseDmgMultiPvE;
-int SOTAAgiMultiPvE;
-int SOTAStrMultiPvE;
-int SOTAPerGradeMultiPvE;
-
-int SOTABaseDmgMultiPvP;
-int SOTAAgiMultiPvP;
-int SOTAStrMultiPvP;
-int SOTAPerGradeMultiPvP;
-
-
-
-
-bool BloodSuctionON;
-bool EggThunderboltON;
-bool RevolveAttackON;
-bool WhirlwindFeatherON;
-
-bool BlowUpArrowON;
-bool FlamyArrowON;
-bool HealON;
-bool LightningSlashON;
-bool MuscleSolidationON;
-bool PassiveAttackON;
-bool ShieldAttackON;
-bool ShockWaveON;
-bool TranscendentalBlowON;
-bool CureON;
-
-bool AmnesiaON;
-bool AnkleAmputateON;
-bool ArmorBreakerON;
-bool BuffRemoverON;
-bool BrutalAttackON;
-bool CallsON;
-bool ChainLightningON;
-bool FatalWoundON;
-bool FinalBlowON;
-bool FireStormON;
-bool IceStormON;
-bool ThunderStormON;
-bool FocusShotON;
-bool HalfSwingON;
-bool LifeAbsorptionON;
-bool MysteriousArrowON;
-bool PowerfulUpwardSlashON;
-bool PurificationON;
-bool RuptureON;
-bool SacrificeON;
-bool SpinAttackON;
-bool SuicidalBlowON;
-bool SummonsON;
-bool TwinBladeStrikeON;
-bool VitalStrikeON;
-bool DanceOfKillingON;
-bool CounterOffensiveON;
-bool CounterAttackON;
-
-bool ArrowExplosionON;
-bool ArrowRainON;
-bool CombativeSpiritON;
-bool FireballON;
-bool FlameInjectionON;
-bool IceArrowON;
-bool LightningArrowON;
-bool LightningSlashThiefON;
-bool ProvocationOfBlowON;
-bool ShadowSlashON;
-bool SpinBladeON;
-bool SpinSlashON;
-bool SwordDanceON;
-bool TherapeuticTouchON;
-bool ThunderboltON;
-bool VirulentArrowON;
-bool WrathOfHeavenON;
-bool IcicleON;
-
-bool OneHitStrikeON;
-bool ArrowsoftheMasterON;
-
-bool SpiritOfTheArrowsON;
-bool MassiveFireON;
-
-bool TheBoomofEarthON;
-bool ThewaveofEarthON;
-
-bool ShoutOfFightingSpiritON;
-bool ShoutOfDefenseON;
-
-bool PunishmentON;
-bool ReleasingTheEnergyON;
-
-bool IncapacitationON;
-bool BombingON;
-
-bool CriticalDiffusionON;
-bool CriticalStrikeON;
-
-bool DestroyingArmorON;
-bool StrikeOfGodON;
-
-
-bool TradeSystemON;
-bool LawlessZoneON;
-bool RiftON;
-bool D4InstanceON;
-bool MautaretaON;
+
+int CLBaseDmgMultiPvE = 0;
+int CLIntMultiPvE = 0;
+int CLBaseDmgMultiPvP = 0;
+int CLIntMultiPvP = 0;
+
+
+int IStormBaseDmgMultiPvE = 0;
+int IStormIntMultiPvE = 0;
+int IStormBaseDmgMultiPvP = 0;
+int IStormIntMultiPvP = 0;
+
+int TStormBaseDmgMultiPvE = 0;
+int TStormIntMultiPvE = 0;
+int TStormBaseDmgMultiPvP = 0;
+int TStormIntMultiPvP = 0;
+
+int FStormBaseDmgMultiPvE = 0;
+int FStormIntMultiPvE = 0;
+int FStormBaseDmgMultiPvP = 0;
+int FStormIntMultiPvP = 0;
+
+
+int BSBaseDmgMultiPvE = 0;
+int BSBaseDmgMultiPvP = 0;
+
+int EggTBBaseDmgMultiPvE = 0;
+int EggTBBaseDmgMultiPvP = 0;
+
+int WFBaseDmgMultiPvE = 0;
+int WFBaseDmgMultiPvP = 0;
+
+int RABaseDmgMultiPvE = 0;
+int RABaseDmgMultiPvP = 0;
+
+int AnkleAPercentDamageIncreasePvE = 0;
+int AnkleAPercentDamageIncreasePvP = 0;
+
+
+int AOTMBaseDmgMultiPvE = 0;
+int AOTMAgiMultiPvE = 0;
+int AOTMStrMultiPvE = 0;
+int AOTMPerGradeMultiPvE = 0;
+
+int AOTMBaseDmgMultiPvP = 0;
+int AOTMAgiMultiPvP = 0;
+int AOTMStrMultiPvP = 0;
+int AOTMPerGradeMultiPvP = 0;
+
+int OHSBaseDmgMultiPvE = 0;
+int OHSAgiMultiPvE = 0;
+int OHSStrMultiPvE = 0;
+int OHSPerGradeMultiPvE = 0;
+
+int OHSBaseDmgMultiPvP = 0;
+int OHSAgiMultiPvP = 0;
+int OHSStrMultiPvP = 0;
+int OHSPerGradeMultiPvP = 0;
+
+int MFBaseDmgMultiPvE = 0;
+int MFAgiMultiPvE = 0;
+int MFStrMultiPvE = 0;
+int MFPerGradeMultiPvE = 0;
+
+int MFBaseDmgMultiPvP = 0;
+int MFAgiMultiPvP = 0;
+int MFStrMultiPvP = 0;
+int MFPerGradeMultiPvP = 0;
+
+int SOTABaseDmgMultiPvE = 0;
+int SOTAAgiMultiPvE = 0;
+int SOTAStrMultiPvE = 0;
+int SOTAPerGradeMultiPvE = 0;
+
+int SOTABaseDmgMultiPvP = 0;
+int SOTAAgiMultiPvP = 0;
+int SOTAStrMultiPvP = 0;
+int SOTAPerGradeMultiPvP = 0;
+
+
+
+
+bool BloodSuctionON = 0;
+bool EggThunderboltON = 0;
+bool RevolveAttackON = 0;
+bool WhirlwindFeatherON = 0;
+
+bool BlowUpArrowON = 0;
+bool FlamyArrowON = 0;
+bool HealON = 0;
+bool LightningSlashON = 0;
+bool MuscleSolidationON = 0;
+bool PassiveAttackON = 0;
+bool ShieldAttackON = 0;
+bool ShockWaveON = 0;
+bool TranscendentalBlowON = 0;
+bool CureON = 0;
+
+bool AmnesiaON = 0;
+bool AnkleAmputateON = 0;
+bool ArmorBreakerON = 0;
+bool BuffRemoverON = 0;
+bool BrutalAttackON = 0;
+bool CallsON = 0;
+bool ChainLightningON = 0;
+bool FatalWoundON = 0;
+bool FinalBlowON = 0;
+bool FireStormON = 0;
+bool IceStormON = 0;
+bool ThunderStormON = 0;
+bool FocusShotON = 0;
+bool HalfSwingON = 0;
+bool LifeAbsorptionON = 0;
+bool MysteriousArrowON = 0;
+bool PowerfulUpwardSlashON = 0;
+bool PurificationON = 0;
+bool RuptureON = 0;
+bool SacrificeON = 0;
+bool SpinAttackON = 0;
+bool SuicidalBlowON = 0;
+bool SummonsON = 0;
+bool TwinBladeStrikeON = 0;
+bool VitalStrikeON = 0;
+bool DanceOfKillingON = 0;
+bool CounterOffensiveON = 0;
+bool CounterAttackON = 0;
+
+bool ArrowExplosionON = 0;
+bool ArrowRainON = 0;
+bool CombativeSpiritON = 0;
+bool FireballON = 0;
+bool FlameInjectionON = 0;
+bool IceArrowON = 0;
+bool LightningArrowON = 0;
+bool LightningSlashThiefON = 0;
+bool ProvocationOfBlowON = 0;
+bool ShadowSlashON = 0;
+bool SpinBladeON = 0;
+bool SpinSlashON = 0;
+bool SwordDanceON = 0;
+bool TherapeuticTouchON = 0;
+bool ThunderboltON = 0;
+bool VirulentArrowON = 0;
+bool WrathOfHeavenON = 0;
+bool IcicleON = 0;
+
+bool OneHitStrikeON = 0;
+bool ArrowsoftheMasterON = 0;
+
+bool SpiritOfTheArrowsON = 0;
+bool MassiveFireON = 0;
+
+bool TheBoomofEarthON = 0;
+bool ThewaveofEarthON = 0;
+
+bool ShoutOfFightingSpiritON = 0;
+bool ShoutOfDefenseON = 0;
+
+bool PunishmentON = 0;
+bool ReleasingTheEnergyON = 0;
+
+bool IncapacitationON = 0;
+bool BombingON = 0;
+
+bool CriticalDiffusionON = 0;
+bool CriticalStrikeON = 0;
+
+bool DestroyingArmorON = 0;
+bool StrikeOfGodON = 0;
+
+
+bool TradeSystemON = 0;
+bool LawlessZoneON = 0;
+bool RiftON = 0;
+bool D4InstanceON = 0;
+bool MautaretaON = 0;
 
 
 
@@ -848,41 +848,41 @@ enum TextColor
 
 namespace D4Instance
 {
-	void* Party;
-	int PartySize;
-	int MapNumber;
+	void* Party = 0;
+	int PartySize = 0;
+	int MapNumber = 0;
 	bool IsUp = false;
-	int MobsCount[200];
-	int CoordX[200];
-	int CoordY[200];
-	int MobID[200];
-	int StageNumber;
-	int MobsKilled;
-	int MobsToKill;
-	int LastStage;
-	int Time;
-	int ReturnX;
-	int ReturnY;
-	int F2TP[3];
-	int F3TP[3];
-	int F4TP[3];
-	int F5TP[3];
-	int F6TP[3];
-	int LastRoomTP[3];
-	int FloorNumber;
-	int MinLevel;
-	int QuestID;
-	int SpawnX;
-	int SpawnY;
-	int Cooldown;
+	int MobsCount[200] = { 0 };
+	int CoordX[200] = { 0 };
+	int CoordY[200] = { 0 };
+	int MobID[200] = { 0 };
+	int StageNumber = 0;
+	int MobsKilled = 0;
+	int MobsToKill = 0;
+	int LastStage = 0;
+	int Time = 0;
+	int ReturnX = 0;
+	int ReturnY = 0;
+	int F2TP[3] = { 0 };
+	int F3TP[3] = { 0 };
+	int F4TP[3] = { 0 };
+	int F5TP[3] = { 0 };
+	int F6TP[3] = { 0 };
+	int LastRoomTP[3] = { 0 };
+	int FloorNumber = 0;
+	int MinLevel = 0;
+	int QuestID = 0;
+	int SpawnX = 0;
+	int SpawnY = 0;
+	int Cooldown = 0;
 }
 
-int RiftAmount;
+int RiftAmount = 0;
 struct Rifts
 {
 	bool IsUp = false;
-	int SpawnX;
-	int SpawnY;
+	int SpawnX = 0;
+	int SpawnY = 0;
 
 	int MobID[200];
 	int MobAmount[300];
@@ -890,12 +890,12 @@ struct Rifts
 
 	int WaveNumber = 0;
 	int MobDeadCount = 0;
-	int Map;
-	int FirstBoss;
-	int BossMobSpawnID;
-	int BossMobSpawnAmount;
+	int Map = 0;
+	int FirstBoss = 0;
+	int BossMobSpawnID = 0;
+	int BossMobSpawnAmount = 0;
 };
-Rifts RiftStruct[50];
+Rifts RiftStruct[50] = { 0 };
 
 namespace TradeSystem
 {
@@ -903,31 +903,31 @@ namespace TradeSystem
 	std::map<std::pair<int, int>, int> Reward;
 	std::map<std::pair<int, int>,int> ::iterator it;
 	std::map<std::pair<int, int>, int> ::iterator iterat;
-	int ItemID;
+	int ItemID = 0;
 	int MinLvl = 60;
-	int QuestRangeMin;
-	int QuestRangeMax;
+	int QuestRangeMin = 0;
+	int QuestRangeMax = 0;
 }
 
 namespace LawlessZone
 {
 	std::vector<int>MobID;
 	std::map<int, int>PointCounter;
-	int TicketID;
-	int QuestID;
-	int QuitQuestID;
+	int TicketID = 0;
+	int QuestID = 0;
+	int QuitQuestID = 0;
 	int BuffID=241;
-	int MinLvl;
-	int MovingTrinketID;
-	int StartTeleportX;
-	int StartTeleportY;
-	int ReturnTeleportX;
-	int ReturnTeleportY;
-	int Map;
+	int MinLvl = 0;
+	int MovingTrinketID = 0;
+	int StartTeleportX = 0;
+	int StartTeleportY = 0;
+	int ReturnTeleportX = 0;
+	int ReturnTeleportY = 0;
+	int Map = 0;
 
-	int Time;
-	int PKPoints;
-	int MobPoints;
+	int Time = 0;
+	int PKPoints = 0;
+	int MobPoints = 0;
 
 	int ExpBuffID[10] = { 1001,1002,1003,1004,1005,1006,1007,1008,1009,1010 };
 }
@@ -936,22 +936,22 @@ namespace Mautareta
 {
 	bool IsUp = false;
 	bool MautIsDead = false;
-	int StartTeleportX;
-	int StartTeleportY;
-	int ReturnTeleportX;
-	int ReturnTeleportY;
-	int Map;
+	int StartTeleportX = 0;
+	int StartTeleportY = 0;
+	int ReturnTeleportX = 0;
+	int ReturnTeleportY = 0;
+	int Map = 0;
 	int BuffID = 254;                                                                         // buff when entering
 	int BoostID[3];                                                                           // hp mana attack
-	int BossID;
-	int WandererID;
-	int QuestItemID;
-	int QuestID;
-	int PartyLimit;
+	int BossID = 0;
+	int WandererID = 0;
+	int QuestItemID = 0;
+	int QuestID = 0;
+	int PartyLimit = 0;
 	bool MobSummonCheck[19];
 	double SpawnAtHP[19] = {0.95,0.90,0.85,0.80,0.75,0.70,0.65,0.60,0.55,0.50,0.45,0.40,0.35,0.30,0.25,0.20,0.15,0.10,0.05};
-	int SpawnMautX;
-	int SpawnMautY;
+	int SpawnMautX = 0;
+	int SpawnMautY = 0;
 }
 
 

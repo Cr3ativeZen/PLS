@@ -24,7 +24,7 @@ void __fastcall Cure(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	if (bType == 1)
 		return;
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget ||IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar ITarget((void*)pTarget);
@@ -32,7 +32,7 @@ void __fastcall Cure(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	int nCure1HealAmount = CureBase + ((ITarget.GetMaxHp() * (CureBasePercentage / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*CureWisdom);
 	int Self1 = (CureBase + ((IPlayer.GetMaxHp() * (CureBasePercentage / 100)) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*CureWisdom))/2;
 
-	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
+	if (ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
 	{
 		if (nTargetID == IPlayer.GetID())
 		{
@@ -85,7 +85,7 @@ void __fastcall Cure2(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	if (bType == 1)
 		return;
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar ITarget((void*)pTarget);
@@ -93,7 +93,7 @@ void __fastcall Cure2(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	int nCure2HealAmount = CureBase2 + ((ITarget.GetMaxHp() * (CureBasePercentage2 / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage2 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure2Wisdom);
 	int Self2 = (CureBase2 + ((IPlayer.GetMaxHp() * (CureBasePercentage2 / 100)) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage2 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure2Wisdom))/2;
 
-	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
+	if (ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
 	{
 		if (nTargetID == IPlayer.GetID())
 		{
@@ -138,7 +138,7 @@ void __fastcall Cure3(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	if (bType == 1)
 		return;
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar ITarget((void*)pTarget);
@@ -146,7 +146,7 @@ void __fastcall Cure3(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	int nCure3HealAmount = CureBase3 + ((ITarget.GetMaxHp() * (CureBasePercentage3 / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage3 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure3Wisdom);
 	int Self3 = (CureBase3 + ((IPlayer.GetMaxHp() * (CureBasePercentage3 / 100)) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage3 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure3Wisdom)) / 2;
 
-	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
+	if (ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
 	{
 		if (nTargetID == IPlayer.GetID())
 		{

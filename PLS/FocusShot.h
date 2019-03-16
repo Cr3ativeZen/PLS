@@ -22,18 +22,15 @@ void __fastcall FocusShot(IChar IPlayer, int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
+
 
 	IChar Target(pTarget);
 
 	if (pTarget && Target.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
 	{
-		if (IPlayer.GetCurMp() < nMana)
-			return;
 
-		if (!IPlayer.IsInRange(Target, 300))
-			return;
 		IPlayer.SetDirection(Target);
 		if (IPlayer.CheckHit(Target, 16))
 		{

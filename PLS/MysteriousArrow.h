@@ -30,7 +30,7 @@ void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 	{
 		if (IPlayer.CheckHit(Target, 21))
 		{
-			int nDmg = 0;
+			int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
 
 			if (Target.GetType() == 0)
 			{
@@ -40,7 +40,6 @@ void __fastcall MysteriousArrow(IChar IPlayer,int pPacket, int pPos)
 			if (Target.GetType() == 1)
 			{
 				Target.Buff(39, MADoTDuration, MADoTPerGradePvE*ISkill.GetGrade());
-				int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
 			}
 			IPlayer.OktayDamageSingle(Target, nDmg, 21);
 			IPlayer._ShowBattleAnimation(Target, 21);

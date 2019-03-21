@@ -72,6 +72,81 @@ int __fastcall Tick(void *Player, void *edx)
 	}
 
 
+	for (bufx = Buffs.begin(); bufx != Buffs.end(); ++bufx)
+	{
+		if (IPlayer.IsBuff(bufx->second.BuffIndex) &&IPlayer.GetBuffRemain(bufx->second.BuffIndex) < 5)
+		{
+			int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), bufx->second.BuffIndex);
+			int ItemID = bufx->first;
+
+			if (Buffs[ItemID].PhysAttack)
+			{
+				IPlayer.RemoveMinPhysAttack(*(DWORD*)(Buff + 12));
+
+				IPlayer.RemoveMaxPhysAttack(*(DWORD*)(Buff + 16));
+			}
+			else if (Buffs[ItemID].MagicAttack)
+			{
+				IPlayer.RemoveMinMagicAttack((*(DWORD*)(Buff + 12)));
+
+				IPlayer.RemoveMaxMagicAttack((*(DWORD*)(Buff + 16)));
+			}
+
+			if (Buffs[ItemID].IconKey != 0)
+			{
+				IPlayer.RemoveBuffIcon(0, 0, 0, Buffs[ItemID].IconKey);
+			}
+			if (Buffs[ItemID].Strength)
+			{
+				IPlayer.RemoveStr(Buffs[ItemID].Strength);
+			}
+			if (Buffs[ItemID].Health)
+			{
+				IPlayer.RemoveHp(Buffs[ItemID].Health);
+			}
+			if (Buffs[ItemID].Int)
+			{
+				IPlayer.RemoveInt(Buffs[ItemID].Int);
+			}
+			if (Buffs[ItemID].Wisdom)
+			{
+				IPlayer.RemoveWis(Buffs[ItemID].Wisdom);
+			}
+			if (Buffs[ItemID].Agility)
+			{
+				IPlayer.RemoveAgi(Buffs[ItemID].Agility);
+			}
+
+			if (Buffs[ItemID].OTP)
+			{
+				IPlayer.RemoveOTP(Buffs[ItemID].OTP);
+			}
+
+			if (Buffs[ItemID].Evasion)
+			{
+				IPlayer.RemoveEva(Buffs[ItemID].Evasion);
+			}
+
+			if (Buffs[ItemID].DEF)
+			{
+				IPlayer.RemoveDef(Buffs[ItemID].DEF);
+			}
+
+			if (Buffs[ItemID].HP)
+			{
+				IPlayer.DecreaseMaxHp(Buffs[ItemID].HP);
+			}
+
+			if (Buffs[ItemID].MP)
+			{
+				IPlayer.DecreaseMaxMp(Buffs[ItemID].MP);
+			}
+			IPlayer.CancelBuff(bufx->second.BuffIndex);
+			IPlayer.SystemMessage("Buff cancelled", TEXTCOLOR_RED);
+		}
+	}
+
+
 	//if (IPlayer.IsOnline() &&!IPlayer.IsBuff(505)&&IPlayer.IsBuff(506))
 	//{
 	//	int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 505);

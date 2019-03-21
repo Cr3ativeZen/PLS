@@ -1844,6 +1844,6 @@ void IChar::RemoveMinMagicAttack(int amount)
 void IChar::RemoveMaxMagicAttack(int amount)
 {
 	if (this->IsOnline())
-		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 14, 0, amount);
+		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 14, 0, static_cast<int>(amount * 0.41));
 
 }

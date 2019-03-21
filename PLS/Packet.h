@@ -41,12 +41,29 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				{
 					if (!IPlayer.IsBuff(Buffs[ItemID].BuffIndex))
 					{
-
 						IPlayer.Buff(Buffs[ItemID].BuffIndex, Buffs[ItemID].Duration, 0);
+						int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), Buffs[ItemID].BuffIndex);
+
+						if (Buffs[ItemID].PhysAttack)
+						{
+							(*(DWORD*)(Buff + 12)) = IPlayer.GetMinPhyAttack() / Buffs[ItemID].PhysAttack;
+							IPlayer.AddMinPhysAttack((*(DWORD*)(Buff + 12)));
+
+							(*(DWORD*)(Buff + 16)) = IPlayer.GetMaxPhyAttack() / Buffs[ItemID].PhysAttack;
+							IPlayer.AddMaxPhysAttack((*(DWORD*)(Buff + 16)));
+						}
+						else if(Buffs[ItemID].MagicAttack)
+						{
+							(*(DWORD*)(Buff + 12)) = IPlayer.GetMinMagAttack() / Buffs[ItemID].MagicAttack;
+							IPlayer.AddMinMagicAttack((*(DWORD*)(Buff + 12)));
+
+							(*(DWORD*)(Buff + 16)) = IPlayer.GetMaxMagAttack() / Buffs[ItemID].MagicAttack;
+							IPlayer.AddMaxMagicAttack((*(DWORD*)(Buff + 16)));
+						}
 
 						if (Buffs[ItemID].IconKey != 0)
 						{
-							IPlayer.SetBuffIcon(Buffs[ItemID].Duration, 0, 0, Buffs[ItemID].IconKey);
+							IPlayer.SetBuffIcon(Buffs[ItemID].Duration*1000, 0, 0, Buffs[ItemID].IconKey);
 						}
 						if (Buffs[ItemID].Strength)
 						{
@@ -68,36 +85,32 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						{
 							IPlayer.AddAgi(Buffs[ItemID].Agility);
 						}
-						if (Buffs[ItemID].PhysAttack)
-						{
-							IPlayer.AddMaxPhysAttack(Buffs[ItemID].PhysAttack);
-							IPlayer.AddMinPhysAttack(Buffs[ItemID].PhysAttack);
-						}
-						if (Buffs[ItemID].MagicAttack)
-						{
-							IPlayer.AddMaxMagicAttack(100);
-							IPlayer.AddMinMagicAttack(Buffs[ItemID].MagicAttack);
-						}
+
 						if (Buffs[ItemID].OTP)
 						{
 							IPlayer.AddOTP(Buffs[ItemID].OTP);
 						}
+
 						if (Buffs[ItemID].Evasion)
 						{
 							IPlayer.AddEva(Buffs[ItemID].Evasion);
 						}
+
 						if (Buffs[ItemID].DEF)
 						{
 							IPlayer.AddDef(Buffs[ItemID].DEF);
 						}
+
 						if (Buffs[ItemID].HP)
 						{
 							IPlayer.IncreaseMaxHp(Buffs[ItemID].HP);
 						}
+
 						if (Buffs[ItemID].MP)
 						{
 							IPlayer.IncreaseMaxMp(Buffs[ItemID].MP);
 						}
+
 					}
 					else
 					{

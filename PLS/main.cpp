@@ -152,6 +152,7 @@ struct BuffItem
 
 std::map<std::pair<void*, void*>, int> ::iterator boss;
 std::map<std::pair<void*, void*>, int>BossRNG;
+std::map<int, BuffItem>::iterator bufx;
 std::map<int, BuffItem>Buffs;
 std::map<int, CallCheck>Call;
 std::map<int, Teleport>ZenTP;

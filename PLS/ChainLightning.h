@@ -30,12 +30,12 @@ void __fastcall ChainLightning(int pSkill, void *pPlayer, int pPacket, int pPos)
 			IChar Object((void*)*(DWORD*)Around);
 			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{
-				if (Object.GetOffset() != ITarget.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
+				if (CChar::IsNormal((int)Object.GetOffset()))
 				{
-					int nDmg = (IPlayer.GetAttack()*CLBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvE;
+					int nDmg = (IPlayer.GetMagic()*CLBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvE;
 
 					if (Object.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*CLBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvP;
+						nDmg = (IPlayer.GetMagic()*CLBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvP;
 
 					IPlayer.OktayDamageArea(Object, nDmg, 41);
 

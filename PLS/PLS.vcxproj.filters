@@ -306,6 +306,12 @@
     <ClInclude Include="ExecuteSkill.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
+    <ClInclude Include="SoulDestruction.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerfulWideningWound.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">

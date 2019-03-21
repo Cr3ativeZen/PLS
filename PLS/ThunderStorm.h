@@ -32,10 +32,10 @@ void __fastcall ContinueThunderStorm(IChar IPlayer)
 						StormActivateShiny(IPlayer, Object);
 
 
-					int nDmg = (IPlayer.GetAttack()*TStormBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*TStormIntMultiPvE;
+					int nDmg = (IPlayer.GetMagic()*TStormBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*TStormIntMultiPvE;
 
 					if (Object.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*TStormBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*TStormIntMultiPvP;
+						nDmg = (IPlayer.GetMagic()*TStormBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*TStormIntMultiPvP;
 
 					IPlayer.OktayDamageStorm(Object, nDmg);
 				}

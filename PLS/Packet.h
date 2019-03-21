@@ -21,41 +21,132 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			if (Item && IID)
 			{
 				IItem Itemx((void*)Item);
-				if (ZenTP.count(Itemx.CheckIndex()))
+				int ItemID = Itemx.CheckIndex();
+				if (ZenTP.count(ItemID))
 				{
-					if (ZenTP[Itemx.CheckIndex()].LevelLimit < IPlayer.GetLevel())
+					if (ZenTP[ItemID].LevelLimit < IPlayer.GetLevel())
 					{
-						IPlayer.Teleport(ZenTP[Itemx.CheckIndex()].Map, ZenTP[Itemx.CheckIndex()].TeleportX, ZenTP[Itemx.CheckIndex()].TeleportY);
+						IPlayer.Teleport(ZenTP[ItemID].Map, ZenTP[ItemID].TeleportX, ZenTP[ItemID].TeleportY);
 					}
 					else
 					{
 						std::string st = "Your character must be level ";
-						st += Int2String(ZenTP[Itemx.CheckIndex()].LevelLimit);
+						st += Int2String(ZenTP[ItemID].LevelLimit);
 						st += " or above to use this item!";
 						IPlayer.SystemMessage(st, TEXTCOLOR_RED);
 						return;
 					}
 				}
-
-
-				/*if (Itemx.CheckIndex() == 11620)
+				if (Buffs.count(Itemx.CheckIndex()))
 				{
-					if (IPlayer.GetLevel() < 70)
+					if (!IPlayer.IsBuff(Buffs[ItemID].BuffIndex))
 					{
-						IPlayer.SystemMessage("Your character must be level 70 or above.", TEXTCOLOR_RED);
+
+						IPlayer.Buff(Buffs[ItemID].BuffIndex, Buffs[ItemID].Duration, 0);
+
+						if (Buffs[ItemID].IconKey != 0)
+						{
+							IPlayer.SetBuffIcon(Buffs[ItemID].Duration, 0, 0, Buffs[ItemID].IconKey);
+						}
+						if (Buffs[ItemID].Strength)
+						{
+							IPlayer.AddStr(Buffs[ItemID].Strength);
+						}
+						if (Buffs[ItemID].Health)
+						{
+							IPlayer.AddHp(Buffs[ItemID].Health);
+						}
+						if (Buffs[ItemID].Int)
+						{
+							IPlayer.AddInt(Buffs[ItemID].Int);
+						}
+						if (Buffs[ItemID].Wisdom)
+						{
+							IPlayer.AddWis(Buffs[ItemID].Wisdom);
+						}
+						if (Buffs[ItemID].Agility)
+						{
+							IPlayer.AddAgi(Buffs[ItemID].Agility);
+						}
+						if (Buffs[ItemID].PhysAttack)
+						{
+							IPlayer.AddMaxPhysAttack(Buffs[ItemID].PhysAttack);
+							IPlayer.AddMinPhysAttack(Buffs[ItemID].PhysAttack);
+						}
+						if (Buffs[ItemID].MagicAttack)
+						{
+							IPlayer.AddMaxMagicAttack(100);
+							IPlayer.AddMinMagicAttack(Buffs[ItemID].MagicAttack);
+						}
+						if (Buffs[ItemID].OTP)
+						{
+							IPlayer.AddOTP(Buffs[ItemID].OTP);
+						}
+						if (Buffs[ItemID].Evasion)
+						{
+							IPlayer.AddEva(Buffs[ItemID].Evasion);
+						}
+						if (Buffs[ItemID].DEF)
+						{
+							IPlayer.AddDef(Buffs[ItemID].DEF);
+						}
+						if (Buffs[ItemID].HP)
+						{
+							IPlayer.IncreaseMaxHp(Buffs[ItemID].HP);
+						}
+						if (Buffs[ItemID].MP)
+						{
+							IPlayer.IncreaseMaxMp(Buffs[ItemID].MP);
+						}
+					}
+					else
+					{
+						IPlayer.SystemMessage("This buff is already active, try again later!",TEXTCOLOR_RED);
 						return;
 					}
-
-					if (IPlayer.IsValid())
-						IPlayer.Teleport(6, 360931, 187024);
-					else
-						return;
 				}
-				if (IPlayer.IsOnline() && Itemx.CheckIndex() == 2359)
+
+				if (Itemx.CheckIndex() == ScrollItemID)
 				{
-					IPlayer.CancelBuff(222);
-					IPlayer.CancelBuff(240);
-				}*/
+					//if (!IPlayer.IsBuff(60) && !IPlayer.IsBuff(61) && !IPlayer.IsBuff(62) && !IPlayer.IsBuff(63) && !IPlayer.IsBuff(64) && !IPlayer.IsBuff(51) && !IPlayer.IsBuff(52) && !IPlayer.IsBuff(54) && !IPlayer.IsBuff(56) && !IPlayer.IsBuff(57))
+					//{
+						IPlayer.Buff(60, 7200, 5);
+						IPlayer.Buff(61, 7200, 10);
+						IPlayer.Buff(62, 7200, 5);
+						IPlayer.Buff(63, 7200, 10);
+						IPlayer.Buff(64, 7200, 5);
+						IPlayer.Buff(51, 7200, 10);
+						IPlayer.Buff(52, 7200, 10);
+						IPlayer.Buff(54, 7200, 5);
+						IPlayer.Buff(56, 7200, 10);
+						IPlayer.Buff(57, 7200, 5);
+
+						IPlayer.RemoveBuffIcon(0, 0, 0, 60);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 61);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 63);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 64);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 65);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 67);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 68);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 69);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 70);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 71);
+						//IPlayer.SetBuffIcon(7200, 0, 0, 62);
+						return;
+					//}
+					/*else
+					{
+						IPlayer.SystemMessage("Your scrolls and potions are still active!", TEXTCOLOR_RED);
+						return;
+					}*/
+				}
+
+
+				//if (IPlayer.IsOnline() && Itemx.CheckIndex() == 2359)
+				//{
+				//	IPlayer.CancelBuff(222);
+				//	IPlayer.CancelBuff(240);
+				//}
 			}
 
 		}
@@ -538,6 +629,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
+				if (SkillID == 41 &&  PowerfulWideningWoundON == true)
+				{
+					PowerfulWideningWound(IPlayer, kappa, pPos);
+					return;
+				}
+
 				if ((SkillID == 19 || SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
 				{
 					Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
@@ -670,6 +767,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				if (SkillID == 41 &&ChainLightningON==true)
 				{
 					ChainLightning(pSkill, IPlayer.GetOffset(), kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 40 && SoulDestructionON == true)
+				{
+					SoulDestruction(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
@@ -1165,10 +1268,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			
 			
 		}
-
-
-
-
 
 		CPlayer::Process((void*)Player, packet, (void*)pPacket, pPos);
 	}

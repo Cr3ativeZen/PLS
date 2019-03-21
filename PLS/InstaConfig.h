@@ -90,6 +90,33 @@ void ZenConfig()
 		fclose(filex);
 	}
 
+	FILE *filey = fopen("./Configs/ZenBuff.txt", "r");
+	if (filey != NULL)
+	{
+		char line[BUFSIZ];
+		int Strength = 0, Health = 0, Int = 0, Wisdom = 0, Agility = 0, PhysAttack = 0, MagicAttack = 0, OTP = 0, Evasion = 0, DEF = 0, HP = 0, MP = 0, BuffIndex = 0, Duration = 0, IconKey = 0, ItemIndex = 0;
+		while (fgets(line, sizeof line, filez) != NULL)
+		{
+			if (sscanf(line, "(buffitem (BuffIndex %d)(ItemIndex %d)(Duration %d)(IconKey %d)(Strength %d)(Health %d)(Int %d)(Wisdom %d)(Agility %d)(PhysAttack %d)(MagicAttack %d)(OTP %d)(Evasion %d)(DEF %d)(HP %d)(MP %d))", &BuffIndex,&ItemIndex, &Duration, &IconKey, &Strength, &Health, &Int, &Wisdom, &Agility, &PhysAttack, &MagicAttack, &OTP, &Evasion, &DEF, &HP, &MP) == 16)
+			{
+				Buffs[ItemIndex].Duration = Duration;
+				Buffs[ItemIndex].BuffIndex = BuffIndex;
+				Buffs[ItemIndex].IconKey = IconKey;
+				Buffs[ItemIndex].Strength = Strength;
+				Buffs[ItemIndex].Health = Health;
+				Buffs[ItemIndex].Int = Int;
+				Buffs[ItemIndex].Wisdom = Wisdom;
+				Buffs[ItemIndex].Agility = Agility;
+				Buffs[ItemIndex].PhysAttack = PhysAttack;
+				Buffs[ItemIndex].MagicAttack = MagicAttack;
+				Buffs[ItemIndex].OTP = OTP;
+				Buffs[ItemIndex].Evasion = Evasion;
+				Buffs[ItemIndex].DEF = DEF;
+				Buffs[ItemIndex].HP = HP;
+				Buffs[ItemIndex].MP = MP;
+			}
+		}
+	}
 
 
 	std::ifstream oD4Instance;
@@ -129,6 +156,28 @@ void ZenConfig()
 	AmensiaBaseDmgMulti = GetPrivateProfileIntA("Amnesia", "AmensiaBaseDmgMulti", 1, "./Skills/ZenSkillConfig.txt");
 	AmnesiaWisMulti = GetPrivateProfileIntA("Amnesia", "AmnesiaWisMulti", 1, "./Skills/ZenSkillConfig.txt");
 	AmnesiaDmgPercentIncreaseBless = GetPrivateProfileIntA("Amnesia", "AmnesiaDmgPercentIncreaseBless", 1, "./Skills/ZenSkillConfig.txt");
+
+	SoulDestructionBaseDmgMultiPvE = GetPrivateProfileIntA("SoulDestruction", "SoulDestructionBaseDmgMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
+	SoulDestructionWisMultiPvE = GetPrivateProfileIntA("SoulDestruction", "SoulDestructionWisMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
+	SoulDestructionPerGradeMultiPvE = GetPrivateProfileIntA("SoulDestruction", "SoulDestructionPerGradeMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
+
+	SoulDestructionBaseDmgMultiPvP = GetPrivateProfileIntA("SoulDestruction", "SoulDestructionBaseDmgMultiPvP", 1, "./Skills/ZenSkillConfig.txt");
+	SoulDestructionWisMultiPvP = GetPrivateProfileIntA("SoulDestruction", "SoulDestructionWisMultiPvP", 1, "./Skills/ZenSkillConfig.txt");
+	SoulDestructionPerGradeMultiPvP = GetPrivateProfileIntA("SoulDestruction", "SoulDestructionPerGradeMultiPvP", 1, "./Skills/ZenSkillConfig.txt");
+
+	PWWBaseDmgMultiPvE = GetPrivateProfileIntA("PowerfulWideningWound", "PWWBaseDmgMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
+	PWWAgiMultiPvE = GetPrivateProfileIntA("PowerfulWideningWound", "PWWAgiMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
+	PWWStrMultiPvE = GetPrivateProfileIntA("PowerfulWideningWound", "PWWStrMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
+	PWWPerGradeMultiPvE = GetPrivateProfileIntA("PowerfulWideningWound", "PWWPerGradeMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
+	PWWHostilityMultiplier = GetPrivateProfileIntA("PowerfulWideningWound", "PWWHostilityMultiplier", 1, "./Skills/ZenSkillConfig.txt");
+
+	PWWBaseDmgMultiPvP = GetPrivateProfileIntA("PowerfulWideningWound", "PWWBaseDmgMultiPvP", 1, "./Skills/ZenSkillConfig.txt");
+	PWWAgiMultiPvP = GetPrivateProfileIntA("PowerfulWideningWound", "PWWAgiMultiPvP", 1, "./Skills/ZenSkillConfig.txt");
+	PWWStrMultiPvP = GetPrivateProfileIntA("PowerfulWideningWound", "PWWStrMultiPvP", 1, "./Skills/ZenSkillConfig.txt");
+	PWWPerGradeMultiPvP = GetPrivateProfileIntA("PowerfulWideningWound", "PWWPerGradeMultiPvP", 1, "./Skills/ZenSkillConfig.txt");
+
+
+
 
 	BlowUpBaseDmgMultiPvE = GetPrivateProfileIntA("BlowUpArrow", "BlowUpBaseDmgMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
 	BlowUpAgiMultiPvE = GetPrivateProfileIntA("BlowUpArrow", "BlowUpAgiMultiPvE", 1, "./Skills/ZenSkillConfig.txt");
@@ -243,6 +292,7 @@ void ZenConfig()
 	ARStrMultiPvE = GetPrivateProfileIntA("ArrowRain", "ARStrMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
 	ARAgiMultiPvE = GetPrivateProfileIntA("ArrowRain", "ARAgiMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
 	ARPerGradeMultiPvE = GetPrivateProfileIntA("ArrowRain", "ARPerGradeMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
+	ARDamagePercentageReducePvE = GetPrivateProfileIntA("ArrowRain", "ARDamagePercentageReducePvE", 1, "./Skills/ThirdJobSkills.txt");
 
 	ARBaseDmgMultiPvP = GetPrivateProfileIntA("ArrowRain", "ARBaseDmgMultiPvP", 1, "./Skills/ThirdJobSkills.txt");
 	ARStrMultiPvP = GetPrivateProfileIntA("ArrowRain", "ARStrMultiPvP", 1, "./Skills/ThirdJobSkills.txt");
@@ -724,7 +774,8 @@ void ZenConfig()
 		//DanceOfKillingON = GetPrivateProfileIntA("SecondJobSkill", "DanceOfKilling", 0, "./Skills/SkillONOFF.txt");
 		CounterOffensiveON = GetPrivateProfileIntA("SecondJobSkill", "CounterOffensive", 0, "./Skills/SkillONOFF.txt");
 		CounterAttackON = GetPrivateProfileIntA("SecondJobSkill", "CounterAttack", 0, "./Skills/SkillONOFF.txt");
-
+		SoulDestructionON = GetPrivateProfileIntA("SecondJobSkill", "SoulDestruction", 0, "./Skills/SkillONOFF.txt");
+		PowerfulWideningWoundON = GetPrivateProfileIntA("SecondJobSkill", "PowerfulWideningWound", 0, "./Skills/SkillONOFF.txt");
 		
 		ArrowExplosionON = GetPrivateProfileIntA("ThirdJobSkill", "ArrowExplosion", 0, "./Skills/SkillONOFF.txt");
 		ArrowRainON = GetPrivateProfileIntA("ThirdJobSkill", "ArrowRain", 0, "./Skills/SkillONOFF.txt");
@@ -744,6 +795,7 @@ void ZenConfig()
 		VirulentArrowON = GetPrivateProfileIntA("ThirdJobSkill", "VirulentArrow", 0, "./Skills/SkillONOFF.txt");
 		WrathOfHeavenON = GetPrivateProfileIntA("ThirdJobSkill", "WrathOfHeaven", 0, "./Skills/SkillONOFF.txt");
 		IcicleON = GetPrivateProfileIntA("ThirdJobSkill", "Icicle", 0, "./Skills/SkillONOFF.txt");
+
 
 		OneHitStrikeON = GetPrivateProfileIntA("ForthJobSkill", "OneHitStrike", 0, "./Skills/SkillONOFF.txt");
 		ArrowsoftheMasterON = GetPrivateProfileIntA("ForthJobSkill", "ArrowsoftheMaster", 0, "./Skills/SkillONOFF.txt");

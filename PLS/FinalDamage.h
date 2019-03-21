@@ -78,6 +78,21 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 		}
 
 
+		if (IPlayer.IsValid()&&IPlayer.GetType()==1&&ITarget.IsValid() && ITarget.GetType() == 0 && ITarget.IsBuff(5565)&& CheckDamage > 100)
+		{
+			CheckDamage -= (CheckDamage * ARDamagePercentageReducePvE) / 100;
+		}
+
+		if (IPlayer.IsValid() && IPlayer.IsOnline()&&IPlayer.GetType() == 0 && ITarget.GetType() == 1 && ITarget.GetMobIndex() == 603)
+		{
+			if (CheckDamage > 1)
+			{
+				BossRNG[{ITarget.GetOffset(), IPlayer.GetOffset()}] += CheckDamage;
+
+				IPlayer.SystemMessage(Int2String(BossRNG[{ITarget.GetOffset(), IPlayer.GetOffset()}]), TEXTCOLOR_RED);
+			}
+		}
+
 	
 	return CheckDamage;
 }

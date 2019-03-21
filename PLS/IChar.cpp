@@ -1820,7 +1820,7 @@ void IChar::AddMinMagicAttack(int amount)
 void IChar::AddMaxMagicAttack(int amount)
 {
 	if (this->IsOnline())
-		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 14, 1, amount);
+		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 96))((int)this->GetOffset(), 14, 1, static_cast<int>(amount * 0.41));
 }
 
 void IChar::RemoveMinPhysAttack(int amount)

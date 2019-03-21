@@ -330,7 +330,21 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 		Mautareta::PartyLimit = 0;
 	}
 
+	if (IMonster.GetMobIndex() == 603)
+	{
+		for (boss = BossRNG.begin(); boss != BossRNG.end(); ++boss)
+		{
+			if (boss->first.first==IMonster.GetOffset())
+			{
+				if (boss->second > IMonster.GetMaxHp() / 5)
+				{
+					CItem::InsertItem((int)boss->first.second, 0, 47, 0, 20, 0);
+				}
 
+			}
+		}
+
+	}
 
 
 	return CMonsterMaguniMaster::Die(Monster, Arg, Arg1, Arg2, Arg3);

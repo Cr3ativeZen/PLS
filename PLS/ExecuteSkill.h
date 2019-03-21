@@ -65,3 +65,5 @@
 #include "CriticalStrike.h"
 #include "StrikeOfGod.h"
 #include "DestroyingArmor.h"
+#include "SoulDestruction.h"
+#include "PowerfulWideningWound.h"

@@ -131,9 +131,31 @@ struct CallCheck
 
 };
 
+struct BuffItem
+{
+	int	BuffIndex = 0;
+	int	Duration = 0;
+	int	IconKey = 0;
+	int Strength = 0;
+	int Health = 0; 
+	int Int = 0;
+	int Wisdom = 0;
+	int Agility = 0;
+	int	PhysAttack = 0;
+	int	MagicAttack = 0;
+	int	OTP = 0;
+	int	Evasion = 0;
+	int	DEF = 0;
+	int	HP = 0;
+	int	MP = 0;
+};
 
+std::map<std::pair<void*, void*>, int> ::iterator boss;
+std::map<std::pair<void*, void*>, int>BossRNG;
+std::map<int, BuffItem>Buffs;
 std::map<int, CallCheck>Call;
 std::map<int, Teleport>ZenTP;
+std::map<int, DWORD> MonsterDisappear;
 std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
 std::map<int, PlayerContinueSkill> CheckContinueSkill;
 std::map<int, RuptureContinueSkill> CheckRuptureContinueSkill;
@@ -191,6 +213,29 @@ int AmensiaBaseDmgMulti = 0;
 int AmnesiaWisMulti = 0;
 int AmnesiaDmgPercentIncreaseBless = 0;
 
+
+
+int SoulDestructionBaseDmgMultiPvE = 0;
+int SoulDestructionWisMultiPvE = 0;
+int SoulDestructionPerGradeMultiPvE = 0;
+
+int SoulDestructionBaseDmgMultiPvP = 0;
+int SoulDestructionWisMultiPvP = 0;
+int SoulDestructionPerGradeMultiPvP = 0;
+
+
+int PWWBaseDmgMultiPvE = 0;
+int PWWAgiMultiPvE = 0;
+int PWWStrMultiPvE = 0;
+int PWWPerGradeMultiPvE = 0;
+
+int PWWBaseDmgMultiPvP = 0;
+int PWWAgiMultiPvP = 0;
+int PWWStrMultiPvP = 0;
+int PWWPerGradeMultiPvP = 0;
+int PWWHostilityMultiplier = 0;
+
+
 int BlowUpBaseDmgMultiPvE = 0;
 int BlowUpAgiMultiPvE = 0;
 int BlowUpStrMultiPvE = 0;
@@ -237,27 +282,11 @@ int MAAgiMultiPvP = 0;
 int MAStrMultiPvP = 0;
 int MAPerGradeMultiPvP = 0;
 int MADoTPerGradePvP = 0;
-
 int MADoTDuration = 0;
-
-
-
-
-
-
-
-
 
 
 int ShieldAttackBaseStunTime = 5;
 int ShieldAttackDamageMulti = 1;
-
-
-
-
-
-
-
 
 
 int LSBaseDmgMultiPvE = 0;
@@ -301,11 +330,13 @@ int ARBaseDmgMultiPvE = 0;
 int ARAgiMultiPvE = 0;
 int ARStrMultiPvE = 0;
 int ARPerGradeMultiPvE = 0;
+int ARDamagePercentageReducePvE = 0;
 
 int ARBaseDmgMultiPvP = 0;
 int ARAgiMultiPvP = 0;
 int ARStrMultiPvP = 0;
 int ARPerGradeMultiPvP = 0;
+
 
 int CSBaseDmgMultiPvE = 0;
 int CSAgiMultiPvE = 0;
@@ -791,6 +822,8 @@ bool ThunderboltON = 0;
 bool VirulentArrowON = 0;
 bool WrathOfHeavenON = 0;
 bool IcicleON = 0;
+bool SoulDestructionON = 0;
+bool PowerfulWideningWoundON = 0;
 
 bool OneHitStrikeON = 0;
 bool ArrowsoftheMasterON = 0;
@@ -823,9 +856,9 @@ bool RiftON = 0;
 bool D4InstanceON = 0;
 bool MautaretaON = 0;
 
+int ScrollItemID = 0;
 
 
-std::map<int, DWORD> MonsterDisappear;
 enum TextColor
 {
 	TEXTCOLOR_GENERAL = RGB(255, 255, 255),
@@ -1048,6 +1081,8 @@ namespace Mautareta
 #include "CriticalStrike.h"
 #include "StrikeOfGod.h"
 #include "DestroyingArmor.h"
+#include "SoulDestruction.h"
+#include "PowerfulWideningWound.h"
 
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {

@@ -32,7 +32,7 @@ void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 	{
 		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			int nDmg = (IPlayer.GetAttack()*SWBaseDmgMultiPvP) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvP) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvP) + (ISkill.GetGrade()*SWPerGradeMultiPvP);
+			int nDmg = (IPlayer.GetMagic()*SWBaseDmgMultiPvP) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvP) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvP) + (ISkill.GetGrade()*SWPerGradeMultiPvP);
 			IPlayer.OktayDamageSingle(Target, nDmg, 9);
 			IPlayer.SetDirection(Target);
 			IPlayer._ShowBattleAnimation(Target, 9);
@@ -43,7 +43,7 @@ void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 		int Around = Target.GetObjectListAround(2);
 		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			int nDmge = (IPlayer.GetAttack()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
+			int nDmge = (IPlayer.GetMagic()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
 			IPlayer.OktayDamageSingle(Target, nDmge, 9);
 			IPlayer.SetDirection(Target);
 			IPlayer._ShowBattleAnimation(Target, 9);
@@ -61,7 +61,7 @@ void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 				{
-					int nDmg = (IPlayer.GetAttack()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
+					int nDmg = (IPlayer.GetMagic()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
 					IPlayer._ShowBattleAnimation(Object, 9);
 					IPlayer.OktayDamageSingle(Object, nDmg, 9);
 					i++;

@@ -29,10 +29,10 @@ void __fastcall ContinueIceStorm(IChar IPlayer)
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
 
-					int nDmg = (IPlayer.GetAttack()*IStormBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*IStormIntMultiPvE;
+					int nDmg = (IPlayer.GetMagic()*IStormBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*IStormIntMultiPvE;
 
 					if (Object.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*IStormBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*IStormIntMultiPvP;
+						nDmg = (IPlayer.GetMagic()*IStormBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*IStormIntMultiPvP;
 
 					IPlayer.OktayDamageStorm(Object, nDmg);
 				}

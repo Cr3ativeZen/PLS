@@ -21,14 +21,14 @@ void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	/*if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
-		return;*/
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		return;
 
 	IChar Target(pTarget);
 
 
-	/*if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
-	{*/
+	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+	{
 		if (IPlayer.CheckHit(Target, 21))
 		{
 			int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
@@ -49,7 +49,7 @@ void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos
 		{
 			IPlayer._ShowBattleMiss(Target, 21);
 		}
-	//}
+	}
 	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 

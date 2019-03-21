@@ -130,6 +130,23 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		return;
 	}
 
+	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/buff" && IPlayer.GetAdmin() >= 8)
+	{
+		for (int i = 0; i < 1000; i++)
+		{
+			if (IPlayer.IsBuff(i))
+			{
+				IPlayer.SystemMessage(Int2String(i), TEXTCOLOR_PINK);
+			}
+		}
+
+		//if (IPlayer.IsBuff(60) && IPlayer.IsBuff(61) && IPlayer.IsBuff(62) && IPlayer.IsBuff(63) && IPlayer.IsBuff(64) && IPlayer.IsBuff(51) && IPlayer.IsBuff(52) && IPlayer.IsBuff(54) && IPlayer.IsBuff(56) && IPlayer.IsBuff(57))
+		//{
+
+		//}
+
+	}
+
 
 
 	CPlayer::ChatCommand(Player, command);

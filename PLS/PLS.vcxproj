@@ -206,6 +206,7 @@
     <ClInclude Include="PKKill.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PowerfulUpwardSlash.h" />
+    <ClInclude Include="PowerfulWideningWound.h" />
     <ClInclude Include="ProvocationOfBlow.h" />
     <ClInclude Include="Punishment.h" />
     <ClInclude Include="Purification.h" />
@@ -220,6 +221,7 @@
     <ClInclude Include="ShockWave.h" />
     <ClInclude Include="ShoutOfDefense.h" />
     <ClInclude Include="ShoutOfFightingSpirit.h" />
+    <ClInclude Include="SoulDestruction.h" />
     <ClInclude Include="SpinAttack.h" />
     <ClInclude Include="SpinBlade.h" />
     <ClInclude Include="SpinSlash.h" />

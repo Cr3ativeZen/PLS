@@ -38,9 +38,9 @@ void __fastcall Amnesia(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 			if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{
-				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
+				if (CChar::IsNormal((int)Object.GetOffset()))
 				{
-					int nDmg = (IPlayer.GetAttack()*AmensiaBaseDmgMulti) + IPlayer.GetWis()*AmnesiaWisMulti;
+					int nDmg = (IPlayer.GetMagic()*AmensiaBaseDmgMulti) + IPlayer.GetWis()*AmnesiaWisMulti;
 					if (IPlayer.IsBuff(24))
 					{
 						nDmg *= (AmnesiaDmgPercentIncreaseBless / 100);

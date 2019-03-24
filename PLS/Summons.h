@@ -46,7 +46,7 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 					{
 						IPlayer._ShowBattleAnimation(IMembers, 34);
 						IMembers.Revive();
-						IMembers.Buff(4, 60, 50);
+						IMembers.Buff(4, 60, -50);
 					}
 				}
 			}
@@ -57,7 +57,7 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 			{
 				IPlayer._ShowBattleAnimation(ITarget, 34);
 				ITarget.Revive();
-				ITarget.Buff(4, 60, 50);
+				ITarget.Buff(4, 60,-50);
 			}
 		}
 	}

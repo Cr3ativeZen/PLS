@@ -344,6 +344,8 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 	//Call of Defense
 	if (ISkill.GetIndex() == 19)
 	{
+		int Check = (*(int(__thiscall **)(void *, int))(*(DWORD*)pSkill + 80))((void*)pSkill,(int)Player);
+		int Buff = (*(int(__thiscall **)(DWORD))(*(DWORD *)Check + 20))(Check);
 		if (IPlayer.IsValid())
 		{
 			if (IPlayer.IsParty())
@@ -365,17 +367,19 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							{
 								if (IPlayer.IsInRange(IMembers, 20))
 								{
-									IMembers.Buff(28, 0, (16 + (ISkill.GetGrade() - 1) * 7));
+									(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
 									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 								}
 							}
 							else
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, 20) &&((void*)Members!=(void*)Player))
 								{
-									IMembers.CancelBuff(28);
 
-									IMembers.Buff(28, 0, (16 + (ISkill.GetGrade() - 1) * 7));
+
+									CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
+
+									(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
 									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 								}
 							}
@@ -387,17 +391,19 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 			}
 			else
 			{
+				
 				if (!IPlayer.IsBuff(28))
 				{
-					IPlayer.Buff(28, 0, (16 + (ISkill.GetGrade() - 1) * 7));
+
+					(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)Player + 180))((DWORD)Player, Buff);
+
 					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 				else
 				{
-					IPlayer.CancelBuff(28);
-
-					IPlayer.Buff(28, 0, (16 + (ISkill.GetGrade() - 1) * 7));
+					CChar::CancelAllBuff((void*)Player, *(DWORD*)(Check + 4));
+					(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)Player + 180))((DWORD)Player, Buff);
 					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}

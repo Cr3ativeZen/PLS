@@ -88,7 +88,6 @@ int __fastcall Tick(void *Player, void *edx)
 			else if (Buffs[ItemID].MagicAttack)
 			{
 				IPlayer.RemoveMinMagicAttack((*(DWORD*)(Buff + 12)));
-
 				IPlayer.RemoveMaxMagicAttack((*(DWORD*)(Buff + 16)));
 			}
 
@@ -569,6 +568,7 @@ int __fastcall Tick(void *Player, void *edx)
 	//		}
 	//	}
 	//}
+
 
 
 

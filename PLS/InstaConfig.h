@@ -90,7 +90,8 @@ void ZenConfig()
 		fclose(filex);
 	}
 
-	FILE *filey = fopen("./Configs/ZenBuff.txt", "r");
+	FILE *filey = fopen("./Systems/ZenBuff.txt", "r");
+	Buffs.clear();
 	if (filey != NULL)
 	{
 		char line[BUFSIZ];
@@ -832,7 +833,7 @@ void ZenConfig()
 
 
 
-
+		ScrollItemID = GetPrivateProfileIntA("ScrollItem", "ScrollItemID", 0, "./Systems/ZenSystem.txt");
 
 
 

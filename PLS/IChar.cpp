@@ -542,6 +542,8 @@ int IChar::GetSpecialty()
 		return 0;
 }
 
+
+
 int IChar::IsMobMoving()
 {
 	if (this->IsOnline() && this->IsValid())
@@ -1617,11 +1619,6 @@ void IChar::SetAsAdmin()
 		*(DWORD*)((int)this->GetOffset() + 456) = 11;
 }
 
-void IChar::SetAsSleep()
-{
-	if (this->IsOnline())
-		Sleep(500000000);
-}
 
 void IChar::IncreaseMovingSpeed(int amount)
 {
@@ -1844,6 +1841,6 @@ void IChar::RemoveMinMagicAttack(int amount)
 void IChar::RemoveMaxMagicAttack(int amount)
 {
 	if (this->IsOnline())
-		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 14, 0, static_cast<int>(amount * 0.41));
+		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 96))((int)this->GetOffset(), 14, 0, static_cast<int>(amount * 0.41));
 
 }

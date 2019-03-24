@@ -175,7 +175,6 @@ public:
 	void SetMobHostility(int Amount);
 	int GetAlliance();
 	void SetAsAdmin();
-	void SetAsSleep();
 	void IncreaseMovingSpeed(int amount);
 	void DecreaseMovingSpeed(int amount);
 	int GetRidingType();

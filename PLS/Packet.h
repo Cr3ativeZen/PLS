@@ -648,7 +648,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if ((SkillID == 19 || SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
+				if ((SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
 				{
 					Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
 					return;

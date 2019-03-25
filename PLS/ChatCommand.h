@@ -141,27 +141,6 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		}
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 4) == "/cod")
-	{
-
-			int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 28);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 12))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 16))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 20))/65536), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 24))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 28))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 32))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 36))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 40))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 44))), TEXTCOLOR_RED);
-			//IPlayer.SystemMessage(Int2String((*(DWORD*)(Buff + 48))), TEXTCOLOR_RED);
-			IPlayer.SystemMessage(Int2String(*(DWORD*)(Player + 584)),TEXTCOLOR_RED);
-
-
-	}
-
-
-
 	CPlayer::ChatCommand(Player, command);
 }
 #endif

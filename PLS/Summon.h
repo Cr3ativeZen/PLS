@@ -330,6 +330,7 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 		Mautareta::PartyLimit = 0;
 	}
 
+	//erase do wyjebowywania
 	/*if (IMonster.GetMobIndex() == 603)
 	{
 		for (boss = BossRNG.begin(); boss != BossRNG.end(); ++boss)

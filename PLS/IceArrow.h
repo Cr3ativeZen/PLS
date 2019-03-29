@@ -25,7 +25,7 @@ void __fastcall IceArrow(IChar IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2)
+		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 			return;
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())

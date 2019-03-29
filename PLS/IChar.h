@@ -180,13 +180,6 @@ public:
 	int GetRidingType();
 	void EnableRiding(int Type);
 	void DisableRiding();
-	void GiveReward(int Index, int Prefix, int Amount, int Info, int xAtk, int xMag, int TOA, int Upgr, int Def, int Eva, int Endurance, const char *msg);
-	void StartQuest(int QuestID);
-	void EndQuest(int QuestID);
-	void QuitQuest(int QuestID);
-	void DailyQuestUpdate(int QuestID, int Repeat, int Count, int Time);
-	void IncreaseEBRate(int amount);
-	void DecreaseEBRate(int amount);
 	int MaxInventorySize();
 
 	void AddMinPhysAttack(int amount);
@@ -198,6 +191,8 @@ public:
 	void RemoveMaxPhysAttack(int amount);
 	void RemoveMinMagicAttack(int amount);
 	void RemoveMaxMagicAttack(int amount);
+
+	int GetMoveSpeed();
 
 };
 

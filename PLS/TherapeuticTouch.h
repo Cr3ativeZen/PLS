@@ -23,7 +23,7 @@ void __fastcall TherapeuticTouch(IChar IPlayer, int pPacket, int pPos)
 		if (bType >= 1)
 			return;
 
-		if (IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || IPlayer.GetCurMp() < nMana)
 			return;
 
 		if (pTarget && IPlayer.IsValid())

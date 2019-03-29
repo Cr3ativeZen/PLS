@@ -24,13 +24,11 @@ void __fastcall AnkleAmputate(IChar IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2)
+		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 			return;
 
 		if (IPlayer.IsValid() && pTarget && nSkillGrade)
 		{
-			if (pTarget == IPlayer.GetOffset())
-				return;
 
 			int nMana = (10 * nSkillGrade) + 45;
 			IChar Target(pTarget);

@@ -74,7 +74,7 @@ void __fastcall ArrowExplosion(IChar IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2)
+		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 			return;
 
 		if (IPlayer.IsValid() && pTarget && nSkillGrade)

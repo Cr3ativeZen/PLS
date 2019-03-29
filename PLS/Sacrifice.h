@@ -23,7 +23,7 @@ void __fastcall Sacrifice(int pSkill, void *edx, int Player, int pPacket, int pP
 	if (bType == 1)
 		return;
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 		return;
 
 	IChar ITarget((void*)pTarget);

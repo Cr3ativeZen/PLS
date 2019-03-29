@@ -35,7 +35,6 @@ namespace MainServer
 	static LONG(__thiscall *Hostility)(int Object, volatile LONG *lpAddend) = (LONG(__thiscall*)(int, volatile LONG*))0x00423980;
 	static int(__thiscall *MLMAccumFee)(int Player, int Value) = (int(__thiscall*)(int, int))0x00467400;
 	static int(__stdcall *SetEventCode)(signed int a1, int a2) = (int(__stdcall*)(signed int, int))0x0046BFD0;
-	static int(__thiscall *GetInvenSize)(int Player) = (int(__thiscall*)(int))0x00456720;
 	static int(__thiscall *GetMSpeed)(void *Player, int Value) = (int(__thiscall*)(void*, int))0x00452070;
 	static void(__thiscall *DropItem)(int Player, int a2, int a3) = (void(__thiscall*)(int, int, int))0x0045D7E0;
 	static void(__thiscall *DropItemONPKDie)(void *Player) = (void(__thiscall*)(void*))0x0046B890;
@@ -276,7 +275,7 @@ namespace CPlayer
 	static LONG(__thiscall *Hostility)(int Object, volatile LONG *lpAddend) = (LONG(__thiscall*)(int, volatile LONG*))0x00423980;
 	static int(__thiscall *MLMAccumFee)(int Player, int Value) = (int(__thiscall*)(int, int))0x00467400;
 	static int(__stdcall *SetEventCode)(signed int a1, int a2) = (int(__stdcall*)(signed int, int))0x0046BFD0;
-	static int(__thiscall *GetInvenSize)(int Player) = (int(__thiscall*)(int))0x00456720;
+	static int(__thiscall *GetInvenSize)(void* Player) = (int(__thiscall*)(void*))0x00456720;
 	static int(__thiscall *GetMSpeed)(void *Player, int Value) = (int(__thiscall*)(void*, int))0x00452070;
 	static void(__thiscall *DropItem)(int Player, int a2, int a3) = (void(__thiscall*)(int, int, int))0x0045D7E0;
 	//static void(__thiscall *DropItemm)(void *Player, int a6) = (void(__thiscall*)(void* Player, int a6))0x0045D7E0;
@@ -333,7 +332,7 @@ namespace CPlayer
 	static void(__thiscall *Pick)(void* MapObject, int Player, int x, int y) = (void(__thiscall*)(void*, int, int, int))0x004938A0;
 	static void(__thiscall *AddBState)(int a5, int a6, int a7) = (void(__thiscall*)(int a5, int a6, int a7))0x00451DE0;
 	static void(__thiscall *SubBState)(int a5, int a6) = (void(__thiscall*)(int a5, int a6))0x00451EB0;
-	//static void(__thiscall *InfoDie)(int a5, int a6) = (void(__thiscall*)(int a5, int a6))0x00451CF0;
+	static void(__thiscall *InfoDie)(int a5, int a6) = (void(__thiscall*)(int a5, int a6))0x00451CF0;
 }
 
 namespace CQuest

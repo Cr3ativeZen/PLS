@@ -2,6 +2,46 @@
 #define _SUMMON_H
 #include "InstaConfig.h"
 #include "ChatCommand.h"
+
+
+//void BossDropDraw(IChar IMonster)
+//{
+//	int BossID = IMonster.GetMobIndex();
+//	std::map<void*, int>PlayerMap;
+//	std::map<void*, int>::iterator PlayerMapIt;
+//	std::random_device device;
+//	std::mt19937 generator(device());
+//	std::uniform_int_distribution<int> distribution(1, 1000);
+//	distribution(generator);
+//
+//	for (boss = BossRNG.begin(); boss != BossRNG.end(); ++boss)
+//	{
+//		if (boss->first.first == IMonster.GetOffset() && (BossDropsMap[BossID].MinDamage < boss->second&&BossDropsMap[BossID].MinDamage != 0) || (boss->second > (IMonster.GetMaxHp() / 100)*BossDropsMap[BossID].MinDamagePercent&&BossDropsMap[BossID].MinDamagePercent != 0))
+//		{
+//			PlayerMap[boss->first.second] = boss->second;
+//			BossRNG.erase(boss);
+//		}
+//	}
+//
+//	int dropitem[5];
+//	int amountitem[5];
+//	
+//	for (int i = 0; i < 5; i++)
+//	{
+//		dropitem[i]=BossDropsMap[IMonster.GetMobIndex()].drop[i].ItemID;
+//		amountitem[i] = BossDropsMap[IMonster.GetMobIndex()].drop[i].ItemAmount;
+//	}
+//
+//	for (PlayerMapIt = PlayerMap.begin(); PlayerMapIt != PlayerMap.end(); ++PlayerMapIt)
+//	{
+//		CItem::InsertItem((int)PlayerMapIt->first, 0, 50, 0, 1, 0);
+//	}
+//
+//	//	if(distribution(generator)>500)
+//	//CItem::InsertItem((int)boss->first.second, 0, 50, 0, 1, 0);
+//
+//
+//}
 int __cdecl Summon(int Player, int Map, int X, int Y, int Index, int Amount, int SafeZoneCheck, int Delay, int Disappear, int Pet)
 {
 	void *GetMonster = 0; int Value = 0, Monster = 0, Argument = 0;
@@ -276,7 +316,7 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 				CPlayer::WriteAll(0xFF, "dsd", 247, "FIND AND KILL ALL MONSTERS!", 2);
 				for (int j = 0; j < RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber]; j++)
 				{
-					Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY,RiftStruct[i].MobID[RiftStruct[i].WaveNumber] , 1, 0, 0, 3600, 0);
+					Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY, RiftStruct[i].MobID[RiftStruct[i].WaveNumber], 1, 0, 0, 3600, 0);
 				}
 			}
 		}
@@ -288,66 +328,59 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 				RiftStruct[i].MobDeadCount++;
 			}
 		}
-			for (int i = 0; i < RiftAmount; i++)
+		for (int i = 0; i < RiftAmount; i++)
+		{
+			if (RiftStruct[i].MobDeadCount == RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] && RiftStruct[i].WaveNumber != RiftStruct[i].MaxWave&&RiftStruct[i].IsUp == true)
 			{
-				if (RiftStruct[i].MobDeadCount == RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] && RiftStruct[i].WaveNumber != RiftStruct[i].MaxWave&&RiftStruct[i].IsUp == true)
+				RiftStruct[i].WaveNumber++;
+				RiftStruct[i].MobDeadCount = 0;
+				if (RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] == 1)
 				{
-					RiftStruct[i].WaveNumber++;
-					RiftStruct[i].MobDeadCount = 0;
-					if (RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] == 1)
-					{
-						CPlayer::WriteAll(0xFF, "dsd", 247, "LAST STAGE, BOSS SPAWNED", 2);
-					}
-					else if (RiftStruct[i].WaveNumber != 0)
-					{
-						CPlayer::WriteAll(0xFF, "dsd", 247, "WAVE DONE PREPARE FOR NEXT ONE!", 2);
-					}
-					for (int j = 0; j < RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber]; j++)
-					{
-						Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY, RiftStruct[i].MobID[RiftStruct[i].WaveNumber], 1, 0, 0, 3600, 0);
-					}
-
+					CPlayer::WriteAll(0xFF, "dsd", 247, "LAST STAGE, BOSS SPAWNED", 2);
 				}
-			}
+				else if (RiftStruct[i].WaveNumber != 0)
+				{
+					CPlayer::WriteAll(0xFF, "dsd", 247, "WAVE DONE PREPARE FOR NEXT ONE!", 2);
+				}
+				for (int j = 0; j < RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber]; j++)
+				{
+					Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY, RiftStruct[i].MobID[RiftStruct[i].WaveNumber], 1, 0, 0, 3600, 0);
+				}
 
-			for (int i = 0; i < RiftAmount; i++)
+			}
+		}
+
+		for (int i = 0; i < RiftAmount; i++)
+		{
+			if (RiftStruct[i].WaveNumber == RiftStruct[i].MaxWave)
 			{
-				if (RiftStruct[i].WaveNumber == RiftStruct[i].MaxWave)
-				{
-					RiftConfig();
-					CPlayer::WriteAll(0xFF, "dsd", 247, "ALL MOBS DIED,YOU DID IT !", 2);
-					RiftStruct[i].WaveNumber = 0;
-					RiftStruct[i].IsUp = false;
-				}
+				RiftConfig();
+				CPlayer::WriteAll(0xFF, "dsd", 247, "ALL MOBS DIED,YOU DID IT !", 2);
+				RiftStruct[i].WaveNumber = 0;
+				RiftStruct[i].IsUp = false;
 			}
+		}
 	}
 
 
 
-	if (Mautareta::IsUp == true && IMonster.GetMobIndex() == Mautareta::BossID && MautaretaON==true)
+	if (Mautareta::IsUp == true && IMonster.GetMobIndex() == Mautareta::BossID && MautaretaON == true)
 	{
 		Mautareta::IsUp = false;
 		Mautareta::PartyLimit = 0;
 	}
 
 	//erase do wyjebowywania
-	/*if (IMonster.GetMobIndex() == 603)
-	{
-		for (boss = BossRNG.begin(); boss != BossRNG.end(); ++boss)
-		{
-			if (boss->first.first==IMonster.GetOffset())
-			{
-				if (boss->second > IMonster.GetMaxHp() / 5)
-				{
-					CItem::InsertItem((int)boss->first.second, 0, 47, 0, 20, 0);
-				}
 
-			}
-		}
 
-	}*/
+	//if (BossDropsMap.count(IMonster.GetMobIndex()))
+	//{
+	//	CPlayer::WriteAll(0xFF, "dsd", 247, "ALL MOBS DIED,YOU DID IT !", 2);
+	//	BossDropDraw(IMonster);
+	//}
 
 
 	return CMonsterMaguniMaster::Die(Monster, Arg, Arg1, Arg2, Arg3);
 }
+
 #endif

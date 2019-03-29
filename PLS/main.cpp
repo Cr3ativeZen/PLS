@@ -13,6 +13,7 @@
 #include <ctime>
 #include <sstream>
 #include <thread>
+#include <random>
 
 std::string Int2String(int value)
 {
@@ -29,6 +30,12 @@ int String2Int(std::string String)
 	iss >> Integer;
 	return Integer;
 }
+
+//std::map<int, BossDrops>BossDropsMap;
+//std::map<std::pair<void*, void*>, int>BossRNG;
+//std::map<std::pair<void*, void*>, int> ::iterator boss;
+//std::map<int, BossDrops> ::iterator sIt;
+
 
 struct PlayerContinueSkill
 {
@@ -150,7 +157,29 @@ struct BuffItem
 	int	MP = 0;
 };
 
+struct BossDrops
+{
+	int MinDamage = 0;
+	int MinDamagePercent = 0;
+	int MaxPlayers = 0;
+
+	int HighTierLootID = 0;
+	int HighTierLootAmount = 0;
+	int HighTierLootChance = 0;
+
+	struct Drop
+	{
+		int ItemID = 0;
+		int ItemAmount = 0;
+	};
+
+	Drop drop[10];
+
+};
+
 std::map<std::pair<void*, void*>, int> ::iterator boss;
+std::map<int, BossDrops> ::iterator sIt;
+std::map<int, BossDrops>BossDropsMap;
 std::map<std::pair<void*, void*>, int>BossRNG;
 std::map<int, BuffItem>::iterator bufx;
 std::map<int, BuffItem>Buffs;
@@ -176,6 +205,11 @@ std::map<int, ConfigShiny> CheckShiny;
 std::map<int, int> MageMICheck;
 std::map<int, DWORD> CODelay;
 std::map<int, int>CheckFocus;
+
+
+
+
+
 
 
 int HealBasePercentage = 0;
@@ -528,6 +562,7 @@ int CODamageMultiPvE = 0;
 int CODamageMultiPvP = 0;
 int COBaseDamagePvE = 0;
 int COBaseDamagePvP = 0;
+int COBoostPercentage3rdJob = 0;
 
 int CAChanceToPopBase = 0;
 int CAChanceToPopPerGrade = 0;
@@ -1144,7 +1179,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
-
 		DetourTransactionCommit();
 		break;
 	}

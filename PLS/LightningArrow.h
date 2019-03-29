@@ -80,7 +80,7 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 		return;
 
 	IChar Target(pTarget);
@@ -175,7 +175,7 @@ void __fastcall LightningArrow(IChar IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2)
+		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 			return;
 
 		IChar Target(pTarget);

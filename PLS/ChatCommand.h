@@ -94,7 +94,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/aoff"&& IPlayer.GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/aoff" && IPlayer.GetAdmin() >= 8)
 	{
 		IPlayer.CancelBuff(LawlessZone::BuffID);
 		for (int i = 0; i < 10; i++)
@@ -141,6 +141,17 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		}
 	}
 
+	if (IPlayer.IsOnline() && cmd.substr(0, 5)=="/test" && IPlayer.GetAdmin() >= 8)
+	{
+	//	int BossID = 603;
+	//	IPlayer.SystemMessage(Int2String(BossDropsMap[BossID].MinDamage), TEXTCOLOR_RED);
+	//	IPlayer.SystemMessage(Int2String(BossDropsMap[BossID].MinDamagePercent), TEXTCOLOR_RED);
+	//	IPlayer.SystemMessage(Int2String(BossDropsMap[BossID].drop[0].ItemID), TEXTCOLOR_RED);
+	//	IPlayer.SystemMessage(Int2String(BossDropsMap[BossID].drop[0].ItemAmount), TEXTCOLOR_RED);
+	//	IPlayer.SystemMessage(Int2String(BossDropsMap[BossID].HighTierLootID), TEXTCOLOR_RED);
+
+		IPlayer.SystemMessage(Int2String(IPlayer.GetMoveSpeed()), TEXTCOLOR_RED);
+	}
 	CPlayer::ChatCommand(Player, command);
 }
 #endif

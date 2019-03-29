@@ -34,14 +34,24 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 				int Around = IPlayer.GetObjectListAround(3);
 				int nDmg = CheckDamage * (CODamageMultiPvE / 100) + COBaseDamagePvE;
 
+
 				while (Around)
 				{
 					IChar Object((void*)*(DWORD*)Around);
 
+
 					if (Object.IsValid() && ITarget.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)ITarget.GetOffset() + 176))((int)ITarget.GetOffset(), (int)Object.GetOffset(), 0))
 					{
+						if (Object.GetType() == 1 &&ITarget.GetSpecialty()==43)
+						{
+							nDmg = CheckDamage * (COBoostPercentage3rdJob / 100);
+						}
+
 						if (Object.GetType() == 0)
+						{
+							nDmg = 0;
 							nDmg = CheckDamage * (CODamageMultiPvP / 100) + COBaseDamagePvP;
+						}
 
 						ITarget.OktayDamageNoAgro(Object, nDmg, 63);
 					}
@@ -83,7 +93,7 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 			CheckDamage -= (CheckDamage * ARDamagePercentageReducePvE) / 100;
 		}
 
-		/*if (IPlayer.IsValid() && IPlayer.IsOnline()&&IPlayer.GetType() == 0 && ITarget.GetType() == 1 && ITarget.GetMobIndex() == 603)
+		if (IPlayer.IsValid() && IPlayer.IsOnline() && IPlayer.GetType() == 0 && ITarget.GetType() == 1 && BossDropsMap.count(ITarget.GetMobIndex()))
 		{
 			if (CheckDamage > 1)
 			{
@@ -91,7 +101,8 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 
 				IPlayer.SystemMessage(Int2String(BossRNG[{ITarget.GetOffset(), IPlayer.GetOffset()}]), TEXTCOLOR_RED);
 			}
-		}*/
+		}
+
 
 	
 	return CheckDamage;

@@ -39,7 +39,7 @@ void __fastcall ContinueArrowRain(IChar IPlayer)
 					int nDmg = (IPlayer.GetAttack()*ARBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*ARAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvE) + (nSkillGrade*ARPerGradeMultiPvE);
 
 					if (Object.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*ARBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*ARAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvP) + (nSkillGrade*ARPerGradeMultiPvE);
+						nDmg = (IPlayer.GetAttack()*ARBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*ARAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvP) + (nSkillGrade*ARPerGradeMultiPvP);
 
 
 					IPlayer.OktayDamageArea(Object,nDmg,47);

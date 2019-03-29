@@ -24,7 +24,7 @@ void __fastcall ShadowSlash(IChar IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2)
+		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 			return;
 		
 		if (pTarget && IPlayer.IsValid() && nSkillGrade)

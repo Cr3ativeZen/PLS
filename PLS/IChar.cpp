@@ -1698,90 +1698,6 @@ void IChar::DisableRiding()
 }
 
 
-
-void IChar::GiveReward(int Index, int Prefix, int Amount, int Info, int xAtk, int xMag, int TOA, int Upgr, int Def, int Eva, int Endurance, const char *msg)
-{
-	if (this->IsOnline())
-	{
-		int MakeItem = CItem::CreateItem(Index, Prefix, Amount, -1);
-
-		if (MakeItem)
-		{
-			LONG NewIID = CItem::NewIID();
-			if ((Index == 337 || Index == 338 || Index == 339 || Index == 1596) && Endurance)
-				CDBSocket::Write(6,"dwbddbbdb",NewIID,Index,Prefix,128+Info,Amount,Endurance,0,0,1);
-			else
-				CDBSocket::Write(6,"dwbddbbdb",NewIID,Index,Prefix,128+Info,Amount,*(DWORD*)(MakeItem + 96),0,0,1);
-			CBase::Delete((void*)MakeItem);
-			CDBSocket::Write(30,"dbdbbssdbwbdds",-1,0,-1,0,1,"Kal Online",this->GetName(),NewIID,0,0,Prefix,Amount,0,msg);
-			if (xAtk) CDBSocket::Write(17,"ddbbb",NewIID,0,27,xAtk,0);
-			if (xMag) CDBSocket::Write(17,"ddbbb",NewIID,0,28,xMag,0);
-			if (TOA) CDBSocket::Write(17,"ddbbb",NewIID,0,9,TOA,0);
-			if (Upgr) CDBSocket::Write(28,"ddbb",NewIID,0,2,Upgr);
-			if (Def) CDBSocket::Write(17,"ddbbb",NewIID,0,15,Def,0);
-			if (Eva) CDBSocket::Write(17,"ddbbb",NewIID,0,10,Eva,0);
-		}
-	}
-}
-
-void IChar::StartQuest(int QuestID)
-{
-	if (this->IsOnline())
-	{
-		CPlayer::Write(this->GetOffset(), 151, "w", QuestID);
-		CPlayer::Write(this->GetOffset(), 86, "wbb", QuestID, 1, 0);
-		CDBSocket::Write(13, "dwbb", this->GetPID(), QuestID, 1, 0);
-		CDBSocket::Write(14, "dwbb", this->GetPID(), QuestID, 1, 0);
-	}
-}
-
-void IChar::EndQuest(int QuestID)
-{
-	if (this->IsOnline())
-	{
-		CPlayer::Write(this->GetOffset(), 86, "wbb", QuestID, 1, 1);
-		CPlayer::Write(this->GetOffset(), 151, "w", QuestID);
-		CDBSocket::Write(14, "dwbb", this->GetPID(), QuestID, 1, 1);
-	}
-}
-
-void IChar::QuitQuest(int QuestID)
-{
-	if (this->IsOnline())
-	{
-		CPlayer::Write(this->GetOffset(), 151, "w", QuestID);
-		CDBSocket::Write(14, "dwbb", this->GetPID(), QuestID, 1, 1);
-	}
-}
-
-void IChar::DailyQuestUpdate(int QuestID, int Repeat, int Count, int Time)
-{
-	if (this->IsOnline())
-		CDBSocket::Write(91,"ddddd",this->GetPID(),QuestID,Repeat,Count,Time);
-}
-
-void IChar::IncreaseEBRate(int amount)
-{
-	if (this->IsOnline())
-	{
-		if (*(DWORD*)((int)this->GetOffset() + 596) + amount <= 30)
-			*(DWORD*)((int)this->GetOffset() + 596) += amount;
-		else
-			*(DWORD*)((int)this->GetOffset() + 596) = 30;
-	}
-}
-
-void IChar::DecreaseEBRate(int amount)
-{
-	if (this->IsOnline())
-	{
-		if (*(DWORD*)((int)this->GetOffset() + 596) >= amount)
-			*(DWORD*)((int)this->GetOffset() + 596) -= amount;
-		else
-			*(DWORD*)((int)this->GetOffset() + 596) = 0;
-	}
-}
-
 int IChar::MaxInventorySize()
 {
 	if (this->IsOnline())
@@ -1843,4 +1759,12 @@ void IChar::RemoveMaxMagicAttack(int amount)
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 96))((int)this->GetOffset(), 14, 0, static_cast<int>(amount * 0.41));
 
+}
+
+int IChar::GetMoveSpeed()
+{
+	if (this->IsOnline())
+		return *(DWORD *)((int)this->GetOffset() + 260);
+	else
+		return 0;
 }

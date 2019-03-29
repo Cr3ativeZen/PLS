@@ -23,7 +23,7 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 	if (bType == 1)
 		return;
 
-	if (bType >= 2)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	IChar ITarget((void*)pTarget);

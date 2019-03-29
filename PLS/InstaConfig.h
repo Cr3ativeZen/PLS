@@ -2,6 +2,9 @@
 #define _INSTACONFIG_H
 void InstaConfig()
 {
+
+	
+
 	std::ifstream oD4Instance;
 	oD4Instance.open("./Systems/D4Instance.txt", std::ios_base::in);
 	int i = 0;
@@ -95,13 +98,14 @@ void ZenConfig()
 	if (filey != NULL)
 	{
 		char line[BUFSIZ];
-		int Strength = 0, Health = 0, Int = 0, Wisdom = 0, Agility = 0, PhysAttack = 0, MagicAttack = 0, OTP = 0, Evasion = 0, DEF = 0, HP = 0, MP = 0, BuffIndex = 0, Duration = 0, IconKey = 0, ItemIndex = 0;
+		int SecondBuffIndex=0,Strength = 0, Health = 0, Int = 0, Wisdom = 0, Agility = 0, PhysAttack = 0, MagicAttack = 0, OTP = 0, Evasion = 0, DEF = 0, HP = 0, MP = 0, BuffIndex = 0, Duration = 0, IconKey = 0, ItemIndex = 0;
 		while (fgets(line, sizeof line, filez) != NULL)
 		{
-			if (sscanf(line, "(buffitem (BuffIndex %d)(ItemIndex %d)(Duration %d)(IconKey %d)(Strength %d)(Health %d)(Int %d)(Wisdom %d)(Agility %d)(PhysAttack %d)(MagicAttack %d)(OTP %d)(Evasion %d)(DEF %d)(HP %d)(MP %d))", &BuffIndex,&ItemIndex, &Duration, &IconKey, &Strength, &Health, &Int, &Wisdom, &Agility, &PhysAttack, &MagicAttack, &OTP, &Evasion, &DEF, &HP, &MP) == 17)
+			if (sscanf(line, "(buffitem (BuffIndex %d)(SecondBuffIndex %d)(ItemIndex %d)(Duration %d)(IconKey %d)(Strength %d)(Health %d)(Int %d)(Wisdom %d)(Agility %d)(PhysAttack %d)(MagicAttack %d)(OTP %d)(Evasion %d)(DEF %d)(HP %d)(MP %d))", &BuffIndex, &SecondBuffIndex,&ItemIndex, &Duration, &IconKey, &Strength, &Health, &Int, &Wisdom, &Agility, &PhysAttack, &MagicAttack, &OTP, &Evasion, &DEF, &HP, &MP) == 17)
 			{
 				Buffs[ItemIndex].Duration = Duration;
 				Buffs[ItemIndex].BuffIndex = BuffIndex;
+				Buffs[ItemIndex].SecondBuffIndex = SecondBuffIndex;
 				Buffs[ItemIndex].IconKey = IconKey;
 				Buffs[ItemIndex].Strength = Strength;
 				Buffs[ItemIndex].Health = Health;
@@ -119,37 +123,51 @@ void ZenConfig()
 		}
 		fclose(filey);
 	}
-	/*FILE *filea = fopen("./Systems/ZenRNG.txt", "r");
 
-	if (filea != NULL)
+	std::ifstream ZenRNG;
+	ZenRNG.open("./Systems/ZenRNG.txt", std::ios_base::in);
+	char r;
+	std::string strin;
+	if (ZenRNG)
 	{
-		char line[BUFSIZ];
-		while (fgets(line, sizeof line, filea) != NULL)
+		BossDropsMap.clear();
+		int counter = 0;
+		r = ZenRNG.get();
+		while (r == '#')
 		{
-			int BossID = 0, MinDamage = 0, MinDamagePercent = 0, MaxPlayers = 0, HighTierLootID = 0, HighTierLootAmount = 0, HighTierLootChance = 0, DropID1 = 0, DropAmount1 = 0, DropID2 = 0, DropAmount2 = 0, DropID3 = 0, DropAmount3 = 0, DropID4 = 0, DropAmount4 = 0, DropID5 = 0, DropAmount5 = 0;
-			if (sscanf(line, "(bossdrop (BossID %d)(MinDamage %d)(MinDamagePercent %d)(MaxPlayers %d)(HighTierLootID %d)(HighTierLootAmount %d)(HighTierLootChance %d)(DropID1 %d)(DropAmount1 %d)(DropID2 %d)(DropAmount2 %d)(DropID3 %d)(DropAmount3 %d)(DropID4 %d)(DropAmount4 %d)(DropID5 %d)(DropAmount5 %d))", &BossID, &MinDamage, &MinDamagePercent, &MaxPlayers, &HighTierLootID, &HighTierLootAmount, &HighTierLootChance, &DropID1, &DropAmount1, &DropID2, &DropAmount2, &DropID3, &DropAmount3, &DropID4, &DropAmount4, &DropID5, &DropAmount5) == 17)
-			{
-				BossDropsMap[BossID].MinDamage = MinDamage;
-				BossDropsMap[BossID].MinDamagePercent = MinDamagePercent;
-				BossDropsMap[BossID].MaxPlayers = MaxPlayers;
-				BossDropsMap[BossID].HighTierLootID = HighTierLootID;
-				BossDropsMap[BossID].HighTierLootAmount = HighTierLootAmount;
-				BossDropsMap[BossID].HighTierLootChance = HighTierLootChance;
-				BossDropsMap[BossID].drop[0].ItemID = DropID1;
-				BossDropsMap[BossID].drop[0].ItemAmount = DropAmount1;
-				BossDropsMap[BossID].drop[1].ItemID = DropID2;
-				BossDropsMap[BossID].drop[1].ItemAmount = DropAmount2;
-				BossDropsMap[BossID].drop[2].ItemID = DropID3;
-				BossDropsMap[BossID].drop[2].ItemAmount = DropAmount3;
-				BossDropsMap[BossID].drop[3].ItemID = DropID4;
-				BossDropsMap[BossID].drop[3].ItemAmount = DropAmount4;
-				BossDropsMap[BossID].drop[4].ItemID = DropID5;
-				BossDropsMap[BossID].drop[4].ItemAmount = DropAmount5;
-
-			}
+			std::getline(ZenRNG, strin);
+			r = ZenRNG.get();
 		}
-		fclose(filea);
-	}*/
+		ZenRNG.unget();
+
+		ZenRNG >> ZenRNGesus::TotalBossCount;
+
+		while (counter < ZenRNGesus::TotalBossCount && !ZenRNG.eof())
+		{
+			int BossID = 0;
+			ZenRNG >> BossID;
+			ZenRNG >> BossDropsMap[BossID].MinDamage;
+			ZenRNG >> BossDropsMap[BossID].MinDamagePercent;
+			ZenRNG >> BossDropsMap[BossID].MaxPlayers;
+			ZenRNG >> BossDropsMap[BossID].MaxDropPerPlayer;
+			ZenRNG >> BossDropsMap[BossID].AmountOfDifferentItems;
+			for (int i = 0; i < BossDropsMap[BossID].AmountOfDifferentItems; i++)
+			{
+				ZenRNG >> BossDropsMap[BossID].TempDropStruct.ItemID;
+				ZenRNG >> BossDropsMap[BossID].TempDropStruct.ItemAmount;
+				ZenRNG >> BossDropsMap[BossID].TempDropStruct.DropChance;
+				BossDropsMap[BossID].Dropy.push_back(BossDropsMap[BossID].TempDropStruct);
+				BossDropsMap[BossID].ItemsToDraw += BossDropsMap[BossID].Dropy[i].ItemAmount;
+			}
+
+
+			counter++;
+
+		}
+		ZenRNG.close();
+	}
+
+
 
 
 	std::ifstream oD4Instance;

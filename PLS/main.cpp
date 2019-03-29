@@ -14,6 +14,7 @@
 #include <sstream>
 #include <thread>
 #include <random>
+#include <algorithm>
 
 std::string Int2String(int value)
 {
@@ -141,6 +142,7 @@ struct CallCheck
 struct BuffItem
 {
 	int	BuffIndex = 0;
+	int SecondBuffIndex = 0;
 	int	Duration = 0;
 	int	IconKey = 0;
 	int Strength = 0;
@@ -157,23 +159,34 @@ struct BuffItem
 	int	MP = 0;
 };
 
+namespace ZenRNGesus
+{
+	int TotalBossCount = 0;
+}
+	struct Drop
+	{
+		int ItemID = 0;
+		int ItemAmount = 0;
+		int DropChance = 0;
+
+		bool operator < (const Drop& d) const
+		{
+			return (this->DropChance < d.DropChance);
+		}
+	};
+
 struct BossDrops
 {
 	int MinDamage = 0;
 	int MinDamagePercent = 0;
 	int MaxPlayers = 0;
+	int MaxDropPerPlayer = 0;
+	int AmountOfDifferentItems = 0;
 
-	int HighTierLootID = 0;
-	int HighTierLootAmount = 0;
-	int HighTierLootChance = 0;
 
-	struct Drop
-	{
-		int ItemID = 0;
-		int ItemAmount = 0;
-	};
-
-	Drop drop[10];
+	std::vector<Drop> Dropy;
+	Drop TempDropStruct;
+	int ItemsToDraw = 0;
 
 };
 
@@ -1119,6 +1132,7 @@ namespace Mautareta
 #include "DestroyingArmor.h"
 #include "SoulDestruction.h"
 #include "PowerfulWideningWound.h"
+#include "InfoDie.h"
 
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
@@ -1160,6 +1174,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
 		DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
+		DetourAttach(&(PVOID&)CPlayer::InfoDie, InfoDie);
 		DetourTransactionCommit();
 		break;
 	}
@@ -1179,6 +1194,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
+		DetourDetach(&(PVOID&)CPlayer::InfoDie, InfoDie);
 		DetourTransactionCommit();
 		break;
 	}

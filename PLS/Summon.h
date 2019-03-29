@@ -4,44 +4,87 @@
 #include "ChatCommand.h"
 
 
-//void BossDropDraw(IChar IMonster)
-//{
-//	int BossID = IMonster.GetMobIndex();
-//	std::map<void*, int>PlayerMap;
-//	std::map<void*, int>::iterator PlayerMapIt;
-//	std::random_device device;
-//	std::mt19937 generator(device());
-//	std::uniform_int_distribution<int> distribution(1, 1000);
-//	distribution(generator);
-//
-//	for (boss = BossRNG.begin(); boss != BossRNG.end(); ++boss)
-//	{
-//		if (boss->first.first == IMonster.GetOffset() && (BossDropsMap[BossID].MinDamage < boss->second&&BossDropsMap[BossID].MinDamage != 0) || (boss->second > (IMonster.GetMaxHp() / 100)*BossDropsMap[BossID].MinDamagePercent&&BossDropsMap[BossID].MinDamagePercent != 0))
-//		{
-//			PlayerMap[boss->first.second] = boss->second;
-//			BossRNG.erase(boss);
-//		}
-//	}
-//
-//	int dropitem[5];
-//	int amountitem[5];
-//	
-//	for (int i = 0; i < 5; i++)
-//	{
-//		dropitem[i]=BossDropsMap[IMonster.GetMobIndex()].drop[i].ItemID;
-//		amountitem[i] = BossDropsMap[IMonster.GetMobIndex()].drop[i].ItemAmount;
-//	}
-//
-//	for (PlayerMapIt = PlayerMap.begin(); PlayerMapIt != PlayerMap.end(); ++PlayerMapIt)
-//	{
-//		CItem::InsertItem((int)PlayerMapIt->first, 0, 50, 0, 1, 0);
-//	}
-//
-//	//	if(distribution(generator)>500)
-//	//CItem::InsertItem((int)boss->first.second, 0, 50, 0, 1, 0);
-//
-//
-//}
+void BossDropDraw(IChar IMonster)
+{
+	int BossID = IMonster.GetMobIndex();
+	int MaxDropPerChar = BossDropsMap[BossID].MaxDropPerPlayer;
+	int itemgivencounter = 0;
+	bool temp_bool = false;
+	std::map<void*, int>PlayerMap;
+	std::map<void*, int>::iterator PlayerMapIt;
+	std::vector<Drop> temp_drop;
+	temp_drop = BossDropsMap[BossID].Dropy;
+	std::sort(temp_drop.end(), temp_drop.begin());
+	std::random_device device;
+	std::random_device device2;
+	std::mt19937 generator(device());
+	std::mt19937 generator2(device2());
+	int dropsgiven = BossDropsMap[BossID].ItemsToDraw;
+
+	int i = 0;
+	for (boss = BossRNG.begin(); boss != BossRNG.end(); ++boss)
+	{
+		if (boss->first.first == IMonster.GetOffset())
+		{
+			PlayerMap[boss->first.second] = boss->second;
+			BossRNG.erase(boss);
+		}
+	}
+
+	for (PlayerMapIt=PlayerMap.begin(); PlayerMapIt!=PlayerMap.end();++PlayerMapIt)
+	{
+		if ((BossDropsMap[BossID].MinDamage < PlayerMapIt->second&&BossDropsMap[BossID].MinDamage != 0) || (PlayerMapIt->second > (IMonster.GetMaxHp() / 100)*BossDropsMap[BossID].MinDamagePercent&&BossDropsMap[BossID].MinDamagePercent != 0))
+		{
+			PlayerMapIt->second = 0;
+		}
+		else
+		{
+			PlayerMap.erase(PlayerMapIt);
+		}
+	}
+	while (dropsgiven > 0&&PlayerMap.size()!=0)
+	{
+
+		std::uniform_int_distribution<int> distribution(0,PlayerMap.size() - 1);
+		PlayerMapIt = PlayerMap.begin();
+		std::advance(PlayerMapIt, distribution(generator));
+		IChar IPlayer(PlayerMapIt->first);
+		std::uniform_int_distribution<int> distribution2(0, 999);
+		if (distribution2(generator2) < temp_drop[i].DropChance * 10)
+		{
+			temp_bool = true;
+		}
+		temp_drop[i].ItemAmount--;
+		dropsgiven--;
+		if (temp_bool==true&&IPlayer.IsOnline()&& CPlayer::GetInvenSize(PlayerMapIt->first) + 1 < IPlayer.MaxInventorySize())
+		{
+
+			CItem::InsertItem((int)PlayerMapIt->first, 0, temp_drop[i].ItemID, 0, 1, 0);
+
+			PlayerMapIt->second++;
+
+			temp_bool = false;
+
+		}
+		if (temp_drop[i].ItemAmount == 0)
+		{
+			i++;
+		}
+		
+		if(PlayerMapIt->second>=MaxDropPerChar)
+		{
+			PlayerMap.erase(PlayerMapIt);
+		}
+
+		if (PlayerMap.size() == 0)
+		{
+			break;
+		}
+	}
+
+
+
+}
 int __cdecl Summon(int Player, int Map, int X, int Y, int Index, int Amount, int SafeZoneCheck, int Delay, int Disappear, int Pet)
 {
 	void *GetMonster = 0; int Value = 0, Monster = 0, Argument = 0;
@@ -370,14 +413,10 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 		Mautareta::PartyLimit = 0;
 	}
 
-	//erase do wyjebowywania
-
-
-	//if (BossDropsMap.count(IMonster.GetMobIndex()))
-	//{
-	//	CPlayer::WriteAll(0xFF, "dsd", 247, "ALL MOBS DIED,YOU DID IT !", 2);
-	//	BossDropDraw(IMonster);
-	//}
+	if (BossDropsMap.count(IMonster.GetMobIndex()))
+	{
+		BossDropDraw(IMonster);
+	}
 
 
 	return CMonsterMaguniMaster::Die(Monster, Arg, Arg1, Arg2, Arg3);

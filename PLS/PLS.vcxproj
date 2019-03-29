@@ -188,6 +188,7 @@
     <ClInclude Include="Icicle.h" />
     <ClInclude Include="IItem.h" />
     <ClInclude Include="Incapacitation.h" />
+    <ClInclude Include="InfoDie.h" />
     <ClInclude Include="InstaConfig.h" />
     <ClInclude Include="IQuest.h" />
     <ClInclude Include="ISkill.h" />

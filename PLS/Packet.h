@@ -42,6 +42,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					if (!IPlayer.IsBuff(Buffs[ItemID].BuffIndex))
 					{
 						IPlayer.Buff(Buffs[ItemID].BuffIndex, Buffs[ItemID].Duration, 0);
+						IPlayer.Buff(Buffs[ItemID].SecondBuffIndex, Buffs[ItemID].Duration + 10,0);
 						int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), Buffs[ItemID].BuffIndex);
 
 						if (Buffs[ItemID].PhysAttack)

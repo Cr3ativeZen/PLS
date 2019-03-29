@@ -312,6 +312,9 @@
     <ClInclude Include="PowerfulWideningWound.h">
       <Filter>Header Files\SecondJobSkills</Filter>
     </ClInclude>
+    <ClInclude Include="InfoDie.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">

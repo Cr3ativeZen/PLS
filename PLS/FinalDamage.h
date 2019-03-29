@@ -99,7 +99,6 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 			{
 				BossRNG[{ITarget.GetOffset(), IPlayer.GetOffset()}] += CheckDamage;
 
-				IPlayer.SystemMessage(Int2String(BossRNG[{ITarget.GetOffset(), IPlayer.GetOffset()}]), TEXTCOLOR_RED);
 			}
 		}
 

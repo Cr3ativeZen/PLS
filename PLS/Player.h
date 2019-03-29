@@ -8,10 +8,7 @@
 int __fastcall Tick(void *Player, void *edx)
 {
 	IChar IPlayer(Player);
-	if (D4InstanceON == true)
-	{
-		DFourInstance(IPlayer);
-	}
+
 
 	if (IPlayer.IsOnline() && IPlayer.GetAdmin() < 8)
 	{
@@ -81,7 +78,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 	for (bufx = Buffs.begin(); bufx != Buffs.end(); ++bufx)
 	{
-		if (IPlayer.IsBuff(bufx->second.BuffIndex) &&IPlayer.GetBuffRemain(bufx->second.BuffIndex) < 5)
+		if (!IPlayer.IsBuff(bufx->second.BuffIndex) &&IPlayer.IsBuff(bufx->second.SecondBuffIndex))
 		{
 			int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), bufx->second.BuffIndex);
 			int ItemID = bufx->first;
@@ -89,7 +86,6 @@ int __fastcall Tick(void *Player, void *edx)
 			if (Buffs[ItemID].PhysAttack)
 			{
 				IPlayer.RemoveMinPhysAttack(*(DWORD*)(Buff + 12));
-
 				IPlayer.RemoveMaxPhysAttack(*(DWORD*)(Buff + 16));
 			}
 			else if (Buffs[ItemID].MagicAttack)
@@ -147,8 +143,10 @@ int __fastcall Tick(void *Player, void *edx)
 			{
 				IPlayer.DecreaseMaxMp(Buffs[ItemID].MP);
 			}
+			IPlayer.CancelBuff(bufx->second.SecondBuffIndex);
 			IPlayer.CancelBuff(bufx->second.BuffIndex);
 			IPlayer.SystemMessage("Buff cancelled", TEXTCOLOR_RED);
+			break;
 		}
 	}
 
@@ -575,7 +573,10 @@ int __fastcall Tick(void *Player, void *edx)
 	//		}
 	//	}
 	//}
-
+	if (D4InstanceON == true)
+	{
+		DFourInstance(IPlayer);
+	}
 
 
 

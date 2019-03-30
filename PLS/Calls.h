@@ -12,6 +12,8 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 		return;
 
 
+
+
 	//Call of Evasion
 	if (ISkill.GetIndex() == 27)
 	{
@@ -33,7 +35,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						{
 							if (!IMembers.IsBuff(70))
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 
 									IMembers.Buff(70, 0, 0);
@@ -44,16 +46,16 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 									IMembers.AddFxToTarget("test_item_ef_09", 1, 0, 1);
 
-									//Call[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
-									//Call[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-									//Call[IMembers.GetPID()].SkillID = nSkillGrade;
+									CallOfEvasion[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+									CallOfEvasion[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+									CallOfEvasion[IMembers.GetPID()].SkillID = nSkillGrade;
 
 								}
 							}
 
 							else
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.RemoveEva(*(DWORD*)(Buff + 12));
 									IMembers.CancelBuff(70);
@@ -64,7 +66,9 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 									IMembers.Buff(70, 0, 0);
 									IMembers.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
 									IMembers.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
-
+									CallOfEvasion[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+									CallOfEvasion[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+									CallOfEvasion[IMembers.GetPID()].SkillID = nSkillGrade;
 
 									IMembers.AddFxToTarget("test_item_ef_09", 1, 0, 1);
 									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
@@ -129,17 +133,23 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						{
 							if (!IMembers.IsBuff(73))
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+									CallOfOTP[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+									CallOfOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+									CallOfOTP[IMembers.GetPID()].SkillID = nSkillGrade;
 								}
 							}
 							else
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.CancelBuff(73);
 									IMembers.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+									CallOfOTP[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+									CallOfOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+									CallOfOTP[IMembers.GetPID()].SkillID = nSkillGrade;
 								}
 							}
 
@@ -188,31 +198,43 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						{
 							if (!IMembers.IsBuff(38))
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									if (IMembers.GetSpecialty() == 23 && IMembers.GetClass() == 1)
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].SkillID = nSkillGrade;
 									}
 									else
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].SkillID = nSkillGrade;
 									}
 								}
 							}
 
 							else
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.CancelBuff(38);
 									if (IMembers.GetSpecialty() == 23 && IMembers.GetClass() == 1)
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].SkillID = nSkillGrade;
 									}
 									else
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+										CallOfRecovery[IMembers.GetPID()].SkillID = nSkillGrade;
 									}
 								}
 
@@ -263,20 +285,23 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						{
 							if (!IMembers.IsBuff(74))
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
 									IMembers.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 
 									IMembers.Buff(74, 0, 0);
 									IMembers.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
+									CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+									CallOfPhysicalAttack[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+									CallOfPhysicalAttack[IMembers.GetPID()].SkillID = nSkillGrade;
 
 									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 								}
 							}
 							else
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.RemoveMinAttack(*(DWORD*)(Buff + 12));
 									IMembers.RemoveMaxAttack(*(DWORD*)(Buff + 12));
@@ -288,6 +313,9 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 									IMembers.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 									IMembers.Buff(74, 0, 0);
 									IMembers.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
+									CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
+									CallOfPhysicalAttack[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
+									CallOfPhysicalAttack[IMembers.GetPID()].SkillID = nSkillGrade;
 
 
 
@@ -359,7 +387,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 
 						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{
-							if (IPlayer.IsInRange(IMembers, 20))
+							if (IPlayer.IsInRange(IMembers, CallRANGE))
 							{
 								IMembers.IncreaseHp(CallofHealBase + (IMembers.GetMaxHp()*CallofHealBasePercentage / 100) + (IMembers.GetMaxHp()*ISkill.GetGrade()*CallofHealPerGradePercentage/100));
 								IMembers.AddFxToTarget("davi_M573_76_bhit", 1, 0, 1);
@@ -398,7 +426,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 
 							if (CChar::IsNormal(Members) && IPlayer.IsValid())
 							{
-								if (IPlayer.IsInRange(IMembers, 20))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									for (int i = 0; i < 22; i++)
 									{

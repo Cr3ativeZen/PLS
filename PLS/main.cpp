@@ -196,7 +196,15 @@ std::map<int, BossDrops>BossDropsMap;
 std::map<std::pair<void*, void*>, int>BossRNG;
 std::map<int, BuffItem>::iterator bufx;
 std::map<int, BuffItem>Buffs;
-std::map<int, CallCheck>Call;
+//std::map<int, CallCheck>Call;
+
+std::map<int, CallCheck>CallOfEvasion;
+std::map<int, CallCheck>CallOfDefense;
+std::map<int, CallCheck>CallOfOTP;
+std::map<int, CallCheck>CallOfPhysicalAttack;
+std::map<int, CallCheck>CallOfRecovery;
+
+
 std::map<int, Teleport>ZenTP;
 std::map<int, DWORD> MonsterDisappear;
 std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
@@ -252,6 +260,8 @@ int CureBase3 = 0;
 int CureBasePercentage3 = 0;
 int CurePerGradePercentage3 = 0;
 int Cure3Wisdom = 0;
+
+int CallRANGE = 20;
 
 int CallofHealBase = 0;
 int CallofHealBasePercentage = 0;
@@ -1132,7 +1142,6 @@ namespace Mautareta
 #include "DestroyingArmor.h"
 #include "SoulDestruction.h"
 #include "PowerfulWideningWound.h"
-#include "InfoDie.h"
 
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
@@ -1174,7 +1183,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
 		DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
-		DetourAttach(&(PVOID&)CPlayer::InfoDie, InfoDie);
 		DetourTransactionCommit();
 		break;
 	}
@@ -1194,7 +1202,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
-		DetourDetach(&(PVOID&)CPlayer::InfoDie, InfoDie);
 		DetourTransactionCommit();
 		break;
 	}

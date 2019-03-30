@@ -93,7 +93,7 @@ void ZenConfig()
 		fclose(filex);
 	}
 
-	FILE *filey = fopen("./Systems/ZenBuff.txt", "r");
+	/*FILE *filey = fopen("./Systems/ZenBuff.txt", "r");
 	Buffs.clear();
 	if (filey != NULL)
 	{
@@ -122,7 +122,7 @@ void ZenConfig()
 			}
 		}
 		fclose(filey);
-	}
+	}*/
 
 	std::ifstream ZenRNG;
 	ZenRNG.open("./Systems/ZenRNG.txt", std::ios_base::in);
@@ -200,6 +200,8 @@ void ZenConfig()
 	CurePerGradePercentage3 = GetPrivateProfileIntA("Cure3", "CurePerGradePercentage3", 1, "./Skills/ZenSkillConfig.txt");
 	Cure3Wisdom = GetPrivateProfileIntA("Cure3", "Cure3Wisdom", 1, "./Skills/ZenSkillConfig.txt");
 	
+	CallRANGE = GetPrivateProfileIntA("Calls", "CallRANGE", 1, "./Skills/ZenSkillConfig.txt");
+
 	CallofHealBase = GetPrivateProfileIntA("CallOfHeal", "CallofHealBase", 1, "./Skills/ZenSkillConfig.txt");
 	CallofHealBasePercentage = GetPrivateProfileIntA("CallOfHeal", "CallofHealBasePercentage", 1, "./Skills/ZenSkillConfig.txt");
 	CallofHealPerGradePercentage = GetPrivateProfileIntA("CallOfHeal", "CallofHealPerGradePercentage", 1, "./Skills/ZenSkillConfig.txt");

@@ -37,7 +37,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						return;
 					}
 				}
-				if (Buffs.count(Itemx.CheckIndex()))
+			/*	if (Buffs.count(Itemx.CheckIndex()))
 				{
 					if (!IPlayer.IsBuff(Buffs[ItemID].BuffIndex))
 					{
@@ -118,7 +118,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						IPlayer.SystemMessage("This buff is already active, try again later!",TEXTCOLOR_RED);
 						return;
 					}
-				}
+				}*/
 
 				if (Itemx.CheckIndex() == ScrollItemID)
 				{
@@ -652,6 +652,64 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				if ((SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
 				{
 					Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
+					return;
+				}
+
+				if (SkillID == 19 && CallsON == true)
+				{
+					IChar Playere((void*)Player);
+
+					void* pSkill = (void*)Playere.GetSkillPointer(19);
+					if (Playere.IsValid())
+					{
+						ISkill ISkill(pSkill);
+						int nSkillGrade = ISkill.GetGrade();
+						int Action = 0, Check = 0;
+						Check = (*(int(__thiscall **)(void *, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
+
+						if (nSkillGrade && Check && Playere.IsValid())
+						{
+							if (Playere.IsParty())
+							{
+								void *Party = (void*)CParty::FindParty(Playere.GetPartyID());
+
+								if (Party)
+								{
+									for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+									{
+										int Members = *(DWORD*)((void*)i);
+
+										if (CChar::IsNormal(Members) && Playere.IsValid())
+										{
+											CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
+
+
+											IChar Member((void*)Members);
+
+											if (Playere.IsInRange(Member, CallRANGE))
+											{
+												int Buff = (*(int(__thiscall **)(DWORD))(*(DWORD *)Check + 20))(Check);
+
+												CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
+												CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
+												CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
+
+												(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
+											}
+										}
+
+									}
+								}
+							}
+							else 
+							{
+								CChar::CancelAllBuff(Playere.GetOffset(),28);
+								(*(void(__thiscall **)(int, int))(*(DWORD*)Player + 180))(Player, Check);
+							}
+
+							Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
+						}
+					}
 					return;
 				}
 

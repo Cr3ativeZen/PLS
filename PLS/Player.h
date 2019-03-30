@@ -540,39 +540,180 @@ int __fastcall Tick(void *Player, void *edx)
 	//	}
 	//}
 
-	//if (IPlayer.IsOnline() && IPlayer.IsParty()&&IPlayer.IsBuff(550)&&IPlayer.IsBuff(70))
-	//{
-	//	void* CasterOffset = Call[IPlayer.GetPID()].CasterOffset;
-	//	IChar Caster(CasterOffset);
-	//	if (IPlayer.GetPartyID() == Caster.GetPartyID())
-	//	{
-	//		if (!IPlayer.IsInRange(Caster, 2))
-	//		{
-	//			int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
 
-	//			IPlayer.RemoveEva(*(DWORD*)(Buff + 12));
 
-	//			IPlayer.CancelBuff(70);
-	//			IPlayer.CancelBuff(550);
-	//		}
-	//	}
-	//}
-	//if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550))
-	//{
-	//	void* CasterOffset = Call[IPlayer.GetPID()].CasterOffset;
-	//	IChar Caster(CasterOffset);
+//evasion off
+	if (IPlayer.IsOnline() && IPlayer.IsParty()&&IPlayer.IsBuff(550)&&IPlayer.IsBuff(70))
+	{
+		void* CasterOffset = CallOfEvasion[IPlayer.GetPID()].CasterOffset;
+		IChar Caster(CasterOffset);
+		if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+		{
+			int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
 
-	//	if (IPlayer.GetPartyID() == Caster.GetPartyID())
-	//	{
-	//		if (IPlayer.IsInRange(Caster, 2))
-	//		{
-	//			ISkill ISkill((void*)Caster.GetSkillPointer(27));
-	//			IPlayer.Buff(70, 0, 0);
-	//			IPlayer.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
-	//			IPlayer.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
-	//		}
-	//	}
-	//}
+			IPlayer.RemoveEva(*(DWORD*)(Buff + 12));
+
+			IPlayer.CancelBuff(70);
+			IPlayer.CancelBuff(550);
+		}
+		
+
+	}
+//evasion on
+	if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550))
+	{
+		void* CasterOffset = CallOfEvasion[IPlayer.GetPID()].CasterOffset;
+		IChar Caster(CasterOffset);
+
+		if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+		{
+			if (IPlayer.IsInRange(Caster, CallRANGE))
+			{
+				ISkill ISkill((void*)Caster.GetSkillPointer(27));
+				IPlayer.Buff(70, 0, 0);
+				IPlayer.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
+				IPlayer.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
+			}
+		}
+	}
+
+//Copa off
+if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(560) &&IPlayer.IsBuff(74))
+{
+	void* CasterOffset = CallOfPhysicalAttack[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+
+	if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+	{
+		int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 560);
+
+		IPlayer.RemoveMinAttack(*(DWORD*)(Buff + 12));
+		IPlayer.RemoveMaxAttack(*(DWORD*)(Buff + 12));
+
+		IPlayer.CancelBuff(74);
+		IPlayer.CancelBuff(560);
+
+	}
+}
+
+//Copa on
+if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(560))
+{
+	void* CasterOffset = CallOfPhysicalAttack[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+
+	if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+	{
+		if (IPlayer.IsInRange(Caster, CallRANGE))
+		{
+			ISkill ISkill((void*)Caster.GetSkillPointer(32));
+
+			IPlayer.AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
+			IPlayer.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
+
+			IPlayer.Buff(74, 0, 0);
+			IPlayer.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
+		}
+	}
+}
+//otp off
+if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(73))
+{
+	void* CasterOffset = CallOfOTP[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+
+	if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+	{
+		IPlayer.CancelBuff(73);
+
+	}
+}
+
+//otp on
+if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(73))
+{
+	void* CasterOffset = CallOfOTP[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+
+	if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+	{
+		if (IPlayer.IsInRange(Caster, CallRANGE))
+		{
+			ISkill ISkill((void*)Caster.GetSkillPointer(31));
+			IPlayer.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+		}
+	}
+}
+
+
+//cor off
+if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(38))
+{
+	void* CasterOffset = CallOfRecovery[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+
+	if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+	{
+		IPlayer.CancelBuff(38);
+
+	}
+}
+
+//cor on
+if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(38))
+{
+	void* CasterOffset = CallOfRecovery[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+
+	if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+	{
+		if (IPlayer.IsInRange(Caster, CallRANGE))
+		{
+			ISkill ISkill((void*)Caster.GetSkillPointer(23));
+			if (IPlayer.GetSpecialty() == 23 && IPlayer.GetClass() == 1)
+			{
+				IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
+			}
+			else
+			{
+				IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
+			}
+		}
+	}
+}
+
+//codoff
+if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(28))
+{
+	void* CasterOffset = CallOfDefense[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+
+	if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+	{
+		IPlayer.CancelBuff(28);
+	}
+}
+
+//cod on
+if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
+{
+	void* CasterOffset = CallOfDefense[IPlayer.GetPID()].CasterOffset;
+	IChar Caster(CasterOffset);
+	int Check = 0;
+	void* pSkill=(void*)Caster.GetSkillPointer(19);
+
+	if (IPlayer.GetPartyID() == Caster.GetPartyID()&&IPlayer.GetOffset()!=Caster.GetOffset())
+	{
+		if (IPlayer.IsInRange(Caster, CallRANGE))
+		{
+			Check = (*(int(__thiscall **)(void *, int))(*(DWORD*)pSkill + 80))(pSkill, (int)Caster.GetOffset());
+			int Buff = (*(int(__thiscall **)(DWORD))(*(DWORD *)Check + 20))(Check);
+			(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)IPlayer.GetOffset() + 180))((DWORD)IPlayer.GetOffset(), Buff);
+		}
+	}
+}
+
+
 	if (D4InstanceON == true)
 	{
 		DFourInstance(IPlayer);

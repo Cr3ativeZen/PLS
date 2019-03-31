@@ -122,8 +122,8 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (Itemx.CheckIndex() == ScrollItemID)
 				{
-					//if (!IPlayer.IsBuff(60) && !IPlayer.IsBuff(61) && !IPlayer.IsBuff(62) && !IPlayer.IsBuff(63) && !IPlayer.IsBuff(64) && !IPlayer.IsBuff(51) && !IPlayer.IsBuff(52) && !IPlayer.IsBuff(54) && !IPlayer.IsBuff(56) && !IPlayer.IsBuff(57))
-					//{
+					if (!IPlayer.IsBuff(60) && !IPlayer.IsBuff(61) && !IPlayer.IsBuff(62) && !IPlayer.IsBuff(63) && !IPlayer.IsBuff(64) && !IPlayer.IsBuff(51) && !IPlayer.IsBuff(52) && !IPlayer.IsBuff(54) && !IPlayer.IsBuff(56) && !IPlayer.IsBuff(57))
+					{
 						IPlayer.Buff(60, 7200, 5);
 						IPlayer.Buff(61, 7200, 10);
 						IPlayer.Buff(62, 7200, 5);
@@ -145,14 +145,13 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						IPlayer.RemoveBuffIcon(0, 0, 0, 69);
 						IPlayer.RemoveBuffIcon(0, 0, 0, 70);
 						IPlayer.RemoveBuffIcon(0, 0, 0, 71);
-						//IPlayer.SetBuffIcon(7200, 0, 0, 62);
-						return;
-					//}
-					/*else
+						IPlayer.SetBuffIcon(7200, 0, 0, ScrollItemIconKey);
+					}
+					else
 					{
 						IPlayer.SystemMessage("Your scrolls and potions are still active!", TEXTCOLOR_RED);
 						return;
-					}*/
+					}
 				}
 
 

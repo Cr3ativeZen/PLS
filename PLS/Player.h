@@ -545,7 +545,7 @@ int __fastcall Tick(void *Player, void *edx)
 //evasion off
 	if (IPlayer.IsOnline() && IPlayer.IsParty()&&IPlayer.IsBuff(550)&&IPlayer.IsBuff(70))
 	{
-		void* CasterOffset = CallOfEvasion[IPlayer.GetPID()].CasterOffset;
+		void* CasterOffset = CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 		IChar Caster(CasterOffset);
 		if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
 		{
@@ -560,9 +560,9 @@ int __fastcall Tick(void *Player, void *edx)
 
 	}
 //evasion on
-	if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550))
+	if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550)&&CallOfEvasionOTP[IPlayer.GetPID()].SkillID == 27)
 	{
-		void* CasterOffset = CallOfEvasion[IPlayer.GetPID()].CasterOffset;
+		void* CasterOffset = CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 		IChar Caster(CasterOffset);
 
 		if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
@@ -619,7 +619,8 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(560))
 //otp off
 if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(73))
 {
-	void* CasterOffset = CallOfOTP[IPlayer.GetPID()].CasterOffset;
+
+	void* CasterOffset = CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 	IChar Caster(CasterOffset);
 
 	if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
@@ -630,9 +631,10 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(73))
 }
 
 //otp on
-if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(73))
+if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(73)&& CallOfEvasionOTP[IPlayer.GetPID()].SkillID == 31)
 {
-	void* CasterOffset = CallOfOTP[IPlayer.GetPID()].CasterOffset;
+
+	void* CasterOffset = CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 	IChar Caster(CasterOffset);
 
 	if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())

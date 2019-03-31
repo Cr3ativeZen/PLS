@@ -198,9 +198,9 @@ std::map<int, BuffItem>::iterator bufx;
 std::map<int, BuffItem>Buffs;
 //std::map<int, CallCheck>Call;
 
-std::map<int, CallCheck>CallOfEvasion;
+std::map<int, CallCheck>CallOfEvasionOTP;
 std::map<int, CallCheck>CallOfDefense;
-std::map<int, CallCheck>CallOfOTP;
+//std::map<int, CallCheck>CallOfOTP;
 std::map<int, CallCheck>CallOfPhysicalAttack;
 std::map<int, CallCheck>CallOfRecovery;
 
@@ -916,6 +916,7 @@ bool D4InstanceON = 0;
 bool MautaretaON = 0;
 
 int ScrollItemID = 0;
+int ScrollItemIconKey = 0;
 
 
 enum TextColor

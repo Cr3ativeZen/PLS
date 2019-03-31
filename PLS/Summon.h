@@ -14,7 +14,7 @@ void BossDropDraw(IChar IMonster)
 	std::map<void*, int>::iterator PlayerMapIt;
 	std::vector<Drop> temp_drop;
 	temp_drop = BossDropsMap[BossID].Dropy;
-	std::sort(temp_drop.end(), temp_drop.begin());
+	//std::sort(temp_drop.end(), temp_drop.begin());
 	std::random_device device;
 	std::random_device device2;
 	std::mt19937 generator(device());
@@ -55,11 +55,15 @@ void BossDropDraw(IChar IMonster)
 			temp_bool = true;
 		}
 		temp_drop[i].ItemAmount--;
-		dropsgiven--;
-		if (temp_bool==true&&IPlayer.IsOnline()&& CPlayer::GetInvenSize(PlayerMapIt->first) + 1 < IPlayer.MaxInventorySize())
+		if (CPlayer::GetInvenSize(PlayerMapIt->first) + 2 < IPlayer.MaxInventorySize())
 		{
-
-			CItem::InsertItem((int)PlayerMapIt->first, 0, temp_drop[i].ItemID, 0, 1, 0);
+			PlayerMap.erase(PlayerMapIt);
+		}
+		if (temp_bool==true&&IPlayer.IsOnline())
+		{
+			dropsgiven--;
+			if(IPlayer.IsOnline())
+				CItem::InsertItem((int)PlayerMapIt->first, 0, temp_drop[i].ItemID, 0, 1, 0);
 
 			PlayerMapIt->second++;
 
@@ -350,6 +354,15 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 
 	if (RiftON == true)
 	{
+
+		for (int i = 0; i < RiftAmount; i++)
+		{
+			if (IMonster.IsValid() && IMonster.GetMobIndex() == RiftStruct[i].MobID[RiftStruct[i].WaveNumber] && RiftStruct[i].IsUp == true)
+			{
+				RiftStruct[i].MobDeadCount++;
+			}
+		}
+
 		for (int i = 0; i < RiftAmount; i++)
 		{
 			if (IMonster.IsValid() && IMonster.GetMobIndex() == RiftStruct[i].FirstBoss&& RiftStruct[i].IsUp == false)
@@ -364,13 +377,6 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 			}
 		}
 
-		for (int i = 0; i < RiftAmount; i++)
-		{
-			if (IMonster.IsValid() && IMonster.GetMobIndex() == RiftStruct[i].MobID[RiftStruct[i].WaveNumber] && RiftStruct[i].IsUp == true)
-			{
-				RiftStruct[i].MobDeadCount++;
-			}
-		}
 		for (int i = 0; i < RiftAmount; i++)
 		{
 			if (RiftStruct[i].MobDeadCount == RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] && RiftStruct[i].WaveNumber != RiftStruct[i].MaxWave&&RiftStruct[i].IsUp == true)

@@ -888,7 +888,7 @@ void ZenConfig()
 
 
 		ScrollItemID = GetPrivateProfileIntA("ScrollItem", "ScrollItemID", 0, "./Systems/ZenSystem.txt");
-
+		ScrollItemIconKey = GetPrivateProfileIntA("ScrollItem", "ScrollItemIconKey", 0, "./Systems/ZenSystem.txt");
 
 
 

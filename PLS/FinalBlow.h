@@ -39,9 +39,6 @@ void __fastcall FinalBlow(IChar IPlayer, int pPacket, int pPos)
 				if (CChar::GetRange((int)IPlayer.GetOffset() + 332, (int)pTarget + 332) > 300)
 					return;
 
-				if (IPlayer.CheckHit(Target, 20))
-				{
-
 					if (Target.GetCurHp() < Target.GetMaxHp() / 2)
 					{
 						int nDmg = ((IPlayer.GetAttack()*FinalBBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*FinalBAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*FinalBStrMultiPvE) + (nSkillGrade*FinalBPerGradeMultiPvE))*(FinalBMultiWhenBelowPvE / 100);
@@ -58,10 +55,7 @@ void __fastcall FinalBlow(IChar IPlayer, int pPacket, int pPos)
 							nDmg = ((IPlayer.GetAttack()*FinalBBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*FinalBAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*FinalBStrMultiPvP) + (nSkillGrade*FinalBPerGradeMultiPvE));
 						IPlayer.OktayDamageSingle(Target, nDmg, 18);
 					}
-				}
-				else {
-					IPlayer._ShowBattleMiss(Target, 18);
-				}
+
 
 				IPlayer.SetDirection(Target);
 				IPlayer._ShowBattleAnimation(Target, 18);

@@ -13,8 +13,10 @@ void BossDropDraw(IChar IMonster)
 	std::map<void*, int>PlayerMap;
 	std::map<void*, int>::iterator PlayerMapIt;
 	std::vector<Drop> temp_drop;
+	std::vector<Drop>::iterator temp_drop_iterator;
 	temp_drop = BossDropsMap[BossID].Dropy;
-	//std::sort(temp_drop.end(), temp_drop.begin());
+
+	std::sort(temp_drop.rend(), temp_drop.rbegin());
 	std::random_device device;
 	std::random_device device2;
 	std::mt19937 generator(device());
@@ -42,42 +44,54 @@ void BossDropDraw(IChar IMonster)
 			PlayerMap.erase(PlayerMapIt);
 		}
 	}
+	temp_drop_iterator = temp_drop.begin();
 	while (dropsgiven > 0&&PlayerMap.size()!=0)
 	{
-
+		
 		std::uniform_int_distribution<int> distribution(0,PlayerMap.size() - 1);
 		PlayerMapIt = PlayerMap.begin();
 		std::advance(PlayerMapIt, distribution(generator));
 		IChar IPlayer(PlayerMapIt->first);
 		std::uniform_int_distribution<int> distribution2(0, 999);
-		if (distribution2(generator2) < temp_drop[i].DropChance * 10)
+		if (distribution2(generator2) < temp_drop_iterator->DropChance * 10)
 		{
 			temp_bool = true;
 		}
-		temp_drop[i].ItemAmount--;
-		if (CPlayer::GetInvenSize(PlayerMapIt->first) + 2 < IPlayer.MaxInventorySize())
+		temp_drop_iterator->ItemAmount--;
+
+		if (CPlayer::GetInvenSize(PlayerMapIt->first) > IPlayer.MaxInventorySize())
 		{
 			PlayerMap.erase(PlayerMapIt);
 		}
+
 		if (temp_bool==true&&IPlayer.IsOnline())
 		{
+
+			
 			dropsgiven--;
+
 			if(IPlayer.IsOnline())
-				CItem::InsertItem((int)PlayerMapIt->first, 0, temp_drop[i].ItemID, 0, 1, 0);
+				CItem::InsertItem((int)PlayerMapIt->first, 0, temp_drop_iterator->ItemID, 0, 1, 0);
 
 			PlayerMapIt->second++;
 
 			temp_bool = false;
 
 		}
-		if (temp_drop[i].ItemAmount == 0)
+
+		if (temp_drop_iterator->ItemAmount == 0)
 		{
-			i++;
+			temp_drop.erase(temp_drop_iterator);
 		}
 		
 		if(PlayerMapIt->second>=MaxDropPerChar)
 		{
 			PlayerMap.erase(PlayerMapIt);
+		}
+
+		if (temp_drop.size() == 0)
+		{
+			break;
 		}
 
 		if (PlayerMap.size() == 0)

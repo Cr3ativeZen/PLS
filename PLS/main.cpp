@@ -32,12 +32,6 @@ int String2Int(std::string String)
 	return Integer;
 }
 
-//std::map<int, BossDrops>BossDropsMap;
-//std::map<std::pair<void*, void*>, int>BossRNG;
-//std::map<std::pair<void*, void*>, int> ::iterator boss;
-//std::map<int, BossDrops> ::iterator sIt;
-
-
 struct PlayerContinueSkill
 {
 	int PlayerX;

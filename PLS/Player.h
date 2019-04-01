@@ -10,13 +10,6 @@ int __fastcall Tick(void *Player, void *edx)
 	IChar IPlayer(Player);
 
 
-	if (IPlayer.IsOnline() && IPlayer.GetAdmin() < 8)
-	{
-		if (IPlayer.GetMoveSpeed() > 1000)
-		{
-			IPlayer.Kick();
-		}
-	}
 
 	if (IPlayer.IsOnline() && CheckShiny.count((int)IPlayer.GetOffset()) && CheckShiny.find((int)IPlayer.GetOffset())->second.Target && IPlayer.IsBuff(307) && LightningArrowON == true)
 	{

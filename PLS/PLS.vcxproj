@@ -215,6 +215,7 @@
     <ClInclude Include="RevolveAttack.h" />
     <ClInclude Include="Rupture.h" />
     <ClInclude Include="Sacrifice.h" />
+    <ClInclude Include="SendMail.h" />
     <ClInclude Include="ServerFunctions.h" />
     <ClInclude Include="ShadowSlash.h" />
     <ClInclude Include="ShieldAttack.h" />

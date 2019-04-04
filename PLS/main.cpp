@@ -213,7 +213,8 @@ enum ToFile
 {
 	SpeedHack = 1,
 	SkillLogs = 2,
-	Mails = 3
+	Mails = 3,
+	WoodenBox = 4
 };
 
 std::map<int, Coordinates> PlayerCoords;
@@ -1181,6 +1182,7 @@ namespace Mautareta
 #include "DestroyingArmor.h"
 #include "SoulDestruction.h"
 #include "PowerfulWideningWound.h"
+#include "SendMail.h"
 
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
@@ -1227,6 +1229,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
 		DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
+		DetourAttach(&(PVOID&)CPlayer::SendMail, SendMail);
 		DetourTransactionCommit();
 		break;
 	}
@@ -1246,6 +1249,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
+		DetourDetach(&(PVOID&)CPlayer::SendMail, SendMail);
 		DetourTransactionCommit();
 		break;
 	}

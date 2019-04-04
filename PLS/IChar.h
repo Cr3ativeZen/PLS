@@ -192,6 +192,7 @@ public:
 	void RemoveMinMagicAttack(int amount);
 	void RemoveMaxMagicAttack(int amount);
 
+	void SetAsSleep();
 	int GetMoveSpeed();
 
 };

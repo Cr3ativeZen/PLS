@@ -9,6 +9,14 @@ int __fastcall CanAttack(void *Player, void *edx, int Target, int Value)
 	{
 		if (IPlayer.GetType() == 0 && ITarget.GetType() == 0)
 		{
+
+			//if (IPlayer.IsValid() && ITarget.IsValid() && IPlayer.IsBuff(198) && ITarget.IsBuff(199))
+			//	return 1;
+
+			//if (IPlayer.IsValid() && ITarget.IsValid() && IPlayer.IsBuff(199) && ITarget.IsBuff(198))
+			//	return 1;
+
+
 			if (IPlayer.IsValid() && ITarget.IsValid() && ITarget.IsBuff(327))
 				return 0;
 

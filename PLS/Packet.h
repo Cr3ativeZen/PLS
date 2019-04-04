@@ -1,9 +1,200 @@
+
+void WritePacketToFile(IChar IPlayer, ToFile WHICH_FILE)
+{
+	std::string type_for_dir;
+	std::string type_for_file;
+	std::string str_to_write;
+
+	time_t now = time(0);
+
+	char* dt = ctime(&now);
+
+	switch (WHICH_FILE)
+	{
+	case SpeedHack:
+	{
+		type_for_dir = "\\SpeedHack";
+		type_for_file = "/SpeedHack/SpeedHackLog";
+		//type_for_file += dt;
+		type_for_file += ".txt";
+		break;
+	}
+	case SkillLogs:
+	{
+		type_for_dir = "\\SkillLogs";
+		type_for_file = "/SkillLogs/SkillLogs";
+		//type_for_file += dt;
+		type_for_file += ".txt";
+	}
+	case Mails:
+	{
+		type_for_dir = "\\Mails";
+		type_for_file = "/Mails/Mails";
+		//type_for_file += dt;
+		type_for_file += ".txt";
+	}
+	}
+	std::ofstream Folders;
+	std::string Nick = IPlayer.GetName();
+	std::string FileN = "C:\\Users\\Admin\\Desktop\\kal\\Shaman ServSide\\ZenLogs\\Characters\\" + Nick;
+
+	char* file = new char[FileN.size() + 1];
+	strcpy(file, FileN.c_str());
+	if (!dirExists(FileN))
+	{
+		_mkdir(file);
+	}
+
+	delete[] file;
+	FileN += type_for_dir;
+	file = new char[FileN.size() + 1];
+	strcpy(file, FileN.c_str());
+
+	if (!dirExists(FileN))
+	{
+		_mkdir(file);
+	}
+
+	std::string FilePath = ("./ZenLogs/Characters/");
+	FilePath += Nick;
+	FilePath += type_for_file;
+	//IPlayer.SystemMessage(FilePath, TEXTCOLOR_ALLIANCE);
+	Folders.open(FilePath, std::ios_base::out | std::ios::app);
+	if (Folders)
+	{
+
+	}
+
+	Folders.close();
+	delete[] file;
+}
+
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
 	IChar IPlayer((void*)Player);
 	if (IPlayer.IsOnline())
 	{
 		//IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
+
+		if (SpeedHackCheck==true&&packet == 20 && !IPlayer.IsBuff(347) && !IPlayer.IsBuff(349) &&!IPlayer.IsBuff(40) &&!IPlayer.IsBuff(82) &&((IPlayer.GetMoveSpeed()<=110&& CChar::IsGState((int)IPlayer.GetOffset(), 512))|| (!CChar::IsGState((int)IPlayer.GetOffset(), 512)&&IPlayer.GetMoveSpeed()<=75)))
+		{
+			
+				PlayerCoords[IPlayer.GetPID()].average_speed = static_cast<int>(sqrt(pow((PlayerCoords[IPlayer.GetPID()].x - IPlayer.GetX()), 2) + pow((PlayerCoords[IPlayer.GetPID()].y - IPlayer.GetY()), 2))*100);
+
+				PlayerCoords[IPlayer.GetPID()].x = IPlayer.GetX();
+				PlayerCoords[IPlayer.GetPID()].y = IPlayer.GetY();
+
+				time_t now = time(0);
+
+				char* dt = ctime(&now);
+				//IPlayer.SystemMessage(Int2String(PlayerCoords[IPlayer.GetPID()].average_speed), TEXTCOLOR_RED);
+
+					//SpeedHackLog.open(SpeedHackLogn, std::ios_base::out | std::ios::app);
+					//SpeedHackLog << "------|Name: " << IPlayer.GetName() << "------|PID: " << IPlayer.GetPID() << "-------" << dt;
+					//SpeedHackLog.close();
+
+				WritePacketToFile(IPlayer, SpeedHack);
+
+				if (PlayerCoords[IPlayer.GetPID()].average_speed >= 1125 )
+				{
+					PlayerCoords[IPlayer.GetPID()].current_check++;
+					if (PlayerCoords[IPlayer.GetPID()].current_check > 14)
+					{ 
+						time_t now = time(0);
+
+						char* dt = ctime(&now);
+						ConsoleWriteBlue("Speed hack detected on character: ");
+						ConsoleWriteBlue(IPlayer.GetName());
+						SpeedHackLog.open(SpeedHackLogn, std::ios_base::out | std::ios::app);
+						if (SpeedHackLog)
+						{
+							SpeedHackLog << "------|Name: " << IPlayer.GetName() << "------|PID: " << IPlayer.GetPID() << "-------" << dt;
+							SpeedHackLog.close();
+						}
+						std::ofstream PlayerFile;
+						std::string FileN = "./ZenLogs/Characters";
+						FileN =FileN+IPlayer.GetName();
+						
+						PlayerFile.open(FileN);
+
+						IPlayer.SystemMessage("Speed Hack Detected, SMD! ", TEXTCOLOR_RED);
+						IPlayer.Kick();
+						PlayerCoords[IPlayer.GetPID()].current_check = 0;
+
+
+
+					}
+
+				}
+				else
+				{
+					PlayerCoords[IPlayer.GetPID()].current_check = 0;
+				}
+		}
+
+		if (SpeedHackCheck == true && IPlayer.IsBuff(347) && IPlayer.IsBuff(349) &&!IPlayer.IsBuff(40) && !IPlayer.IsBuff(82))
+		{
+			PlayerCoords[IPlayer.GetPID()].average_speed = static_cast<int>(sqrt(pow((PlayerCoords[IPlayer.GetPID()].x - IPlayer.GetX()), 2) + pow((PlayerCoords[IPlayer.GetPID()].y - IPlayer.GetY()), 2)) * 100);
+
+			PlayerCoords[IPlayer.GetPID()].x = IPlayer.GetX();
+			PlayerCoords[IPlayer.GetPID()].y = IPlayer.GetY();
+
+			//IPlayer.SystemMessage(Int2String(PlayerCoords[IPlayer.GetPID()].average_speed), TEXTCOLOR_RED);
+
+
+			if (PlayerCoords[IPlayer.GetPID()].average_speed >= 1221)
+			{
+				PlayerCoords[IPlayer.GetPID()].current_check++;
+				if (PlayerCoords[IPlayer.GetPID()].current_check > 14)
+				{
+					time_t now = time(0);
+
+					char* dt = ctime(&now);
+					ConsoleWriteBlue("Speed hack detected on character: ");
+					ConsoleWriteBlue(IPlayer.GetName());
+					SpeedHackLog.open(SpeedHackLogn, std::ios_base::out | std::ios::app);
+					if (SpeedHackLog)
+					{
+						SpeedHackLog << "ON MOUNT!------|Name: " << IPlayer.GetName() << "------|PID: " << IPlayer.GetPID() << "-------" << dt;
+						SpeedHackLog.close();
+					}
+					IPlayer.SystemMessage("Speed Hack Detected, SMD! ", TEXTCOLOR_RED);
+					IPlayer.Kick();
+					PlayerCoords[IPlayer.GetPID()].current_check = 0;
+
+
+
+				}
+
+			}
+			else
+			{
+				PlayerCoords[IPlayer.GetPID()].current_check = 0;
+			}
+		}
+
+		if (packet == 94)
+		{
+
+		}
+
+		//if (packet == 92)
+		//{
+		//	int temp = 0;
+		//	int temp2 = 0;
+		//	int temp3 = 0;
+		//	int temp4 = 0;
+		//	int temp5 = 0;
+		//	CPacket::Read((char*)pPacket, (char*)pPos, "bbb", &temp, &temp2, &temp3, &temp4, &temp5);
+		//	IPlayer.SystemMessage(Int2String(temp), TEXTCOLOR_RED);
+		//	IPlayer.SystemMessage(Int2String(temp2), TEXTCOLOR_RED);
+		//	IPlayer.SystemMessage(Int2String(temp3), TEXTCOLOR_RED);
+		//	IPlayer.SystemMessage(Int2String(temp4), TEXTCOLOR_RED);
+		//	IPlayer.SystemMessage(Int2String(temp5), TEXTCOLOR_RED);
+		//}
+
+		if (packet == 105)
+			return;
 
 		if (packet == 33)
 		{
@@ -568,6 +759,21 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			IPlayer.Buff(313, 3, 0);
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 			
+
+			if (SkillID == 0)
+				return;
+
+			time_t now = time(0);
+
+			char* dt = ctime(&now);
+
+			SkillLog.open(SkillLogFile, std::ios_base::out | std::ios::app);
+			if (SkillLog)
+			{
+				SkillLog << "------|Name: " << IPlayer.GetName() << "------|Class: " << IPlayer.GetClass() << "------|SkillID: " << SkillID << "-------" << dt;
+				SkillLog.close();
+			}
+
 			if (SkillID == 74 && IPlayer.GetClass() == 1)
 			{
 				SkillID = 99;
@@ -601,13 +807,8 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
 			}
 
-			std::ofstream SkillLog;
-			time_t my_time = time(NULL);
-			std::string SkillLogFile = "./Log/LogSkillUse.txt";
-			SkillLog.open(SkillLogFile, std::ios_base::out | std::ios::app);
-			SkillLog << "------|Name: " << IPlayer.GetName() << "------|Class: " << IPlayer.GetClass() << "------|SkillID: " <<SkillID << std::endl;
-			SkillLog.close();
-			
+
+
 			if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
 			{
 				if (IPlayer.GetClass() == 1 && IPlayer.GetMap() == 21 && (SkillID == 43 || SkillID == 45 || SkillID == 48))
@@ -1339,6 +1540,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			
 			
 		}
+
 
 		CPlayer::Process((void*)Player, packet, (void*)pPacket, pPos);
 	}

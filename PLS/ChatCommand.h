@@ -152,6 +152,25 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 		IPlayer.SystemMessage(Int2String(IPlayer.GetMoveSpeed()), TEXTCOLOR_RED);
 	}
+
+	//if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/blue"&& IPlayer.GetAdmin() >= 8)
+	//{
+	//	IPlayer.SetBlue();
+	//	IPlayer.Buff(198, 3650, 0);
+	//}
+
+
+	//if (IPlayer.IsOnline() && cmd.substr(0, 4) == "/red"&& IPlayer.GetAdmin() >= 8)
+	//{
+	//	IPlayer.SetRed();
+	//	IPlayer.Buff(199, 3650, 0);
+	//}
+
+
+	//if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/test" &&IPlayer.GetAdmin() >= 8)
+	//{
+	//	IPlayer.SetAsSleep();
+	//}
 	CPlayer::ChatCommand(Player, command);
 }
 #endif

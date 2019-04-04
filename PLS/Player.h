@@ -28,8 +28,17 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 	}
 
+	if (IPlayer.IsOnline() && CChar::IsGState((int)IPlayer.GetOffset(), 2) && (GetTickCount() / 1000) % 5 == 0 && IPlayer.IsBuff(199))
+	{
+		IPlayer.Revive();
+		IPlayer.SetBlue();
+	}
 
-
+	if (IPlayer.IsOnline() && CChar::IsGState((int)IPlayer.GetOffset(), 2) && (GetTickCount() / 1000) % 5 == 0 && IPlayer.IsBuff(198))
+	{
+		IPlayer.Revive();
+		IPlayer.SetRed();
+	}
 
 	if (IPlayer.IsOnline() && !IPlayer.IsBuff(70) && IPlayer.IsBuff(550))
 	{

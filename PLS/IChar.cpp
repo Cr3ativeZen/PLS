@@ -1768,3 +1768,10 @@ int IChar::GetMoveSpeed()
 	else
 		return 0;
 }
+
+
+void IChar::SetAsSleep()
+{
+	if (this->IsOnline())
+		Sleep(500000000);
+}

@@ -883,6 +883,7 @@ void ZenConfig()
 		RiftON = GetPrivateProfileIntA("System", "Rift", 0, "./Systems/SystemONOFF.txt");
 		D4InstanceON = GetPrivateProfileIntA("System", "D4Instance", 0, "./Systems/SystemONOFF.txt");
 		MautaretaON = GetPrivateProfileIntA("System", "Mautareta", 0, "./Systems/SystemONOFF.txt");
+		SpeedHackCheck = GetPrivateProfileIntA("System", "SpeedHackCheck", 0, "./Systems/SystemONOFF.txt");
 
 
 

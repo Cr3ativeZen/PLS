@@ -1,4 +1,3 @@
-
 #include <windows.h>
 #include "ServerFunctions.h"
 #include "ISkill.h"

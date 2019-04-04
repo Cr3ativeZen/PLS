@@ -15,6 +15,10 @@
 #include <thread>
 #include <random>
 #include <algorithm>
+#include <math.h>
+#include <direct.h>
+
+
 
 std::string Int2String(int value)
 {
@@ -24,6 +28,8 @@ std::string Int2String(int value)
 	return str;
 }
 
+
+
 int String2Int(std::string String)
 {
 	int Integer;
@@ -31,6 +37,25 @@ int String2Int(std::string String)
 	iss >> Integer;
 	return Integer;
 }
+
+bool dirExists(const std::string& dirName_in)
+{
+	DWORD ftyp = GetFileAttributesA(dirName_in.c_str());
+	if (ftyp == INVALID_FILE_ATTRIBUTES)
+		return false;
+
+	if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
+		return true;
+
+	return false;
+}
+
+struct Coordinates
+{
+	int x, y;
+	int average_speed;
+	int current_check;
+};
 
 struct PlayerContinueSkill
 {
@@ -183,6 +208,15 @@ struct BossDrops
 	int ItemsToDraw = 0;
 
 };
+
+enum ToFile
+{
+	SpeedHack = 1,
+	SkillLogs = 2,
+	Mails = 3
+};
+
+std::map<int, Coordinates> PlayerCoords;
 
 std::map<std::pair<void*, void*>, int> ::iterator boss;
 std::map<int, BossDrops> ::iterator sIt;
@@ -909,8 +943,18 @@ bool RiftON = 0;
 bool D4InstanceON = 0;
 bool MautaretaON = 0;
 
+bool SpeedHackCheck = 0;
+
 int ScrollItemID = 0;
 int ScrollItemIconKey = 0;
+
+std::ofstream SpeedHackLog;
+std::ofstream SkillLog;
+std::string SkillLogFile = "./ZenLogs/SkillUseLog.txt";
+std::string SpeedHackLogn = "./ZenLogs/SpeedHackLog.txt";
+time_t now = time(0);
+
+
 
 
 enum TextColor
@@ -1147,12 +1191,17 @@ void __fastcall Start(int Start, void *edx, u_short hostshort)
 	MautaretaConfig();
 	ConsoleWriteBlue("CreativeZen's DLL loaded successfully");
 	Sleep(500);
+
+
+
 }
 
 
 int __fastcall Hooked_MainServer_Stop(int stop)
 {
 	return MainServer::Stop(stop);
+	SkillLog.close();
+	SpeedHackLog.close();
 }
 
 

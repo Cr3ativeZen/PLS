@@ -30,7 +30,7 @@ void __fastcall TherapeuticTouch(IChar IPlayer, int pPacket, int pPos)
 		{
 			IChar Target(pTarget);
 
-			if (!IPlayer.IsInRange(Target, 300))
+			if (!IPlayer.IsInRange(Target, 20))
 				return;
 
 			if (IPlayer.IsValid() && Target.IsValid())

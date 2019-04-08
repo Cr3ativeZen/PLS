@@ -39,7 +39,7 @@ void __fastcall OneHitStrike(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				Target.AddFxToTarget("test_item_ef_small_11", 1, 0, 0);

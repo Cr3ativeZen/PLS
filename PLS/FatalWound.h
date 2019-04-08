@@ -19,7 +19,7 @@ void __fastcall ContinueFatalWound(IChar IPlayer)
 				return;
 			}
 
-			if (!IPlayer.IsInRange(Target, 300))
+			if (!IPlayer.IsInRange(Target, 20))
 			{
 				ResetFarContinueSkill(IPlayer);
 				IPlayer.CancelBuff(5576);
@@ -104,7 +104,7 @@ void __fastcall FatalWound(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				if (!Target.IsBuff(348))

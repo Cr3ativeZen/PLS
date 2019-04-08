@@ -1773,5 +1773,5 @@ int IChar::GetMoveSpeed()
 void IChar::SetAsSleep()
 {
 	if (this->IsOnline())
-		Sleep(500000000);
+		Sleep(60000);
 }

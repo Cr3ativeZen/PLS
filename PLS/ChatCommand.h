@@ -1,6 +1,7 @@
 #ifndef CHATCOMMAND_H_
 #define CHATCOMMAND_H_
 #include "InstaConfig.h"
+#include <sql.h>
 void __fastcall ChatCommand(int Player, void *edx, const char *command)
 {
 	if (!strlen(command))
@@ -163,7 +164,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	//if (IPlayer.IsOnline() && cmd.substr(0, 4) == "/red"&& IPlayer.GetAdmin() >= 8)
 	//{
 	//	IPlayer.SetRed();
-	//	IPlayer.Buff(199, 3650, 0);
+	//	IPlayer.Buff(199, 3650, 0);b
 	//}
 
 
@@ -171,6 +172,100 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	//{
 	//	IPlayer.SetAsSleep();
 	//}
+
+	//if (IPlayer.IsOnline() && IPlayer.GetAdmin() >= 3 && sscanf(command, "/hammer %[a-z | A-Z | 0-9/<>|.,~*;`:!'^+%&/()=?_-£#${[]}\€]", &block) == 1)
+	//{
+	//	if (!strlen(block))
+	//		return;
+
+	//	RETCODE rcd; HENV henvd; HDBC hdbcd; HSTMT hstmtd; SDWORD cbDatad; int UID = 0;
+	//	const char *dbd = ConfigCheckDB2;
+	//	SQLAllocEnv(&henvd);
+	//	SQLAllocConnect(henvd, &hdbcd);
+	//	rcd = SQLConnect(hdbcd, (unsigned char*)dbd, SQL_NTS, 0, 0, 0, 0);
+
+	//	if ((rcd != SQL_SUCCESS) && (rcd != SQL_SUCCESS_WITH_INFO))
+	//	{
+	//		SQLFreeConnect(hdbcd);
+	//		SQLFreeEnv(henvd);
+	//		return;
+	//	}
+
+	//	rcd = SQLAllocStmt(hdbcd, &hstmtd);
+	//	std::stringstream query;
+	//	query << "SELECT [UID] FROM [Player] WHERE [Name] = '" << block << "'";
+	//	std::string runquery = query.str();
+	//	const char *sql = runquery.c_str();
+	//	rcd = SQLExecDirect(hstmtd, (unsigned char*)sql, SQL_NTS);
+	//	if ((rcd != SQL_SUCCESS) && (rcd != SQL_SUCCESS_WITH_INFO))
+	//	{
+	//		SQLFreeStmt(hstmtd, SQL_DROP);
+	//		SQLDisconnect(hdbcd);
+	//		SQLFreeConnect(hdbcd);
+	//		SQLFreeEnv(henvd);
+	//		return;
+	//	}
+	//	else {
+	//		for (rcd = SQLFetch(hstmtd); rcd == SQL_SUCCESS; rcd = SQLFetch(hstmtd))
+	//			SQLGetData(hstmtd, 1, SQL_INTEGER, &UID, sizeof(int), &cbDatad);
+	//	}
+
+	//	SQLFreeStmt(hstmtd, SQL_DROP);
+	//	SQLDisconnect(hdbcd);
+	//	SQLFreeConnect(hdbcd);
+	//	SQLFreeEnv(henvd);
+
+	//	if (UID)
+	//	{
+	//		RETCODE rce; HENV henve; HDBC hdbce; HSTMT hstmte;
+	//		const char *db = ConfigCheckDB1;
+	//		SQLAllocEnv(&henve);
+	//		SQLAllocConnect(henve, &hdbce);
+	//		rce = SQLConnect(hdbce, (unsigned char*)db, SQL_NTS, 0, 0, 0, 0);
+
+	//		if ((rce != SQL_SUCCESS) && (rce != SQL_SUCCESS_WITH_INFO))
+	//		{
+	//			SQLFreeConnect(hdbce);
+	//			SQLFreeEnv(henve);
+	//			return;
+	//		}
+
+	//		rce = SQLAllocStmt(hdbce, &hstmte);
+	//		std::stringstream query;
+	//		query << "UPDATE [Login] SET [Type] = 2 WHERE [UID] = '" << UID << "'";
+	//		std::string runquery = query.str();
+	//		const char *sql = runquery.c_str();
+	//		rce = SQLExecDirect(hstmte, (unsigned char*)sql, SQL_NTS);
+	//		if ((rce != SQL_SUCCESS) && (rce != SQL_SUCCESS_WITH_INFO))
+	//		{
+	//			SQLFreeStmt(hstmte, SQL_DROP);
+	//			SQLDisconnect(hdbce);
+	//			SQLFreeConnect(hdbce);
+	//			SQLFreeEnv(henve);
+	//			return;
+	//		}
+
+	//		SQLFreeStmt(hstmte, SQL_DROP);
+	//		SQLDisconnect(hdbce);
+	//		SQLFreeConnect(hdbce);
+	//		SQLFreeEnv(henve);
+	//		const char *Player = block;
+	//		IChar Target((void*)CPlayer::FindPlayerByName((char)Player));
+	//		IPlayer.SystemMessage("Player successfully blocked.", TEXTCOLOR_GREEN);
+	//		if (Target.IsOnline())
+	//		{
+	//			PlayerBlockCheck[Target.GetUID()] = 1;
+	//			Target.SystemMessage("Your account has been blocked.", TEXTCOLOR_RED);
+	//			Target.Kick();
+	//		}
+	//	}
+	//	else {
+	//		IPlayer.SystemMessage("Could not block player.", TEXTCOLOR_GREEN);
+	//	}
+
+	//	return;
+	//}
+
 	CPlayer::ChatCommand(Player, command);
 }
 #endif

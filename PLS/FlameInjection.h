@@ -101,7 +101,7 @@ void __fastcall FlameInjection(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				IPlayer.Buff(5557, 10, 0);

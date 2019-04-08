@@ -38,7 +38,7 @@ void __fastcall ArrowsOfTheMaster(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				IPlayer.AddFxToTarget("HellGate_FX40", 1, 0, 0);

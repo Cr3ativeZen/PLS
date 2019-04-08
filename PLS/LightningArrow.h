@@ -14,7 +14,7 @@ void __fastcall StormActivateShiny(IChar IPlayer, IChar Target)
 
 			if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				if (!Caster.IsInRange(Target, 300))
@@ -97,7 +97,7 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				if (!Caster.IsInRange(Target, 300))
@@ -196,7 +196,7 @@ void __fastcall LightningArrow(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				if (Target.IsBuff(307))

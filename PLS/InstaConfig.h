@@ -93,37 +93,6 @@ void ZenConfig()
 		fclose(filex);
 	}
 
-	/*FILE *filey = fopen("./Systems/ZenBuff.txt", "r");
-	Buffs.clear();
-	if (filey != NULL)
-	{
-		char line[BUFSIZ];
-		int SecondBuffIndex=0,Strength = 0, Health = 0, Int = 0, Wisdom = 0, Agility = 0, PhysAttack = 0, MagicAttack = 0, OTP = 0, Evasion = 0, DEF = 0, HP = 0, MP = 0, BuffIndex = 0, Duration = 0, IconKey = 0, ItemIndex = 0;
-		while (fgets(line, sizeof line, filez) != NULL)
-		{
-			if (sscanf(line, "(buffitem (BuffIndex %d)(SecondBuffIndex %d)(ItemIndex %d)(Duration %d)(IconKey %d)(Strength %d)(Health %d)(Int %d)(Wisdom %d)(Agility %d)(PhysAttack %d)(MagicAttack %d)(OTP %d)(Evasion %d)(DEF %d)(HP %d)(MP %d))", &BuffIndex, &SecondBuffIndex,&ItemIndex, &Duration, &IconKey, &Strength, &Health, &Int, &Wisdom, &Agility, &PhysAttack, &MagicAttack, &OTP, &Evasion, &DEF, &HP, &MP) == 17)
-			{
-				Buffs[ItemIndex].Duration = Duration;
-				Buffs[ItemIndex].BuffIndex = BuffIndex;
-				Buffs[ItemIndex].SecondBuffIndex = SecondBuffIndex;
-				Buffs[ItemIndex].IconKey = IconKey;
-				Buffs[ItemIndex].Strength = Strength;
-				Buffs[ItemIndex].Health = Health;
-				Buffs[ItemIndex].Int = Int;
-				Buffs[ItemIndex].Wisdom = Wisdom;
-				Buffs[ItemIndex].Agility = Agility;
-				Buffs[ItemIndex].PhysAttack = PhysAttack;
-				Buffs[ItemIndex].MagicAttack = MagicAttack;
-				Buffs[ItemIndex].OTP = OTP;
-				Buffs[ItemIndex].Evasion = Evasion;
-				Buffs[ItemIndex].DEF = DEF;
-				Buffs[ItemIndex].HP = HP;
-				Buffs[ItemIndex].MP = MP;
-			}
-		}
-		fclose(filey);
-	}*/
-
 	std::ifstream ZenRNG;
 	ZenRNG.open("./Systems/ZenRNG.txt", std::ios_base::in);
 	char r;
@@ -166,6 +135,96 @@ void ZenConfig()
 		}
 		ZenRNG.close();
 	}
+
+
+	Kn8WhiteListSkills.push_back(10);
+	Kn8WhiteListSkills.push_back(3);
+	Kn8WhiteListSkills.push_back(4);
+	Kn8WhiteListSkills.push_back(7);
+	Kn8WhiteListSkills.push_back(8);
+	Kn8WhiteListSkills.push_back(13);
+	Kn8WhiteListSkills.push_back(41);
+
+	Kn8WhiteListSkills.push_back(14);
+	Kn8WhiteListSkills.push_back(15);
+	Kn8WhiteListSkills.push_back(16);
+	Kn8WhiteListSkills.push_back(17);
+	Kn8WhiteListSkills.push_back(18);
+	Kn8WhiteListSkills.push_back(19);
+	Kn8WhiteListSkills.push_back(22);
+	Kn8WhiteListSkills.push_back(23);
+	Kn8WhiteListSkills.push_back(24);
+	Kn8WhiteListSkills.push_back(25);
+	Kn8WhiteListSkills.push_back(26);
+	Kn8WhiteListSkills.push_back(27);
+	Kn8WhiteListSkills.push_back(28);
+	Kn8WhiteListSkills.push_back(29);
+	Kn8WhiteListSkills.push_back(30);
+	Kn8WhiteListSkills.push_back(31);
+	Kn8WhiteListSkills.push_back(32);
+	Kn8WhiteListSkills.push_back(33);
+	Kn8WhiteListSkills.push_back(34);
+	Kn8WhiteListSkills.push_back(40);
+	Kn8WhiteListSkills.push_back(44);
+	Kn8WhiteListSkills.push_back(42);
+	Kn8WhiteListSkills.push_back(43);
+	Kn8WhiteListSkills.push_back(90);
+	Kn8WhiteListSkills.push_back(91);
+	Kn8WhiteListSkills.push_back(92);
+	Kn8WhiteListSkills.push_back(93);
+	Kn8WhiteListSkills.push_back(94);
+
+	MageWhiteListSkills.push_back(8);
+	MageWhiteListSkills.push_back(9);
+	MageWhiteListSkills.push_back(15);
+	MageWhiteListSkills.push_back(29);
+	MageWhiteListSkills.push_back(55);
+	MageWhiteListSkills.push_back(56);
+	MageWhiteListSkills.push_back(58);
+	MageWhiteListSkills.push_back(59);
+	MageWhiteListSkills.push_back(60);
+	MageWhiteListSkills.push_back(69);
+	MageWhiteListSkills.push_back(64);
+	MageWhiteListSkills.push_back(74);
+	MageWhiteListSkills.push_back(76);
+	MageWhiteListSkills.push_back(90);
+	MageWhiteListSkills.push_back(91);
+	MageWhiteListSkills.push_back(92);
+	MageWhiteListSkills.push_back(93);
+	MageWhiteListSkills.push_back(94);
+	MageWhiteListSkills.push_back(99);
+
+
+	ArcherWhiteListSkills.push_back(4);
+	ArcherWhiteListSkills.push_back(7);
+	ArcherWhiteListSkills.push_back(10);
+	ArcherWhiteListSkills.push_back(18);
+	ArcherWhiteListSkills.push_back(21);
+	ArcherWhiteListSkills.push_back(22);
+	ArcherWhiteListSkills.push_back(24);
+	ArcherWhiteListSkills.push_back(25);
+	ArcherWhiteListSkills.push_back(26);
+	ArcherWhiteListSkills.push_back(28);
+	ArcherWhiteListSkills.push_back(29);
+	ArcherWhiteListSkills.push_back(31);
+	ArcherWhiteListSkills.push_back(33);
+	ArcherWhiteListSkills.push_back(35);
+	ArcherWhiteListSkills.push_back(36);
+	ArcherWhiteListSkills.push_back(37);
+	ArcherWhiteListSkills.push_back(38);
+	ArcherWhiteListSkills.push_back(39);
+	ArcherWhiteListSkills.push_back(40);
+	ArcherWhiteListSkills.push_back(41);
+	ArcherWhiteListSkills.push_back(43);
+	ArcherWhiteListSkills.push_back(46);
+	ArcherWhiteListSkills.push_back(47);
+	ArcherWhiteListSkills.push_back(90);
+	ArcherWhiteListSkills.push_back(91);
+	ArcherWhiteListSkills.push_back(92);
+	ArcherWhiteListSkills.push_back(93);
+	ArcherWhiteListSkills.push_back(94);
+
+
 
 
 

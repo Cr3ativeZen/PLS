@@ -28,6 +28,9 @@ void __fastcall BlowUpArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 	IChar Target(pTarget);
 
+	if (!IPlayer.IsInRange(Target, 20))
+		return;
+
 	if (bType == 0)
 	{
 		

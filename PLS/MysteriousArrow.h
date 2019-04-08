@@ -58,7 +58,7 @@ void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos
 		if (IPlayer.GetCurMp() < nMana)
 			return;
 
-		if (!IPlayer.IsInRange(Target, 300))
+		if (!IPlayer.IsInRange(Target, 20))
 			return;
 
 		if (IPlayer.CheckHit(Target, 21))
@@ -80,7 +80,7 @@ void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos
 		if (IPlayer.GetCurMp() < nMana)
 			return;
 
-		if (!IPlayer.IsInRange(Target, 300))
+		if (!IPlayer.IsInRange(Target, 20))
 			return;
 
 		if (IPlayer.CheckHit(Target, 21))

@@ -50,7 +50,7 @@ void __fastcall ProvocationOfBlow(IChar IPlayer, int pPacket, int pPos)
 			{
 				IChar Target(pTarget);
 
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				int Around = IPlayer.GetObjectListAround(2);

@@ -36,7 +36,7 @@ void __fastcall SpiritOfTheArrows(IChar IPlayer, int pPacket, int pPos)
 			if (pTarget == IPlayer.GetOffset())
 				return;
 
-			if (!IPlayer.IsInRange(Target, 300))
+			if (!IPlayer.IsInRange(Target, 20))
 				return;
 
 			int Around = Target.GetObjectListAround(3);

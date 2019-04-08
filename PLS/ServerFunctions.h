@@ -301,7 +301,7 @@ namespace CPlayer
 	static int(__thiscall *Rest)(void *Player, int Value) = (int(__thiscall*)(void*, int))0x004642B0;
 	static int(__thiscall *IsEState) (int Player, int Argument) = (int(__thiscall*) (int, int))0x0044A510;
 	static int(__thiscall *SubEState) (int Player, int Argument) = (int(__thiscall*) (int, int))0x0044A4E0;
-	static int(__cdecl *FindPlayerByName)(char Name) = (int(__cdecl*)(char))0x00450890;
+	static int(__cdecl *FindPlayerByName)(const char* Name) = (int(__cdecl*)(const char*))0x00450890;
 	static void* (__cdecl* FindPlayer) (int nID) = (void* (__cdecl*) (int))0x00450810;
 	static int(__thiscall *Teleport) (int Player, int Map, int X, int Y, int Z) = (int(__thiscall*) (int, int, int, int, int))0x0045CC90;
 	static bool(__thiscall *IsWearBuffStandard)(int Player) = (bool(__thiscall*)(int))0x0046BD80;

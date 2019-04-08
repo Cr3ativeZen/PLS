@@ -42,7 +42,7 @@ void __fastcall ArmorBreaker(IChar IPlayer, int pPacket, int pPos)
 				if (!CanAttack(IPlayer.GetOffset(), 0, (int)Target.GetOffset(), 0))
 					return;
 
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				IPlayer.DecreaseMana(nMana);

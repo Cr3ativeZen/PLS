@@ -37,7 +37,7 @@ void __fastcall SpinAttack(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				int Around = IPlayer.GetObjectListAround(3);

@@ -38,7 +38,7 @@ void __fastcall MassiveFire(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				int nDmg = (IPlayer.GetAttack()*MFBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MFAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MFStrMultiPvE) + (nSkillGrade*MFPerGradeMultiPvE);

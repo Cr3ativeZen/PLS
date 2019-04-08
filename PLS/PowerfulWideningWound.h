@@ -23,6 +23,9 @@ void __fastcall PowerfulWideningWound(IChar IPlayer, int pPacket, int pPos)
 
 		IChar Target(pTarget);
 
+		if (!IPlayer.IsInRange(Target, 1))
+			return;
+
 		if (pTarget && xSkill.GetGrade() && IPlayer.IsValid())
 		{
 			if (IPlayer.GetCurMp() < nMana)
@@ -33,7 +36,7 @@ void __fastcall PowerfulWideningWound(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				if (IPlayer.CheckHit(Target, 10 + ((IPlayer.GetLevel() / 20) + xSkill.GetGrade() * 3)))

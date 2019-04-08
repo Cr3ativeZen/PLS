@@ -38,7 +38,7 @@ void __fastcall CriticalStrike(IChar IPlayer, int pPacket, int pPos)
 				if (pTarget == IPlayer.GetOffset())
 					return;
 
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				int nDmg = 5000;

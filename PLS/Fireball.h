@@ -38,7 +38,7 @@ void __fastcall Fireball(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				int nDmg = (IPlayer.GetMagic()*FBBaseDmgMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*FBIntMultiPvE) + (xSkill.GetGrade()*FBPerGradeMultiPvE);

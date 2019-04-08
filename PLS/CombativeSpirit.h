@@ -38,7 +38,7 @@ void __fastcall CombativeSpirit(IChar IPlayer, int pPacket, int pPos)
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 300))
+				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
 				IPlayer.DecreaseMana(nMana);

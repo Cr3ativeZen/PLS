@@ -55,6 +55,8 @@ struct Coordinates
 	int x, y;
 	int average_speed;
 	int current_check;
+	bool flag = false;
+	int temp;
 };
 
 struct PlayerContinueSkill
@@ -214,8 +216,19 @@ enum ToFile
 	SpeedHack = 1,
 	SkillLogs = 2,
 	Mails = 3,
-	WoodenBox = 4
+	WoodenBox = 4,
+	SkillHacks=5
 };
+
+struct SkillCheck
+{
+	bool animation_check = false;
+	int SkillID = 0;
+	int time_used = 0;
+
+};
+
+std::map<int, SkillCheck> CastProtection;
 
 std::map<int, Coordinates> PlayerCoords;
 
@@ -226,7 +239,7 @@ std::map<std::pair<void*, void*>, int>BossRNG;
 std::map<int, BuffItem>::iterator bufx;
 std::map<int, BuffItem>Buffs;
 //std::map<int, CallCheck>Call;
-
+std::map<int, int> PlayerBlockCheck;
 std::map<int, CallCheck>CallOfEvasionOTP;
 std::map<int, CallCheck>CallOfDefense;
 //std::map<int, CallCheck>CallOfOTP;
@@ -955,7 +968,12 @@ std::string SkillLogFile = "./ZenLogs/SkillUseLog.txt";
 std::string SpeedHackLogn = "./ZenLogs/SpeedHackLog.txt";
 time_t now = time(0);
 
+std::vector<int> Kn8WhiteListSkills;
+std::vector<int> ::iterator itt;
+std::vector<int> ArcherWhiteListSkills;
+std::vector<int> MageWhiteListSkills;
 
+const char *ConfigCheckDB1, *ConfigCheckDB2;
 
 
 enum TextColor

@@ -71,6 +71,17 @@ switch (WHICH_FILE)
 		type_for_file += ".txt";
 		FilePath += Nick;
 		FilePath += type_for_file;
+		break;
+	}
+	case SkillHacks:
+	{
+		type_for_dir = "\\SkillHacks";
+		type_for_file = "/SkillHacks/SkillHacks";
+		type_for_file += date;
+		type_for_file += ".txt";
+		FilePath += Nick;
+		FilePath += type_for_file;
+		break;
 	}
 	default:
 	{
@@ -116,24 +127,43 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		//IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
 
-		if (SpeedHackCheck==true&&packet == 20 && !IPlayer.IsBuff(347) && !IPlayer.IsBuff(349) &&!IPlayer.IsBuff(40) &&!IPlayer.IsBuff(82) &&((IPlayer.GetMoveSpeed()<=110&& CChar::IsGState((int)IPlayer.GetOffset(), 512))|| (!CChar::IsGState((int)IPlayer.GetOffset(), 512)&&IPlayer.GetMoveSpeed()<=75)))
+		if (packet == 105)
+			return;
+
+		if (packet == 20)
 		{
-			
+			PlayerCoords[IPlayer.GetPID()].temp = 0;
+			if (PlayerCoords[IPlayer.GetPID()].current_check == 0)
+			{
+				PlayerCoords[IPlayer.GetPID()].current_check = GetTickCount();
+			}
+
+			if (PlayerCoords[IPlayer.GetPID()].flag == false&&	(signed)PlayerCoords[IPlayer.GetPID()].current_check>(signed)GetTickCount())
+			{
+				PlayerCoords[IPlayer.GetPID()].flag = true;
+			}
+		}
+
+		if (SpeedHackCheck==true&&packet == 20&& PlayerCoords[IPlayer.GetPID()].flag==true&& !IPlayer.IsBuff(347) && !IPlayer.IsBuff(349) &&!IPlayer.IsBuff(40) &&!IPlayer.IsBuff(82)/*&&((IPlayer.GetMoveSpeed()<=110&& CChar::IsGState((int)IPlayer.GetOffset(), 512))|| (!CChar::IsGState((int)IPlayer.GetOffset(), 512)&&IPlayer.GetMoveSpeed()<=75))*/)
+		{
+				PlayerCoords[IPlayer.GetPID()].current_check = GetTickCount() + 2000;
+				PlayerCoords[IPlayer.GetPID()].flag = false;
 				PlayerCoords[IPlayer.GetPID()].average_speed = static_cast<int>(sqrt(pow((PlayerCoords[IPlayer.GetPID()].x - IPlayer.GetX()), 2) + pow((PlayerCoords[IPlayer.GetPID()].y - IPlayer.GetY()), 2))*100);
 
 				PlayerCoords[IPlayer.GetPID()].x = IPlayer.GetX();
 				PlayerCoords[IPlayer.GetPID()].y = IPlayer.GetY();
 
+				IPlayer.SystemMessage(Int2String(PlayerCoords[IPlayer.GetPID()].average_speed), TEXTCOLOR_RED);
 
 				time_t now = time(0);
 
 				char* dt = ctime(&now);
 
 
-				if (PlayerCoords[IPlayer.GetPID()].average_speed >= 1125 )
+				if (PlayerCoords[IPlayer.GetPID()].average_speed >= 1350 )
 				{
 					PlayerCoords[IPlayer.GetPID()].current_check++;
-					if (PlayerCoords[IPlayer.GetPID()].current_check > 13)
+					if (PlayerCoords[IPlayer.GetPID()].current_check > 50)
 					{ 
 						std::string to_file = "------|Name: ";
 						to_file += IPlayer.GetName();
@@ -150,6 +180,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				{
 					PlayerCoords[IPlayer.GetPID()].current_check = 0;
 				}
+		}
+
+		if (SpeedHackCheck == true && packet == 20 && !IPlayer.IsBuff(347) && !IPlayer.IsBuff(349) && !IPlayer.IsBuff(40) && !IPlayer.IsBuff(82) && ((IPlayer.GetMoveSpeed() <= 115 && CChar::IsGState((int)IPlayer.GetOffset(), 512))))
+		{
+
 		}
 
 		if (SpeedHackCheck == true && IPlayer.IsBuff(347) && IPlayer.IsBuff(349) &&!IPlayer.IsBuff(40) && !IPlayer.IsBuff(82))
@@ -187,15 +222,20 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			}
 		}
 
+
+
 		if (packet == 94)
 		{
+			time_t now = time(0);
 
+			char* dt = ctime(&now);
+			std::string to_file = "WOODEN BOX OPENNED BY: ";
+			to_file += IPlayer.GetName();
+			to_file += "--- X " + Int2String(IPlayer.GetX()) + "--- Y " + Int2String(IPlayer.GetY()) + "--- Z " + Int2String(IPlayer.GetX()) + "--- " + dt;
+			WritePacketToFile(IPlayer, WoodenBox, to_file);
 		}
 
 
-
-		if (packet == 105)
-			return;
 
 		if (packet == 33)
 		{
@@ -726,6 +766,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 
 
+			CastProtection[IPlayer.GetPID()].animation_check = true;
+			CastProtection[IPlayer.GetPID()].SkillID = SkillID;
+			CastProtection[IPlayer.GetPID()].time_used = GetTickCount();
+
+
+
 			if (IPlayer.GetClass() == 2 && SkillID == 16 &&FocusShotON == true)
 			{
 				int pSkill = IPlayer.GetSkillPointer(16);
@@ -756,6 +802,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			int SkillID = 0;
 			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
 			int pSkill = IPlayer.GetSkillPointer(SkillID);
+			bool check = false;
 
 			IPlayer.Buff(313, 3, 0);
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
@@ -771,11 +818,66 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				std::string to_file ="------|Name: ";
 				to_file += IPlayer.GetName();
 				to_file += "------|Class: ";
-				to_file += "------ | SkillID:";
+				to_file += Int2String(IPlayer.GetClass());
+				to_file += "------ | SkillID: ";
 				to_file += Int2String(SkillID)+" ";
 				to_file += dt;
 				WritePacketToFile(IPlayer, SkillLogs, to_file);
 
+				if (CastProtection[IPlayer.GetPID()].animation_check == false &&!(SkillID>=88 &&SkillID<=94))
+				{
+					switch (IPlayer.GetClass())
+					{
+						case 0:
+						{
+							itt=std::find(Kn8WhiteListSkills.begin(), Kn8WhiteListSkills.end(),SkillID);
+							if (itt != Kn8WhiteListSkills.end())
+							{
+								
+								check = true;
+							}
+							break;
+
+						}
+						case 1:
+						{
+							itt = std::find(MageWhiteListSkills.begin(), MageWhiteListSkills.end(), SkillID);
+							if (itt != MageWhiteListSkills.end())
+							{
+								
+								check = true;
+							}
+							break;
+
+						}
+						case 2:
+						{
+							itt = std::find(ArcherWhiteListSkills.begin(), ArcherWhiteListSkills.end(), SkillID);
+							if (itt != ArcherWhiteListSkills.end())
+							{
+								
+								check = true;
+							}
+							break;
+
+						}
+						default:
+							break;
+					}
+
+					if (check == false)
+					{
+						IPlayer.SystemMessage("Hax Detected!", TEXTCOLOR_RED);
+						IPlayer.Kick();
+						WritePacketToFile(IPlayer, SkillHacks, to_file);
+					}
+				}
+
+			if (CastProtection[IPlayer.GetPID()].animation_check == true)
+			{
+				CastProtection[IPlayer.GetPID()].animation_check = false;
+				CastProtection[IPlayer.GetPID()].SkillID = 0;
+			}
 
 			if (SkillID == 74 && IPlayer.GetClass() == 1)
 			{
@@ -799,14 +901,15 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
 				CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
 
-			if (CooldownCheck > GetTickCount()&&(!IPlayer.IsBuff(5605)&&!IPlayer.IsBuff(295)))
+			if (CooldownCheck > GetTickCount()&&(!IPlayer.IsBuff(5605)&&!IPlayer.IsBuff(295)&&SkillID!=99))
 			{
 
 					IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
 					return;
 
 			}
-			else {
+			else 
+			{
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
 			}
 
@@ -1544,19 +1647,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			
 		}
 
-
-		if (packet == 94)
-		{
-			time_t now = time(0);
-
-			char* dt = ctime(&now);
-			std::string to_file = "WOODEN BOX OPENNED BY: ";
-			to_file += IPlayer.GetName();
-			to_file += "--- X " + Int2String(IPlayer.GetX()) + "--- Y " + Int2String(IPlayer.GetY()) + "--- Z " + Int2String(IPlayer.GetX())+"--- "+dt;
-			WritePacketToFile(IPlayer, WoodenBox, to_file);
-			
-
-		}
 
 		CPlayer::Process((void*)Player, packet, (void*)pPacket, pPos);
 	}

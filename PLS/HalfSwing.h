@@ -25,7 +25,7 @@ void __fastcall HalfSwing(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 	IChar Target(pTarget);
 
-	if (!IPlayer.IsInRange(Target, 1))
+	if (!IPlayer.IsInRange(Target, 2))
 		return;
 
 	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))

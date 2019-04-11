@@ -194,6 +194,7 @@ public:
 
 	void SetAsSleep();
 	int GetMoveSpeed();
+	std::string GetIP();
 
 };
 

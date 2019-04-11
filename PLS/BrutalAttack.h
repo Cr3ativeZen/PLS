@@ -25,12 +25,12 @@ void __fastcall BrutalAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 	IChar Target(pTarget);
 
-	if (!IPlayer.IsInRange(Target, 1))
+	if (!IPlayer.IsInRange(Target, 2))
 		return;
 
 	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 	{
-		if (IPlayer.CheckHit(Target, 17))
+		if (IPlayer.CheckHit(Target, 20))
 		{
 			int nDmg = static_cast<int>(((IPlayer.GetAttack()*BRUTBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*BRUTAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*BRUTStrMultiPvE) + (nSkillGrade*BRUTPerGradeMultiPvE))*(0.5 + (IPlayer.GetDeathBlow()*0.1)));
 

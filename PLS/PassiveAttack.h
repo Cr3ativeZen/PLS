@@ -29,7 +29,7 @@ void __fastcall PassiveAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (IPlayer.CheckHit(Target, 4))
+			if (IPlayer.CheckHit(Target, 20))
 			{
 				Target.Buff(8, PassiveAttackBaseFreezeTime + PassiveAttackPerGradeFreezeTime * ISkill.GetGrade(), 0);
 				IPlayer.SetDirection(Target);

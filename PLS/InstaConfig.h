@@ -164,7 +164,7 @@ void ZenConfig()
 	Kn8WhiteListSkills.push_back(32);
 	Kn8WhiteListSkills.push_back(33);
 	Kn8WhiteListSkills.push_back(34);
-	Kn8WhiteListSkills.push_back(40);
+	Kn8WhiteListSkills.push_back(38);
 	Kn8WhiteListSkills.push_back(44);
 	Kn8WhiteListSkills.push_back(42);
 	Kn8WhiteListSkills.push_back(43);

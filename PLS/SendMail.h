@@ -56,8 +56,8 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 	FilePath += type_for_file;
 
 	std::ofstream Folders;
-	//std::string FileN = "C:\\Users\\root\\Desktop\\Server Side\\ZenLogs\\Characters\\";
-	std::string FileN = "C:\\Users\\Admin\\Desktop\\kal\\Shaman ServSide\\ZenLogs\\Characters\\";
+	std::string FileN = "C:\\Users\\root\\Desktop\\Server Side\\ZenLogs\\Characters\\";
+	//std::string FileN = "C:\\Users\\Admin\\Desktop\\kal\\Shaman ServSide\\ZenLogs\\Characters\\";
 	FileN += ReceiverName;
 
 

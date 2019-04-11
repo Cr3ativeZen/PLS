@@ -31,7 +31,7 @@ void __fastcall FocusShot(int pSkill, void *pPlayer, int pPacket, int pPos)
 	{
 
 		IPlayer.SetDirection(Target);
-		if (IPlayer.CheckHit(Target, 16))
+		if (IPlayer.CheckHit(Target, 20))
 		{
 			int nTime = GetTickCount() - CheckFocus[IPlayer.GetPID()];
 			

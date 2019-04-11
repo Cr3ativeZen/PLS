@@ -23,7 +23,7 @@ void __fastcall PowerfulWideningWound(IChar IPlayer, int pPacket, int pPos)
 
 		IChar Target(pTarget);
 
-		if (!IPlayer.IsInRange(Target, 1))
+		if (!IPlayer.IsInRange(Target, 2))
 			return;
 
 		if (pTarget && xSkill.GetGrade() && IPlayer.IsValid())

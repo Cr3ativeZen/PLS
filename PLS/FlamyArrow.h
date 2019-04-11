@@ -32,7 +32,7 @@ void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	{
 		if (IPlayer.IsValid() &&Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (IPlayer.CheckHit(Target, 6))
+			if (IPlayer.CheckHit(Target, 20))
 			{
 				int nDmge = (IPlayer.GetAttack()*FABaseDamageMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*FAAGiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*FAStrMultiPvP) + (ISkill.GetGrade()*FAPerGradeMultiPvP);
 				Target.Buff(791, FADurationBase+ISkill.GetGrade()*FADurationPerGrade, (FADoTBasePvP+(ISkill.GetGrade()*FADoTPerGradePvP)));
@@ -54,7 +54,7 @@ void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (IPlayer.CheckHit(Target, 6))
+			if (IPlayer.CheckHit(Target, 20))
 			{
 				int nDmg = (IPlayer.GetAttack()*FABaseDamageMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*FAAGiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*FAStrMultiPvE) + (ISkill.GetGrade()*FAPerGradeMultiPvE);
 				Target.Buff(29, FADurationBase + ISkill.GetGrade()*FADurationPerGrade, (FADoTBasePvE + (ISkill.GetGrade()*FADoTPerGradePvE)));

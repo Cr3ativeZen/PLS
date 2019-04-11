@@ -132,7 +132,7 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
-				if (IPlayer.CheckHit(Target, 10))
+				if (IPlayer.CheckHit(Target, 20))
 				{
 					IPlayer.Buff(5577, 18, 0);
 					int Around = Target.GetObjectListAround(3);

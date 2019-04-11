@@ -1775,3 +1775,10 @@ void IChar::SetAsSleep()
 	if (this->IsOnline())
 		Sleep(60000);
 }
+
+std::string IChar::GetIP()
+{
+	std::string Check = "error";
+	if (this->IsOnline()) Check = inet_ntoa(*(struct in_addr*)(*(DWORD*)((int)this->GetOffset() + 1676) + 140));
+	return Check;
+}

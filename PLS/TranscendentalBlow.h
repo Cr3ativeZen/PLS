@@ -33,7 +33,7 @@ void __fastcall TranscendentalBlow(int pSkill, void *pPlayer, int pPacket, int p
 
 		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (IPlayer.CheckHit(Target, 5))
+			if (IPlayer.CheckHit(Target, 20))
 			{
 				int nDmg = (IPlayer.GetAttack()*TBBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*TBAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*TBStrMultiPvP) + (ISkill.GetGrade()*TBPerGradeMultiPvP);
 				IPlayer.OktayDamageSingle(Target, nDmg, 5);
@@ -51,7 +51,7 @@ void __fastcall TranscendentalBlow(int pSkill, void *pPlayer, int pPacket, int p
 		int Around = Target.GetObjectListAround(1);
 		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (IPlayer.CheckHit(Target, 5))
+			if (IPlayer.CheckHit(Target, 20))
 			{
 				int nDmge = (IPlayer.GetAttack()*TBBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*TBAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*TBStrMultiPvE) + (ISkill.GetGrade()*TBPerGradeMultiPvE);
 				IPlayer.OktayDamageSingle(Target, nDmge, 5);
@@ -74,7 +74,7 @@ void __fastcall TranscendentalBlow(int pSkill, void *pPlayer, int pPacket, int p
 				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 				{
 
-					if (IPlayer.CheckHit(Object, 5))
+					if (IPlayer.CheckHit(Object, 20))
 					{
 						int nDmg = (IPlayer.GetAttack()*TBBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*TBAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*TBStrMultiPvE) + (ISkill.GetGrade()*TBPerGradeMultiPvE);
 						IPlayer.OktayDamageSingle(Object, nDmg, 5);

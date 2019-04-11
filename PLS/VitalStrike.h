@@ -41,7 +41,7 @@ void __fastcall VitalStrike(IChar IPlayer, int pPacket, int pPos)
 				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
-				if (IPlayer.CheckHit(Target, 10))
+				if (IPlayer.CheckHit(Target, 25))
 				{
 					int nDmg = (IPlayer.GetAttack()*VSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*VSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*VSStrMultiPvE) + (nSkillGrade*VSPerGradeMultiPvE);
 

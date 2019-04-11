@@ -808,9 +808,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 			
 
-			if (SkillID == 0)
-				return;
-
 			time_t now = time(0);
 
 			char* dt = ctime(&now);
@@ -865,7 +862,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							break;
 					}
 
-					if (check == false)
+					if (check == false && IPlayer.GetClass() != 3 && SkillID != 1 && SkillID != 0)
 					{
 						IPlayer.SystemMessage("Hax Detected!", TEXTCOLOR_RED);
 						IPlayer.Kick();
@@ -901,17 +898,23 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
 				CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
 
-			if (CooldownCheck > GetTickCount()&&(!IPlayer.IsBuff(5605)&&!IPlayer.IsBuff(295)&&SkillID!=99))
+
+			if ((IPlayer.IsBuff(5605) && (SkillID == 99||SkillID==74)))
 			{
 
-					IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
-					return;
+			}
+			else if (CooldownCheck > GetTickCount())
+			{
+
+				IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
+				return;
 
 			}
 			else 
 			{
 				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
 			}
+
 
 
 

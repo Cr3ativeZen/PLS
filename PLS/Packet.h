@@ -724,6 +724,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			IPlayer.Buff(313, 3, 0);
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
+
+			if (IPlayer.IsValid() && IPlayer.IsBuff(349))
+			{
+				IPlayer.DisableRiding();
+				return;
+			}
 			
 			if (Logs == true)
 			{

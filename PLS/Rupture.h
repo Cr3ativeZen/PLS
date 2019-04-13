@@ -41,6 +41,7 @@ void __fastcall ContinueRupture(IChar IPlayer)
 					if (Target.IsBuff(346))
 					{
 						nDmg = nDmg +(nDmg*(AnkleAPercentDamageIncreasePvP) / 100);
+						
 					}
 					
 					IPlayer.OktayDamageArea(Target, nDmg, 17);
@@ -48,14 +49,17 @@ void __fastcall ContinueRupture(IChar IPlayer)
 				else
 				{
 					int Around = Target.GetObjectListAround(3);
-					int nDmg = (IPlayer.GetAttack()*RupBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*RupAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*RupStrMultiPvE) + (nSkillGrade*RupPerGradeMultiPvE);
+					int nDmg = ((IPlayer.GetAttack()*RupBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*RupAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*RupStrMultiPvE) + (nSkillGrade*RupPerGradeMultiPvE));
 					
+					int ntankerDmg = nDmg / 2;
+
+
 					if (Target.IsBuff(346))
 					{
-						nDmg = nDmg + (nDmg * (AnkleAPercentDamageIncreasePvE) / 100);
+						ntankerDmg = ntankerDmg + ((ntankerDmg * (AnkleAPercentDamageIncreasePvE) / 100));
 					}
 
-					IPlayer.OktayDamageArea(Target, nDmg, 17);
+					IPlayer.OktayDamageArea(Target, ntankerDmg, 17);
 					while (Around)
 					{
 						IChar Object((void*)*(DWORD*)Around);
@@ -132,10 +136,10 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 				if (!IPlayer.IsInRange(Target, 20))
 					return;
 
-				if (IPlayer.CheckHit(Target, 20))
+				if (IPlayer.CheckHit(Target, 35))
 				{
 					IPlayer.Buff(5577, 18, 0);
-					int Around = Target.GetObjectListAround(3);
+					int Around = Target.GetObjectListAround(4);
 					IPlayer._ShowBattleAnimation(IPlayer, 17, nSkillGrade);
 					IPlayer.Buff(353, 20, 0);
 

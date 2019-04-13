@@ -56,6 +56,7 @@ struct Coordinates
 	int average_speed;
 	int current_check;
 	bool flag = false;
+	bool check = false;
 	int temp;
 };
 
@@ -962,10 +963,14 @@ bool SpeedHackCheck = 0;
 int ScrollItemID = 0;
 int ScrollItemIconKey = 0;
 
+bool Logs = 0;
+
 std::ofstream SpeedHackLog;
 std::ofstream SkillLog;
-std::string SkillLogFile = "./ZenLogs/SkillUseLog.txt";
-std::string SpeedHackLogn = "./ZenLogs/SpeedHackLog.txt";
+std::ofstream SkillHaxLog;
+std::string SkillLogFile = "./ZenLogs/SkillUseLog";
+std::string SpeedHackLogn = "./ZenLogs/SpeedHackLog";
+std::string SkillHaxFile = "./ZenLogs/SkillHaxLog";
 time_t now = time(0);
 
 std::vector<int> Kn8WhiteListSkills;
@@ -973,7 +978,6 @@ std::vector<int> ::iterator itt;
 std::vector<int> ArcherWhiteListSkills;
 std::vector<int> MageWhiteListSkills;
 
-const char *ConfigCheckDB1, *ConfigCheckDB2;
 
 
 enum TextColor

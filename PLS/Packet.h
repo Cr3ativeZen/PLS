@@ -1,6 +1,9 @@
+#ifndef PACKET_H
+#define PACKET_H
 
 void WritePacketToFile(IChar IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
 {
+	
 	std::string type_for_dir;
 	std::string type_for_file;
 	std::string Nick = IPlayer.GetName();
@@ -24,7 +27,9 @@ switch (WHICH_FILE)
 		FilePath += Nick;
 		FilePath += type_for_file;
 
-		SpeedHackLog.open(SpeedHackLogn, std::ios_base::out | std::ios::app);
+		std::string speedlog = SpeedHackLogn+"---" + date+".txt";
+
+		SpeedHackLog.open(speedlog, std::ios_base::out | std::ios::app);
 		if (SpeedHackLog)
 		{
 			SpeedHackLog << str_to_write;
@@ -45,7 +50,8 @@ switch (WHICH_FILE)
 		FilePath += Nick;
 		FilePath += type_for_file;
 
-		SkillLog.open(SkillLogFile, std::ios_base::out | std::ios::app);
+		std::string skilllog = SkillLogFile+"---" + date+".txt";
+		SkillLog.open(skilllog, std::ios_base::out | std::ios::app);
 		if (SkillLog)
 		{
 			SkillLog << str_to_write;
@@ -76,11 +82,20 @@ switch (WHICH_FILE)
 	case SkillHacks:
 	{
 		type_for_dir = "\\SkillHacks";
-		type_for_file = "/SkillHacks/SkillHacks";
+		type_for_file = "/SkillHacks/SkillHacks-";
 		type_for_file += date;
 		type_for_file += ".txt";
 		FilePath += Nick;
 		FilePath += type_for_file;
+
+		std::string skillhax = "./ZenLogs/SkillHaxLog" + date + ".txt";
+		SkillHaxLog.open(skillhax, std::ios_base::out | std::ios::app);
+		if (SkillHaxLog)
+		{
+			SkillHaxLog << str_to_write;
+			SkillHaxLog.close();
+		}
+
 		break;
 	}
 	default:
@@ -89,8 +104,8 @@ switch (WHICH_FILE)
 	}
 }
 	std::ofstream Folders;
-	//std::string FileN = "C:\\Users\\root\\Desktop\\Server Side\\ZenLogs\\Characters\\" + Nick;
-	std::string FileN = "C:\\Users\\Admin\\Desktop\\kal\\Shaman ServSide\\ZenLogs\\Characters\\" + Nick;
+	std::string FileN = "C:\\Users\\root\\Desktop\\Server Side\\ZenLogs\\Characters\\" + Nick;
+	//std::string FileN = "C:\\Users\\Admin\\Desktop\\kal\\Shaman ServSide\\ZenLogs\\Characters\\" + Nick;
 
 	char* file = new char[FileN.size() + 1];
 	strcpy(file, FileN.c_str());
@@ -119,6 +134,7 @@ switch (WHICH_FILE)
 	delete[] file;
 }
 
+
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
 	IChar IPlayer((void*)Player);
@@ -126,105 +142,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 	{
 		//IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
-
-		if (packet == 105)
-			return;
-
-		if (packet == 20)
-		{
-			PlayerCoords[IPlayer.GetPID()].temp = 0;
-			if (PlayerCoords[IPlayer.GetPID()].current_check == 0)
-			{
-				PlayerCoords[IPlayer.GetPID()].current_check = GetTickCount();
-			}
-
-			if (PlayerCoords[IPlayer.GetPID()].flag == false&&	(signed)PlayerCoords[IPlayer.GetPID()].current_check>(signed)GetTickCount())
-			{
-				PlayerCoords[IPlayer.GetPID()].flag = true;
-			}
-		}
-
-		if (SpeedHackCheck==true&&packet == 20&& PlayerCoords[IPlayer.GetPID()].flag==true&& !IPlayer.IsBuff(347) && !IPlayer.IsBuff(349) &&!IPlayer.IsBuff(40) &&!IPlayer.IsBuff(82)/*&&((IPlayer.GetMoveSpeed()<=110&& CChar::IsGState((int)IPlayer.GetOffset(), 512))|| (!CChar::IsGState((int)IPlayer.GetOffset(), 512)&&IPlayer.GetMoveSpeed()<=75))*/)
-		{
-				PlayerCoords[IPlayer.GetPID()].current_check = GetTickCount() + 2000;
-				PlayerCoords[IPlayer.GetPID()].flag = false;
-				PlayerCoords[IPlayer.GetPID()].average_speed = static_cast<int>(sqrt(pow((PlayerCoords[IPlayer.GetPID()].x - IPlayer.GetX()), 2) + pow((PlayerCoords[IPlayer.GetPID()].y - IPlayer.GetY()), 2))*100);
-
-				PlayerCoords[IPlayer.GetPID()].x = IPlayer.GetX();
-				PlayerCoords[IPlayer.GetPID()].y = IPlayer.GetY();
-
-				IPlayer.SystemMessage(Int2String(PlayerCoords[IPlayer.GetPID()].average_speed), TEXTCOLOR_RED);
-
-				time_t now = time(0);
-
-				char* dt = ctime(&now);
-
-
-				if (PlayerCoords[IPlayer.GetPID()].average_speed >= 1350 )
-				{
-					PlayerCoords[IPlayer.GetPID()].current_check++;
-					if (PlayerCoords[IPlayer.GetPID()].current_check > 50)
-					{ 
-						std::string to_file = "------|Name: ";
-						to_file += IPlayer.GetName();
-						to_file += "------|PID: ";
-						to_file += Int2String(IPlayer.GetPID());
-						to_file += +"-------";
-						to_file += dt;
-						WritePacketToFile(IPlayer, SpeedHack, to_file);
-						PlayerCoords[IPlayer.GetPID()].current_check = 0;
-					}
-
-				}
-				else
-				{
-					PlayerCoords[IPlayer.GetPID()].current_check = 0;
-				}
-		}
-
-		if (SpeedHackCheck == true && packet == 20 && !IPlayer.IsBuff(347) && !IPlayer.IsBuff(349) && !IPlayer.IsBuff(40) && !IPlayer.IsBuff(82) && ((IPlayer.GetMoveSpeed() <= 115 && CChar::IsGState((int)IPlayer.GetOffset(), 512))))
-		{
-
-		}
-
-		if (SpeedHackCheck == true && IPlayer.IsBuff(347) && IPlayer.IsBuff(349) &&!IPlayer.IsBuff(40) && !IPlayer.IsBuff(82))
-		{
-			PlayerCoords[IPlayer.GetPID()].average_speed = static_cast<int>(sqrt(pow((PlayerCoords[IPlayer.GetPID()].x - IPlayer.GetX()), 2) + pow((PlayerCoords[IPlayer.GetPID()].y - IPlayer.GetY()), 2)) * 100);
-
-			PlayerCoords[IPlayer.GetPID()].x = IPlayer.GetX();
-			PlayerCoords[IPlayer.GetPID()].y = IPlayer.GetY();
-
-			//IPlayer.SystemMessage(Int2String(PlayerCoords[IPlayer.GetPID()].average_speed), TEXTCOLOR_RED);
-			
-			time_t now = time(0);
-
-			char* dt = ctime(&now);
-
-			if (PlayerCoords[IPlayer.GetPID()].average_speed >= 1221)
-			{
-				PlayerCoords[IPlayer.GetPID()].current_check++;
-				if (PlayerCoords[IPlayer.GetPID()].current_check > 13)
-				{
-					std::string to_file = "ON MOUNT!------|Name: ";
-					to_file += IPlayer.GetName();
-					to_file += "------|PID: ";
-					to_file += Int2String(IPlayer.GetPID());
-					to_file += +" -------";
-					to_file += dt;
-					WritePacketToFile(IPlayer, SpeedHack, to_file);
-					PlayerCoords[IPlayer.GetPID()].current_check = 0;
-				}
-
-			}
-			else
-			{
-				PlayerCoords[IPlayer.GetPID()].current_check = 0;
-			}
-		}
-
-
-
-		if (packet == 94)
+		if (packet == 94 && Logs == true)
 		{
 			time_t now = time(0);
 
@@ -807,68 +725,71 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			IPlayer.Buff(313, 3, 0);
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 			
+			if (Logs == true)
+			{
+				time_t now = time(0);
 
-			time_t now = time(0);
+				char* dt = ctime(&now);
 
-			char* dt = ctime(&now);
-
-				std::string to_file ="------|Name: ";
+				std::string to_file = "------|Name: ";
 				to_file += IPlayer.GetName();
 				to_file += "------|Class: ";
 				to_file += Int2String(IPlayer.GetClass());
 				to_file += "------ | SkillID: ";
-				to_file += Int2String(SkillID)+" ";
+				to_file += Int2String(SkillID) + " ";
 				to_file += dt;
 				WritePacketToFile(IPlayer, SkillLogs, to_file);
 
-				if (CastProtection[IPlayer.GetPID()].animation_check == false &&!(SkillID>=88 &&SkillID<=94))
+				if (CastProtection[IPlayer.GetPID()].animation_check == false && !(SkillID >= 88 && SkillID <= 94))
 				{
 					switch (IPlayer.GetClass())
 					{
-						case 0:
+					case 0:
+					{
+						itt = std::find(Kn8WhiteListSkills.begin(), Kn8WhiteListSkills.end(), SkillID);
+						if (itt != Kn8WhiteListSkills.end())
 						{
-							itt=std::find(Kn8WhiteListSkills.begin(), Kn8WhiteListSkills.end(),SkillID);
-							if (itt != Kn8WhiteListSkills.end())
-							{
-								
-								check = true;
-							}
-							break;
 
+							check = true;
 						}
-						case 1:
+						break;
+
+					}
+					case 1:
+					{
+						itt = std::find(MageWhiteListSkills.begin(), MageWhiteListSkills.end(), SkillID);
+						if (itt != MageWhiteListSkills.end())
 						{
-							itt = std::find(MageWhiteListSkills.begin(), MageWhiteListSkills.end(), SkillID);
-							if (itt != MageWhiteListSkills.end())
-							{
-								
-								check = true;
-							}
-							break;
 
+							check = true;
 						}
-						case 2:
+						break;
+
+					}
+					case 2:
+					{
+						itt = std::find(ArcherWhiteListSkills.begin(), ArcherWhiteListSkills.end(), SkillID);
+						if (itt != ArcherWhiteListSkills.end())
 						{
-							itt = std::find(ArcherWhiteListSkills.begin(), ArcherWhiteListSkills.end(), SkillID);
-							if (itt != ArcherWhiteListSkills.end())
-							{
-								
-								check = true;
-							}
-							break;
 
+							check = true;
 						}
-						default:
-							break;
+						break;
+
+					}
+					default:
+						break;
 					}
 
 					if (check == false && IPlayer.GetClass() != 3 && SkillID != 1 && SkillID != 0)
 					{
 						IPlayer.SystemMessage("Hax Detected!", TEXTCOLOR_RED);
+							WritePacketToFile(IPlayer, SkillHacks, to_file);
 						IPlayer.Kick();
-						WritePacketToFile(IPlayer, SkillHacks, to_file);
+
 					}
 				}
+			}
 
 			if (CastProtection[IPlayer.GetPID()].animation_check == true)
 			{
@@ -1655,3 +1576,4 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 	}
 
 }
+#endif

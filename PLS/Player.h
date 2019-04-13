@@ -5,6 +5,7 @@
 #include "EggThunderbolt.h"
 #include "RevolveAttack.h"
 #include "BloodSuction.h"
+#include "Packet.h"
 int __fastcall Tick(void *Player, void *edx)
 {
 	IChar IPlayer(Player);
@@ -723,6 +724,88 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
 		DFourInstance(IPlayer);
 	}
 
+
+
+	if (Logs == true)
+	{
+		if (IPlayer.IsOnline() && SpeedHackCheck == true && !IPlayer.IsBuff(347) && !IPlayer.IsBuff(349) && !IPlayer.IsBuff(40) && !IPlayer.IsBuff(82) && ((IPlayer.GetMoveSpeed() <= 110 && CChar::IsGState((int)IPlayer.GetOffset(), 512)) || (!CChar::IsGState((int)IPlayer.GetOffset(), 512) && IPlayer.GetMoveSpeed() <= 75)))
+		{
+
+			PlayerCoords[IPlayer.GetPID()].average_speed = static_cast<int>(sqrt(pow((PlayerCoords[IPlayer.GetPID()].x - IPlayer.GetX()), 2) + pow((PlayerCoords[IPlayer.GetPID()].y - IPlayer.GetY()), 2)) * 100);
+
+			PlayerCoords[IPlayer.GetPID()].x = IPlayer.GetX();
+			PlayerCoords[IPlayer.GetPID()].y = IPlayer.GetY();
+
+			//IPlayer.SystemMessage(Int2String(PlayerCoords[IPlayer.GetPID()].average_speed), TEXTCOLOR_RED);
+
+
+
+
+			if (PlayerCoords[IPlayer.GetPID()].average_speed >= 11000)
+			{
+				PlayerCoords[IPlayer.GetPID()].current_check++;
+
+				if (PlayerCoords[IPlayer.GetPID()].current_check > 12)
+				{
+					time_t now = time(0);
+
+					char* dt = ctime(&now);
+					std::string to_file = "------|Name: ";
+					to_file += IPlayer.GetName();
+					to_file += "------|PID: ";
+					to_file += Int2String(IPlayer.GetPID());
+					to_file += +"-------";
+					to_file += dt;
+						WritePacketToFile(IPlayer, SpeedHack, to_file);
+
+					PlayerCoords[IPlayer.GetPID()].current_check = 0;
+				}
+
+			}
+			else
+			{
+				PlayerCoords[IPlayer.GetPID()].current_check = 0;
+			}
+		}
+
+
+		if (SpeedHackCheck == true && IPlayer.IsBuff(347) && IPlayer.IsBuff(349) && !IPlayer.IsBuff(40) && !IPlayer.IsBuff(82))
+		{
+			PlayerCoords[IPlayer.GetPID()].average_speed = static_cast<int>(sqrt(pow((PlayerCoords[IPlayer.GetPID()].x - IPlayer.GetX()), 2) + pow((PlayerCoords[IPlayer.GetPID()].y - IPlayer.GetY()), 2)) * 100);
+
+			PlayerCoords[IPlayer.GetPID()].x = IPlayer.GetX();
+			PlayerCoords[IPlayer.GetPID()].y = IPlayer.GetY();
+
+			//IPlayer.SystemMessage(Int2String(PlayerCoords[IPlayer.GetPID()].average_speed), TEXTCOLOR_RED);
+
+
+
+			if (PlayerCoords[IPlayer.GetPID()].average_speed >= 18300)
+			{
+				PlayerCoords[IPlayer.GetPID()].current_check++;
+				if (PlayerCoords[IPlayer.GetPID()].current_check > 12)
+				{
+					time_t now = time(0);
+
+					char* dt = ctime(&now);
+					std::string to_file = "ON MOUNT!------|Name: ";
+					to_file += IPlayer.GetName();
+					to_file += "------|PID: ";
+					to_file += Int2String(IPlayer.GetPID());
+					to_file += +" -------";
+					to_file += dt;
+						WritePacketToFile(IPlayer, SpeedHack, to_file);
+
+					PlayerCoords[IPlayer.GetPID()].current_check = 0;
+				}
+
+			}
+			else
+			{
+				PlayerCoords[IPlayer.GetPID()].current_check = 0;
+			}
+		}
+	}
 
 
 	return CPlayer::Tick(Player);

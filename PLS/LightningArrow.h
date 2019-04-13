@@ -202,8 +202,11 @@ void __fastcall LightningArrow(IChar IPlayer, int pPacket, int pPos)
 				if (Target.IsBuff(307))
 					StormActivateShiny(IPlayer, Target);
 
-				CheckShiny[(int)Target.GetOffset()].Target = IPlayer.GetOffset();
+				if(!Target.IsBuff(307))
+					CheckShiny[(int)Target.GetOffset()].Target = IPlayer.GetOffset();
+
 				IPlayer.SetDirection(Target);
+
 				IPlayer.OktayDamageSingle(Target, nDmg, 67);
 				Target.Buff(307, LADuration, 0);
 				Target.Buff(5099, LADuration, 0);

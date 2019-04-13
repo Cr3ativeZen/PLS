@@ -131,10 +131,11 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		return;
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/test"&&IPlayer.GetAdmin() >= 11)
-	{
-		IPlayer.SystemMessage(IPlayer.GetIP(), TEXTCOLOR_ALLIANCE);
-	}
+	//if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/test"&&IPlayer.GetAdmin() >= 11)
+	//{
+	//	IPlayer.SystemMessage(IPlayer.GetIP(), TEXTCOLOR_ALLIANCE);
+	//	IPlayer.SystemMessage(Int2String(IPlayer.GetMoveSpeed()), TEXTCOLOR_RED);
+	//}
 
 	CPlayer::ChatCommand(Player, command);
 }

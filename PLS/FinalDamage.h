@@ -32,8 +32,7 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 			if (pSkill && ITarget.IsValid() && IPlayer.IsValid() && GetTickCount() >= CODelay.find(ITarget.GetPID())->second && (int)CTools::Rate(1, 1000) <= (COChanceToPopBase + (COChanceToPopPerGrade*nSkillGrade)) * 10)
 			{
 				int Around = IPlayer.GetObjectListAround(3);
-				int nDmg = CheckDamage * (CODamageMultiPvE / 100) + COBaseDamagePvE;
-
+				int nDmg = 0;
 
 				while (Around)
 				{
@@ -42,16 +41,15 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 
 					if (Object.IsValid() && ITarget.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)ITarget.GetOffset() + 176))((int)ITarget.GetOffset(), (int)Object.GetOffset(), 0))
 					{
+						nDmg = CheckDamage * (CODamageMultiPvP / 100) + COBaseDamagePvP;
+
 						if (Object.GetType() == 1 &&ITarget.GetSpecialty()==43)
 						{
-							nDmg = CheckDamage * (COBoostPercentage3rdJob / 100);
+							nDmg = 0;
+							nDmg = (CheckDamage * (COBoostPercentage3rdJob / 100)* (CODamageMultiPvE / 100)) + COBaseDamagePvE;
 						}
 
-						if (Object.GetType() == 0)
-						{
-							nDmg = 0;
-							nDmg = CheckDamage * (CODamageMultiPvP / 100) + COBaseDamagePvP;
-						}
+
 
 						ITarget.OktayDamageNoAgro(Object, nDmg, 63);
 					}

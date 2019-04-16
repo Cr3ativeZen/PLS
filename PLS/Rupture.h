@@ -56,7 +56,8 @@ void __fastcall ContinueRupture(IChar IPlayer)
 
 					if (Target.IsBuff(346))
 					{
-						ntankerDmg = ntankerDmg + ((ntankerDmg * (AnkleAPercentDamageIncreasePvE) / 100));
+						ntankerDmg = ntankerDmg + (ntankerDmg * (AnkleAPercentDamageIncreasePvE) / 100);
+						nDmg = nDmg + (nDmg*(AnkleAPercentDamageIncreasePvE) / 100);
 					}
 
 					IPlayer.OktayDamageArea(Target, ntankerDmg, 17);

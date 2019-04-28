@@ -127,15 +127,24 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 		{
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				if (IPlayer.CheckHit(Target, 35))
 				{

@@ -88,10 +88,16 @@ void __fastcall Thunderbolt(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			int nDmg = (IPlayer.GetMagic()*TBoltMBaseDmgMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*TBoltMIntMultiPvE) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvE);
 			

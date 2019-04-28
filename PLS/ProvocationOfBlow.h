@@ -51,7 +51,10 @@ void __fastcall ProvocationOfBlow(IChar IPlayer, int pPacket, int pPos)
 				IChar Target(pTarget);
 
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				int Around = IPlayer.GetObjectListAround(2);
 

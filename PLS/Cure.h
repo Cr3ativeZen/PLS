@@ -54,9 +54,6 @@ void __fastcall Cure(int pSkill, void *edx, int Player, int pPacket, int pPos)
 
 			IPlayer.DecreaseMana(nMana);
 		}
-		CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-		return;
-
 	}
 
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
@@ -113,10 +110,8 @@ void __fastcall Cure2(int pSkill, void *edx, int Player, int pPacket, int pPos)
 
 			IPlayer.DecreaseMana(nMana);
 		}
-		CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-		return;
-
 	}
+	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 
 }
 
@@ -167,9 +162,6 @@ void __fastcall Cure3(int pSkill, void *edx, int Player, int pPacket, int pPos)
 
 			IPlayer.DecreaseMana(nMana);
 		}
-		CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-		return;
-
 	}
-
+	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 }

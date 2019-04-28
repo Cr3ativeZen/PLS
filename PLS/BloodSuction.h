@@ -24,10 +24,16 @@ void __fastcall BloodSuction(IChar IPlayer, int pPacket, int pPos)
 			if (ITarget.IsValid() && IPlayer.IsValid())
 			{
 				if (pTarget == IPlayer.GetOffset())
+				{
+					CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				if (!IPlayer.IsInRange(ITarget, 300))
+				{
+					CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				int nDmg = (IPlayer.GetMagic() + IPlayer.GetAttack())*BSBaseDmgMultiPvE;
 
@@ -43,6 +49,7 @@ void __fastcall BloodSuction(IChar IPlayer, int pPacket, int pPos)
 				IPlayer.DecreaseRage(15000);
 			}
 			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
+
 		}
 
 	}

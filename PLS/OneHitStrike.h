@@ -26,21 +26,32 @@ void __fastcall OneHitStrike(IChar IPlayer, int pPacket, int pPos)
 		if (bType >= 2)
 			return;
 
+		IChar Target(pTarget);
+
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				Target.AddFxToTarget("test_item_ef_small_11", 1, 0, 0);
 					IPlayer.AddFxToTarget("davi_M598_71", 1, 0, 0);
@@ -55,12 +66,12 @@ void __fastcall OneHitStrike(IChar IPlayer, int pPacket, int pPos)
 				IPlayer.SetDirection(Target);
 				IPlayer.DecreaseMana(nMana);
 			}
-		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+
 		}
 		else {
 			IPlayer.CouldntExecuteSkill();
 		}
-
+		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 	}
 }
 

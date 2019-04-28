@@ -58,9 +58,10 @@ void __fastcall ContinueIceStorm(IChar IPlayer)
 	return;
 }
 
-void __fastcall IceStorm(IChar IPlayer, int pPacket, int pPos)
+void __fastcall IceStorm(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(45);
+	IChar IPlayer((void*)pPlayer);
+	ISkill xSkill((void*)pSkill);
 
 	if (IPlayer.IsValid() && pSkill)
 	{

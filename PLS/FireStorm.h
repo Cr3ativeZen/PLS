@@ -58,15 +58,15 @@ void __fastcall ContinueFireStorm(IChar IPlayer)
 	return;
 }
 
-void __fastcall FireStorm(IChar IPlayer, int pPacket, int pPos)
+void __fastcall FireStorm(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(48);
+	IChar IPlayer((void*)pPlayer);
+	ISkill xSkill((void*)pSkill);
 
 	if (IPlayer.IsValid() && pSkill)
 	{
 		int x = 0, y = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "dd", &x, &y);
-		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
 
 		if (!nSkillGrade)

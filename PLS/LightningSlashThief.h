@@ -90,15 +90,24 @@ void __fastcall LightningSlashThief(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if(IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target,300))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				IPlayer.Buff(5579, xSkill.GetGrade() + 2, 0);
 				IPlayer.DecreaseMana(nMana);

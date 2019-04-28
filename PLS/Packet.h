@@ -140,7 +140,8 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 	IChar IPlayer((void*)Player);
 	if (IPlayer.IsOnline())
 	{
-		//IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
+		//if (packet != 20 && packet != 21)
+		//	IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
 		if (packet == 94 && Logs == true)
 		{
@@ -300,6 +301,34 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					else
 					{
 						IPlayer.SystemMessage("Your scrolls and potions are still active!", TEXTCOLOR_RED);
+						return;
+					}
+				}
+
+				if (Itemx.CheckIndex() == InstanceResetScrollID)
+				{
+					if (IPlayer.IsBuff(240))
+					{
+						IPlayer.CancelBuff(240);
+						IPlayer.SystemMessage("Instance cooldown has been reseted!", TEXTCOLOR_GREEN);
+					}
+					else
+					{
+						IPlayer.SystemMessage("You have no instance cooldown!", TEXTCOLOR_GREEN);
+						return;
+					}
+				}
+
+				if (Itemx.CheckIndex() == TradeSystemResetScrollID)
+				{
+					if (IPlayer.IsBuff(222))
+					{
+						IPlayer.CancelBuff(222);
+						IPlayer.SystemMessage("Delivery cooldown has been reseted!", TEXTCOLOR_GREEN);
+					}
+					else
+					{
+						IPlayer.SystemMessage("You have no delivery cooldown!", TEXTCOLOR_GREEN);
 						return;
 					}
 				}
@@ -487,13 +516,22 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 								return;
 							}
 
+							if (IPlayer.IsBuff(222))
+							{
+								int Time = IPlayer.GetBuffRemain(222) / 60;
+								std::string msg = "You need to wait ";
 
-
-							//if (IPlayer.IsBuff(222))
-							//{
-							//	IPlayer.SystemMessage("Cooldown", TEXTCOLOR_RED);
-							//	return;
-							//}
+								if (Time > 0)
+								{
+									msg = msg + Int2String(Time);
+									msg = msg + " minutes to take package";
+								}
+								else {
+									msg = msg + " less then a minute to take package";
+								}
+								IPlayer.SystemMessage(msg.c_str(), TEXTCOLOR_RED);
+								return;
+							}
 
 							IPlayer.SystemMessage("Item found!", TEXTCOLOR_RED);
 							CPlayer::RemoveItem(IPlayer.GetOffset(), 9, (TradeSystem::it->first.second), 1);
@@ -541,7 +579,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						CPlayer::WriteAll(0xFF, "dsd", 247, deli, 2);
 						IPlayer.CancelBuff(104);
 						IPlayer.CancelBuff(477);
-						IPlayer.Buff(222, 3600, 0);
+						IPlayer.Buff(222, TradeSystem::Cooldown, 0);
 						IPlayer.SystemMessage("Successful delivery", TEXTCOLOR_BLUE);
 						return;
 					}
@@ -583,6 +621,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					IPlayer.SetBuffIcon(LawlessZone::Time, 1, 4510, 430);
 
 					IPlayer.Buff(LawlessZone::BuffID, LawlessZone::Time, 0);
+					if (IPlayer.IsBuff(104))
+						IPlayer.CancelBuff(104);
+
 					IPlayer.Buff(104, LawlessZone::Time, 0);
 
 					LawlessZone::PointCounter[IPlayer.GetPID()] = 0;
@@ -600,6 +641,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							IPlayer.RemoveBuffIcon(0, 0, 4500 + i, 1500 + i);
 						}
 					}
+					IPlayer.CancelBuff(104);
 					IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
 					LawlessZone::PointCounter[IPlayer.GetPID()] = 0;
 
@@ -961,11 +1003,13 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
+
 				if (SkillID == 3 && LightningSlashON == true)
 				{
 					LightningSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
+
 
 				if (SkillID == 5 && TranscendentalBlowON == true)
 				{
@@ -1087,19 +1131,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 45 && IceStormON == true)
 				{
-					IceStorm(IPlayer, kappa, pPos);
+					IceStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 48 && FireStormON == true)
 				{
-					FireStorm(IPlayer, kappa, pPos);
+					FireStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 
 				if (SkillID == 43 && ThunderStormON == true)
 				{
-					ThunderStorm(IPlayer, kappa, pPos);
+					ThunderStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
 					return;
 				}
 

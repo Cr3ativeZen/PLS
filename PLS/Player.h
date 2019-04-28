@@ -12,6 +12,14 @@ int __fastcall Tick(void *Player, void *edx)
 
 
 
+	//if (IPlayer.IsOnline() && IPlayer.GetClass() == 0 && IPlayer.GetSpecialty() == 23)
+	//{
+	//	SpinSlash(IPlayer);
+	//	IPlayer.IncreaseMana(700);
+	//	IPlayer.IncreaseHp(30000);
+	//}
+
+
 	if (IPlayer.IsOnline() && CheckShiny.count((int)IPlayer.GetOffset()) && CheckShiny.find((int)IPlayer.GetOffset())->second.Target && IPlayer.IsBuff(307) && LightningArrowON == true)
 	{
 		IChar Caster(CheckShiny.find((int)IPlayer.GetOffset())->second.Target);
@@ -29,17 +37,19 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 	}
 
-	if (IPlayer.IsOnline() && CChar::IsGState((int)IPlayer.GetOffset(), 2) && (GetTickCount() / 1000) % 5 == 0 && IPlayer.IsBuff(199))
-	{
-		IPlayer.Revive();
-		IPlayer.SetBlue();
-	}
 
-	if (IPlayer.IsOnline() && CChar::IsGState((int)IPlayer.GetOffset(), 2) && (GetTickCount() / 1000) % 5 == 0 && IPlayer.IsBuff(198))
-	{
-		IPlayer.Revive();
-		IPlayer.SetRed();
-	}
+
+	//if (IPlayer.IsOnline() && CChar::IsGState((int)IPlayer.GetOffset(), 2) && (GetTickCount() / 1000) % 5 == 0 && IPlayer.IsBuff(199))
+	//{
+	//	IPlayer.Revive();
+	//	IPlayer.SetBlue();
+	//}
+
+	//if (IPlayer.IsOnline() && CChar::IsGState((int)IPlayer.GetOffset(), 2) && (GetTickCount() / 1000) % 5 == 0 && IPlayer.IsBuff(198))
+	//{
+	//	IPlayer.Revive();
+	//	IPlayer.SetRed();
+	//}
 
 	if (IPlayer.IsOnline() && !IPlayer.IsBuff(70) && IPlayer.IsBuff(550))
 	{
@@ -79,79 +89,79 @@ int __fastcall Tick(void *Player, void *edx)
 	}
 
 
-	for (bufx = Buffs.begin(); bufx != Buffs.end(); ++bufx)
-	{
-		if (!IPlayer.IsBuff(bufx->second.BuffIndex) &&IPlayer.IsBuff(bufx->second.SecondBuffIndex))
-		{
-			int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), bufx->second.BuffIndex);
-			int ItemID = bufx->first;
+	//for (bufx = Buffs.begin(); bufx != Buffs.end(); ++bufx)
+	//{
+	//	if (!IPlayer.IsBuff(bufx->second.BuffIndex) &&IPlayer.IsBuff(bufx->second.SecondBuffIndex))
+	//	{
+	//		int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), bufx->second.BuffIndex);
+	//		int ItemID = bufx->first;
 
-			if (Buffs[ItemID].PhysAttack)
-			{
-				IPlayer.RemoveMinPhysAttack(*(DWORD*)(Buff + 12));
-				IPlayer.RemoveMaxPhysAttack(*(DWORD*)(Buff + 16));
-			}
-			else if (Buffs[ItemID].MagicAttack)
-			{
-				IPlayer.RemoveMinMagicAttack((*(DWORD*)(Buff + 12)));
-				IPlayer.RemoveMaxMagicAttack((*(DWORD*)(Buff + 16)));
-			}
+	//		if (Buffs[ItemID].PhysAttack)
+	//		{
+	//			IPlayer.RemoveMinPhysAttack(*(DWORD*)(Buff + 12));
+	//			IPlayer.RemoveMaxPhysAttack(*(DWORD*)(Buff + 16));
+	//		}
+	//		else if (Buffs[ItemID].MagicAttack)
+	//		{
+	//			IPlayer.RemoveMinMagicAttack((*(DWORD*)(Buff + 12)));
+	//			IPlayer.RemoveMaxMagicAttack((*(DWORD*)(Buff + 16)));
+	//		}
 
-			if (Buffs[ItemID].IconKey != 0)
-			{
-				IPlayer.RemoveBuffIcon(0, 0, 0, Buffs[ItemID].IconKey);
-			}
-			if (Buffs[ItemID].Strength)
-			{
-				IPlayer.RemoveStr(Buffs[ItemID].Strength);
-			}
-			if (Buffs[ItemID].Health)
-			{
-				IPlayer.RemoveHp(Buffs[ItemID].Health);
-			}
-			if (Buffs[ItemID].Int)
-			{
-				IPlayer.RemoveInt(Buffs[ItemID].Int);
-			}
-			if (Buffs[ItemID].Wisdom)
-			{
-				IPlayer.RemoveWis(Buffs[ItemID].Wisdom);
-			}
-			if (Buffs[ItemID].Agility)
-			{
-				IPlayer.RemoveAgi(Buffs[ItemID].Agility);
-			}
+	//		if (Buffs[ItemID].IconKey != 0)
+	//		{
+	//			IPlayer.RemoveBuffIcon(0, 0, 0, Buffs[ItemID].IconKey);
+	//		}
+	//		if (Buffs[ItemID].Strength)
+	//		{
+	//			IPlayer.RemoveStr(Buffs[ItemID].Strength);
+	//		}
+	//		if (Buffs[ItemID].Health)
+	//		{
+	//			IPlayer.RemoveHp(Buffs[ItemID].Health);
+	//		}
+	//		if (Buffs[ItemID].Int)
+	//		{
+	//			IPlayer.RemoveInt(Buffs[ItemID].Int);
+	//		}
+	//		if (Buffs[ItemID].Wisdom)
+	//		{
+	//			IPlayer.RemoveWis(Buffs[ItemID].Wisdom);
+	//		}
+	//		if (Buffs[ItemID].Agility)
+	//		{
+	//			IPlayer.RemoveAgi(Buffs[ItemID].Agility);
+	//		}
 
-			if (Buffs[ItemID].OTP)
-			{
-				IPlayer.RemoveOTP(Buffs[ItemID].OTP);
-			}
+	//		if (Buffs[ItemID].OTP)
+	//		{
+	//			IPlayer.RemoveOTP(Buffs[ItemID].OTP);
+	//		}
 
-			if (Buffs[ItemID].Evasion)
-			{
-				IPlayer.RemoveEva(Buffs[ItemID].Evasion);
-			}
+	//		if (Buffs[ItemID].Evasion)
+	//		{
+	//			IPlayer.RemoveEva(Buffs[ItemID].Evasion);
+	//		}
 
-			if (Buffs[ItemID].DEF)
-			{
-				IPlayer.RemoveDef(Buffs[ItemID].DEF);
-			}
+	//		if (Buffs[ItemID].DEF)
+	//		{
+	//			IPlayer.RemoveDef(Buffs[ItemID].DEF);
+	//		}
 
-			if (Buffs[ItemID].HP)
-			{
-				IPlayer.DecreaseMaxHp(Buffs[ItemID].HP);
-			}
+	//		if (Buffs[ItemID].HP)
+	//		{
+	//			IPlayer.DecreaseMaxHp(Buffs[ItemID].HP);
+	//		}
 
-			if (Buffs[ItemID].MP)
-			{
-				IPlayer.DecreaseMaxMp(Buffs[ItemID].MP);
-			}
-			IPlayer.CancelBuff(bufx->second.SecondBuffIndex);
-			IPlayer.CancelBuff(bufx->second.BuffIndex);
-			IPlayer.SystemMessage("Buff cancelled", TEXTCOLOR_RED);
-			break;
-		}
-	}
+	//		if (Buffs[ItemID].MP)
+	//		{
+	//			IPlayer.DecreaseMaxMp(Buffs[ItemID].MP);
+	//		}
+	//		IPlayer.CancelBuff(bufx->second.SecondBuffIndex);
+	//		IPlayer.CancelBuff(bufx->second.BuffIndex);
+	//		IPlayer.SystemMessage("Buff cancelled", TEXTCOLOR_RED);
+	//		break;
+	//	}
+	//}
 
 
 	//if (IPlayer.IsOnline() &&!IPlayer.IsBuff(505)&&IPlayer.IsBuff(506))
@@ -756,7 +766,7 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
 					to_file += Int2String(IPlayer.GetPID());
 					to_file += +"-------";
 					to_file += dt;
-						WritePacketToFile(IPlayer, SpeedHack, to_file);
+					WritePacketToFile(IPlayer, SpeedHack, to_file);
 
 					PlayerCoords[IPlayer.GetPID()].current_check = 0;
 				}
@@ -794,7 +804,7 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
 					to_file += Int2String(IPlayer.GetPID());
 					to_file += +" -------";
 					to_file += dt;
-						WritePacketToFile(IPlayer, SpeedHack, to_file);
+					WritePacketToFile(IPlayer, SpeedHack, to_file);
 
 					PlayerCoords[IPlayer.GetPID()].current_check = 0;
 				}
@@ -806,7 +816,6 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
 			}
 		}
 	}
-
 
 	return CPlayer::Tick(Player);
 }

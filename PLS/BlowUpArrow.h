@@ -29,7 +29,10 @@ void __fastcall BlowUpArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	IChar Target(pTarget);
 
 	if (!IPlayer.IsInRange(Target, 20))
+	{
+		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		return;
+	}
 
 	if (bType == 0)
 	{
@@ -101,6 +104,5 @@ void __fastcall BlowUpArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	}
 	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-
 }
 #endif

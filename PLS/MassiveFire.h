@@ -31,10 +31,16 @@ void __fastcall MassiveFire(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{

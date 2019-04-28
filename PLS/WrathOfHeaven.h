@@ -31,15 +31,24 @@ void __fastcall WrathOfHeaven(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 			
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target,300))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				if (IPlayer.CheckHit(Target, 30))
 				{
@@ -50,7 +59,8 @@ void __fastcall WrathOfHeaven(IChar IPlayer, int pPacket, int pPos)
 						nDmg = (IPlayer.GetAttack()*WOHBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*WOHAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvP) + (nSkillGrade*WOHPerGradeMultiPvP);
 
 					IPlayer.OktayDamageSingle(Target,nDmg,33);
-				} else {
+				} else 
+				{
 					IPlayer._ShowBattleMiss(Target, 33);
 				}
 

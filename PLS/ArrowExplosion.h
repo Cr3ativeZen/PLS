@@ -82,15 +82,24 @@ void __fastcall ArrowExplosion(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target,300))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				IPlayer.DecreaseMana(nMana);
 				IPlayer.SetDirection(Target);

@@ -39,7 +39,10 @@ void __fastcall Punishment(IChar IPlayer, int pPacket, int pPos)
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				int nDmg = 5000;
 

@@ -331,15 +331,18 @@ int __fastcall SummonTick(void *Monster, void *edx)
 		}
 	}
 
-	for (int i = 0; i < RiftAmount; i++)
+	if (RiftON == true)
 	{
-		if (IMonster.GetMobIndex() == RiftStruct[i].FirstBoss && !IMonster.IsBuff(777) && IMonster.IsMobHaveTarget() && RiftON == true)
+		for (int i = 0; i < RiftAmount; i++)
 		{
-			IMonster.Buff(777, 25, 0);
-			IMonster._ShowBattleAnimation(IMonster, 146);
+			if (IMonster.GetMobIndex() == RiftStruct[i].FirstBoss && !IMonster.IsBuff(777) && IMonster.IsMobHaveTarget())
+			{
+				IMonster.Buff(777, 25, 0);
+				IMonster._ShowBattleAnimation(IMonster, 146);
 
-			for (int j = 0; j < RiftStruct[i].BossMobSpawnAmount; j++)
-				Summon(IMonster.GetMap(), 0, IMonster.GetX(), IMonster.GetY(), RiftStruct[i].BossMobSpawnID, 1, 0, 0, 3600, 0);
+				for (int j = 0; j < RiftStruct[i].BossMobSpawnAmount; j++)
+					Summon(IMonster.GetMap(), 0, IMonster.GetX(), IMonster.GetY(), RiftStruct[i].BossMobSpawnID, 1, 0, 0, 1800, 0);
+			}
 		}
 	}
 
@@ -348,6 +351,15 @@ int __fastcall SummonTick(void *Monster, void *edx)
 	//	IMonster.IncreaseHp(IMonster.GetMaxHp() - IMonster.GetCurHp());
 	//}
 
+	for (int i = 0; i < RiftAmount; i++)
+	{
+		if (RiftStruct[i].MobID[RiftStruct[i].WaveNumber] == IMonster.GetMobIndex() && RiftStruct[i].Timer + 1800000 < static_cast<int>(GetTickCount()) && RiftStruct[i].IsUp == true)
+		{
+			RiftStruct[i].IsUp = false;
+			CPlayer::WriteAll(0xFF, "dsd", 247, "RIFT IS DEACTIVATED! YOU CAN STILL KILL REMAINING MOBS", 2);
+			break;
+		}
+	}
 
 
 
@@ -384,17 +396,20 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 				RiftStruct[i].IsUp = true;
 				CPlayer::WriteAll(0xFF, "dsd", 247, "RIFT STARTED!", 2);
 				CPlayer::WriteAll(0xFF, "dsd", 247, "FIND AND KILL ALL MONSTERS!", 2);
+				RiftStruct[i].Timer = GetTickCount();
 				for (int j = 0; j < RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber]; j++)
 				{
-					Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY, RiftStruct[i].MobID[RiftStruct[i].WaveNumber], 1, 0, 0, 3600, 0);
+					Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY, RiftStruct[i].MobID[RiftStruct[i].WaveNumber], 1, 0, 0, 1800, 0);
 				}
+
 			}
 		}
 
 		for (int i = 0; i < RiftAmount; i++)
 		{
-			if (RiftStruct[i].MobDeadCount == RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] && RiftStruct[i].WaveNumber != RiftStruct[i].MaxWave&&RiftStruct[i].IsUp == true)
+			if (RiftStruct[i].MobDeadCount >= RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] && RiftStruct[i].WaveNumber != RiftStruct[i].MaxWave&&RiftStruct[i].IsUp == true)
 			{
+				RiftStruct[i].Timer = GetTickCount();
 				RiftStruct[i].WaveNumber++;
 				RiftStruct[i].MobDeadCount = 0;
 				if (RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber] == 1)
@@ -407,7 +422,7 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 				}
 				for (int j = 0; j < RiftStruct[i].MobAmount[RiftStruct[i].WaveNumber]; j++)
 				{
-					Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY, RiftStruct[i].MobID[RiftStruct[i].WaveNumber], 1, 0, 0, 3600, 0);
+					Summon(0, RiftStruct[i].Map, RiftStruct[i].SpawnX, RiftStruct[i].SpawnY, RiftStruct[i].MobID[RiftStruct[i].WaveNumber], 1, 0, 0, 1800, 0);
 				}
 
 			}
@@ -417,7 +432,6 @@ int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, in
 		{
 			if (RiftStruct[i].WaveNumber == RiftStruct[i].MaxWave)
 			{
-				RiftConfig();
 				CPlayer::WriteAll(0xFF, "dsd", 247, "ALL MOBS DIED,YOU DID IT !", 2);
 				RiftStruct[i].WaveNumber = 0;
 				RiftStruct[i].IsUp = false;

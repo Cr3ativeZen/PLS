@@ -95,7 +95,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/aoff" && IPlayer.GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/lawlessoff")
 	{
 		IPlayer.CancelBuff(LawlessZone::BuffID);
 		for (int i = 0; i < 10; i++)
@@ -103,6 +103,9 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 			IPlayer.CancelBuff(LawlessZone::ExpBuffID[i]);
 			IPlayer.RemoveBuffIcon(0, 0, 0, 1500+i);
 		}
+		IPlayer.CancelBuff(104);
+		IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
+		LawlessZone::PointCounter[IPlayer.GetPID()] = 0;
 	}
 
 	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautconfig"&& IPlayer.GetAdmin() >= 8)
@@ -133,8 +136,19 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 	//if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/test"&&IPlayer.GetAdmin() >= 11)
 	//{
-	//	IPlayer.SystemMessage(IPlayer.GetIP(), TEXTCOLOR_ALLIANCE);
-	//	IPlayer.SystemMessage(Int2String(IPlayer.GetMoveSpeed()), TEXTCOLOR_RED);
+	//	//int Around = IPlayer.GetObjectListAround(20);
+
+	//	//while (Around)
+	//	//{
+	//	//	IChar Kappa((void*)Around);
+	//	//	IPlayer.SystemMessage(Int2String(Kappa.GetMaxHp()), TEXTCOLOR_RED);
+
+	//	//	Around = CBaseList::Pop((void*)Around);
+	//	//}
+	//	//SpinSlash(IPlayer);
+	//	//IPlayer.IncreaseMana(700);
+
+	//	//IPlayer.Buff(172, 600, 0);
 	//}
 
 	CPlayer::ChatCommand(Player, command);

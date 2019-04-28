@@ -198,6 +198,7 @@ void ZenConfig()
 	ArcherWhiteListSkills.push_back(4);
 	ArcherWhiteListSkills.push_back(7);
 	ArcherWhiteListSkills.push_back(10);
+	ArcherWhiteListSkills.push_back(16);
 	ArcherWhiteListSkills.push_back(18);
 	ArcherWhiteListSkills.push_back(21);
 	ArcherWhiteListSkills.push_back(22);
@@ -382,6 +383,7 @@ void ZenConfig()
 	TradeSystem::MinLvl = GetPrivateProfileIntA("TradeSystem", "MinLvl", 1, "./Systems/TradeSystem.txt");
 	TradeSystem::QuestRangeMin = GetPrivateProfileIntA("TradeSystem", "QuestRangeMin", 1, "./Systems/TradeSystem.txt");
 	TradeSystem::QuestRangeMax = GetPrivateProfileIntA("TradeSystem", "QuestRangeMax", 1, "./Systems/TradeSystem.txt");
+	TradeSystem::Cooldown = GetPrivateProfileIntA("TradeSystem", "Cooldown", 1, "./Systems/TradeSystem.txt");
 
 
 	LawlessZone::TicketID = GetPrivateProfileIntA("LawlessZone", "TicketID", 1, "./Systems/LawlessZone.txt");
@@ -952,7 +954,9 @@ void ZenConfig()
 
 
 
-
+		InstanceResetScrollID = GetPrivateProfileIntA("InstanceResetScroll", "ScrollID", 0, "./Systems/ZenSystem.txt");
+		TradeSystemResetScrollID = GetPrivateProfileIntA("TradeSystemResetScroll", "ScrollID", 0, "./Systems/ZenSystem.txt");
+		
 
 
 
@@ -1068,7 +1072,6 @@ void RiftConfig()
 			Rift >> RiftAmount;
 			if (RiftAmount < 1)
 			{
-
 				return;
 			}
 			first = true;

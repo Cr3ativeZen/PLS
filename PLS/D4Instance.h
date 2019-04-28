@@ -125,7 +125,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		D4Instance::StageNumber++;
 	}
 
-	if (D4Instance::IsUp == true && CChar::IsGState((int)IPlayer.GetOffset(), 2))
+	if (D4Instance::IsUp == true && CChar::IsGState((int)IPlayer.GetOffset(), 2) && IPlayer.GetMap() == D4Instance::MapNumber)
 	{
 		IPlayer.Revive();
 	}
@@ -143,7 +143,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 	}
 
 
-	if (D4Instance::IsUp == true && !IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber)
+	if (D4Instance::IsUp == true && !IPlayer.IsBuff(666)&&IPlayer.IsParty() && IPlayer.GetMap() == D4Instance::MapNumber)
 	{
 		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Time ended.instance failed", 1);
 		D4Instance::IsUp = false;
@@ -238,7 +238,27 @@ void __fastcall DFourInstance(IChar IPlayer)
 		
 	}
 
-	if (!IPlayer.IsParty() && IPlayer.IsOnline() && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::IsUp == true)
+	if (!IPlayer.IsBuff(666) && IPlayer.IsOnline() && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::IsUp == true &&IPlayer.GetAdmin()>=8)
+	{
+		//CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Party destroyed,instance failed", 1);
+		//D4Instance::IsUp = false;
+		//IPlayer.CloseScreenTime();
+		//IPlayer.CancelBuff(666);
+		//IPlayer.Buff(240, D4Instance::Cooldown, 0);
+		//D4Instance::StageNumber = 0;
+		//D4Instance::MobsKilled = 0;
+		//InstaConfig();
+
+		IPlayer.CancelBuff(666);
+		IPlayer.CloseScreenTime();
+		IPlayer.Teleport(0, D4Instance::ReturnX, D4Instance::ReturnY);
+		CPlayer::LeaveParty((int)IPlayer.GetOffset());
+		IPlayer.Announcement("You left the instance", TEXTCOLOR_RED);
+		IPlayer.Buff(240, D4Instance::Cooldown, 0);
+		return;
+	}
+
+	if (!IPlayer.IsParty() && IPlayer.IsOnline() && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::IsUp == true && IPlayer.GetAdmin() >= 8)
 	{
 		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Party destroyed,instance failed", 1);
 		D4Instance::IsUp = false;
@@ -248,6 +268,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		D4Instance::StageNumber = 0;
 		D4Instance::MobsKilled = 0;
 		InstaConfig();
+
 	}
 
 

@@ -34,15 +34,26 @@ void __fastcall AnkleAmputate(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!CanAttack(IPlayer.GetOffset(), 0, (int)Target.GetOffset(), 0))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
+
+
 
 				IPlayer.DecreaseMana(nMana);
 				Target.Buff(40, nSkillGrade * 3, -50);

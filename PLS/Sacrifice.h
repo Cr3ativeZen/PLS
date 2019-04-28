@@ -52,6 +52,6 @@ void __fastcall Sacrifice(int pSkill, void *edx, int Player, int pPacket, int pP
 			return;
 		}
 	}
-
+	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 }
 #endif

@@ -31,15 +31,25 @@ void __fastcall ArrowsOfTheMaster(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
+
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				IPlayer.AddFxToTarget("HellGate_FX40", 1, 0, 0);
 				int Around = Target.GetObjectListAround(3);

@@ -123,10 +123,16 @@ void __fastcall SwordDance(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			IPlayer.Buff(5585, xSkill.GetGrade() + 1, 0);
 			if (IPlayer.IsValid() && Target.IsValid())

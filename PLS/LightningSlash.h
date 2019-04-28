@@ -28,75 +28,76 @@ void __fastcall LightningSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar Target(pTarget);
+		IChar Target(pTarget);
 
 
-	if (bType == 0)
-	{
-
-		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (bType == 0)
 		{
-			if (IPlayer.CheckHit(Target, 20))
+
+			if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 			{
-				int nDmg = (IPlayer.GetAttack()*LSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*LSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*LSStrMultiPvP) + (ISkill.GetGrade()*LSPerGradeMultiPvP);
-				IPlayer.SetDirection(Target);
-				IPlayer.OktayDamageSingle(Target, nDmg, 3);
-				IPlayer._ShowBattleAnimation(Target, 3);
-			}
-			else
-			{
-				IPlayer._ShowBattleMiss(Target, 3);
+				if (IPlayer.CheckHit(Target, 20))
+				{
+					int nDmg = (IPlayer.GetAttack()*LSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*LSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*LSStrMultiPvP) + (ISkill.GetGrade()*LSPerGradeMultiPvP);
+					IPlayer.SetDirection(Target);
+					IPlayer.OktayDamageSingle(Target, nDmg, 3);
+					IPlayer._ShowBattleAnimation(Target, 3);
+				}
+				else
+				{
+					IPlayer._ShowBattleMiss(Target, 3);
+				}
 			}
 		}
-	}
-	if (bType == 1)
-	{
-		int Around = Target.GetObjectListAround(1);
-		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (bType == 1)
 		{
-			if (IPlayer.CheckHit(Target, 20))
+			int Around = Target.GetObjectListAround(1);
+			if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 			{
-				int nDmge = (IPlayer.GetAttack()*LSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*LSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*LSStrMultiPvE) + (ISkill.GetGrade()*LSPerGradeMultiPvE);
-				IPlayer.SetDirection(Target);
-				IPlayer.OktayDamageSingle(Target, nDmge, 3);
-				IPlayer._ShowBattleAnimation(Target, 3);
+				if (IPlayer.CheckHit(Target, 20))
+				{
+					int nDmge = (IPlayer.GetAttack()*LSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*LSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*LSStrMultiPvE) + (ISkill.GetGrade()*LSPerGradeMultiPvE);
+					IPlayer.SetDirection(Target);
+					IPlayer.OktayDamageSingle(Target, nDmge, 3);
+					IPlayer._ShowBattleAnimation(Target, 3);
+				}
+				else
+				{
+					IPlayer._ShowBattleMiss(Target, 3);
+				}
 			}
-			else
-			{
-				IPlayer._ShowBattleMiss(Target, 3);
-			}
-		}
-		int i = 0;
-		while (Around&&i < LSPvEMaxHits - 1)
-		{
-
-			IChar Object((void*)*(DWORD*)Around);
-
-			if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
+			int i = 0;
+			while (Around&&i < LSPvEMaxHits - 1)
 			{
 
-				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
+				IChar Object((void*)*(DWORD*)Around);
+
+				if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 				{
 
-					if (IPlayer.CheckHit(Object, 20))
+					if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 					{
-						int nDmg = (IPlayer.GetAttack()*LSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*LSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*LSStrMultiPvE) + (ISkill.GetGrade()*LSPerGradeMultiPvE);
-						IPlayer.OktayDamageSingle(Object, nDmg, 3);
-						IPlayer._ShowBattleAnimation(Object, 3);
-						i++;
-					}
-					else
-					{
-						IPlayer._ShowBattleMiss(Object, 3);
-						i++;
-					}
-				}
 
+						if (IPlayer.CheckHit(Object, 20))
+						{
+							int nDmg = (IPlayer.GetAttack()*LSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*LSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*LSStrMultiPvE) + (ISkill.GetGrade()*LSPerGradeMultiPvE);
+							IPlayer.OktayDamageSingle(Object, nDmg, 3);
+							IPlayer._ShowBattleAnimation(Object, 3);
+							i++;
+						}
+						else
+						{
+							IPlayer._ShowBattleMiss(Object, 3);
+							i++;
+						}
+					}
+
+				}
+				Around = CBaseList::Pop((void*)Around);
 			}
-			Around = CBaseList::Pop((void*)Around);
 		}
-	}
-	IPlayer.DecreaseMana(nMana);
-	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+		IPlayer.DecreaseMana(nMana);
+		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+	
 }
 #endif

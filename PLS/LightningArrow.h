@@ -88,20 +88,29 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 	if (pTarget && IPlayer.IsValid() && Target.IsValid() && CheckShiny.count((int)Target.GetOffset()))
 	{
 		if (CheckShiny.find((int)Target.GetOffset())->second.Delay >= GetTickCount())
+		{
+			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 			return;
+		}
 
 		if (CheckShiny.find((int)Target.GetOffset())->second.Target && Target.IsBuff(307))
 		{
 			IChar Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
-			CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 300;
+			CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 500;
 
 			if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
-				if (!Caster.IsInRange(Target, 300))
+				if (!Caster.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				int pSkill = Caster.GetSkillPointer(67);
 
@@ -183,10 +192,16 @@ void __fastcall LightningArrow(IChar IPlayer, int pPacket, int pPos)
 		if (pTarget && IPlayer.IsValid() && Target.IsValid())
 		{
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			int nDmg = (IPlayer.GetMagic()*LABaseDmgMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*LAIntMultiPvE) + (xSkill.GetGrade()*LAPerGradeMultiPvE);
 
@@ -197,7 +212,10 @@ void __fastcall LightningArrow(IChar IPlayer, int pPacket, int pPos)
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				if (Target.IsBuff(307))
 					StormActivateShiny(IPlayer, Target);

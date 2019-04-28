@@ -20,6 +20,7 @@
 
 
 
+
 std::string Int2String(int value)
 {
 	std::stringstream ss;
@@ -963,6 +964,9 @@ bool SpeedHackCheck = 0;
 int ScrollItemID = 0;
 int ScrollItemIconKey = 0;
 
+int InstanceResetScrollID = 0;
+int TradeSystemResetScrollID = 0;
+
 bool Logs = 0;
 
 std::ofstream SpeedHackLog;
@@ -1048,6 +1052,7 @@ struct Rifts
 	int FirstBoss = 0;
 	int BossMobSpawnID = 0;
 	int BossMobSpawnAmount = 0;
+	int Timer = 0;
 };
 Rifts RiftStruct[50] = { 0 };
 
@@ -1061,6 +1066,7 @@ namespace TradeSystem
 	int MinLvl = 60;
 	int QuestRangeMin = 0;
 	int QuestRangeMax = 0;
+	int Cooldown = 0;
 }
 
 namespace LawlessZone

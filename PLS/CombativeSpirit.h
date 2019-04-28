@@ -31,15 +31,24 @@ void __fastcall CombativeSpirit(IChar IPlayer, int pPacket, int pPos)
 			int nMana = (int)(((((nSkillGrade-1)+20) * nSkillGrade)+200) * 1.85);
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				IPlayer.DecreaseMana(nMana);
 

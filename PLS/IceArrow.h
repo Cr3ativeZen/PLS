@@ -33,12 +33,18 @@ void __fastcall IceArrow(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				if (IPlayer.IsBuff(295))
 				{
@@ -53,6 +59,7 @@ void __fastcall IceArrow(IChar IPlayer, int pPacket, int pPos)
 							IPlayer.CancelBuff(290 + i);
 						}
 						IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
+						CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 						return;
 					}
 
@@ -99,6 +106,7 @@ void __fastcall IceArrow(IChar IPlayer, int pPacket, int pPos)
 						IPlayer.SendGStateExIceArrow(StateEx << 32);
 					}
 					else {
+						CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 						return;
 					}
 
@@ -150,7 +158,7 @@ void __fastcall IceArrow(IChar IPlayer, int pPacket, int pPos)
 					}
 				}
 				else {
-					return;
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				}
 
 

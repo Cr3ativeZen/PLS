@@ -36,10 +36,16 @@ void __fastcall CriticalStrike(IChar IPlayer, int pPacket, int pPos)
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (pTarget == IPlayer.GetOffset())
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				if (!IPlayer.IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				int nDmg = 5000;
 

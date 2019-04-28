@@ -32,22 +32,34 @@ void __fastcall VirulentArrow(IChar IPlayer, int pPacket, int pPos)
 			IChar Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (pTarget == IPlayer.GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
+			}
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
 				if (!IPlayer.IsInRange(Target,300))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				int Item = CPlayer::FindItem(IPlayer.Offset, 360, 2);
 
 				if (Item)
 					(*(int (__thiscall **)(DWORD, void *, signed int, signed int))(*(DWORD*)Item + 120))(Item,IPlayer.GetOffset(),9,-2);
 				else
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
+				}
 
 				IPlayer.DecreaseMana(nMana);
 				IPlayer._ShowBattleAnimation(Target, 50);

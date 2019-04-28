@@ -56,6 +56,7 @@ void __fastcall FocusShot(int pSkill, void *pPlayer, int pPacket, int pPos)
 			}
 			else
 			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 			

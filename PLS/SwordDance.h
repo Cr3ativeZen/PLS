@@ -38,8 +38,6 @@ void __fastcall ContinueSwordDance(IChar IPlayer)
 						return;
 					}
 
-					if (IPlayer.CheckHit(Target, 30))
-					{
 						int nDmg = (IPlayer.GetAttack()*SDBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*SDAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*SDStrMultiPvE) + (nSkillGrade*SDPerGradeMultiPvE);
 
 						if (Target.GetType() == 0)
@@ -58,21 +56,6 @@ void __fastcall ContinueSwordDance(IChar IPlayer)
 						}
 
 						return;
-					}
-					else {
-						if (IPlayer.IsOnline())
-							CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 700;
-
-						IPlayer._ShowBattleMiss(Target, 43);
-
-						if (IPlayer.IsOnline() && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount == 0)
-						{
-							ResetContinueSkill(IPlayer);
-							IPlayer.CancelBuff(5585);
-						}
-
-						return;
-					}
 				}
 			}
 		}

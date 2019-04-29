@@ -29,8 +29,6 @@ void __fastcall ContinueLightningSlash(IChar IPlayer)
 					return;
 				}
 
-				if (IPlayer.CheckHit(Target, 30))
-				{
 					int nDmg = (IPlayer.GetAttack()*LSTBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*LSTAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*LSTStrMultiPvE) + (nSkillGrade*LSTPerGradeMultiPvE);
 
 
@@ -39,7 +37,7 @@ void __fastcall ContinueLightningSlash(IChar IPlayer)
 
 
 					IPlayer.OktayDamageSingle(Target,nDmg,28);
-				}
+
 
 				if (IPlayer.IsOnline())
 					CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 800;

@@ -29,6 +29,7 @@ void InstaConfig()
 		oD4Instance >> D4Instance::LastStage;
 		oD4Instance >> D4Instance::Time;
 		oD4Instance >> D4Instance::Cooldown;
+		oD4Instance >> D4Instance::MinPartyMembers;
 		oD4Instance >> D4Instance::SpawnX;
 		oD4Instance >> D4Instance::SpawnY;
 		oD4Instance >> D4Instance::ReturnX;
@@ -49,6 +50,7 @@ void InstaConfig()
 		}
 	}
 	oD4Instance.close();
+	D4Instance::PartyMembers.clear();
 
 }
 
@@ -499,7 +501,7 @@ void ZenConfig()
 	SSAgiMultiPvE = GetPrivateProfileIntA("SpinSlash", "SSAgiMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
 	SSStrMultiPvE = GetPrivateProfileIntA("SpinSlash", "SSStrMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
 	SSPerGradeMultiPvE = GetPrivateProfileIntA("SpinSlash", "SSPerGradeMultiPvE", 1, "./Skills/ThirdJobSkills.txt");
-	SSMultiWhenZerk = GetPrivateProfileIntA("SpinSlash", "SSMultiWhenZerk", 1, "./Skills/ThirdJobSkills.txt");
+	SSAdditonalDMG = GetPrivateProfileIntA("SpinSlash", "SSAdditonalDMG", 1, "./Skills/ThirdJobSkills.txt");
 
 	SSBaseDmgMultiPvP = GetPrivateProfileIntA("SpinSlash", "SSBaseDmgMultiPvP", 1, "./Skills/ThirdJobSkills.txt");
 	SSAgiMultiPvP = GetPrivateProfileIntA("SpinSlash", "SSAgiMultiPvP", 1, "./Skills/ThirdJobSkills.txt");

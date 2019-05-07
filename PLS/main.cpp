@@ -17,9 +17,10 @@
 #include <algorithm>
 #include <math.h>
 #include <direct.h>
+#include <set>
 
 
-
+ 
 
 std::string Int2String(int value)
 {
@@ -29,7 +30,7 @@ std::string Int2String(int value)
 	return str;
 }
 
-
+ 
 
 int String2Int(std::string String)
 {
@@ -530,7 +531,7 @@ int SSAgiMultiPvP = 0;
 int SSStrMultiPvP = 0;
 int SSPerGradeMultiPvP = 0;
 
-int SSMultiWhenZerk = 0;
+int SSAdditonalDMG = 0;
 
 int SDBaseDmgMultiPvE = 0;
 int SDAgiMultiPvE = 0;
@@ -1007,6 +1008,7 @@ enum TextColor
 namespace D4Instance
 {
 	void* Party = 0;
+	std::set<int> PartyMembers;
 	int PartySize = 0;
 	int MapNumber = 0;
 	bool IsUp = false;
@@ -1033,6 +1035,8 @@ namespace D4Instance
 	int SpawnX = 0;
 	int SpawnY = 0;
 	int Cooldown = 0;
+	int Countdown = 0;
+	int MinPartyMembers = 0;
 }
 
 int RiftAmount = 0;

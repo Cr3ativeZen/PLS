@@ -14,12 +14,22 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	{
 		if (IPlayer.IsBuff(666))
 		{
+			D4Instance::PartyMembers.erase(IPlayer.GetPID());
+			D4Instance::PartySize--;
 			IPlayer.CancelBuff(666);
 			IPlayer.CloseScreenTime();
 			IPlayer.Teleport(0, D4Instance::ReturnX, D4Instance::ReturnY);
 			CPlayer::LeaveParty((int)IPlayer.GetOffset());
 			IPlayer.Announcement("You left the instance", TEXTCOLOR_RED);
 			IPlayer.Buff(240, D4Instance::Cooldown, 0);
+			if (D4Instance::PartySize <= 1)
+			{
+				CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Party destroyed, instance failed", 1);
+				D4Instance::IsUp = false;
+				D4Instance::StageNumber = 0;
+				D4Instance::MobsKilled = 0;
+				InstaConfig();
+			}
 			return;
 		}
 		else
@@ -85,7 +95,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	{
 		if (!IPlayer.IsBuff(LawlessZone::BuffID))
 		{
-			IPlayer.SystemMessage("You are not at LawlessZone right now", TEXTCOLOR_RED);
+			IPlayer.SystemMessage("You are not at Lawless Zone right now", TEXTCOLOR_RED);
 			return;
 		}
 
@@ -95,17 +105,17 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/lawlessoff")
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/lawlessoff" && IPlayer.IsBuff(LawlessZone::BuffID))
 	{
-		IPlayer.CancelBuff(LawlessZone::BuffID);
-		for (int i = 0; i < 10; i++)
-		{
-			IPlayer.CancelBuff(LawlessZone::ExpBuffID[i]);
-			IPlayer.RemoveBuffIcon(0, 0, 0, 1500+i);
-		}
-		IPlayer.CancelBuff(104);
-		IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
-		LawlessZone::PointCounter[IPlayer.GetPID()] = 0;
+			IPlayer.CancelBuff(LawlessZone::BuffID);
+			for (int i = 0; i < 10; i++)
+			{
+				IPlayer.CancelBuff(LawlessZone::ExpBuffID[i]);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 1500 + i);
+			}
+			IPlayer.CancelBuff(104);
+			IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
+			LawlessZone::PointCounter[IPlayer.GetPID()] = 0;
 	}
 
 	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautconfig"&& IPlayer.GetAdmin() >= 8)
@@ -136,19 +146,8 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 	//if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/test"&&IPlayer.GetAdmin() >= 11)
 	//{
-	//	//int Around = IPlayer.GetObjectListAround(20);
-
-	//	//while (Around)
-	//	//{
-	//	//	IChar Kappa((void*)Around);
-	//	//	IPlayer.SystemMessage(Int2String(Kappa.GetMaxHp()), TEXTCOLOR_RED);
-
-	//	//	Around = CBaseList::Pop((void*)Around);
-	//	//}
-	//	//SpinSlash(IPlayer);
-	//	//IPlayer.IncreaseMana(700);
-
-	//	//IPlayer.Buff(172, 600, 0);
+	//	CPlayer::Write(IPlayer.GetOffset(), 68, "bbb", 43, 13, 0);
+	//	IPlayer.SystemMessage(Int2String(Undefined::sub_446FF0((int)IPlayer.GetOffset())),TEXTCOLOR_YELLOW);
 	//}
 
 	CPlayer::ChatCommand(Player, command);

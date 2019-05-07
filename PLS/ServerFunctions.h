@@ -495,6 +495,7 @@ namespace Undefined
 	static bool(__thiscall *sub_47D070)(int Value) = (bool(__thiscall*)(int))0x0047D070;
 	static int(__thiscall *sub_420250)(void *a) = (int(__thiscall*)(void*))0x00420250;
 	static int(__thiscall *sub_446090)(void* a3, int *a, int a2) = (int(__thiscall*)(void*, int*, int))0x00446090;
+	static int(__cdecl *sub_446FF0)(int a1) = (int(__cdecl*)(int a1))0x00446FF0;
 }
 
 namespace CMonsterMaguniMaster

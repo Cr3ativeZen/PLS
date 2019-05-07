@@ -154,6 +154,23 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			WritePacketToFile(IPlayer, WoodenBox, to_file);
 		}
 
+		if (packet == 47)
+		{
+			if (D4Instance::IsUp == true && D4Instance::PartyMembers.count(IPlayer.GetPID()))
+			{
+				D4Instance::PartySize--;
+				D4Instance::PartyMembers.erase(IPlayer.GetPID());
+				if (D4Instance::PartySize <= 1)
+				{
+					CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Party destroyed, instance failed", 1);
+					D4Instance::IsUp = false;
+					D4Instance::StageNumber = 0;
+					D4Instance::MobsKilled = 0;
+					InstaConfig();
+				}
+			}
+		}
+
 
 
 		if (packet == 33)
@@ -374,7 +391,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					IPlayer.SystemMessage("Instance already started try again later", TEXTCOLOR_RED);
 					return;
 				}
-				void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
+				D4Instance::Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 				if (IPlayer.GetLevel() < D4Instance::MinLevel)
 				{
@@ -382,27 +399,31 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if (!Party)
+				if (!D4Instance::Party)
 				{
 					IPlayer.SystemMessage("You need to be in party to start Instance", TEXTCOLOR_RED);
 					return;
 				}
 
-				if (!CParty::IsHead((int)Party, (int)IPlayer.Offset))
+				if (!CParty::IsHead((int)D4Instance::Party, (int)IPlayer.Offset))
 				{
 					IPlayer.SystemMessage("You are not the party leader so you cannot start Instance", TEXTCOLOR_RED);
 					return;
 				}
 
 
+
+
 				int PartySize = 0;
 
-				if (Party)
+				if (D4Instance::Party)
 				{
-					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+					int sizecheck = 0;
+					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
 						IChar IMembers((void*)*(DWORD*)((void*)i));
+						sizecheck++;
 						if (IMembers.GetLevel() < D4Instance::MinLevel)
 						{
 							IPlayer.SystemMessage("Some of your partymates level is too low to start instance", TEXTCOLOR_RED);
@@ -415,10 +436,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						}
 					}
 
-					void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
+					if (sizecheck < D4Instance::MinPartyMembers)
+					{
+						std::string mes = "Your party need ";
+						mes += Int2String(D4Instance::MinPartyMembers);
+						mes += " members to start instance";
+						IPlayer.SystemMessage(mes, TEXTCOLOR_RED);
+						return;
+					}
+
+					D4Instance::Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 
-					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
 						IChar IMembers((void*)*(DWORD*)((void*)i));
@@ -431,11 +461,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					}
 
 					D4Instance::PartySize = PartySize;
+					D4Instance::IsUp = true;
+					D4Instance::Countdown = GetTickCount();
+
+
+					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
+					{
+						int Members = *(DWORD*)((void*)i);
+						IChar IMembers((void*)*(DWORD*)((void*)i));
+						D4Instance::PartyMembers.insert(IPlayer.GetPID());
+					}
+
 				}
 
-
-
-				D4Instance::IsUp = true;
 				return;
 			}
 
@@ -597,11 +635,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						return;
 					}
 
-					if (!CPlayer::FindItem(IPlayer.GetOffset(), LawlessZone::MovingTrinketID, 1))
-					{
-						IPlayer.SystemMessage("You dont have Moving Trinket", TEXTCOLOR_RED);
-						return;
-					}
+					//if (!CPlayer::FindItem(IPlayer.GetOffset(), LawlessZone::MovingTrinketID, 1))
+					//{
+					//	IPlayer.SystemMessage("You dont have Moving Trinket", TEXTCOLOR_RED);
+					//	return;
+					//}
 
 					if (!CPlayer::FindItem(IPlayer.GetOffset(), LawlessZone::TicketID, 1))
 					{
@@ -617,8 +655,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 					IPlayer.SystemMessage("WELCOME TO LAWLESS ZONE!", TEXTCOLOR_PINK);
 					IPlayer.SystemMessage("GOOD LUCK HAVE FUN!", TEXTCOLOR_PINK);
-
-					IPlayer.SetBuffIcon(LawlessZone::Time, 1, 4510, 430);
 
 					IPlayer.Buff(LawlessZone::BuffID, LawlessZone::Time, 0);
 					if (IPlayer.IsBuff(104))
@@ -641,7 +677,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							IPlayer.RemoveBuffIcon(0, 0, 4500 + i, 1500 + i);
 						}
 					}
-					IPlayer.CancelBuff(104);
+					if(IPlayer.IsBuff(104))
+						IPlayer.CancelBuff(104);
+
 					IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
 					LawlessZone::PointCounter[IPlayer.GetPID()] = 0;
 
@@ -894,7 +932,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			}
 
-			if (IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 &&(SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 ||SkillID == 42 || SkillID == 75))
+			if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
 			{
 				ActivateShiny(IPlayer, kappa, pPos);
 			}

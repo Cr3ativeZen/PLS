@@ -2,107 +2,108 @@
 #define _D4INSTANCE_H
 void __fastcall DFourInstance(IChar IPlayer)
 {
+
 	if (D4Instance::IsUp == true && D4Instance::StageNumber == D4Instance::F2TP[2] && IPlayer.IsOnline() && IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::FloorNumber == 1)
 	{
+		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Floor finished, move to the next one", 1);
 
+		//void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
+		//if (Partyia)
+		//{
+		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
+		//	{
+		//		int Members = *(DWORD*)((void*)i);
+		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F2TP[0], D4Instance::F2TP[1]);
 
-		void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
-		if (Partyia)
-		{
-			for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
-			{
-				int Members = *(DWORD*)((void*)i);
-				IChar IMembers((void*)*(DWORD*)((void*)i));
-				IMembers.Teleport(D4Instance::MapNumber, D4Instance::F2TP[0], D4Instance::F2TP[1]);
-
-			}
-		}
+		//	}
+		//}
 		D4Instance::FloorNumber++;
 	}
 
 	if (D4Instance::IsUp == true && D4Instance::StageNumber == D4Instance::F2TP[2] + D4Instance::F3TP[2] && IPlayer.IsOnline() && IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::FloorNumber == 2)
 	{
+		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Floor finished, move to the next one", 1);
+		//void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
+		//if (Partyia)
+		//{
+		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
+		//	{
+		//		int Members = *(DWORD*)((void*)i);
+		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F3TP[0], D4Instance::F3TP[1]);
 
-		void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
-		if (Partyia)
-		{
-			for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
-			{
-				int Members = *(DWORD*)((void*)i);
-				IChar IMembers((void*)*(DWORD*)((void*)i));
-				IMembers.Teleport(D4Instance::MapNumber, D4Instance::F3TP[0], D4Instance::F3TP[1]);
-
-			}
-		}
+		//	}
+		//}
 		D4Instance::FloorNumber++;
 	}
 
 	if (D4Instance::IsUp == true && D4Instance::StageNumber == D4Instance::F2TP[2] + D4Instance::F3TP[2] + D4Instance::F4TP[2] && IPlayer.IsOnline() && IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::FloorNumber == 3)
 	{
+		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Floor finished, move to the next one", 1);
+		//void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
+		//if (Partyia)
+		//{
+		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
+		//	{
+		//		int Members = *(DWORD*)((void*)i);
+		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F4TP[0], D4Instance::F4TP[1]);
 
-		void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
-		if (Partyia)
-		{
-			for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
-			{
-				int Members = *(DWORD*)((void*)i);
-				IChar IMembers((void*)*(DWORD*)((void*)i));
-				IMembers.Teleport(D4Instance::MapNumber, D4Instance::F4TP[0], D4Instance::F4TP[1]);
-
-			}
-		}
+		//	}
+		//}
 		D4Instance::FloorNumber++;
 	}
 
 	if (D4Instance::IsUp == true && D4Instance::StageNumber == D4Instance::F2TP[2] + D4Instance::F3TP[2] + D4Instance::F4TP[2] + D4Instance::F5TP[2] && IPlayer.IsOnline() && IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::FloorNumber == 4)
 	{
+		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Floor finished, move to the next one", 1);
+		//void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
+		//if (Partyia)
+		//{
+		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
+		//	{
+		//		int Members = *(DWORD*)((void*)i);
+		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F5TP[0], D4Instance::F5TP[1]);
 
-		void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
-		if (Partyia)
-		{
-			for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
-			{
-				int Members = *(DWORD*)((void*)i);
-				IChar IMembers((void*)*(DWORD*)((void*)i));
-				IMembers.Teleport(D4Instance::MapNumber, D4Instance::F5TP[0], D4Instance::F5TP[1]);
-
-			}
-		}
+		//	}
+		//}
 		D4Instance::FloorNumber++;
 	}
 
 	if (D4Instance::IsUp == true && D4Instance::StageNumber == D4Instance::F2TP[2] + D4Instance::F3TP[2] + D4Instance::F4TP[2] + D4Instance::F5TP[2] + D4Instance::F6TP[2] && IPlayer.IsOnline() && IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::FloorNumber == 5)
 	{
+		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Floor finished, move to the next one", 1);
+		//void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
+		//if (Partyia)
+		//{
+		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
+		//	{
+		//		int Members = *(DWORD*)((void*)i);
+		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F6TP[0], D4Instance::F6TP[1]);
 
-		void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
-		if (Partyia)
-		{
-			for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
-			{
-				int Members = *(DWORD*)((void*)i);
-				IChar IMembers((void*)*(DWORD*)((void*)i));
-				IMembers.Teleport(D4Instance::MapNumber, D4Instance::F6TP[0], D4Instance::F6TP[1]);
-
-			}
-		}
+		//	}
+		//}
 		D4Instance::FloorNumber++;
 	}
 
 
 	if (D4Instance::IsUp == true && D4Instance::StageNumber == D4Instance::F2TP[2] + D4Instance::F3TP[2] + D4Instance::F4TP[2] + D4Instance::F5TP[2] + D4Instance::F6TP[2] + D4Instance::LastRoomTP[2]-1 && IPlayer.IsOnline() && IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::FloorNumber == 6)
 	{
+		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Floor finished, move to the next one", 1);
+		//void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
+		//if (Partyia)
+		//{
+		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
+		//	{
+		//		int Members = *(DWORD*)((void*)i);
+		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::LastRoomTP[0], D4Instance::LastRoomTP[1]);
 
-		void *Partyia = (void*)CParty::FindParty(IPlayer.GetPartyID());
-		if (Partyia)
-		{
-			for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
-			{
-				int Members = *(DWORD*)((void*)i);
-				IChar IMembers((void*)*(DWORD*)((void*)i));
-				IMembers.Teleport(D4Instance::MapNumber, D4Instance::LastRoomTP[0], D4Instance::LastRoomTP[1]);
-
-			}
-		}
+		//	}
+		//}
 		D4Instance::FloorNumber++;
 	}
 
@@ -123,11 +124,6 @@ void __fastcall DFourInstance(IChar IPlayer)
 		D4Instance::MobsToKill = 1;
 
 		D4Instance::StageNumber++;
-	}
-
-	if (D4Instance::IsUp == true && CChar::IsGState((int)IPlayer.GetOffset(), 2) && IPlayer.GetMap() == D4Instance::MapNumber)
-	{
-		IPlayer.Revive();
 	}
 
 	if (D4Instance::IsUp == false && IPlayer.GetMap() == D4Instance::MapNumber)
@@ -238,27 +234,19 @@ void __fastcall DFourInstance(IChar IPlayer)
 		
 	}
 
-	if (!IPlayer.IsBuff(666) && IPlayer.IsOnline() && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::IsUp == true &&IPlayer.GetAdmin()>=8)
+	if (!IPlayer.IsBuff(666) && IPlayer.IsOnline() && IPlayer.GetMap() == D4Instance::MapNumber)
 	{
-		//CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Party destroyed,instance failed", 1);
-		//D4Instance::IsUp = false;
-		//IPlayer.CloseScreenTime();
-		//IPlayer.CancelBuff(666);
-		//IPlayer.Buff(240, D4Instance::Cooldown, 0);
-		//D4Instance::StageNumber = 0;
-		//D4Instance::MobsKilled = 0;
-		//InstaConfig();
-
-		IPlayer.CancelBuff(666);
 		IPlayer.CloseScreenTime();
 		IPlayer.Teleport(0, D4Instance::ReturnX, D4Instance::ReturnY);
-		CPlayer::LeaveParty((int)IPlayer.GetOffset());
+		if(IPlayer.IsParty())
+			CPlayer::LeaveParty((int)IPlayer.GetOffset());
+
 		IPlayer.Announcement("You left the instance", TEXTCOLOR_RED);
 		IPlayer.Buff(240, D4Instance::Cooldown, 0);
 		return;
 	}
 
-	if (!IPlayer.IsParty() && IPlayer.IsOnline() && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::IsUp == true && IPlayer.GetAdmin() >= 8)
+	if (!D4Instance::Party && D4Instance::IsUp==true)
 	{
 		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Party destroyed,instance failed", 1);
 		D4Instance::IsUp = false;
@@ -271,6 +259,25 @@ void __fastcall DFourInstance(IChar IPlayer)
 
 	}
 
+	if (!IPlayer.IsParty() && IPlayer.IsOnline() && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::IsUp == true)
+	{
+		IPlayer.CancelBuff(666);
+		IPlayer.CloseScreenTime();
+		IPlayer.Teleport(0, D4Instance::ReturnX, D4Instance::ReturnY);
+		IPlayer.Announcement("You left the instance", TEXTCOLOR_RED);
+		IPlayer.Buff(240, D4Instance::Cooldown, 0);
+		return;
+
+	}
+
+	if (D4Instance::IsUp == true && D4Instance::Countdown + (D4Instance::Time * 1000) < static_cast<int>(GetTickCount()))
+	{
+		CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Time ended.instance failed", 1);
+		D4Instance::IsUp = false;
+		D4Instance::StageNumber = 0;
+		D4Instance::MobsKilled = 0;
+		InstaConfig();
+	}
 
 }
 #endif

@@ -31,7 +31,7 @@ void __fastcall SpinSlash(IChar IPlayer)
 
 					if (IPlayer.IsBuff(69) && Object.GetType() == 1)
 					{
-						nDmg = nDmg +(nDmg*( SSMultiWhenZerk/100));
+						nDmg = nDmg + SSAdditonalDMG;
 					}
 				
 

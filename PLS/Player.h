@@ -310,12 +310,23 @@ int __fastcall Tick(void *Player, void *edx)
 			IPlayer.Teleport(LawlessZone::Map, LawlessZone::StartTeleportX, LawlessZone::StartTeleportY);
 		}
 
-		if (IPlayer.IsOnline() && !IPlayer.IsBuff(LawlessZone::BuffID) && IPlayer.GetMap() == LawlessZone::Map)
+		
+	}
+
+	if (LawlessZoneON == true && IPlayer.IsOnline() && !IPlayer.IsBuff(LawlessZone::BuffID) && IPlayer.GetMap() == LawlessZone::Map)
+	{
+		IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
+		if (IPlayer.IsBuff(104))
 		{
-			IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
-			if (IPlayer.IsBuff(104))
+			IPlayer.CancelBuff(104);
+		}
+
+		for (int i = 0; i < 10; i++)
+		{
+			if (IPlayer.IsBuff(LawlessZone::ExpBuffID[i]))
 			{
-				IPlayer.CancelBuff(104);
+				IPlayer.CancelBuff(LawlessZone::ExpBuffID[i]);
+				IPlayer.RemoveBuffIcon(0, 0, 4500 + i, 1500 + i);
 			}
 		}
 	}

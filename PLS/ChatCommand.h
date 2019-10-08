@@ -150,6 +150,22 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	//	IPlayer.SystemMessage(Int2String(Undefined::sub_446FF0((int)IPlayer.GetOffset())),TEXTCOLOR_YELLOW);
 	//}
 
+
+	if (IPlayer.IsOnline())
+	{
+
+	}
+
+	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/puff" && IPlayer.GetAdmin() >= 8)
+	{
+		IPlayer.AddDef(10000);
+		IPlayer.AddMaxAttack(10000);
+		IPlayer.AddMinAttack(10000);
+		IPlayer.AddEva(10000);
+		IPlayer.AddOTP(10000);
+		IPlayer.AddHp(10000);
+	}
+
 	CPlayer::ChatCommand(Player, command);
 }
 #endif

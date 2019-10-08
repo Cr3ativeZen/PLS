@@ -20,6 +20,9 @@ int __fastcall Tick(void *Player, void *edx)
 	//}
 
 
+
+
+
 	if (IPlayer.IsOnline() && CheckShiny.count((int)IPlayer.GetOffset()) && CheckShiny.find((int)IPlayer.GetOffset())->second.Target && IPlayer.IsBuff(307) && LightningArrowON == true)
 	{
 		IChar Caster(CheckShiny.find((int)IPlayer.GetOffset())->second.Target);

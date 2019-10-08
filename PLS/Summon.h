@@ -67,7 +67,6 @@ void BossDropDraw(IChar IMonster)
 		if (temp_bool==true&&IPlayer.IsOnline())
 		{
 
-			
 			dropsgiven--;
 
 			if(IPlayer.IsOnline())

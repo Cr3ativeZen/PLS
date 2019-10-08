@@ -8,11 +8,9 @@
 #include <fstream>
 #include <map>
 #include <vector>
-#include <chrono>
 #include <cstdio>
 #include <ctime>
 #include <sstream>
-#include <thread>
 #include <random>
 #include <algorithm>
 #include <math.h>

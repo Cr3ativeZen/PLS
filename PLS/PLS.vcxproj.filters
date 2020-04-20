@@ -363,6 +363,7 @@
       <Filter>Characters</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="Resources.h">
       <Filter>Header Files\EverythingElse</Filter>
 =======
@@ -370,5 +371,7 @@
       <Filter>Source Files</Filter>
 >>>>>>> hubert
     </ClCompile>
+=======
+>>>>>>> parent of e123e09... pus
   </ItemGroup>
 </Project>

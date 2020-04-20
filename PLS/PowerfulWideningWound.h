@@ -31,17 +31,25 @@ void __fastcall PowerfulWideningWound(ICharacter IPlayer, int pPacket, int pPos)
 
 		if (pTarget && xSkill.GetGrade() && IsValid())
 		{
+<<<<<<< HEAD
 
 			if (IPlayer.GetCurMp() < nMana || pTarget == IPlayer.GetOffset())
 
 			if (GetCurMp() < nMana)
+=======
+			if (IPlayer.GetCurMp() < nMana)
+>>>>>>> parent of e123e09... pus
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
+<<<<<<< HEAD
 			if (pTarget == GetOffset())
 
+=======
+			if (pTarget == IPlayer.GetOffset())
+>>>>>>> parent of e123e09... pus
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;

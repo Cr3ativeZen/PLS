@@ -3,6 +3,7 @@
 
 #pragma warning (disable : 4996)
 
+
 void WritePacketToFile(ICharacter IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
 {
 	
@@ -138,14 +139,54 @@ switch (WHICH_FILE)
 	delete[] file;
 }
 
-
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
-	ICharacter IPlayer((void*)Player);
+	int CLASS_ID = *(DWORD*)(Player + 460);
+	int skillID = 0;
+	void* skillPtr = (void*)CPacket::Read((char*)pPacket, (char*)pPos, "b", &skillID);
+
+	switch (CLASS_ID)
+	{
+		case CLASS_KNIGHT:
+		{
+			CKnight knight((void*)Player);
+			
+			switch (skillID)
+			{
+				case SKILL_POWERFULLUPWARDSLASH:
+					knight.PowerfulUpwardSlash(skillPtr, pPacket, (void*)pPos);
+					break;
+				default:
+					break;
+			}
+			break;
+		}
+		case CLASS_MAGE:
+		{
+			CMage mage((void*)Player);
+			break;
+		}
+		case CLASS_ARCHER:
+		{
+			CArcher archer((void*)Player);
+			break;
+		}
+		case CLASS_THIEF:
+		{
+			CThief thief((void*)Player);
+			break;
+		}
+		default:
+			break;
+	}
+
+
 	if (IPlayer.IsOnline())
 	{
 		//if (packet != 20 && packet != 21)
 		//	IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
+
+
 
 		if (packet == 94 && Logs == true)
 		{
@@ -1671,4 +1712,5 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 	}
 
 }
+
 #endif

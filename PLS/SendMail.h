@@ -12,16 +12,16 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 	char dt;
 	ctime_s(&dt, 1, &now);
 
-	/*IPlayer.SystemMessage(ReceiverName, TEXTCOLOR_RED);
-	IPlayer.SystemMessage(Text, TEXTCOLOR_RED);
-	IPlayer.SystemMessage(Int2String(Index), TEXTCOLOR_BLUE);
-	IPlayer.SystemMessage(Int2String(a8), TEXTCOLOR_BLUE);
-	IPlayer.SystemMessage(Int2String(Amount), TEXTCOLOR_BLUE);
-	IPlayer.SystemMessage(Int2String(Price), TEXTCOLOR_BLUE);*/
+	/*SystemMessage(ReceiverName, TEXTCOLOR_RED);
+	SystemMessage(Text, TEXTCOLOR_RED);
+	SystemMessage(Int2String(Index), TEXTCOLOR_BLUE);
+	SystemMessage(Int2String(a8), TEXTCOLOR_BLUE);
+	SystemMessage(Int2String(Amount), TEXTCOLOR_BLUE);
+	SystemMessage(Int2String(Price), TEXTCOLOR_BLUE);*/
 
 
 		std::string to_file = "MAIL IS SENT! ---SENT BY: ";
-		to_file += IPlayer.GetName();
+		to_file += GetName();
 		to_file += "---ITEM SENT TO: ";
 		to_file += ReceiverName;
 		to_file += "---ITEM ID: ";
@@ -37,7 +37,7 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 		std::string to_file2 = "MAIL IS RECIVED! --- RECIVED BY: ";
 		to_file2 += ReceiverName;
 		to_file2 += "ITEM SENT BY: ";
-		to_file2 += IPlayer.GetName();
+		to_file2 += GetName();
 		to_file2 += "---ITEM ID: ";
 		to_file2 += Int2String(Index);
 		to_file2 += "---ITEM AMOUNT: ";

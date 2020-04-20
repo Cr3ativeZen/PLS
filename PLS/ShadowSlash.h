@@ -5,7 +5,7 @@ void __fastcall ShadowSlash(ICharacter IPlayer, int pPacket, int pPos)
 {
 
 
-	int pSkill = IPlayer.GetSkillPointer(32);
+	int pSkill = GetSkillPointer(32);
 
 
 		ISkill xSkill((void*)pSkill);
@@ -16,7 +16,7 @@ void __fastcall ShadowSlash(ICharacter IPlayer, int pPacket, int pPos)
 
 		int nTargetID = 0; char bType = 0; void *pTarget = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
-		int nMana = static_cast<int>(230 + (((IPlayer.GetLevel() + nSkillGrade) * nSkillGrade) * 0.63));
+		int nMana = static_cast<int>(230 + (((GetLevel() + nSkillGrade) * nSkillGrade) * 0.63));
 
 		if (bType == 0 && nTargetID)
 			pTarget = CPlayer::FindPlayer(nTargetID);
@@ -24,26 +24,26 @@ void __fastcall ShadowSlash(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 		
-		if (pTarget && IPlayer.IsValid() && nSkillGrade)
+		if (pTarget && IsValid() && nSkillGrade)
 		{
 			ICharacter Target(pTarget);
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
 
 				int Around = Target.GetObjectListAround(3);
@@ -52,15 +52,15 @@ void __fastcall ShadowSlash(ICharacter IPlayer, int pPacket, int pPos)
 				{
 					ICharacter Object((void*)*(DWORD*)Around);
 
-					if (/*Object.IsValid() && IPlayer.IsValid() && Target.IsValid() &&*/ (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+					if (/*Object.IsValid() && IsValid() && Target.IsValid() &&*/ (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 					{
 
 						Object.Buff(7, SHSStunDuration + nSkillGrade * SHSStunDurationPerGrade, 0);
-						int nDmg = (IPlayer.GetAttack()*SHSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*SHSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*SHSStrMultiPvE) + (nSkillGrade*SHSPerGradeMultiPvE);
+						int nDmg = (GetAttack()*SHSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*SHSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*SHSStrMultiPvE) + (nSkillGrade*SHSPerGradeMultiPvE);
 						if (Object.GetType() == 0)
-							nDmg = (IPlayer.GetAttack()*SHSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*SHSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*SHSStrMultiPvP) + (nSkillGrade*SHSPerGradeMultiPvP);
+							nDmg = (GetAttack()*SHSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*SHSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*SHSStrMultiPvP) + (nSkillGrade*SHSPerGradeMultiPvP);
 
-						IPlayer.OktayDamageArea(Object, nDmg, 32);
+						OktayDamageArea(Object, nDmg, 32);
 
 					}
 
@@ -68,9 +68,9 @@ void __fastcall ShadowSlash(ICharacter IPlayer, int pPacket, int pPos)
 				}
 			}
 
-			IPlayer.SetDirection(Target);
-			IPlayer._ShowBattleAnimation(Target, 32);
-			IPlayer.DecreaseMana(nMana);
+			SetDirection(Target);
+			_ShowBattleAnimation(Target, 32);
+			DecreaseMana(nMana);
 
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

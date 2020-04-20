@@ -22,7 +22,7 @@ void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 		return;
 
 	ICharacter Target(pTarget);
@@ -30,20 +30,20 @@ void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	//PvP
 	if (bType==0)
 	{
-		if (IPlayer.IsValid() &&Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (IsValid() &&Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (IPlayer.CheckHit(Target, 20))
+			if (CheckHit(Target, 20))
 			{
-				int nDmge = (IPlayer.GetAttack()*FABaseDamageMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*FAAGiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*FAStrMultiPvP) + (ISkill.GetGrade()*FAPerGradeMultiPvP);
+				int nDmge = (GetAttack()*FABaseDamageMultiPvP) + (CChar::GetDex((int)GetOffset())*FAAGiMultiPvP) + (CChar::GetStr((int)GetOffset())*FAStrMultiPvP) + (ISkill.GetGrade()*FAPerGradeMultiPvP);
 				Target.Buff(791, FADurationBase+ISkill.GetGrade()*FADurationPerGrade, (FADoTBasePvP+(ISkill.GetGrade()*FADoTPerGradePvP)));
 				Target.AddFxToTarget("davi_M564_71", 1, 0, 0);
-				IPlayer.OktayDamageSingle(Target, nDmge, 6);
-				IPlayer.SetDirection(Target);
-				IPlayer._ShowBattleAnimation(Target, 6);
+				OktayDamageSingle(Target, nDmge, 6);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 6);
 			}
 			else
 			{
-				IPlayer._ShowBattleMiss(Target, 6);
+				_ShowBattleMiss(Target, 6);
 			}
 
 		}
@@ -52,25 +52,25 @@ void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType == 1)
 	{
 
-		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (IPlayer.CheckHit(Target, 20))
+			if (CheckHit(Target, 20))
 			{
-				int nDmg = (IPlayer.GetAttack()*FABaseDamageMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*FAAGiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*FAStrMultiPvE) + (ISkill.GetGrade()*FAPerGradeMultiPvE);
+				int nDmg = (GetAttack()*FABaseDamageMultiPvE) + (CChar::GetDex((int)GetOffset())*FAAGiMultiPvE) + (CChar::GetStr((int)GetOffset())*FAStrMultiPvE) + (ISkill.GetGrade()*FAPerGradeMultiPvE);
 				Target.Buff(29, FADurationBase + ISkill.GetGrade()*FADurationPerGrade, (FADoTBasePvE + (ISkill.GetGrade()*FADoTPerGradePvE)));
 				Target.AddFxToTarget("davi_M564_71", 1, 0, 0);
-				IPlayer.OktayDamageSingle(Target,nDmg , 6);
-				IPlayer.SetDirection(Target);
-				IPlayer._ShowBattleAnimation(Target, 6);
+				OktayDamageSingle(Target,nDmg , 6);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 6);
 			}
 			else
 			{
-				IPlayer._ShowBattleMiss(Target, 6);
+				_ShowBattleMiss(Target, 6);
 			}
 
 		}
 	}
-	IPlayer.DecreaseMana(nMana);
+	DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 #endif

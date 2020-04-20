@@ -3,9 +3,9 @@
 
 void __fastcall ArrowsOfTheMaster(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(92);
+	int pSkill = GetSkillPointer(92);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -25,57 +25,57 @@ void __fastcall ArrowsOfTheMaster(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType >= 2)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsValid())
+		if (pTarget && nSkillGrade && IsValid())
 		{
 			nMana = static_cast<int>(1.85 * (200 + (nSkillGrade * (20 + (nSkillGrade - 1)))));
 			ICharacter Target(pTarget);
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				IPlayer.AddFxToTarget("HellGate_FX40", 1, 0, 0);
+				AddFxToTarget("HellGate_FX40", 1, 0, 0);
 				int Around = Target.GetObjectListAround(3);
 
 				while (Around)
 				{
 					ICharacter Object((void*)*(DWORD*)Around);
 
-					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 					{
 						Object.AddFxToTarget("HellGate_FX40", 1, 0, 0);
 
-						int nDmg = (IPlayer.GetAttack()*AOTMBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*AOTMAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*AOTMStrMultiPvE) + (nSkillGrade*AOTMPerGradeMultiPvE);
+						int nDmg = (GetAttack()*AOTMBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*AOTMAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*AOTMStrMultiPvE) + (nSkillGrade*AOTMPerGradeMultiPvE);
 
 						if (Object.GetType() == 0)
-							nDmg = (IPlayer.GetAttack()*AOTMBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*AOTMAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*AOTMStrMultiPvP) + (nSkillGrade*AOTMPerGradeMultiPvE);
+							nDmg = (GetAttack()*AOTMBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*AOTMAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*AOTMStrMultiPvP) + (nSkillGrade*AOTMPerGradeMultiPvE);
 
-						IPlayer.OktayDamageArea(Object, nDmg, 92);
+						OktayDamageArea(Object, nDmg, 92);
 					}
 
 					Around = CBaseList::Pop((void*)Around);
 				}
 
-				IPlayer.DecreaseMana(nMana);
-				IPlayer.SetDirection(Target);
-				IPlayer._ShowBattleAnimation(Target, 92);
+				DecreaseMana(nMana);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 92);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

@@ -3,13 +3,13 @@
 
 void __fastcall ThewaveofEarth(ICharacter IPlayer)
 {
-	if (IPlayer.IsOnline())
+	if (IsOnline())
 	{
-		int pSkill = IPlayer.GetSkillPointer(93);
+		int pSkill = GetSkillPointer(93);
 
-		if (IPlayer.IsValid() && pSkill)
+		if (IsValid() && pSkill)
 		{
-			if (CPlayer::IsWState((int)IPlayer.GetOffset(), 12))
+			if (CPlayer::IsWState((int)GetOffset(), 12))
 				return;
 
 			ISkill xSkill((void*)pSkill);
@@ -19,30 +19,30 @@ void __fastcall ThewaveofEarth(ICharacter IPlayer)
 			if (!nSkillGrade)
 				return;
 
-			int Mana = 180 + static_cast<int>((1.25 * (xSkill.GetGrade() * (IPlayer.GetLevel() + xSkill.GetGrade()))));
+			int Mana = 180 + static_cast<int>((1.25 * (xSkill.GetGrade() * (GetLevel() + xSkill.GetGrade()))));
 
-			if (IPlayer.GetCurMp() <= Mana)
+			if (GetCurMp() <= Mana)
 				return;
 
-			IPlayer.DecreaseMana(Mana);
-			IPlayer._ShowBattleAnimation(IPlayer, 93);
+			DecreaseMana(Mana);
+			_ShowBattleAnimation(IPlayer, 93);
 
-			if (IPlayer.IsValid())
+			if (IsValid())
 			{
-				int Around = IPlayer.GetObjectListAround(3);
+				int Around = GetObjectListAround(3);
 
 				while (Around)
 				{
 					ICharacter Object((void*)*(DWORD*)Around);
 
-					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 					{
 						int nDmg = 5000;
 
 						if (Object.GetType() == 0)
 							nDmg = 5000;
 
-						IPlayer.OktayDamageArea(Object, nDmg, 93);
+						OktayDamageArea(Object, nDmg, 93);
 					}
 
 					Around = CBaseList::Pop((void*)Around);

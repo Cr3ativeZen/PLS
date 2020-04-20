@@ -23,12 +23,12 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 	if (bType == 1)
 		return;
 
-	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 		return;
 
 	ICharacter ITarget((void*)pTarget);
 
-	if (IPlayer.IsValid())
+	if (IsValid())
 	{
 		if (ITarget.IsParty()&&CChar::IsGState((int)ITarget.GetOffset(), 2))
 		{
@@ -42,9 +42,9 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 					ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 
-					if (CChar::IsGState((int)IMembers.GetOffset(), 2)&& (IPlayer.IsInRange(IMembers, 10)))
+					if (CChar::IsGState((int)IMembers.GetOffset(), 2)&& (IsInRange(IMembers, 10)))
 					{
-						IPlayer._ShowBattleAnimation(IMembers, 34);
+						_ShowBattleAnimation(IMembers, 34);
 						IMembers.Revive();
 						IMembers.Buff(4, 60, -50);
 					}
@@ -53,15 +53,15 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 		}
 		else
 		{
-			if (CChar::IsGState((int)ITarget.GetOffset(), 2) && (IPlayer.IsInRange(ITarget, 10)))
+			if (CChar::IsGState((int)ITarget.GetOffset(), 2) && (IsInRange(ITarget, 10)))
 			{
-				IPlayer._ShowBattleAnimation(ITarget, 34);
+				_ShowBattleAnimation(ITarget, 34);
 				ITarget.Revive();
 				ITarget.Buff(4, 60,-50);
 			}
 		}
 	}
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-	IPlayer.DecreaseMana(nMana);
+	DecreaseMana(nMana);
 }
 #endif

@@ -20,40 +20,40 @@ void __fastcall HalfSwing(int pSkill, void *pPlayer, int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 		return;
 
 	ICharacter Target(pTarget);
 
-	if (!IPlayer.IsInRange(Target, 20))
+	if (!IsInRange(Target, 20))
 	{
 		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		return;
 	}
 
-	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+	if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
 	{
 		int Around = Target.GetObjectListAround(1);
 
 		while (Around)
 		{
 			ICharacter Object((void*)*(DWORD*)Around);
-			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
+			if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 2))
 			{
-				int nDmg = (IPlayer.GetAttack()*HSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*HSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*HSStrMultiPvE) + (nSkillGrade*HSPerGradeMultiPvE);
+				int nDmg = (GetAttack()*HSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*HSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*HSStrMultiPvE) + (nSkillGrade*HSPerGradeMultiPvE);
 
 				if (Object.GetType() == 0)
 				{
-					nDmg = (IPlayer.GetAttack()*HSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*HSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*HSStrMultiPvP) + (nSkillGrade*HSPerGradeMultiPvP);
+					nDmg = (GetAttack()*HSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*HSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*HSStrMultiPvP) + (nSkillGrade*HSPerGradeMultiPvP);
 				}
-				IPlayer.OktayDamageArea(Object, nDmg, 25);
+				OktayDamageArea(Object, nDmg, 25);
 			}
 			Around = CBaseList::Pop((void*)Around);
 		}
-		IPlayer._ShowBattleAnimation(IPlayer, 25);
-		IPlayer.AddDeathBlow(1);
+		_ShowBattleAnimation(IPlayer, 25);
+		AddDeathBlow(1);
 	}	
-	IPlayer.DecreaseMana(nMana);
+	DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 #endif

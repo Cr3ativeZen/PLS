@@ -3,9 +3,9 @@
 
 void __fastcall CriticalDiffusion(ICharacter IPlayer)
 {
-	int pSkill = IPlayer.GetSkillPointer(92);
+	int pSkill = GetSkillPointer(92);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -13,19 +13,19 @@ void __fastcall CriticalDiffusion(ICharacter IPlayer)
 		if (!nSkillGrade)
 			return;
 
-		int Mana = 180 + static_cast<int>((1.25 * (nSkillGrade * (IPlayer.GetLevel() + nSkillGrade))));
+		int Mana = 180 + static_cast<int>((1.25 * (nSkillGrade * (GetLevel() + nSkillGrade))));
 
-		if (IPlayer.GetCurMp() <= Mana)
+		if (GetCurMp() <= Mana)
 			return;
 
-		IPlayer.DecreaseMana(Mana);
-		IPlayer._ShowBattleAnimation(IPlayer, 92);
+		DecreaseMana(Mana);
+		_ShowBattleAnimation(IPlayer, 92);
 
-		if (IPlayer.IsValid())
+		if (IsValid())
 		{
-			if (IPlayer.IsParty())
+			if (IsParty())
 			{
-				void *Party = (void *)CParty::FindParty(IPlayer.GetPartyID());
+				void *Party = (void *)CParty::FindParty(GetPartyID());
 
 				if (Party)
 				{
@@ -34,9 +34,9 @@ void __fastcall CriticalDiffusion(ICharacter IPlayer)
 						int Members = *(DWORD*)((void*)i);
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
-						if (CChar::IsNormal(Members) && IPlayer.IsValid())
+						if (CChar::IsNormal(Members) && IsValid())
 						{
-							if (CChar::GetRange((int)IPlayer.GetOffset() + 332, Members + 332) <= 300 && !IMembers.IsBuff(388) && !IMembers.IsBuff(387) && !IMembers.IsBuff(386))
+							if (CChar::GetRange((int)GetOffset() + 332, Members + 332) <= 300 && !IMembers.IsBuff(388) && !IMembers.IsBuff(387) && !IMembers.IsBuff(386))
 							{
 								IMembers.SetBuffIcon(1000 * (5 + (nSkillGrade * 5)), 0, 4245, 953);
 								IMembers.Buff(385 + nSkillGrade, 7 + (nSkillGrade * 5), 0);
@@ -49,13 +49,13 @@ void __fastcall CriticalDiffusion(ICharacter IPlayer)
 				}
 			}
 			else {
-				if (!IPlayer.IsBuff(388) && !IPlayer.IsBuff(387) && !IPlayer.IsBuff(386))
+				if (!IsBuff(388) && !IsBuff(387) && !IsBuff(386))
 				{
-					IPlayer.SetBuffIcon(1000 * (5 + (nSkillGrade * 5)), 0, 4245, 953);
-					IPlayer.Buff(385 + nSkillGrade, 7 + (nSkillGrade * 5), 0);
-					IPlayer.Buff(389, 5 + (nSkillGrade * 5), 0);
-					IPlayer.IncreaseCritRate((nSkillGrade * 10) + 10);
-					IPlayer.IncreaseCritDamage((nSkillGrade * 10) + 10);
+					SetBuffIcon(1000 * (5 + (nSkillGrade * 5)), 0, 4245, 953);
+					Buff(385 + nSkillGrade, 7 + (nSkillGrade * 5), 0);
+					Buff(389, 5 + (nSkillGrade * 5), 0);
+					IncreaseCritRate((nSkillGrade * 10) + 10);
+					IncreaseCritDamage((nSkillGrade * 10) + 10);
 				}
 			}
 		}

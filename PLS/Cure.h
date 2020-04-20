@@ -24,35 +24,35 @@ void __fastcall Cure(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	if (bType == 1)
 		return;
 
-	if (bType >= 2 || !pTarget ||IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget ||GetCurMp() < nMana)
 		return;
 
 	ICharacter ITarget((void*)pTarget);
 
-	int nCure1HealAmount = CureBase + ((ITarget.GetMaxHp() * (CureBasePercentage / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*CureWisdom);
-	int Self1 = (CureBase + ((IPlayer.GetMaxHp() * (CureBasePercentage / 100)) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*CureWisdom))/2;
+	int nCure1HealAmount = CureBase + ((ITarget.GetMaxHp() * (CureBasePercentage / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage / 100)) + CChar::GetWis((int)GetOffset())*CureWisdom);
+	int Self1 = (CureBase + ((GetMaxHp() * (CureBasePercentage / 100)) + (GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage / 100)) + CChar::GetWis((int)GetOffset())*CureWisdom))/2;
 
-	if (ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
+	if (ITarget.IsValid() && IsValid() && CureON == true)
 	{
-		if (nTargetID == IPlayer.GetID())
+		if (nTargetID == GetID())
 		{
 
-			IPlayer.IncreaseHp(Self1);
-			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
-			IPlayer.DecreaseMana(nMana);
+			IncreaseHp(Self1);
+			_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			DecreaseMana(nMana);
 		}
 		else
 		{
 
 
-			IPlayer.SetDirection(ITarget);
+			SetDirection(ITarget);
 			ITarget.IncreaseHp(nCure1HealAmount);
-			IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
+			_ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-			IPlayer.IncreaseHp(Self1);
-			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			IncreaseHp(Self1);
+			_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 
-			IPlayer.DecreaseMana(nMana);
+			DecreaseMana(nMana);
 		}
 	}
 
@@ -82,33 +82,33 @@ void __fastcall Cure2(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	if (bType == 1)
 		return;
 
-	if (bType >= 2 || !pTarget || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || GetCurMp() < nMana)
 		return;
 
 	ICharacter ITarget((void*)pTarget);
 
-	int nCure2HealAmount = CureBase2 + ((ITarget.GetMaxHp() * (CureBasePercentage2 / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage2 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure2Wisdom);
-	int Self2 = (CureBase2 + ((IPlayer.GetMaxHp() * (CureBasePercentage2 / 100)) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage2 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure2Wisdom))/2;
+	int nCure2HealAmount = CureBase2 + ((ITarget.GetMaxHp() * (CureBasePercentage2 / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage2 / 100)) + CChar::GetWis((int)GetOffset())*Cure2Wisdom);
+	int Self2 = (CureBase2 + ((GetMaxHp() * (CureBasePercentage2 / 100)) + (GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage2 / 100)) + CChar::GetWis((int)GetOffset())*Cure2Wisdom))/2;
 
-	if (ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
+	if (ITarget.IsValid() && IsValid() && CureON == true)
 	{
-		if (nTargetID == IPlayer.GetID())
+		if (nTargetID == GetID())
 		{
-			IPlayer.IncreaseHp(Self2);
-			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
-			IPlayer.DecreaseMana(nMana);
+			IncreaseHp(Self2);
+			_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			DecreaseMana(nMana);
 
 		}
 		else
 		{
-			IPlayer.SetDirection(ITarget);
+			SetDirection(ITarget);
 			ITarget.IncreaseHp(nCure2HealAmount);
-			IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
+			_ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-			IPlayer.IncreaseHp(Self2);
-			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			IncreaseHp(Self2);
+			_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 
-			IPlayer.DecreaseMana(nMana);
+			DecreaseMana(nMana);
 		}
 	}
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
@@ -133,34 +133,34 @@ void __fastcall Cure3(int pSkill, void *edx, int Player, int pPacket, int pPos)
 	if (bType == 1)
 		return;
 
-	if (bType >= 2 || !pTarget || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || GetCurMp() < nMana)
 		return;
 
 	ICharacter ITarget((void*)pTarget);
 
-	int nCure3HealAmount = CureBase3 + ((ITarget.GetMaxHp() * (CureBasePercentage3 / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage3 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure3Wisdom);
-	int Self3 = (CureBase3 + ((IPlayer.GetMaxHp() * (CureBasePercentage3 / 100)) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage3 / 100)) + CChar::GetWis((int)IPlayer.GetOffset())*Cure3Wisdom)) / 2;
+	int nCure3HealAmount = CureBase3 + ((ITarget.GetMaxHp() * (CureBasePercentage3 / 100)) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage3 / 100)) + CChar::GetWis((int)GetOffset())*Cure3Wisdom);
+	int Self3 = (CureBase3 + ((GetMaxHp() * (CureBasePercentage3 / 100)) + (GetMaxHp()*(ISkill.GetGrade()*CurePerGradePercentage3 / 100)) + CChar::GetWis((int)GetOffset())*Cure3Wisdom)) / 2;
 
-	if (ITarget.IsValid() && IPlayer.IsValid() && CureON == true)
+	if (ITarget.IsValid() && IsValid() && CureON == true)
 	{
-		if (nTargetID == IPlayer.GetID())
+		if (nTargetID == GetID())
 		{
-			IPlayer.IncreaseHp(Self3);
-			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
-			IPlayer.DecreaseMana(nMana);
+			IncreaseHp(Self3);
+			_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			DecreaseMana(nMana);
 		}
 		else
 		{
 
 
-			IPlayer.SetDirection(ITarget);
+			SetDirection(ITarget);
 			ITarget.IncreaseHp(nCure3HealAmount);
-			IPlayer._ShowBattleAnimation(ITarget, ISkill.GetIndex());
+			_ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
-			IPlayer.IncreaseHp(Self3);
-			IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+			IncreaseHp(Self3);
+			_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 
-			IPlayer.DecreaseMana(nMana);
+			DecreaseMana(nMana);
 		}
 	}
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);

@@ -3,9 +3,9 @@
 
 void __fastcall Fireball(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(73);
+	int pSkill = GetSkillPointer(73);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -23,43 +23,43 @@ void __fastcall Fireball(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsValid())
+		if (pTarget && nSkillGrade && IsValid())
 		{
 			ICharacter Target(pTarget);
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				int nDmg = (IPlayer.GetMagic()*FBBaseDmgMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*FBIntMultiPvE) + (xSkill.GetGrade()*FBPerGradeMultiPvE);
+				int nDmg = (GetMagic()*FBBaseDmgMultiPvE) + (CChar::GetInt((int)GetOffset())*FBIntMultiPvE) + (xSkill.GetGrade()*FBPerGradeMultiPvE);
 
 
 				if (Target.GetType() == 0)
-					nDmg = (IPlayer.GetMagic()*FBBaseDmgMultiPvP) + (CChar::GetInt((int)IPlayer.GetOffset())*FBIntMultiPvP) + (xSkill.GetGrade()*FBPerGradeMultiPvP);
+					nDmg = (GetMagic()*FBBaseDmgMultiPvP) + (CChar::GetInt((int)GetOffset())*FBIntMultiPvP) + (xSkill.GetGrade()*FBPerGradeMultiPvP);
 
 
-				IPlayer.OktayDamageSingle(Target, nDmg, 73);
-				IPlayer.SetDirection(Target);
-				IPlayer.DecreaseMana(nMana);
+				OktayDamageSingle(Target, nDmg, 73);
+				SetDirection(Target);
+				DecreaseMana(nMana);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

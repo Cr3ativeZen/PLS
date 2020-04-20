@@ -27,7 +27,7 @@ void __fastcall Purification(int pSkill, void *edx, int Player, int pPacket, int
 		return;
 
 	ICharacter ITarget((void*)pTarget);
-	if (pTarget && ITarget.IsValid() && IPlayer.IsValid())
+	if (pTarget && ITarget.IsValid() && IsValid())
 	{
 
 		if (ITarget.IsBuff(350))

@@ -3,40 +3,40 @@
 
 void __fastcall ContinueRupture(ICharacter IPlayer)
 {
-	if (IPlayer.IsValid())
+	if (IsValid())
 	{
-		int nSkillGrade = CheckRuptureContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillGrade;
-		void *pTarget = CheckRuptureContinueSkill.find(IPlayer.GetPID())->second.PlayerTarget;
+		int nSkillGrade = CheckRuptureContinueSkill.find(GetPID())->second.PlayerSkillGrade;
+		void *pTarget = CheckRuptureContinueSkill.find(GetPID())->second.PlayerTarget;
 
-		if (nSkillGrade && pTarget && CheckRuptureContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
+		if (nSkillGrade && pTarget && CheckRuptureContinueSkill.find(GetPID())->second.PlayerSkillCount)
 		{
 			ICharacter Target(pTarget);
-			CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
+			CheckRuptureContinueSkill[GetPID()].PlayerSkillCount--;
 
 
 
 
 
-			if (!Target.IsValid() || !IPlayer.IsValid())
+			if (!Target.IsValid() || !IsValid())
 			{
 				ResetRuptureContinueSkill(IPlayer);
-				IPlayer.CancelBuff(5577);
+				CancelBuff(5577);
 				return;
 			}
 
-			if (CChar::GetRange((int)IPlayer.GetOffset() + 332, (int)pTarget + 332) > 300)
+			if (CChar::GetRange((int)GetOffset() + 332, (int)pTarget + 332) > 300)
 			{
 				ResetRuptureContinueSkill(IPlayer);
-				IPlayer.CancelBuff(5577);
+				CancelBuff(5577);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
 
 				if (Target.GetType() == 0)
 				{
-					int nDmg = (IPlayer.GetAttack()*RupBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*RupAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*RupStrMultiPvP) + (nSkillGrade*RupPerGradeMultiPvP);
+					int nDmg = (GetAttack()*RupBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*RupAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*RupStrMultiPvP) + (nSkillGrade*RupPerGradeMultiPvP);
 					
 					if (Target.IsBuff(346))
 					{
@@ -44,12 +44,12 @@ void __fastcall ContinueRupture(ICharacter IPlayer)
 						
 					}
 					
-					IPlayer.OktayDamageArea(Target, nDmg, 17);
+					OktayDamageArea(Target, nDmg, 17);
 				}
 				else
 				{
 					int Around = Target.GetObjectListAround(3);
-					int nDmg = ((IPlayer.GetAttack()*RupBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*RupAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*RupStrMultiPvE) + (nSkillGrade*RupPerGradeMultiPvE));
+					int nDmg = ((GetAttack()*RupBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*RupAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*RupStrMultiPvE) + (nSkillGrade*RupPerGradeMultiPvE));
 					
 					int ntankerDmg = nDmg / 2;
 
@@ -60,13 +60,13 @@ void __fastcall ContinueRupture(ICharacter IPlayer)
 						nDmg = nDmg + (nDmg*(AnkleAPercentDamageIncreasePvE) / 100);
 					}
 
-					IPlayer.OktayDamageArea(Target, ntankerDmg, 17);
+					OktayDamageArea(Target, ntankerDmg, 17);
 					while (Around)
 					{
 						ICharacter Object((void*)*(DWORD*)Around);
-						if (Object.GetType() == 1&&Object.IsBuff(350)&&Object.GetOffset()!=IPlayer.GetOffset()&&Object.GetOffset()!=Target.GetOffset())
+						if (Object.GetType() == 1&&Object.IsBuff(350)&&Object.GetOffset()!=GetOffset()&&Object.GetOffset()!=Target.GetOffset())
 						{
-							IPlayer.OktayDamageArea(Object, nDmg, 17);
+							OktayDamageArea(Object, nDmg, 17);
 						}
 						Around = CBaseList::Pop((void*)Around);
 					}
@@ -78,13 +78,13 @@ void __fastcall ContinueRupture(ICharacter IPlayer)
 				
 			}
 
-			if (IPlayer.IsOnline())
-				CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
+			if (IsOnline())
+				CheckRuptureContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
 
-			if (IPlayer.IsOnline() && CheckRuptureContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount == 0)
+			if (IsOnline() && CheckRuptureContinueSkill.find(GetPID())->second.PlayerSkillCount == 0)
 			{
 				ResetRuptureContinueSkill(IPlayer);
-				IPlayer.CancelBuff(5577);
+				CancelBuff(5577);
 			}
 
 			return;
@@ -92,15 +92,15 @@ void __fastcall ContinueRupture(ICharacter IPlayer)
 	}
 
 	ResetRuptureContinueSkill(IPlayer);
-	IPlayer.CancelBuff(5577);
+	CancelBuff(5577);
 	return;
 }
 
 void __fastcall Rupture(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(17);
+	int pSkill = GetSkillPointer(17);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -118,55 +118,55 @@ void __fastcall Rupture(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
 		ICharacter Target(pTarget);
 
-		if (pTarget && IPlayer.IsValid() && nSkillGrade)
+		if (pTarget && IsValid() && nSkillGrade)
 		{
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				if (IPlayer.CheckHit(Target, 35))
+				if (CheckHit(Target, 35))
 				{
-					IPlayer.Buff(5577, 18, 0);
+					Buff(5577, 18, 0);
 					int Around = Target.GetObjectListAround(4);
-					IPlayer._ShowBattleAnimation(IPlayer, 17, nSkillGrade);
-					IPlayer.Buff(353, 20, 0);
+					_ShowBattleAnimation(IPlayer, 17, nSkillGrade);
+					Buff(353, 20, 0);
 
 					if (Target.GetType() == 1)
 					{
 
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerTarget = Target.GetOffset();
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillID = 17;
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 9;
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1000;
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
+						CheckRuptureContinueSkill[GetPID()].PlayerTarget = Target.GetOffset();
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillID = 17;
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillCount = 9;
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 1000;
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillGrade = nSkillGrade;
 
 						while (Around)
 						{
 							ICharacter Object((void*)*(DWORD*)Around);
 
-							if (Object.GetOffset() != IPlayer.GetOffset() && Object.GetType() == 1)
+							if (Object.GetOffset() != GetOffset() && Object.GetType() == 1)
 							{
 								if (!Object.IsBuff(350))
 									Object.SendGStateEx(Target.GetGStateEx() + 65536);
@@ -184,23 +184,23 @@ void __fastcall Rupture(ICharacter IPlayer, int pPacket, int pPos)
 							Target.SendGStateEx(Target.GetGStateEx() + 65536);
 
 						Target.Buff(350, 18, 0);
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerTarget = Target.GetOffset();
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillID = 17;
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 9;
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1000;
-						CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
-						CheckRuptureContinueSkill[IPlayer.GetPID()].CasterOffset = IPlayer.GetOffset();
+						CheckRuptureContinueSkill[GetPID()].PlayerTarget = Target.GetOffset();
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillID = 17;
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillCount = 9;
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 1000;
+						CheckRuptureContinueSkill[GetPID()].PlayerSkillGrade = nSkillGrade;
+						CheckRuptureContinueSkill[GetPID()].CasterOffset = GetOffset();
 					}
 
 				}
 				else 
 				{
-					IPlayer._ShowBattleMiss(Target, 17);
-					IPlayer.CancelBuff(5577);
+					_ShowBattleMiss(Target, 17);
+					CancelBuff(5577);
 				}
 
-				IPlayer.SetDirection(Target);
-				IPlayer.DecreaseMana(nMana);
+				SetDirection(Target);
+				DecreaseMana(nMana);
 			}
 		}
 		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);

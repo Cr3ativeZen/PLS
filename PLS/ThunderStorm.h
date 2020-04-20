@@ -3,20 +3,20 @@
 
 void __fastcall ContinueThunderStorm(ICharacter IPlayer)
 {
-	if (IPlayer.IsValid())
+	if (IsValid())
 	{
-		int nSkillGrade = CheckContinueThunderStorm.find(IPlayer.GetPID())->second.PlayerSkillGrade;
-		void *pTarget = CheckContinueThunderStorm.find(IPlayer.GetPID())->second.PlayerTarget;
+		int nSkillGrade = CheckContinueThunderStorm.find(GetPID())->second.PlayerSkillGrade;
+		void *pTarget = CheckContinueThunderStorm.find(GetPID())->second.PlayerTarget;
 
-		if (pTarget && nSkillGrade && CheckContinueThunderStorm.find(IPlayer.GetPID())->second.PlayerSkillCount)
+		if (pTarget && nSkillGrade && CheckContinueThunderStorm.find(GetPID())->second.PlayerSkillCount)
 		{
 			ICharacter Target(pTarget);
-			CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillCount--;
+			CheckContinueThunderStorm[GetPID()].PlayerSkillCount--;
 
-			if (!IPlayer.IsValid() || !Target.IsValid())
+			if (!IsValid() || !Target.IsValid())
 			{
 				ResetContinueThunderStorm(IPlayer);
-				IPlayer.CancelBuff(5558);
+				CancelBuff(5558);
 				return;
 			}
 
@@ -26,30 +26,30 @@ void __fastcall ContinueThunderStorm(ICharacter IPlayer)
 			{
 				ICharacter Object((void*)*(DWORD*)Around);
 
-				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+				if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 				{
 					if (Object.IsBuff(307))
 						StormActivateShiny(IPlayer, Object);
 
 
-					int nDmg = (IPlayer.GetMagic()*TStormBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*TStormIntMultiPvE;
+					int nDmg = (GetMagic()*TStormBaseDmgMultiPvE) + CChar::GetInt((int)GetOffset())*TStormIntMultiPvE;
 
 					if (Object.GetType() == 0)
-						nDmg = (IPlayer.GetMagic()*TStormBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*TStormIntMultiPvP;
+						nDmg = (GetMagic()*TStormBaseDmgMultiPvP) + CChar::GetInt((int)GetOffset())*TStormIntMultiPvP;
 
-					IPlayer.OktayDamageStorm(Object, nDmg);
+					OktayDamageStorm(Object, nDmg);
 				}
 
 				Around = CBaseList::Pop((void*)Around);
 			}
 
-			if (IPlayer.IsOnline())
-				CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
+			if (IsOnline())
+				CheckContinueThunderStorm[GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
 
-			if (IPlayer.IsOnline() && CheckContinueThunderStorm.find(IPlayer.GetPID())->second.PlayerSkillCount == 0)
+			if (IsOnline() && CheckContinueThunderStorm.find(GetPID())->second.PlayerSkillCount == 0)
 			{
 				ResetContinueThunderStorm(IPlayer);
-				IPlayer.CancelBuff(5558);
+				CancelBuff(5558);
 			}
 
 			return;
@@ -57,7 +57,7 @@ void __fastcall ContinueThunderStorm(ICharacter IPlayer)
 	}
 
 	ResetContinueThunderStorm(IPlayer);
-	IPlayer.CancelBuff(5558);
+	CancelBuff(5558);
 	return;
 }
 
@@ -66,7 +66,7 @@ void __fastcall ThunderStorm(int pSkill, void *pPlayer, int pPacket, int pPos)
 	ICharacter IPlayer((void*)pPlayer);
 	ISkill xSkill((void*)pSkill);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		int x = 0, y = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "dd", &x, &y);
@@ -76,29 +76,29 @@ void __fastcall ThunderStorm(int pSkill, void *pPlayer, int pPacket, int pPos)
 		if (!nSkillGrade)
 			return;
 
-		int nMana = 20 + (IPlayer.GetLevel() * 4);
+		int nMana = 20 + (GetLevel() * 4);
 
 		if (x <= 0 || y <= 0)
 			return;
 
-		if (nSkillGrade && IPlayer.IsValid())
+		if (nSkillGrade && IsValid())
 		{
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 				return;
 
-			IPlayer.Buff(5558, 16, 0);
-			IPlayer.DecreaseMana(nMana);
-			IPlayer._ShowBattleAnimation(IPlayer, 43);
+			Buff(5558, 16, 0);
+			DecreaseMana(nMana);
+			_ShowBattleAnimation(IPlayer, 43);
 			int *GetSetXY = new int[1];
 			GetSetXY[0] = x;
 			GetSetXY[1] = y;
-			int check = CMonsterMagic::Create(228, IPlayer.GetMap(), (int)GetSetXY, 1, (int)IPlayer.GetOffset(), 0, 16000);
+			int check = CMonsterMagic::Create(228, GetMap(), (int)GetSetXY, 1, (int)GetOffset(), 0, 16000);
 			delete[] GetSetXY;
-			CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillID = 43;
-			CheckContinueThunderStorm[IPlayer.GetPID()].PlayerTarget = (void*)check;
-			CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
-			CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillCount = 8;
-			CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillDelay = 0;
+			CheckContinueThunderStorm[GetPID()].PlayerSkillID = 43;
+			CheckContinueThunderStorm[GetPID()].PlayerTarget = (void*)check;
+			CheckContinueThunderStorm[GetPID()].PlayerSkillGrade = nSkillGrade;
+			CheckContinueThunderStorm[GetPID()].PlayerSkillCount = 8;
+			CheckContinueThunderStorm[GetPID()].PlayerSkillDelay = 0;
 		}
 		ContinueThunderStorm(IPlayer);
 	}

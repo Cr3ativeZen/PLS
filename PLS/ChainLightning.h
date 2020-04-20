@@ -16,28 +16,28 @@ void __fastcall ChainLightning(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
 
-	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 		return;
 
 	ICharacter ITarget(pTarget);
 
-	if (ITarget.IsValid() && IPlayer.IsValid())
+	if (ITarget.IsValid() && IsValid())
 	{
 		int Around = ITarget.GetObjectListAround(3);
-		IPlayer._ShowBattleAnimation(ITarget, 41);
+		_ShowBattleAnimation(ITarget, 41);
 		while (Around)
 		{
 			ICharacter Object((void*)*(DWORD*)Around);
-			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
+			if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 2))
 			{
 				if (CChar::IsNormal((int)Object.GetOffset()))
 				{
-					int nDmg = (IPlayer.GetMagic()*CLBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvE;
+					int nDmg = (GetMagic()*CLBaseDmgMultiPvE) + CChar::GetInt((int)GetOffset())*CLIntMultiPvE;
 
 					if (Object.GetType() == 0)
-						nDmg = (IPlayer.GetMagic()*CLBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*CLIntMultiPvP;
+						nDmg = (GetMagic()*CLBaseDmgMultiPvP) + CChar::GetInt((int)GetOffset())*CLIntMultiPvP;
 
-					IPlayer.OktayDamageArea(Object, nDmg, 41);
+					OktayDamageArea(Object, nDmg, 41);
 
 					if (Object.IsBuff(307) && Object.IsValid() && Object.GetCurHp() > 0)
 						StormActivateShiny(IPlayer, Object);
@@ -45,10 +45,10 @@ void __fastcall ChainLightning(int pSkill, void *pPlayer, int pPacket, int pPos)
 			}
 			Around = CBaseList::Pop((void*)Around);
 		}
-		IPlayer._ShowBattleAnimation(ITarget, 41);
+		_ShowBattleAnimation(ITarget, 41);
 	}
 
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
-	IPlayer.DecreaseMana(nMana);
+	DecreaseMana(nMana);
 }
 #endif

@@ -10,10 +10,10 @@ void __fastcall Heal(int Skill, int a4, int Player)
 	if (!nSkillGrade)
 		return;
 
-	int nHealAmount = HealBase + ((IPlayer.GetMaxHp() * (HealBasePercentage / 100)) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*HealPerGradePercentage / 100))+ CChar::GetWis((int)IPlayer.GetOffset())*HealWisdom);
+	int nHealAmount = HealBase + ((GetMaxHp() * (HealBasePercentage / 100)) + (GetMaxHp()*(ISkill.GetGrade()*HealPerGradePercentage / 100))+ CChar::GetWis((int)GetOffset())*HealWisdom);
 
 
-	IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
-	IPlayer.IncreaseHp(nHealAmount);
-	IPlayer.DecreaseMana((ISkill.GetGrade() * 4) + 16);
+	_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+	IncreaseHp(nHealAmount);
+	DecreaseMana((ISkill.GetGrade() * 4) + 16);
 }

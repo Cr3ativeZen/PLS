@@ -365,8 +365,5 @@
     <ClCompile Include="CThief.cpp">
       <Filter>Characters</Filter>
     </ClCompile>
-    <ClCompile Include="Resources.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -263,7 +263,6 @@
     <ClCompile Include="ISkill.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PLS.cpp" />
-    <ClCompile Include="Resources.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,6 @@
 #ifndef PACKET_H
 #define PACKET_H
 
-
 #pragma warning (disable : 4996)
 
 void WritePacketToFile(ICharacter IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
@@ -143,13 +142,12 @@ switch (WHICH_FILE)
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
 	ICharacter IPlayer((void*)Player);
-	
 	if (IPlayer.IsOnline())
 	{
 		//if (packet != 20 && packet != 21)
 		//	IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
-		if (packet == PACKET_WOODENBOX && Logs == true)
+		if (packet == 94 && Logs == true)
 		{
 			time_t now = time(0);
 			//char* dt = ctime(&now);
@@ -162,7 +160,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			WritePacketToFile(IPlayer, WoodenBox, to_file);
 		}
 
-		if (packet == PACKET_LEAVEPARTY)
+		if (packet == 47)
 		{
 			if (D4Instance::IsUp == true && D4Instance::PartyMembers.count(IPlayer.GetPID()))
 			{
@@ -181,7 +179,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 
 
-		if (packet == PACKET_USEITEM)
+		if (packet == 33)
 		{
 			int IID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "d", &IID);
@@ -368,7 +366,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 		}
 
-		if (packet == PACKET_ACCEPTQUEST)
+		if (packet == 51)
 		{
 			int ID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "d", &ID);
@@ -764,7 +762,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			}
 		}
 
-		if (packet == PACKET_SKILLANIMATION)
+		if (packet == 43)
 		{
 			int SkillID = 0;
 			int ID = 0;
@@ -778,7 +776,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 
 
-			if (IPlayer.GetClass() == 2 && SkillID == SKILL_ARCHER_FOCUSSHOT &&FocusShotON == true)
+			if (IPlayer.GetClass() == 2 && SkillID == 16 &&FocusShotON == true)
 			{
 				int pSkill = IPlayer.GetSkillPointer(16);
 				if (pSkill)
@@ -787,7 +785,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 			}
 
-			if (IPlayer.GetClass() == 1 && SkillID == SKILL_MAGE_ICEARROW && IPlayer.GetSpecialty() == MAGE_ASCETIC && IceArrowON == true)
+			if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
 			{
 				if (CheckIceArrow.count(IPlayer.GetPID()) && CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
 				{
@@ -802,7 +800,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 			}
 		}
-		if (packet == PACKET_CASTSKILL)
+		if (packet == 16)
 		{
 
 			int SkillID = 0;
@@ -1603,7 +1601,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 		}
 
-		if (packet == PACKET_ANIMALSKILL)
+		if (packet == 84)
 		{
 			int SkillID = 0;
 			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);

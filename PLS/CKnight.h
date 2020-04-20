@@ -8,7 +8,15 @@ class CKnight: public ICharacter
 public:
 	CKnight();
 	CKnight(void* offset);
+
 	~CKnight();
+
+
+	virtual ~CKnight();
+
+	// SKILLS
+	//void __fastcall PowerfulUpwardSlash(void* pSkill, void* pPacket, void* pPos);
+
 };
 
 #endif

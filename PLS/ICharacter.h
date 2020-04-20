@@ -6,12 +6,20 @@
 
 class ICharacter
 {
+
+public:
+
+	void* m_Offset;
+
 public:
 	void* Offset;
 
 public:
 	ICharacter() : Offset(nullptr) {}
 	ICharacter(void* Object);
+	ICharacter();
+	ICharacter(void* offset);
+
 	virtual ~ICharacter();
 
 

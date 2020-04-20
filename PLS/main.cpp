@@ -1127,6 +1127,7 @@ namespace Mautareta
 
 
 #pragma pack(1)
+
 #include <string>
 #include "ServerFunctions.h"
 #include "ICharacter.h"

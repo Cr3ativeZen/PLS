@@ -1,3 +1,4 @@
+#include "Resources.h"
 #include "BlowUpArrow.h"
 #include "Calls.h"
 #include "MuscleSolidation.h"

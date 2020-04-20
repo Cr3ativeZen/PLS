@@ -9,7 +9,7 @@ public:
 	void *Offset;
 
 public:
-	ISkill()
+	ISkill() : Offset(nullptr)
 	{
 	}
 

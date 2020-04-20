@@ -164,7 +164,7 @@ void IChar::Teleport(int Map, int X, int Y)
 		if (CChar::IsGState((int)this->GetOffset(),2))
 			this->Revive();
 
-		int *GetSetXY = new int[1];
+		int *GetSetXY = new int[2];
 		GetSetXY[0] = X;
 		GetSetXY[1] = Y;
 		CPlayer::Teleport((int)this->GetOffset(), Map, (int)GetSetXY, 0, 1);

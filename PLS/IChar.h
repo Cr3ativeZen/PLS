@@ -1,19 +1,16 @@
 #ifndef _ICHAR_H
 #define _ICHAR_H
 
-#include <iostream>
+#include <string>
 #include "ServerFunctions.h"
+
 class IChar
 {
-
 public:
 	void* Offset;
 
 public:
-	IChar()
-	{
-	}
-
+	IChar() : Offset(nullptr) {}
 	IChar(void* Object);
 	virtual ~IChar();
 

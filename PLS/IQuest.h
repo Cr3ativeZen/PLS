@@ -6,7 +6,7 @@ class IQuest
 		void *Offset;
 
 	public:
-		IQuest()
+		IQuest() : Offset(nullptr)
 		{
 		}
         

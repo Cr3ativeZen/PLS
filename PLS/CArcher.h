@@ -1,5 +1,6 @@
-#ifndef CARCHER_H
-#define CARCHER_H
+
+#ifndef _CARCHER_H_
+#define _CARCHER_H_
 
 #include "ICharacter.h"
 
@@ -11,4 +12,4 @@ public:
 	~CArcher();
 };
 
-#endif
+#endif // _CARCHER_H_

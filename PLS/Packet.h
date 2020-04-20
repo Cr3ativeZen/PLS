@@ -141,7 +141,6 @@ switch (WHICH_FILE)
 
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
-<<<<<<< HEAD
 
 	/*int CLASS_ID = *(DWORD*)(Player + 460);
 	int skillID = 0;
@@ -184,10 +183,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 	ICharacter IPlayer((void*)Player);
 
-
-=======
-	ICharacter IPlayer((void*)Player);
->>>>>>> parent of 815c893... comicik
 	if (IPlayer.IsOnline())
 	{
 		//if (packet != 20 && packet != 21)

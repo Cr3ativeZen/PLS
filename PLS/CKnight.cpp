@@ -11,7 +11,6 @@ CKnight::CKnight(void* offset) : ICharacter(offset)
 CKnight::~CKnight()
 {
 }
-<<<<<<< HEAD
 
 
 //void __fastcall CKnight::PowerfulUpwardSlash(void* pSkill, void* pPacket, void* pPos)
@@ -69,5 +68,3 @@ CKnight::~CKnight()
 //
 //	CSkill::ObjectRelease(target.GetOffset(), (int)pTarget + 352);
 //}
-=======
->>>>>>> parent of 815c893... comicik

@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "Resources.h"
 =======
 #include "CKnight.h"
@@ -8,6 +9,8 @@
 #include "CThief.h"
 
 >>>>>>> hubert
+=======
+>>>>>>> parent of e123e09... pus
 =======
 >>>>>>> parent of e123e09... pus
 #include "BlowUpArrow.h"

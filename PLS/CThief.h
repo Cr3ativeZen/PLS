@@ -5,9 +5,10 @@
 
 class CThief : public ICharacter
 {
-
+public:
 	CThief();
 	CThief(void* offset);
+	~CThief();
 
 };
 

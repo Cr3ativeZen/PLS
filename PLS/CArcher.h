@@ -5,8 +5,10 @@
 
 class CArcher : public ICharacter
 {
+public:
 	CArcher();
 	CArcher(void* offset);
+	~CArcher();
 };
 
 #endif

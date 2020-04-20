@@ -5,8 +5,10 @@
 
 class CKnight: public ICharacter
 {
+public:
 	CKnight();
 	CKnight(void* offset);
+	~CKnight();
 };
 
 #endif

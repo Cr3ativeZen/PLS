@@ -1,7 +1,7 @@
 #ifndef SHADOWSLASH_H
 #define SHADOWSLASH_H
 #include "ServerFunctions.h"
-void __fastcall ShadowSlash(IChar IPlayer, int pPacket, int pPos)
+void __fastcall ShadowSlash(ICharacter IPlayer, int pPacket, int pPos)
 {
 
 
@@ -29,7 +29,7 @@ void __fastcall ShadowSlash(IChar IPlayer, int pPacket, int pPos)
 		
 		if (pTarget && IPlayer.IsValid() && nSkillGrade)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{
@@ -50,7 +50,7 @@ void __fastcall ShadowSlash(IChar IPlayer, int pPacket, int pPos)
 
 				while (Around)
 				{
-					IChar Object((void*)*(DWORD*)Around);
+					ICharacter Object((void*)*(DWORD*)Around);
 
 					if (/*Object.IsValid() && IPlayer.IsValid() && Target.IsValid() &&*/ (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 					{

@@ -1,7 +1,7 @@
 #ifndef THEWAVEOFEARTH_H
 #define THEWAVEOFEARTH_H
 
-void __fastcall ThewaveofEarth(IChar IPlayer)
+void __fastcall ThewaveofEarth(ICharacter IPlayer)
 {
 	if (IPlayer.IsOnline())
 	{
@@ -33,7 +33,7 @@ void __fastcall ThewaveofEarth(IChar IPlayer)
 
 				while (Around)
 				{
-					IChar Object((void*)*(DWORD*)Around);
+					ICharacter Object((void*)*(DWORD*)Around);
 
 					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 					{

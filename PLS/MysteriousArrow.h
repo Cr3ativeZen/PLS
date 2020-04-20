@@ -2,7 +2,7 @@
 #define _MYSTERIOUSARROW_H
 void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -24,7 +24,7 @@ void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 
 	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))

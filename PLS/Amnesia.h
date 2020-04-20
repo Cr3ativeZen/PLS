@@ -2,7 +2,7 @@
 #define _AMNESIA_H
 void __fastcall Amnesia(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -26,7 +26,7 @@ void __fastcall Amnesia(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 ||!pTarget||pTarget==IPlayer.GetOffset()||IPlayer.GetCurMp()<nMana)
 		return;
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 	if (bType == 1)
 	{
@@ -34,7 +34,7 @@ void __fastcall Amnesia(int pSkill, void *pPlayer, int pPacket, int pPos)
 		int Around = Target.GetObjectListAround(3);
 		while (Around)
 		{
-			IChar Object((void*)*(DWORD*)Around);
+			ICharacter Object((void*)*(DWORD*)Around);
 
 			if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{

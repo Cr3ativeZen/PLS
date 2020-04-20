@@ -1,7 +1,7 @@
 #ifndef WRATHOFHEAVEN_H
 #define WRATHOFHEAVEN_H
 
-void __fastcall WrathOfHeaven(IChar IPlayer, int pPacket, int pPos)
+void __fastcall WrathOfHeaven(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(33);
 
@@ -28,7 +28,7 @@ void __fastcall WrathOfHeaven(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			
 			if (IPlayer.GetCurMp() < nMana)
 			{

@@ -1,7 +1,7 @@
 #ifndef RUPTURE_H
 #define RUPTURE_H
 
-void __fastcall ContinueRupture(IChar IPlayer)
+void __fastcall ContinueRupture(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
@@ -10,7 +10,7 @@ void __fastcall ContinueRupture(IChar IPlayer)
 
 		if (nSkillGrade && pTarget && CheckRuptureContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
 
@@ -63,7 +63,7 @@ void __fastcall ContinueRupture(IChar IPlayer)
 					IPlayer.OktayDamageArea(Target, ntankerDmg, 17);
 					while (Around)
 					{
-						IChar Object((void*)*(DWORD*)Around);
+						ICharacter Object((void*)*(DWORD*)Around);
 						if (Object.GetType() == 1&&Object.IsBuff(350)&&Object.GetOffset()!=IPlayer.GetOffset()&&Object.GetOffset()!=Target.GetOffset())
 						{
 							IPlayer.OktayDamageArea(Object, nDmg, 17);
@@ -96,7 +96,7 @@ void __fastcall ContinueRupture(IChar IPlayer)
 	return;
 }
 
-void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
+void __fastcall Rupture(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(17);
 
@@ -121,7 +121,7 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 			return;
 
-		IChar Target(pTarget);
+		ICharacter Target(pTarget);
 
 		if (pTarget && IPlayer.IsValid() && nSkillGrade)
 		{
@@ -164,7 +164,7 @@ void __fastcall Rupture(IChar IPlayer, int pPacket, int pPos)
 
 						while (Around)
 						{
-							IChar Object((void*)*(DWORD*)Around);
+							ICharacter Object((void*)*(DWORD*)Around);
 
 							if (Object.GetOffset() != IPlayer.GetOffset() && Object.GetType() == 1)
 							{

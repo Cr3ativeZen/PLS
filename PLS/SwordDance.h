@@ -1,6 +1,6 @@
 #ifndef SWORDDANCE_H
 #define SWORDDANCE_H
-void __fastcall ContinueSwordDance(IChar IPlayer)
+void __fastcall ContinueSwordDance(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
@@ -11,7 +11,7 @@ void __fastcall ContinueSwordDance(IChar IPlayer)
 		{
 			if (CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 			{
-				IChar Target(pTarget);
+				ICharacter Target(pTarget);
 
 				if (IPlayer.IsValid() && Target.IsValid())
 				{
@@ -66,7 +66,7 @@ void __fastcall ContinueSwordDance(IChar IPlayer)
 	return;
 }
 
-void __fastcall SwordDance(IChar IPlayer, int pPacket, int pPos)
+void __fastcall SwordDance(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(43);
 
@@ -103,7 +103,7 @@ void __fastcall SwordDance(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

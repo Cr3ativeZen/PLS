@@ -1,7 +1,7 @@
 #ifndef COMBATIVESPIRIT_H
 #define COMBATIVESPIRIT_H
 #include "ServerFunctions.h"
-void __fastcall CombativeSpirit(IChar IPlayer, int pPacket, int pPos)
+void __fastcall CombativeSpirit(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(51);
 
@@ -27,7 +27,7 @@ void __fastcall CombativeSpirit(IChar IPlayer, int pPacket, int pPos)
 
 		if (IPlayer.IsValid() && pTarget && nSkillGrade)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			int nMana = (int)(((((nSkillGrade-1)+20) * nSkillGrade)+200) * 1.85);
 
 			if (pTarget == IPlayer.GetOffset())
@@ -59,7 +59,7 @@ void __fastcall CombativeSpirit(IChar IPlayer, int pPacket, int pPos)
 
 				while (Around)
 				{
-					IChar Object((void*)*(DWORD*)Around);
+					ICharacter Object((void*)*(DWORD*)Around);
 
 					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 					{

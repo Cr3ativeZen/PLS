@@ -1,8 +1,8 @@
 
 int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int Argument)
 {
-	IChar IPlayer((void*)Player);
-	IChar ITarget(Target);
+	ICharacter IPlayer((void*)Player);
+	ICharacter ITarget(Target);
 	int CheckDamage = CChar::GetFinalDamage(Target, Player, Damage, Argument);
 
 	if (IPlayer.IsValid() && IPlayer.GetType() == 0)
@@ -36,7 +36,7 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 
 				while (Around)
 				{
-					IChar Object((void*)*(DWORD*)Around);
+					ICharacter Object((void*)*(DWORD*)Around);
 
 
 					if (Object.IsValid() && ITarget.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)ITarget.GetOffset() + 176))((int)ITarget.GetOffset(), (int)Object.GetOffset(), 0))

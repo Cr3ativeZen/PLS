@@ -1129,7 +1129,7 @@ namespace Mautareta
 #pragma pack(1)
 #include <string>
 #include "ServerFunctions.h"
-#include "IChar.h"
+#include "ICharacter.h"
 #include "IQuest.h"
 #include "IItem.h"
 #include "Heal.h"

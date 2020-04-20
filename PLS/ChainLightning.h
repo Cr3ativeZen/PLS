@@ -2,7 +2,7 @@
 #define CHAINLIGHTNING_H
 void __fastcall ChainLightning(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
@@ -19,7 +19,7 @@ void __fastcall ChainLightning(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar ITarget(pTarget);
+	ICharacter ITarget(pTarget);
 
 	if (ITarget.IsValid() && IPlayer.IsValid())
 	{
@@ -27,7 +27,7 @@ void __fastcall ChainLightning(int pSkill, void *pPlayer, int pPacket, int pPos)
 		IPlayer._ShowBattleAnimation(ITarget, 41);
 		while (Around)
 		{
-			IChar Object((void*)*(DWORD*)Around);
+			ICharacter Object((void*)*(DWORD*)Around);
 			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{
 				if (CChar::IsNormal((int)Object.GetOffset()))

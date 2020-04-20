@@ -2,7 +2,7 @@
 void __fastcall Heal(int Skill, int a4, int Player)
 {
 
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	ISkill ISkill((void*)Skill);
 
 	int nSkillGrade = ISkill.GetGrade();

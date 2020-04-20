@@ -1,7 +1,7 @@
 #ifndef CRITICALDIFFUSION_H
 #define CRITICALDIFFUSION_H
 
-void __fastcall CriticalDiffusion(IChar IPlayer)
+void __fastcall CriticalDiffusion(ICharacter IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(92);
 
@@ -32,7 +32,7 @@ void __fastcall CriticalDiffusion(IChar IPlayer)
 					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void *)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{

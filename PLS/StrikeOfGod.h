@@ -1,7 +1,7 @@
 #ifndef STRIKEOFGOD_H
 #define STRIKEOFGOD_H
 
-void __fastcall StrikeOfGod(IChar IPlayer)
+void __fastcall StrikeOfGod(ICharacter IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(91);
 
@@ -25,7 +25,7 @@ void __fastcall StrikeOfGod(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{

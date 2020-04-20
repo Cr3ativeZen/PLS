@@ -1,6 +1,6 @@
 #ifndef THERAPEUTICTOUCH_H
 #define THERAPEUTICTOUCH_H
-void __fastcall TherapeuticTouch(IChar IPlayer, int pPacket, int pPos)
+void __fastcall TherapeuticTouch(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(72);
 
@@ -28,7 +28,7 @@ void __fastcall TherapeuticTouch(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (!IPlayer.IsInRange(Target, 20))
 			{

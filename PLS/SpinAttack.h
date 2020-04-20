@@ -1,6 +1,6 @@
 #ifndef SPINATTACK_H
 #define SPINATTACK_H
-void __fastcall SpinAttack(IChar IPlayer, int pPacket, int pPos)
+void __fastcall SpinAttack(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(19);
 
@@ -27,7 +27,7 @@ void __fastcall SpinAttack(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{
@@ -53,7 +53,7 @@ void __fastcall SpinAttack(IChar IPlayer, int pPacket, int pPos)
 
 				while (Around)
 				{
-					IChar Object((void*)*(DWORD*)Around);
+					ICharacter Object((void*)*(DWORD*)Around);
 
 					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 					{

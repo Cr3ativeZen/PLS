@@ -2,7 +2,7 @@
 #define VIRULENTARROW_H
 #include "ServerFunctions.h"
 
-void __fastcall VirulentArrow(IChar IPlayer, int pPacket, int pPos)
+void __fastcall VirulentArrow(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(50);
 
@@ -29,7 +29,7 @@ void __fastcall VirulentArrow(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{
@@ -69,7 +69,7 @@ void __fastcall VirulentArrow(IChar IPlayer, int pPacket, int pPos)
 
 				while(Around)
 				{
-					IChar Object((void*)*(DWORD*)Around);
+					ICharacter Object((void*)*(DWORD*)Around);
 
 					if (Object.IsValid() && IPlayer.IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 					{

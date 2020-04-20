@@ -1,6 +1,6 @@
 #ifndef SUICIDALBLOW_H
 #define SUICIDALBLOW_H
-void __fastcall SuicidalBlow(IChar IPlayer, int pPacket, int pPos)
+void __fastcall SuicidalBlow(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(21);
 
@@ -27,7 +27,7 @@ void __fastcall SuicidalBlow(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

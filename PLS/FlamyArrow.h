@@ -4,7 +4,7 @@
 
 void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -25,7 +25,7 @@ void __fastcall FlamyArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 	//PvP
 	if (bType==0)

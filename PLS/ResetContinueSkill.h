@@ -1,6 +1,6 @@
 #ifndef RESETCONTINUESKILL_H
 #define RESETCONTINUESKILL_H
-void __fastcall ResetContinueSkill(IChar IPlayer)
+void __fastcall ResetContinueSkill(ICharacter IPlayer)
 {
 	if (IPlayer.IsOnline())
 	{
@@ -21,7 +21,7 @@ void __fastcall ResetContinueSkill(IChar IPlayer)
 	}
 }
 
-void __fastcall ResetFarContinueSkill(IChar IPlayer)
+void __fastcall ResetFarContinueSkill(ICharacter IPlayer)
 {
 	if (IPlayer.IsOnline())
 	{
@@ -35,7 +35,7 @@ void __fastcall ResetFarContinueSkill(IChar IPlayer)
 	}
 }
 
-void __fastcall ResetRuptureContinueSkill(IChar IPlayer)
+void __fastcall ResetRuptureContinueSkill(ICharacter IPlayer)
 {
 	if (IPlayer.IsOnline())
 	{
@@ -48,7 +48,7 @@ void __fastcall ResetRuptureContinueSkill(IChar IPlayer)
 	}
 }
 
-void __fastcall ResetContinueIceStorm(IChar IPlayer)
+void __fastcall ResetContinueIceStorm(ICharacter IPlayer)
 {
 	CheckContinueIceStorm[IPlayer.GetPID()].PlayerTarget = 0;
 	CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillID = 0;
@@ -57,7 +57,7 @@ void __fastcall ResetContinueIceStorm(IChar IPlayer)
 	CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillGrade = 0;
 }
 
-void __fastcall ResetContinueThunderStorm(IChar IPlayer)
+void __fastcall ResetContinueThunderStorm(ICharacter IPlayer)
 {
 	CheckContinueThunderStorm[IPlayer.GetPID()].PlayerTarget = 0;
 	CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillID = 0;
@@ -66,7 +66,7 @@ void __fastcall ResetContinueThunderStorm(IChar IPlayer)
 	CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillGrade = 0;
 }
 
-void __fastcall ResetContinueFireStorm(IChar IPlayer)
+void __fastcall ResetContinueFireStorm(ICharacter IPlayer)
 {
 	CheckContinueFireStorm[IPlayer.GetPID()].PlayerTarget = 0;
 	CheckContinueFireStorm[IPlayer.GetPID()].PlayerSkillID = 0;

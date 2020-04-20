@@ -1,7 +1,7 @@
 #ifndef SPINSLASH_H
 #define SPINSLASH_H
 #include "ServerFunctions.h"
-void __fastcall SpinSlash(IChar IPlayer)
+void __fastcall SpinSlash(ICharacter IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(38);
 
@@ -23,7 +23,7 @@ void __fastcall SpinSlash(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{

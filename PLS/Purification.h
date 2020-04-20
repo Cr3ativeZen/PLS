@@ -3,7 +3,7 @@
 #include "ResetContinueSkill.h"
 void __fastcall Purification(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -26,7 +26,7 @@ void __fastcall Purification(int pSkill, void *edx, int Player, int pPacket, int
 	if (bType >= 2)
 		return;
 
-	IChar ITarget((void*)pTarget);
+	ICharacter ITarget((void*)pTarget);
 	if (pTarget && ITarget.IsValid() && IPlayer.IsValid())
 	{
 
@@ -38,7 +38,7 @@ void __fastcall Purification(int pSkill, void *edx, int Player, int pPacket, int
 				if (it->second.PlayerTarget == ITarget.GetOffset())
 				{
 
-						IChar Caster(it->second.CasterOffset);
+						ICharacter Caster(it->second.CasterOffset);
 						if (Caster.IsOnline())
 						{
 							ResetRuptureContinueSkill(Caster);
@@ -56,7 +56,7 @@ void __fastcall Purification(int pSkill, void *edx, int Player, int pPacket, int
 				if (it->second.PlayerTarget == ITarget.GetOffset())
 				{
 
-						IChar Caster(it->second.CasterOffset);
+						ICharacter Caster(it->second.CasterOffset);
 						if (Caster.IsOnline())
 						{
 							ResetFarContinueSkill(Caster);
@@ -80,7 +80,7 @@ void __fastcall Purification(int pSkill, void *edx, int Player, int pPacket, int
 				if (it->second.PlayerTarget == ITarget.GetOffset())
 				{
 
-					IChar Caster(it->second.CasterOffset);
+					ICharacter Caster(it->second.CasterOffset);
 					if (Caster.IsOnline())
 					{
 						ResetFarContinueSkill(Caster);

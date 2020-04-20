@@ -3,7 +3,7 @@
 #include "ExecuteSkill.h"
 void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos)
 {
-	IChar IPlayer(Player);
+	ICharacter IPlayer(Player);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -29,7 +29,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						int Buff = CChar::FindBuff((int)IMembers.GetOffset(), 550);
 						
 						if (CChar::IsNormal(Members) && IPlayer.IsValid())
@@ -147,7 +147,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						EvaBuff= CChar::FindBuff((int)IMembers.GetOffset(), 550);
 
 						if (CChar::IsNormal(Members) && IPlayer.IsValid())
@@ -237,7 +237,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 
 						if (CChar::IsNormal(Members) && IPlayer.IsValid())
@@ -324,7 +324,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						int Buff = CChar::FindBuff((int)IMembers.GetOffset(), 560);
 
 						if (CChar::IsNormal(Members) && IPlayer.IsValid())
@@ -429,7 +429,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{
@@ -468,7 +468,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 						{
 							int Members = *(DWORD*)((void*)i);
-							IChar IMembers((void*)*(DWORD*)((void*)i));
+							ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 							if (CChar::IsNormal(Members) && IPlayer.IsValid())
 							{
@@ -490,7 +490,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 											if (it->second.PlayerTarget == IMembers.GetOffset())
 											{
 
-												IChar Caster(it->second.CasterOffset);
+												ICharacter Caster(it->second.CasterOffset);
 												if (Caster.IsOnline())
 												{
 													ResetRuptureContinueSkill(Caster);
@@ -508,7 +508,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 											if (it->second.PlayerTarget == IMembers.GetOffset())
 											{
 
-												IChar Caster(it->second.CasterOffset);
+												ICharacter Caster(it->second.CasterOffset);
 												if (Caster.IsOnline())
 												{
 													ResetFarContinueSkill(Caster);
@@ -532,7 +532,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 											if (it->second.PlayerTarget == IMembers.GetOffset())
 											{
 
-												IChar Caster(it->second.CasterOffset);
+												ICharacter Caster(it->second.CasterOffset);
 												if (Caster.IsOnline())
 												{
 													ResetFarContinueSkill(Caster);
@@ -567,7 +567,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							if (it->second.PlayerTarget == IPlayer.GetOffset())
 							{
 
-								IChar Caster(it->second.CasterOffset);
+								ICharacter Caster(it->second.CasterOffset);
 								if (Caster.IsOnline())
 								{
 									ResetRuptureContinueSkill(Caster);
@@ -585,7 +585,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							if (it->second.PlayerTarget == IPlayer.GetOffset())
 							{
 
-								IChar Caster(it->second.CasterOffset);
+								ICharacter Caster(it->second.CasterOffset);
 								if (Caster.IsOnline())
 								{
 									ResetFarContinueSkill(Caster);
@@ -609,7 +609,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							if (it->second.PlayerTarget == IPlayer.GetOffset())
 							{
 
-								IChar Caster(it->second.CasterOffset);
+								ICharacter Caster(it->second.CasterOffset);
 								if (Caster.IsOnline())
 								{
 									ResetFarContinueSkill(Caster);

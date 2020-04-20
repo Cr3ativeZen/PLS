@@ -1,7 +1,7 @@
 #ifndef ONEHITSTRIKE_H
 #define ONEHITSTRIKE_H
 
-void __fastcall OneHitStrike(IChar IPlayer, int pPacket, int pPos)
+void __fastcall OneHitStrike(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(90);
 
@@ -26,7 +26,7 @@ void __fastcall OneHitStrike(IChar IPlayer, int pPacket, int pPos)
 		if (bType >= 2)
 			return;
 
-		IChar Target(pTarget);
+		ICharacter Target(pTarget);
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{

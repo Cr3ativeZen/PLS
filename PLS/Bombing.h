@@ -1,6 +1,6 @@
 #ifndef BOMBING_H
 #define BOMBING_H
-void __fastcall Bombing(IChar IPlayer)
+void __fastcall Bombing(ICharacter IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(93);
 
@@ -26,7 +26,7 @@ void __fastcall Bombing(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{

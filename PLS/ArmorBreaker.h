@@ -1,7 +1,7 @@
 #ifndef ARMORBREAKER_H
 #define ARMORBREAKER_H
 #include "CanAttack.h"
-void __fastcall ArmorBreaker(IChar IPlayer, int pPacket, int pPos)
+void __fastcall ArmorBreaker(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(22);
 
@@ -32,7 +32,7 @@ void __fastcall ArmorBreaker(IChar IPlayer, int pPacket, int pPos)
 				return;
 
 			int nMana = (30 * nSkillGrade) + 35;
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

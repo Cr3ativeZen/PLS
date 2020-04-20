@@ -1,7 +1,7 @@
 #ifndef WHIRLWINDFEATHER_H
 #define WHIRLWINDFEATHER_H
 
-void __fastcall ContinueWhirlwindFeather(IChar IPlayer)
+void __fastcall ContinueWhirlwindFeather(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid() && CChar::IsGState((int)IPlayer.GetOffset(), 512))
 	{
@@ -9,7 +9,7 @@ void __fastcall ContinueWhirlwindFeather(IChar IPlayer)
 
 		if (pTarget && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
 			if (!IPlayer.IsValid() || !Target.IsValid())
@@ -25,7 +25,7 @@ void __fastcall ContinueWhirlwindFeather(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && Target.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
@@ -59,7 +59,7 @@ void __fastcall ContinueWhirlwindFeather(IChar IPlayer)
 	return;
 }
 
-void __fastcall WhirlwindFeather(IChar IPlayer)
+void __fastcall WhirlwindFeather(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid() && IPlayer.GetRage() >= 15000)
 	{

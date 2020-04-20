@@ -1,6 +1,6 @@
 #ifndef LIGHTNINGARROW_H
 #define LIGHTNINGARROW_H
-void __fastcall StormActivateShiny(IChar IPlayer, IChar Target)
+void __fastcall StormActivateShiny(ICharacter IPlayer, ICharacter Target)
 {
 	if (Target.IsValid() && IPlayer.IsValid() && CheckShiny.count((int)Target.GetOffset()))
 	{
@@ -9,7 +9,7 @@ void __fastcall StormActivateShiny(IChar IPlayer, IChar Target)
 
 		if (CheckShiny.find((int)Target.GetOffset())->second.Target && Target.IsBuff(307))
 		{
-			IChar Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
+			ICharacter Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
 			CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 300;
 
 			if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
@@ -30,7 +30,7 @@ void __fastcall StormActivateShiny(IChar IPlayer, IChar Target)
 
 					while (Around)
 					{
-						IChar Object((void*)*(DWORD*)Around);
+						ICharacter Object((void*)*(DWORD*)Around);
 
 						if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
 						{
@@ -69,7 +69,7 @@ void __fastcall StormActivateShiny(IChar IPlayer, IChar Target)
 	}
 }
 
-void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
+void __fastcall ActivateShiny(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int nTargetID = 0; char bType = 0; void *pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
@@ -83,7 +83,7 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 		return;
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 	if (pTarget && IPlayer.IsValid() && Target.IsValid() && CheckShiny.count((int)Target.GetOffset()))
 	{
@@ -95,7 +95,7 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 
 		if (CheckShiny.find((int)Target.GetOffset())->second.Target && Target.IsBuff(307))
 		{
-			IChar Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
+			ICharacter Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
 			CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 500;
 
 			if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
@@ -122,7 +122,7 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 
 					while (Around)
 					{
-						IChar Object((void*)*(DWORD*)Around);
+						ICharacter Object((void*)*(DWORD*)Around);
 
 						if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
 						{
@@ -162,7 +162,7 @@ void __fastcall ActivateShiny(IChar IPlayer, int pPacket, int pPos)
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall LightningArrow(IChar IPlayer, int pPacket, int pPos)
+void __fastcall LightningArrow(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(67);
 
@@ -187,7 +187,7 @@ void __fastcall LightningArrow(IChar IPlayer, int pPacket, int pPos)
 		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 			return;
 
-		IChar Target(pTarget);
+		ICharacter Target(pTarget);
 
 		if (pTarget && IPlayer.IsValid() && Target.IsValid())
 		{
@@ -241,7 +241,7 @@ int __cdecl CMonsterMagicCreate(int Index, int Value, int Argument, int Arg, int
 
 	if (check)
 	{
-		IChar Object((void*)Player);
+		ICharacter Object((void*)Player);
 
 		if (Object.IsOnline() && Object.GetType() == 0 && Index == 228)
 			CheckShiny[check].Target = (void*)Player;
@@ -254,13 +254,13 @@ int __cdecl CMonsterMagicCreate(int Index, int Value, int Argument, int Arg, int
 
 int __fastcall MagicTick(void *Monster, void *edx)
 {
-	IChar IMonster(Monster);
+	ICharacter IMonster(Monster);
 	int result = CMonster::IsRemoved(Monster);
 
 	if (IMonster.IsValid() && !result)
 	{
 		CChar::Lock(Monster);
-		IChar IPlayer((void*)*(DWORD*)((int)Monster + 484));
+		ICharacter IPlayer((void*)*(DWORD*)((int)Monster + 484));
 
 		if (*(DWORD*)((int)Monster + 468) < GetTickCount())
 		{
@@ -286,7 +286,7 @@ int __fastcall MagicTick(void *Monster, void *edx)
 
 						while (Around)
 						{
-							IChar Object((void*)*(DWORD*)Around);
+							ICharacter Object((void*)*(DWORD*)Around);
 
 							if (Object.IsValid() && IPlayer.IsValid() && IMonster.IsValid() && IMonster.GetOffset() != Object.GetOffset() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 							{
@@ -305,7 +305,7 @@ int __fastcall MagicTick(void *Monster, void *edx)
 
 						while (Around)
 						{
-							IChar Object((void*)*(DWORD*)Around);
+							ICharacter Object((void*)*(DWORD*)Around);
 
 							if (Object.IsValid() && IPlayer.IsValid() && IMonster.IsValid() && IMonster.GetOffset() != Object.GetOffset() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 								IPlayer.OktayDamageStorm(Object, *(DWORD*)((int)Monster + 136));
@@ -316,7 +316,7 @@ int __fastcall MagicTick(void *Monster, void *edx)
 
 					if (IMonster.IsValid() && IMonster.GetMobIndex() == 228 && CheckShiny.count((int)IMonster.GetOffset()) && CheckShiny.find((int)IMonster.GetOffset())->second.Target)
 					{
-						IChar IPlayer(CheckShiny.find((int)IMonster.GetOffset())->second.Target);
+						ICharacter IPlayer(CheckShiny.find((int)IMonster.GetOffset())->second.Target);
 
 						if (IPlayer.IsValid() && IMonster.IsValid())
 						{
@@ -324,7 +324,7 @@ int __fastcall MagicTick(void *Monster, void *edx)
 
 							while (Around)
 							{
-								IChar Object((void*)*(DWORD*)Around);
+								ICharacter Object((void*)*(DWORD*)Around);
 
 								if (IMonster.IsValid() && Object.IsValid() && IPlayer.IsValid() && IPlayer.GetOffset() != Object.GetOffset() && IMonster.GetOffset() != Object.GetOffset() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 								{
@@ -344,7 +344,7 @@ int __fastcall MagicTick(void *Monster, void *edx)
 
 						while (Around)
 						{
-							IChar Object((void*)*(DWORD*)Around);
+							ICharacter Object((void*)*(DWORD*)Around);
 
 							if (IPlayer.IsValid() && IPlayer.GetOffset() != Object.GetOffset() && Object.GetType() == 0)
 								IPlayer.OktayDamageStorm(Object, CTools::Rate(5000, 5100));

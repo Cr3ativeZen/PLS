@@ -74,6 +74,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Users\Admin\Desktop\Detours-master\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Admin\Desktop\Detours-master\lib.X86;$(LibraryPath)</LibraryPath>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -164,11 +165,15 @@
     <ClInclude Include="BuffRemover.h" />
     <ClInclude Include="Calls.h" />
     <ClInclude Include="CanAttack.h" />
+    <ClInclude Include="CArcher.h" />
     <ClInclude Include="ChainLightning.h" />
     <ClInclude Include="ChatCommand.h" />
+    <ClInclude Include="CKnight.h" />
+    <ClInclude Include="CMage.h" />
     <ClInclude Include="CombativeSpirit.h" />
     <ClInclude Include="CriticalDiffusion.h" />
     <ClInclude Include="CriticalStrike.h" />
+    <ClInclude Include="CThief.h" />
     <ClInclude Include="Cure.h" />
     <ClInclude Include="D4Instance.h" />
     <ClInclude Include="DestroyingArmor.h" />
@@ -186,7 +191,7 @@
     <ClInclude Include="Heal.h" />
     <ClInclude Include="IceArrow.h" />
     <ClInclude Include="IceStorm.h" />
-    <ClInclude Include="IChar.h" />
+    <ClInclude Include="ICharacter.h" />
     <ClInclude Include="Icicle.h" />
     <ClInclude Include="IItem.h" />
     <ClInclude Include="Incapacitation.h" />
@@ -248,6 +253,10 @@
     <ClInclude Include="WrathOfHeaven.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CArcher.cpp" />
+    <ClCompile Include="CKnight.cpp" />
+    <ClCompile Include="CMage.cpp" />
+    <ClCompile Include="CThief.cpp" />
     <ClCompile Include="IChar.cpp" />
     <ClCompile Include="IItem.cpp" />
     <ClCompile Include="IQuest.cpp" />

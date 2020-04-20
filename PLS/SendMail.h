@@ -5,8 +5,8 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 {
 	if (Logs == true)
 	{
-	IChar IPlayer(Player);
-	IChar plss((void*)a1);
+	ICharacter IPlayer(Player);
+	ICharacter plss((void*)a1);
 	time_t now = time(0);
 	//char* dt = ctime(&now);
 	char dt;

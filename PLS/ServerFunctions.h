@@ -4,7 +4,7 @@
 
 #include <windows.h>
 #include "ISkill.h"
-#include "IChar.h"
+#include "ICharacter.h"
 static BOOL(__cdecl *ConsoleWriteBlue)(const char* text, ...) = (BOOL(__cdecl*)(const char* text, ...))0x00432860;
 
 namespace CIOServer

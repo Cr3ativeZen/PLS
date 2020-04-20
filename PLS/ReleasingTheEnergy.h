@@ -1,7 +1,7 @@
 #ifndef RELEASINGTHEENERGY_H
 #define RELEASINGTHEENERGY_H
 
-void __fastcall ReleasingTheEnergy(IChar IPlayer)
+void __fastcall ReleasingTheEnergy(ICharacter IPlayer)
 {
 	if (IPlayer.IsBuff(391))
 		return;

@@ -1,6 +1,6 @@
 #ifndef BLOODSUCTION_H
 #define BLOODSUCTION_H
-void __fastcall BloodSuction(IChar IPlayer, int pPacket, int pPos)
+void __fastcall BloodSuction(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int nDmg = 0;
 	if (IPlayer.IsValid() && IPlayer.GetRage() >= 15000 && CChar::IsGState((int)IPlayer.GetOffset(), 512))
@@ -19,7 +19,7 @@ void __fastcall BloodSuction(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && IPlayer.IsValid())
 		{
-			IChar ITarget(pTarget);
+			ICharacter ITarget(pTarget);
 
 			if (ITarget.IsValid() && IPlayer.IsValid())
 			{

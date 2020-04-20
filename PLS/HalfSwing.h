@@ -2,7 +2,7 @@
 #define HALFSWING_H
 void __fastcall HalfSwing(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -23,7 +23,7 @@ void __fastcall HalfSwing(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 	if (!IPlayer.IsInRange(Target, 20))
 	{
@@ -37,7 +37,7 @@ void __fastcall HalfSwing(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 		while (Around)
 		{
-			IChar Object((void*)*(DWORD*)Around);
+			ICharacter Object((void*)*(DWORD*)Around);
 			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{
 				int nDmg = (IPlayer.GetAttack()*HSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*HSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*HSStrMultiPvE) + (nSkillGrade*HSPerGradeMultiPvE);

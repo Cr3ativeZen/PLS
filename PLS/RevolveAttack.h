@@ -1,7 +1,7 @@
 #ifndef REVOLVEATTACK_H
 #define REVOLVEATTACK_H
 
-void __fastcall RevolveAttack(IChar IPlayer)
+void __fastcall RevolveAttack(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid() && IPlayer.GetRage() >= 15000)
 	{
@@ -9,7 +9,7 @@ void __fastcall RevolveAttack(IChar IPlayer)
 
 		while (Around)
 		{
-			IChar Object((void*)*(DWORD*)Around);
+			ICharacter Object((void*)*(DWORD*)Around);
 
 			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 			{

@@ -31,6 +31,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{719b773e-0b93-4731-a5d1-56639a19accc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{7a8e012a-d95b-4f67-b498-7d884b080654}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowExplosion.h">
@@ -207,19 +213,7 @@
     <ClInclude Include="FinalDamage.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="IChar.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="IItem.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="InstaConfig.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="IQuest.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="ISkill.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
     <ClInclude Include="MonsterTick.h">
@@ -315,6 +309,30 @@
     <ClInclude Include="SendMail.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
+    <ClInclude Include="ICharacter.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IItem.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ISkill.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IQuest.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="CMage.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CKnight.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcher.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CThief.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">
@@ -334,6 +352,18 @@
     </ClCompile>
     <ClCompile Include="IItem.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcher.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="CKnight.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="CMage.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="CThief.cpp">
+      <Filter>Characters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

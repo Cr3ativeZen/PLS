@@ -1,7 +1,7 @@
 #ifndef LIGHTNINGSLASHTHIEF_H
 #define LIGHTNINGSLASHTHIEF_H
 #include "ServerFunctions.h"
-void __fastcall ContinueLightningSlash(IChar IPlayer)
+void __fastcall ContinueLightningSlash(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
@@ -10,7 +10,7 @@ void __fastcall ContinueLightningSlash(IChar IPlayer)
 
 		if (nSkillGrade && pTarget && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
 			if(IPlayer.IsValid() && Target.IsValid())
@@ -58,7 +58,7 @@ void __fastcall ContinueLightningSlash(IChar IPlayer)
 	return;
 }
 
-void __fastcall LightningSlashThief(IChar IPlayer, int pPacket, int pPos)
+void __fastcall LightningSlashThief(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(28);
 
@@ -85,7 +85,7 @@ void __fastcall LightningSlashThief(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

@@ -1,7 +1,7 @@
 #ifndef SHOUTOFDEFENSE_H
 #define SHOUTOFDEFENSE_H
 
-void __fastcall ShoutOfDefense(IChar IPlayer)
+void __fastcall ShoutOfDefense(ICharacter IPlayer)
 {
 	if (IPlayer.IsBuff(380))
 		return;

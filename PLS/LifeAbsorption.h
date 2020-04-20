@@ -4,7 +4,7 @@
 void __fastcall LifeAbsorption(int pSkill, void *edx, void *pPlayer, char *pPacket, char *pPos)
 {
 
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -25,7 +25,7 @@ void __fastcall LifeAbsorption(int pSkill, void *edx, void *pPlayer, char *pPack
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar ITarget(pTarget);
+	ICharacter ITarget(pTarget);
 
 	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
 	{

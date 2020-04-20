@@ -3,7 +3,7 @@
 #include "ServerFunctions.h"
 void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -26,7 +26,7 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar ITarget((void*)pTarget);
+	ICharacter ITarget((void*)pTarget);
 
 	if (IPlayer.IsValid())
 	{
@@ -39,7 +39,7 @@ void __fastcall Summons(int pSkill, void *edx, int Player, int pPacket, int pPos
 				for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 				{
 					int Members = *(DWORD*)((void*)i);
-					IChar IMembers((void*)*(DWORD*)((void*)i));
+					ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 
 					if (CChar::IsGState((int)IMembers.GetOffset(), 2)&& (IPlayer.IsInRange(IMembers, 10)))

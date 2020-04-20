@@ -3,7 +3,7 @@
 
 void __fastcall FocusShot(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -25,7 +25,7 @@ void __fastcall FocusShot(int pSkill, void *pPlayer, int pPacket, int pPos)
 		return;
 
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 	if (pTarget && Target.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
 	{

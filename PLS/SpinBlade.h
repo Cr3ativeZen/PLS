@@ -1,7 +1,7 @@
 #ifndef SPINBLADE_H
 #define SPINBLADE_H
 
-void __fastcall ContinueSpinBlade(IChar IPlayer)
+void __fastcall ContinueSpinBlade(ICharacter IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(36);
 	ISkill xSkill((void*)pSkill);
@@ -34,7 +34,7 @@ void __fastcall ContinueSpinBlade(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
@@ -67,7 +67,7 @@ void __fastcall ContinueSpinBlade(IChar IPlayer)
 	return;
 }
 
-void __fastcall SpinBlade(IChar IPlayer)
+void __fastcall SpinBlade(ICharacter IPlayer)
 {
 
 	int pSkill = IPlayer.GetSkillPointer(36);

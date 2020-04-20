@@ -3,7 +3,7 @@
 
 #pragma warning (disable : 4996)
 
-void WritePacketToFile(IChar IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
+void WritePacketToFile(ICharacter IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
 {
 	
 	std::string type_for_dir;
@@ -141,7 +141,7 @@ switch (WHICH_FILE)
 
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	if (IPlayer.IsOnline())
 	{
 		//if (packet != 20 && packet != 21)
@@ -428,7 +428,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						sizecheck++;
 						if (IMembers.GetLevel() < D4Instance::MinLevel)
 						{
@@ -457,7 +457,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 						IMembers.Buff(666, D4Instance::Time, 0);
 						IMembers.Teleport(D4Instance::MapNumber, D4Instance::SpawnX, D4Instance::SpawnY);
@@ -474,7 +474,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						D4Instance::PartyMembers.insert(IPlayer.GetPID());
 					}
 
@@ -743,7 +743,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						{
 							IPlayer.Teleport(Mautareta::Map, Mautareta::StartTeleportX, Mautareta::StartTeleportY);
 							int Members = *(DWORD*)((void*)i);
-							IChar IMembers((void*)*(DWORD*)((void*)i));
+							ICharacter IMembers((void*)*(DWORD*)((void*)i));
 							IMembers.Teleport(Mautareta::Map, Mautareta::StartTeleportX, Mautareta::StartTeleportY);
 							IMembers.Buff(254, 1800, 0);
 							IMembers.ScreenTime(1800);
@@ -980,7 +980,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 19 && CallsON == true)
 				{
-					IChar Playere((void*)Player);
+					ICharacter Playere((void*)Player);
 
 					void* pSkill = (void*)Playere.GetSkillPointer(19);
 					if (Playere.IsValid())
@@ -1007,7 +1007,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 											CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
 
 
-											IChar Member((void*)Members);
+											ICharacter Member((void*)Members);
 
 											if (Playere.IsInRange(Member, CallRANGE))
 											{

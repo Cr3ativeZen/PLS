@@ -1,7 +1,7 @@
 #ifndef ARROWEXPLOSION_H
 #define ARROWEXPLOSION_H
 #include "ServerFunctions.h"
-void __fastcall ContinueArrowExplosion(IChar IPlayer)
+void __fastcall ContinueArrowExplosion(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
@@ -12,7 +12,7 @@ void __fastcall ContinueArrowExplosion(IChar IPlayer)
 		if (nSkillGrade && pTarget && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
 			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{
@@ -27,7 +27,7 @@ void __fastcall ContinueArrowExplosion(IChar IPlayer)
 				Target.AddFxToTarget("davi_ef131_05", 1, 0, 0);
 				while(Around)
 				{
-					IChar Object((void*)*(DWORD*)Around);
+					ICharacter Object((void*)*(DWORD*)Around);
 
 					if (Object.IsValid() && IPlayer.IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 					{
@@ -52,7 +52,7 @@ void __fastcall ContinueArrowExplosion(IChar IPlayer)
 	return;
 }
 
-void __fastcall ArrowExplosion(IChar IPlayer, int pPacket, int pPos)
+void __fastcall ArrowExplosion(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(49);
 
@@ -79,7 +79,7 @@ void __fastcall ArrowExplosion(IChar IPlayer, int pPacket, int pPos)
 
 		if (IPlayer.IsValid() && pTarget && nSkillGrade)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (pTarget == IPlayer.GetOffset())
 			{
@@ -111,7 +111,7 @@ void __fastcall ArrowExplosion(IChar IPlayer, int pPacket, int pPos)
 				CheckContinueSkill[IPlayer.GetPID()].PlayerTarget = Target.GetOffset();
 				CheckContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
 				CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 1;
-				CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 3000;
+				CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount64() + 3000;
 
 				if (Target.IsValid() && Target.GetType() == 1 && Target.GetMobTanker() && Target.GetMobTanker() != (int)IPlayer.GetOffset())
 					Target.SetMobHostility(0);

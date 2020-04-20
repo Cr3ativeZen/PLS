@@ -2,7 +2,7 @@
 #define BRUTALATTACK_H
 void __fastcall BrutalAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -23,7 +23,7 @@ void __fastcall BrutalAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 	if (!IPlayer.IsInRange(Target, 20))
 	{

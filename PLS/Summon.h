@@ -4,7 +4,7 @@
 #include "ChatCommand.h"
 
 
-void BossDropDraw(IChar IMonster)
+void BossDropDraw(ICharacter IMonster)
 {
 	int BossID = IMonster.GetMobIndex();
 	int MaxDropPerChar = BossDropsMap[BossID].MaxDropPerPlayer;
@@ -51,7 +51,7 @@ void BossDropDraw(IChar IMonster)
 		std::uniform_int_distribution<int> distribution(0,PlayerMap.size() - 1);
 		PlayerMapIt = PlayerMap.begin();
 		std::advance(PlayerMapIt, distribution(generator));
-		IChar IPlayer(PlayerMapIt->first);
+		ICharacter IPlayer(PlayerMapIt->first);
 		std::uniform_int_distribution<int> distribution2(0, 999);
 		if (distribution2(generator2) < temp_drop_iterator->DropChance * 10)
 		{
@@ -117,7 +117,7 @@ int __cdecl Summon(int Player, int Map, int X, int Y, int Index, int Amount, int
 			GetMonster = 0;
 
 		Monster = (int)GetMonster;
-		IChar IMonster((void*)Monster);
+		ICharacter IMonster((void*)Monster);
 		CIOCriticalSection::Enter((void*)0x4E182C);
 		Undefined::CreateMonsterValue((void*)0x4E1820, (int)&Argument, (int)&Index);
 		int GetCheck = Undefined::Check((int)0x4E1820, (int)&Value);
@@ -175,7 +175,7 @@ int __cdecl Summon(int Player, int Map, int X, int Y, int Index, int Amount, int
 
 int __fastcall SummonTick(void *Monster, void *edx)
 {
-	IChar IMonster(Monster);
+	ICharacter IMonster(Monster);
 
 	if (D4InstanceON == true)
 	{
@@ -193,12 +193,12 @@ int __fastcall SummonTick(void *Monster, void *edx)
 	//	{
 	//		IMonster.Buff(697, 20, 0);
 	//		IMonster.AddFxToTarget("davi_M564_71", 1, 0, 0);
-	//		IChar IPlayer((void*)IMonster.GetMobTanker());
+	//		ICharacter IPlayer((void*)IMonster.GetMobTanker());
 	//		int Around = IPlayer.GetObjectListAround(2);
 	//		IMonster.OktayDamageSingle(IPlayer, 3000, 14);
 	//		while (Around)
 	//		{
-	//			IChar Object((void*)*(DWORD*)Around);
+	//			ICharacter Object((void*)*(DWORD*)Around);
 	//			if (Object.GetType() == 0)
 	//			{
 	//				IMonster.OktayDamageSingle(Object, 3000, 14);
@@ -257,7 +257,7 @@ int __fastcall SummonTick(void *Monster, void *edx)
 			IMonster._ShowBattleAnimation(IMonster, 223);
 
 			int i = 0;
-			IChar Tanky((void*)IMonster.GetMobTanker());
+			ICharacter Tanky((void*)IMonster.GetMobTanker());
 			Tanky.Buff(790, 10, 1000);
 			Tanky.SetBuffIcon(1, 1, 2038, 224);
 			int Around = Tanky.GetObjectListAround(5);
@@ -265,7 +265,7 @@ int __fastcall SummonTick(void *Monster, void *edx)
 			while (Around && i <(int)CTools::Rate(3, 6))
 			{
 
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 				if (Object.IsValid() && !CChar::IsGState((int)Object.GetOffset(), 2) && IMonster.GetOffset() != Object.GetOffset())
 				{
 					Object.Buff(790, 10, 1000);
@@ -282,11 +282,11 @@ int __fastcall SummonTick(void *Monster, void *edx)
 			IMonster.Buff(777, 15, 0);
 			IMonster._ShowBattleAnimation(IMonster, 213);
 
-			IChar Tanky((void*)IMonster.GetMobTanker());
+			ICharacter Tanky((void*)IMonster.GetMobTanker());
 			int Around = Tanky.GetObjectListAround(5);
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 				if (Object.IsValid() && !CChar::IsGState((int)Object.GetOffset(), 2) && IMonster.GetOffset() != Object.GetOffset())
 				{
 					IMonster.OktayDamageArea(Object, 5000, 214);
@@ -299,7 +299,7 @@ int __fastcall SummonTick(void *Monster, void *edx)
 		{
 			IMonster.Buff(778, 15, 0);
 			int Around = IMonster.GetObjectListAround(5);
-			IChar Tanker((void*)IMonster.GetMobTanker());
+			ICharacter Tanker((void*)IMonster.GetMobTanker());
 			if (!Tanker.IsBuff(4001) && !Tanker.IsBuff(4002))
 			{
 				Tanker.Buff(4001, 10, 0);
@@ -312,14 +312,14 @@ int __fastcall SummonTick(void *Monster, void *edx)
 		{
 			IMonster.Buff(779, 25, 0);
 			int j = 0;
-			IChar Tanky((void*)IMonster.GetMobTanker());
+			ICharacter Tanky((void*)IMonster.GetMobTanker());
 			Tanky.Buff(7, 2, 0);
 			int Around = Tanky.GetObjectListAround(5);
 
 			while (Around && j < (int)CTools::Rate(3, 6))
 			{
 
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 				if (Object.IsValid() && !CChar::IsGState((int)Object.GetOffset(), 2) && IMonster.GetOffset() != Object.GetOffset() && Object.GetType() == 0)
 				{
 					Object.Buff(7, 2, 0);
@@ -368,7 +368,7 @@ int __fastcall SummonTick(void *Monster, void *edx)
 
 int __fastcall SummonDie(int Monster, void *edx, int Arg, int Arg1, int Arg2, int Arg3)
 {
-	IChar IMonster((void*)Monster);
+	ICharacter IMonster((void*)Monster);
 
 
 

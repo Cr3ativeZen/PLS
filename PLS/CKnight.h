@@ -12,7 +12,7 @@ public:
 	virtual ~CKnight();
 
 	// SKILLS
-	void __fastcall PowerfulUpwardSlash(void* pSkill, void* pPacket, void* pPos);
+	//void __fastcall PowerfulUpwardSlash(void* pSkill, void* pPacket, void* pPos);
 };
 
 #endif // _CKNIGHT_H_

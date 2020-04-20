@@ -9,9 +9,12 @@
 #pragma warning (disable : 4244)
 #pragma warning (disable : 4018)
 
-ICharacter::ICharacter(void *Offset)
+ICharacter::ICharacter() : m_Offset(nullptr)
 {
-	this->m_Offset = Offset;
+}
+
+ICharacter::ICharacter(void* offset) : m_Offset(offset)
+{
 }
 
 ICharacter::~ICharacter()

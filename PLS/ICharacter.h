@@ -8,16 +8,16 @@
 
 class ICharacter
 {
-protected:
+public:
 
 	void* m_Offset;
 
 
 public:
 
-	ICharacter() : m_Offset(nullptr) {}
-	ICharacter(void* offset) : m_Offset(offset) {}
-	virtual ~ICharacter() { if (m_Offset) delete m_Offset; }
+	ICharacter();
+	ICharacter(void* offset);
+	virtual ~ICharacter();
 
 
 	void* GetOffset();

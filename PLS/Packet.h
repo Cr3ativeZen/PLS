@@ -141,7 +141,8 @@ switch (WHICH_FILE)
 
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
-	int CLASS_ID = *(DWORD*)(Player + 460);
+
+	/*int CLASS_ID = *(DWORD*)(Player + 460);
 	int skillID = 0;
 	void* skillPtr = (void*)CPacket::Read((char*)pPacket, (char*)pPos, "b", &skillID);
 
@@ -178,7 +179,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		}
 		default:
 			break;
-	}
+	}*/
+
+	ICharacter IPlayer((void*)Player);
 
 
 	if (IPlayer.IsOnline())

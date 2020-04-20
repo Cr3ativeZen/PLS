@@ -144,7 +144,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 <<<<<<< HEAD
 	ICharacter IPlayer((void*)Player);
 <<<<<<< HEAD
-<<<<<<< HEAD
 	
 =======
 	int CLASS_ID = *(DWORD*)(Player + 460);
@@ -190,14 +189,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 >>>>>>> hubert
 =======
 >>>>>>> parent of e123e09... pus
-=======
->>>>>>> parent of e123e09... pus
 	if (IPlayer.IsOnline())
 	{
 		//if (packet != 20 && packet != 21)
 		//	IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
-<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		if (packet == PACKET_WOODENBOX && Logs == true)
@@ -206,9 +202,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 		if (packet == 94 && Logs == true)
 >>>>>>> hubert
-=======
-		if (packet == 94 && Logs == true)
->>>>>>> parent of e123e09... pus
 =======
 		if (packet == 94 && Logs == true)
 >>>>>>> parent of e123e09... pus

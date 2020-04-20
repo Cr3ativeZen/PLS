@@ -3,9 +3,9 @@
 
 void __fastcall WrathOfHeaven(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(33);
+	int pSkill = GetSkillPointer(33);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -15,7 +15,7 @@ void __fastcall WrathOfHeaven(ICharacter IPlayer, int pPacket, int pPos)
 
 		int nTargetID = 0; char bType = 0; void *pTarget = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
-		int nMana = (IPlayer.GetLevel() + nSkillGrade) * 3 + 50;
+		int nMana = (GetLevel() + nSkillGrade) * 3 + 50;
 
 		if (bType == 0 && nTargetID)
 			pTarget = CPlayer::FindPlayer(nTargetID);
@@ -23,49 +23,49 @@ void __fastcall WrathOfHeaven(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsValid())
+		if (pTarget && nSkillGrade && IsValid())
 		{
 			ICharacter Target(pTarget);
 			
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target,300))
+				if (!IsInRange(Target,300))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				if (IPlayer.CheckHit(Target, 30))
+				if (CheckHit(Target, 30))
 				{
-					int nDmg = (IPlayer.GetAttack()*WOHBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*WOHAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvE) + (nSkillGrade*WOHPerGradeMultiPvE);
+					int nDmg = (GetAttack()*WOHBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*WOHAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvE) + (nSkillGrade*WOHPerGradeMultiPvE);
 
 
 					if (Target.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*WOHBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*WOHAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvP) + (nSkillGrade*WOHPerGradeMultiPvP);
+						nDmg = (GetAttack()*WOHBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*WOHAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvP) + (nSkillGrade*WOHPerGradeMultiPvP);
 
-					IPlayer.OktayDamageSingle(Target,nDmg,33);
+					OktayDamageSingle(Target,nDmg,33);
 				} else 
 				{
-					IPlayer._ShowBattleMiss(Target, 33);
+					_ShowBattleMiss(Target, 33);
 				}
 
-				IPlayer.SetDirection(Target);
-				IPlayer.DecreaseMana(nMana);
+				SetDirection(Target);
+				DecreaseMana(nMana);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

@@ -1,19 +1,20 @@
-#ifndef _ISKILL_H
-#define _ISKILL_H
+
+#ifndef _ISKILL_H_
+#define _ISKILL_H_
+
 #include "ServerFunctions.h"
+
 
 class ISkill
 {
+protected:
+	
+	void* m_Offset;
 
 public:
-	void *Offset;
 
-public:
-	ISkill() : Offset(nullptr)
-	{
-	}
-
-	ISkill(void *Packet);
+	ISkill();
+	ISkill(void* offset);
 	virtual ~ISkill();
 
 	void *GetOffset();
@@ -21,5 +22,12 @@ public:
 	int GetGrade();
 	int DecreaseMana();
 	void *GetPlayer();
+
+	// COMMON SKILL
+	// ONLY MAGE SKILLS
+	// ONLY ARCHER SKILLS
+	// ONLY KNIGHT SKILLS
+	// ONLY THIEF SKILLS
 };
-#endif
+
+#endif // _ISKILL_H_

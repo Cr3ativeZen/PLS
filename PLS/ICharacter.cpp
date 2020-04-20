@@ -11,7 +11,7 @@
 
 ICharacter::ICharacter(void *Offset)
 {
-	this->Offset = Offset;
+	this->m_Offset = Offset;
 }
 
 ICharacter::~ICharacter()
@@ -20,7 +20,7 @@ ICharacter::~ICharacter()
 
 void *ICharacter::GetOffset()
 {
-	return this->Offset;
+	return this->m_Offset;
 }
 
 bool ICharacter::IsOnline()
@@ -122,7 +122,7 @@ int ICharacter::GetMaxMagAttack()
 int ICharacter::GetX()
 {
 	if (this->IsOnline())
-		return *(DWORD*)((int)this->GetOffset()+0x14c);
+		return *(DWORD*)((int)this->GetOffset()+ 0x14c);
 	else
 		return 0;
 }
@@ -569,7 +569,7 @@ int ICharacter::IsMobMoving()
 int ICharacter::IsMobAggressive()
 {
 	if (this->IsOnline() && this->IsValid())
-		return *(DWORD *)((int)this->Offset + 476);
+		return *(DWORD *)((int)this->m_Offset + 476);
 	else
 		return 0;
 }
@@ -1415,7 +1415,7 @@ int ICharacter::GetMobTanker()
 int ICharacter::GetMaxHp()
 {
 	if (this->IsOnline())
-		return CChar::GetMaxHp((int)this->Offset);
+		return CChar::GetMaxHp((int)this->m_Offset);
 	else
 		return 0;
 }
@@ -1423,19 +1423,19 @@ int ICharacter::GetMaxHp()
 void ICharacter::OpenHTML(int html)
 {
 	if (this->IsOnline())
-		CPlayer::Write(this->Offset, 74, "d", html);
+		CPlayer::Write(this->m_Offset, 74, "d", html);
 }
 
 void ICharacter::OpenWindow(std::string WindowName,int Type,int Time)
 {
 	if (this->IsOnline())
-		CPlayer::Write(Offset, 0xFF, "dsdd", 237,WindowName.c_str(),Type,Time);
+		CPlayer::Write(m_Offset, 0xFF, "dsdd", 237,WindowName.c_str(),Type,Time);
 }
 
 void ICharacter::CloseWindow(std::string WindowName)
 {
 	if (this->IsOnline())
-		CPlayer::Write(Offset, 0xFF, "ds", 236,WindowName.c_str());
+		CPlayer::Write(m_Offset, 0xFF, "ds", 236,WindowName.c_str());
 }
 
 void ICharacter::Revive()
@@ -1485,7 +1485,7 @@ void ICharacter::RemoveSetRed()
 int ICharacter::GetGID()
 {
 	if (this->IsOnline())
-		return *(DWORD *)((int)this->Offset + 480);
+		return *(DWORD *)((int)this->m_Offset + 480);
 	else
 		return 0;
 }
@@ -1493,7 +1493,7 @@ int ICharacter::GetGID()
 int ICharacter::GetRectX()
 {
 	if (this->IsOnline())
-		return *(DWORD*)((int)this->Offset + 324);
+		return *(DWORD*)((int)this->m_Offset + 324);
 	else
 		return 0;
 }
@@ -1501,7 +1501,7 @@ int ICharacter::GetRectX()
 int ICharacter::GetRectY()
 {
 	if (this->IsOnline())
-		return *(DWORD*)((int)this->Offset + 328);
+		return *(DWORD*)((int)this->m_Offset + 328);
 	else
 		return 0;
 }
@@ -1510,8 +1510,8 @@ void ICharacter::IncreaseCritRate(int Amount)
 {
 	if (this->IsOnline())
 	{
-		(*(void (__cdecl **)(DWORD, DWORD, DWORD, DWORD))(*(DWORD *)this->Offset + 96))((int)this->Offset, 31, 1, Amount);
-		(*(void (__thiscall **)(DWORD, DWORD, DWORD))(*(DWORD *)this->Offset + 104))((int)this->Offset, 16, 0);
+		(*(void (__cdecl **)(DWORD, DWORD, DWORD, DWORD))(*(DWORD *)this->m_Offset + 96))((int)this->m_Offset, 31, 1, Amount);
+		(*(void (__thiscall **)(DWORD, DWORD, DWORD))(*(DWORD *)this->m_Offset + 104))((int)this->m_Offset, 16, 0);
 	}
 }
 
@@ -1519,8 +1519,8 @@ void ICharacter::DecreaseCritRate(int Amount)
 {
 	if (this->IsOnline())
 	{
-		(*(void (__cdecl **)(DWORD, DWORD, DWORD, DWORD))(*(DWORD *)this->Offset + 96))((int)this->Offset, 31, 0, Amount);
-		(*(void (__thiscall **)(DWORD, DWORD, DWORD))(*(DWORD *)this->Offset + 124))((int)this->Offset, 16, 0);
+		(*(void (__cdecl **)(DWORD, DWORD, DWORD, DWORD))(*(DWORD *)this->m_Offset + 96))((int)this->m_Offset, 31, 0, Amount);
+		(*(void (__thiscall **)(DWORD, DWORD, DWORD))(*(DWORD *)this->m_Offset + 124))((int)this->m_Offset, 16, 0);
 	}
 }
 
@@ -1617,7 +1617,7 @@ void ICharacter::SetMobHostility(int Amount)
 int ICharacter::GetAlliance()
 {
 	if (this->IsOnline())
-		return *(DWORD*)(*(DWORD*)((int)this->Offset + 484) + 392);
+		return *(DWORD*)(*(DWORD*)((int)this->m_Offset + 484) + 392);
 	else
 		return 0;
 }

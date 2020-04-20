@@ -22,7 +22,7 @@ void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 		return;
 
 	ICharacter Target(pTarget);
@@ -30,23 +30,23 @@ void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 	if (bType == 0)
 	{
-		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			int nDmg = (IPlayer.GetMagic()*SWBaseDmgMultiPvP) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvP) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvP) + (ISkill.GetGrade()*SWPerGradeMultiPvP);
-			IPlayer.OktayDamageSingle(Target, nDmg, 9);
-			IPlayer.SetDirection(Target);
-			IPlayer._ShowBattleAnimation(Target, 9);
+			int nDmg = (GetMagic()*SWBaseDmgMultiPvP) + (CChar::GetWis((int)GetOffset())*SWWisMultiPvP) + (CChar::GetInt((int)GetOffset())*SWIntMultiPvP) + (ISkill.GetGrade()*SWPerGradeMultiPvP);
+			OktayDamageSingle(Target, nDmg, 9);
+			SetDirection(Target);
+			_ShowBattleAnimation(Target, 9);
 		}
 	}
 	if (bType == 1)
 	{
 		int Around = Target.GetObjectListAround(2);
-		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
+		if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			int nDmge = (IPlayer.GetMagic()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
-			IPlayer.OktayDamageSingle(Target, nDmge, 9);
-			IPlayer.SetDirection(Target);
-			IPlayer._ShowBattleAnimation(Target, 9);
+			int nDmge = (GetMagic()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
+			OktayDamageSingle(Target, nDmge, 9);
+			SetDirection(Target);
+			_ShowBattleAnimation(Target, 9);
 		}
 
 		int i = 0;
@@ -56,14 +56,14 @@ void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 			ICharacter Object((void*)*(DWORD*)Around);
 
-			if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
+			if (Object.GetType() == 1 && Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 2))
 			{
 
 				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 				{
-					int nDmg = (IPlayer.GetMagic()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)IPlayer.GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
-					IPlayer._ShowBattleAnimation(Object, 9);
-					IPlayer.OktayDamageSingle(Object, nDmg, 9);
+					int nDmg = (GetMagic()*SWBaseDmgMultiPvE) + (CChar::GetWis((int)GetOffset())*SWWisMultiPvE) + (CChar::GetInt((int)GetOffset())*SWIntMultiPvE) + (ISkill.GetGrade()*SWPerGradeMultiPvE);
+					_ShowBattleAnimation(Object, 9);
+					OktayDamageSingle(Object, nDmg, 9);
 					i++;
 				}
 
@@ -72,7 +72,7 @@ void __fastcall ShockWave(int pSkill, void *pPlayer, int pPacket, int pPos)
 			Around = CBaseList::Pop((void*)Around);
 		}
 	}
-	IPlayer.DecreaseMana(nMana);
+	DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 
 }

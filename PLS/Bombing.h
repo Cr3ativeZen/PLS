@@ -2,9 +2,9 @@
 #define BOMBING_H
 void __fastcall Bombing(ICharacter IPlayer)
 {
-	int pSkill = IPlayer.GetSkillPointer(93);
+	int pSkill = GetSkillPointer(93);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -13,22 +13,22 @@ void __fastcall Bombing(ICharacter IPlayer)
 			return;
 
 
-		if (IPlayer.IsValid() && nSkillGrade)
+		if (IsValid() && nSkillGrade)
 		{
-			int nMana = 180 + static_cast<int>(1.25 * (nSkillGrade * (IPlayer.GetLevel() + nSkillGrade)));
+			int nMana = 180 + static_cast<int>(1.25 * (nSkillGrade * (GetLevel() + nSkillGrade)));
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 				return;
 
-			int Around = IPlayer.GetObjectListAround(3);
+			int Around = GetObjectListAround(3);
 
-			IPlayer.AddFxToTarget("MonTargetHit_023", 1, 0, 0);
+			AddFxToTarget("MonTargetHit_023", 1, 0, 0);
 
 			while (Around)
 			{
 				ICharacter Object((void*)*(DWORD*)Around);
 
-				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+				if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 				{
 					Object.AddFxToTarget("HellGate_FX47", 1, 0, 0);
 					int nDmg = 5000;
@@ -36,14 +36,14 @@ void __fastcall Bombing(ICharacter IPlayer)
 					if (Object.GetType() == 0)
 						nDmg = 5000;
 
-					IPlayer.OktayDamageArea(Object, nDmg, 93);
+					OktayDamageArea(Object, nDmg, 93);
 				}
 
 				Around = CBaseList::Pop((void*)Around);
 			}
 
-			IPlayer.DecreaseMana(nMana);
-			IPlayer._ShowBattleAnimation(IPlayer, 93);
+			DecreaseMana(nMana);
+			_ShowBattleAnimation(IPlayer, 93);
 		}
 	}
 }

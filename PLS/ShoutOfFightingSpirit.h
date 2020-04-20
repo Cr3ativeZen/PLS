@@ -2,11 +2,11 @@
 #define SHOUTOFFIGHTINGSPIRIT_H
 void __fastcall ShoutOfFightingSpirit(ICharacter IPlayer)
 {
-	if (IPlayer.IsOnline())
+	if (IsOnline())
 	{
-		int pSkill = IPlayer.GetSkillPointer(92);
+		int pSkill = GetSkillPointer(92);
 
-		if (IPlayer.IsValid() && pSkill)
+		if (IsValid() && pSkill)
 		{
 			ISkill xSkill((void*)pSkill);
 
@@ -15,19 +15,19 @@ void __fastcall ShoutOfFightingSpirit(ICharacter IPlayer)
 			if (!nSkillGrade)
 				return;
 
-			int Mana = 180 + static_cast<int>((1.25 * (xSkill.GetGrade() * (IPlayer.GetLevel() + xSkill.GetGrade()))));
+			int Mana = 180 + static_cast<int>((1.25 * (xSkill.GetGrade() * (GetLevel() + xSkill.GetGrade()))));
 
-			if (IPlayer.GetCurMp() <= Mana)
+			if (GetCurMp() <= Mana)
 				return;
 
-			IPlayer.DecreaseMana(Mana);
-			IPlayer._ShowBattleAnimation(IPlayer, 92);
+			DecreaseMana(Mana);
+			_ShowBattleAnimation(IPlayer, 92);
 
-			if (IPlayer.IsValid())
+			if (IsValid())
 			{
-				if (IPlayer.IsParty())
+				if (IsParty())
 				{
-					void *Party = (void *)CParty::FindParty(IPlayer.GetPartyID());
+					void *Party = (void *)CParty::FindParty(GetPartyID());
 
 					if (Party)
 					{
@@ -36,9 +36,9 @@ void __fastcall ShoutOfFightingSpirit(ICharacter IPlayer)
 							int Members = *(DWORD*)((void*)i);
 							ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
-							if (CChar::IsNormal(Members) && IPlayer.IsValid())
+							if (CChar::IsNormal(Members) && IsValid())
 							{
-								if (CChar::GetRange((int)IPlayer.GetOffset() + 332, Members + 332) <= 300 && !IMembers.IsBuff(383) && !IMembers.IsBuff(382) && !IMembers.IsBuff(381))
+								if (CChar::GetRange((int)GetOffset() + 332, Members + 332) <= 300 && !IMembers.IsBuff(383) && !IMembers.IsBuff(382) && !IMembers.IsBuff(381))
 								{
 									IMembers.SetBuffIcon(1000 * (4 + (xSkill.GetGrade() * 3)), 0, 4243, 951);
 									IMembers.Buff(380 + xSkill.GetGrade(), 6 + (xSkill.GetGrade() * 3), 0);
@@ -51,19 +51,19 @@ void __fastcall ShoutOfFightingSpirit(ICharacter IPlayer)
 					}
 				}
 				else {
-					if (!IPlayer.IsBuff(383) && !IPlayer.IsBuff(382) && !IPlayer.IsBuff(381))
+					if (!IsBuff(383) && !IsBuff(382) && !IsBuff(381))
 					{
-						IPlayer.AddFxToTarget("fire_flower_01", 1, 0, 0);
+						AddFxToTarget("fire_flower_01", 1, 0, 0);
 
-						IPlayer.AddFxToTarget("fire_flower_02", 1, 0, 0);
+						AddFxToTarget("fire_flower_02", 1, 0, 0);
 
-						IPlayer.AddFxToTarget("fire_flower_03", 1, 0, 0);
+						AddFxToTarget("fire_flower_03", 1, 0, 0);
 
-						IPlayer.SetBuffIcon(1000 * (4 + (xSkill.GetGrade() * 3)), 0, 4243, 951);
-						IPlayer.Buff(380 + xSkill.GetGrade(), 6 + (xSkill.GetGrade() * 3), 0);
-						IPlayer.Buff(384, 4 + (xSkill.GetGrade() * 3), 0);
-						IPlayer.AddMaxAttack(xSkill.GetGrade() * 200);
-						IPlayer.AddMinAttack(xSkill.GetGrade() * 200);
+						SetBuffIcon(1000 * (4 + (xSkill.GetGrade() * 3)), 0, 4243, 951);
+						Buff(380 + xSkill.GetGrade(), 6 + (xSkill.GetGrade() * 3), 0);
+						Buff(384, 4 + (xSkill.GetGrade() * 3), 0);
+						AddMaxAttack(xSkill.GetGrade() * 200);
+						AddMinAttack(xSkill.GetGrade() * 200);
 					}
 				}
 			}

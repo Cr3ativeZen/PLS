@@ -3,9 +3,9 @@
 
 void __fastcall PowerfulWideningWound(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(41);
+	int pSkill = GetSkillPointer(41);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nTargetID = 0; char bType = 0; void *pTarget = 0;
@@ -18,56 +18,66 @@ void __fastcall PowerfulWideningWound(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
 		ICharacter Target(pTarget);
 
-		if (!IPlayer.IsInRange(Target, 20))
+		if (!IsInRange(Target, 20))
 		{
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 			return;
 		}
 
-		if (pTarget && xSkill.GetGrade() && IPlayer.IsValid())
+		if (pTarget && xSkill.GetGrade() && IsValid())
 		{
+
 			if (IPlayer.GetCurMp() < nMana || pTarget == IPlayer.GetOffset())
+
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (pTarget == GetOffset())
+
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
+
+			if (IsValid() && Target.IsValid())
+			{
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				if (IPlayer.CheckHit(Target, 10 + ((IPlayer.GetLevel() / 20) + xSkill.GetGrade() * 3)))
+				if (CheckHit(Target, 10 + ((GetLevel() / 20) + xSkill.GetGrade() * 3)))
 				{
-					int nDmg = (IPlayer.GetAttack()*PWWBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*PWWAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*PWWStrMultiPvE) + (xSkill.GetGrade()*PWWPerGradeMultiPvE);
+					int nDmg = (GetAttack()*PWWBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*PWWAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*PWWStrMultiPvE) + (xSkill.GetGrade()*PWWPerGradeMultiPvE);
 
 					if (Target.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*PWWBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*PWWAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*PWWStrMultiPvP) + (xSkill.GetGrade()*PWWPerGradeMultiPvP);
+						nDmg = (GetAttack()*PWWBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*PWWAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*PWWStrMultiPvP) + (xSkill.GetGrade()*PWWPerGradeMultiPvP);
 
 
-					IPlayer.OktayDamageSingle(Target, nDmg, 41);
+					OktayDamageSingle(Target, nDmg, 41);
 
-					if (IPlayer.IsOnline() && IPlayer.IsValid() && Target.IsOnline() && Target.IsValid() && Target.GetType() == 1 && Target.GetCurHp() > 0 && Target.IsMobAggressive() && Target.IsMobHaveTarget())
-						CMonsterReal::AddHostility(Target.GetOffset(), (int)IPlayer.GetOffset(), nDmg * PWWHostilityMultiplier, 0);
+					if (IsOnline() && IsValid() && Target.IsOnline() && Target.IsValid() && Target.GetType() == 1 && Target.GetCurHp() > 0 && Target.IsMobAggressive() && Target.IsMobHaveTarget())
+						CMonsterReal::AddHostility(Target.GetOffset(), (int)GetOffset(), nDmg * PWWHostilityMultiplier, 0);
 				}
 				else 
 				{
-					IPlayer._ShowBattleMiss(Target, 41);
+					_ShowBattleMiss(Target, 41);
 				}
 
-				IPlayer.SetDirection(Target);
+				SetDirection(Target);
 			}
 		}
 		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-		IPlayer.DecreaseMana(nMana);
+		DecreaseMana(nMana);
 	}
 
 

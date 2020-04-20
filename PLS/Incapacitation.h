@@ -3,9 +3,9 @@
 
 void __fastcall Incapacitation(ICharacter IPlayer)
 {
-	int pSkill = IPlayer.GetSkillPointer(91);
+	int pSkill = GetSkillPointer(91);
 
-	if (pSkill && IPlayer.IsValid())
+	if (pSkill && IsValid())
 	{
 		ISkill xSkill((void*)pSkill);
 
@@ -16,21 +16,21 @@ void __fastcall Incapacitation(ICharacter IPlayer)
 
 		int Mana = static_cast<int>((1.85 * (200 + (nSkillGrade * (20 + (nSkillGrade - 1))))));
 
-		if (IPlayer.GetCurMp() < Mana)
+		if (GetCurMp() < Mana)
 			return;
 		else
-			IPlayer.DecreaseMana(Mana);
+			DecreaseMana(Mana);
 
-		if (IPlayer.IsValid() && nSkillGrade)
+		if (IsValid() && nSkillGrade)
 		{
-			IPlayer._ShowBattleAnimation(IPlayer, 91);
-			int Around = IPlayer.GetObjectListAround(3);
+			_ShowBattleAnimation(IPlayer, 91);
+			int Around = GetObjectListAround(3);
 
 			while (Around)
 			{
 				ICharacter Object((void*)*(DWORD*)Around);
 
-				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+				if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 				{
 					if (!Object.IsBuff(395) && Object.GetDef() >= 140)
 					{

@@ -2,9 +2,9 @@
 #define PROVOCATIONOFBLOW_H
 void __fastcall ProvocationOfBlow(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(42);
+	int pSkill = GetSkillPointer(42);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -21,10 +21,10 @@ void __fastcall ProvocationOfBlow(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsValid())
+		if (pTarget && nSkillGrade && IsValid())
 		{
 			if (nSkillGrade <= 1)
 				nMana = 220;
@@ -37,55 +37,55 @@ void __fastcall ProvocationOfBlow(ICharacter IPlayer, int pPacket, int pPos)
 			else if (nSkillGrade >= 5)
 				nMana = 320;
 
-			if (IPlayer.IsOnline() && CPlayer::IsWState((int)IPlayer.GetOffset(), 12))
+			if (IsOnline() && CPlayer::IsWState((int)GetOffset(), 12))
 				return;
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 				return;
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 				return;
 
-			if (pTarget && IPlayer.IsOnline())
+			if (pTarget && IsOnline())
 			{
 				ICharacter Target(pTarget);
 
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				int Around = IPlayer.GetObjectListAround(2);
+				int Around = GetObjectListAround(2);
 
 				while (Around)
 				{
 					ICharacter Object((void*)*(DWORD*)Around);
 
-					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 					{
-						int nDmg = (IPlayer.GetAttack()*PoBBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*PoBAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*PoBStrMultiPvE) + (nSkillGrade*PoBPerGradeMultiPvE);
+						int nDmg = (GetAttack()*PoBBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*PoBAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*PoBStrMultiPvE) + (nSkillGrade*PoBPerGradeMultiPvE);
 
 						if (Object.GetType() == 0)
-							nDmg = (IPlayer.GetAttack()*PoBBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*PoBAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*PoBStrMultiPvP) + (nSkillGrade*PoBPerGradeMultiPvP);
+							nDmg = (GetAttack()*PoBBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*PoBAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*PoBStrMultiPvP) + (nSkillGrade*PoBPerGradeMultiPvP);
 
-						if (Object.GetType() == 1&&IPlayer.IsBuff(284))
+						if (Object.GetType() == 1&&IsBuff(284))
 						{
 							nDmg *= (PoBDmgPercentIncreasePDPvE / 100);
 						}
 
-						IPlayer.OktayDamageArea(Object, nDmg, 42);
+						OktayDamageArea(Object, nDmg, 42);
 
-						if (IPlayer.IsOnline() && IPlayer.IsValid() && Object.IsOnline() && Object.IsValid() && Object.GetType() == 1 && Object.GetCurHp() > 0 && Object.IsMobAggressive() && Object.IsMobHaveTarget())
-							CMonsterReal::AddHostility(Object.GetOffset(), (int)IPlayer.GetOffset(), nDmg * PoBHostilityMultiplier, 0);
+						if (IsOnline() && IsValid() && Object.IsOnline() && Object.IsValid() && Object.GetType() == 1 && Object.GetCurHp() > 0 && Object.IsMobAggressive() && Object.IsMobHaveTarget())
+							CMonsterReal::AddHostility(Object.GetOffset(), (int)GetOffset(), nDmg * PoBHostilityMultiplier, 0);
 					}
 
 					Around = CBaseList::Pop((void*)Around);
 				}
 
-				IPlayer._ShowBattleAnimation(Target, 42);
-				IPlayer.SetDirection(Target);
-				IPlayer.DecreaseMana(nMana);
+				_ShowBattleAnimation(Target, 42);
+				SetDirection(Target);
+				DecreaseMana(nMana);
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 			}
 

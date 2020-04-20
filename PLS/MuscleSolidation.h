@@ -11,14 +11,14 @@ void __fastcall MuscleSolidation(int Skill, int a6, int Player)
 	if (!nSkillGrade)
 		return;
 
-	IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+	_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 
 
-	IPlayer.Buff(10, 900, 0);
-	IPlayer.Buff(500, 910, static_cast<int>(IPlayer.GetMinPhyAttack()*0.10));
-	IPlayer.Buff(501, 910, static_cast<int>(IPlayer.GetMaxPhyAttack()*0.10));
+	Buff(10, 900, 0);
+	Buff(500, 910, static_cast<int>(GetMinPhyAttack()*0.10));
+	Buff(501, 910, static_cast<int>(GetMaxPhyAttack()*0.10));
 
-	IPlayer.AddMinPhysAttack(static_cast<int>(IPlayer.GetMinPhyAttack()*0.10));
-	IPlayer.AddMaxPhysAttack(static_cast<int>(IPlayer.GetMaxPhyAttack()*0.10));
+	AddMinPhysAttack(static_cast<int>(GetMinPhyAttack()*0.10));
+	AddMaxPhysAttack(static_cast<int>(GetMaxPhyAttack()*0.10));
 }
 #endif

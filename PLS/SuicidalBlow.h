@@ -2,9 +2,9 @@
 #define SUICIDALBLOW_H
 void __fastcall SuicidalBlow(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(21);
+	int pSkill = GetSkillPointer(21);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -22,49 +22,49 @@ void __fastcall SuicidalBlow(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsValid())
+		if (pTarget && nSkillGrade && IsValid())
 		{
 			ICharacter Target(pTarget);
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				int nDmg = (IPlayer.GetAttack()*TSBBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*TSBAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*TSBStrMultiPvE) + (nSkillGrade*TSBPerGradeMultiPvE);
+				int nDmg = (GetAttack()*TSBBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*TSBAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*TSBStrMultiPvE) + (nSkillGrade*TSBPerGradeMultiPvE);
 				
 				if (Target.GetType() == 0)
-				nDmg = (IPlayer.GetAttack()*TSBBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*TSBAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*TSBStrMultiPvP) + (nSkillGrade*TSBPerGradeMultiPvP);
+				nDmg = (GetAttack()*TSBBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*TSBAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*TSBStrMultiPvP) + (nSkillGrade*TSBPerGradeMultiPvP);
 
 				
 				int Additional = 0;
 
 
-				if (((IPlayer.GetMaxHp() * TSBHPPercent) / 100)<IPlayer.GetCurHp())
+				if (((GetMaxHp() * TSBHPPercent) / 100)<GetCurHp())
 				{
-					Additional = (IPlayer.GetMaxHp() * TSBHPPercent) / 100;
+					Additional = (GetMaxHp() * TSBHPPercent) / 100;
 
-					if (Additional > 0 && IPlayer.GetCurHp() > Additional)
+					if (Additional > 0 && GetCurHp() > Additional)
 					{
-						IPlayer.DecreaseHp(Additional);
+						DecreaseHp(Additional);
 						if (Target.GetType() == 0)
 						{
 							nDmg = nDmg + (Additional)*TSBDamagePerHPPvP; 
@@ -74,14 +74,14 @@ void __fastcall SuicidalBlow(ICharacter IPlayer, int pPacket, int pPos)
 				}
 				else
 				{
-					IPlayer.SystemMessage("Not enough HP to cast skill!", TEXTCOLOR_RED);
+					SystemMessage("Not enough HP to cast skill!", TEXTCOLOR_RED);
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				IPlayer.OktayDamageSingle(Target, nDmg, 21);
-				IPlayer.SetDirection(Target);
-				IPlayer.DecreaseMana(nMana);
+				OktayDamageSingle(Target, nDmg, 21);
+				SetDirection(Target);
+				DecreaseMana(nMana);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

@@ -21,24 +21,24 @@ void __fastcall FocusShot(int pSkill, void *pPlayer, int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 		return;
 
 
 	ICharacter Target(pTarget);
 
-	if (pTarget && Target.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
+	if (pTarget && Target.IsValid() && IsValid() && nTargetID != GetID())
 	{
 
-		IPlayer.SetDirection(Target);
-		if (IPlayer.CheckHit(Target, 20))
+		SetDirection(Target);
+		if (CheckHit(Target, 20))
 		{
-			int nTime = GetTickCount() - CheckFocus[IPlayer.GetPID()];
+			int nTime = GetTickCount() - CheckFocus[GetPID()];
 			
-			int nDmg = (IPlayer.GetAttack()*FSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*FSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*FSStrMultiPvE) + (nSkillGrade*FSPerGradeMultiPvE);
+			int nDmg = (GetAttack()*FSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*FSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*FSStrMultiPvE) + (nSkillGrade*FSPerGradeMultiPvE);
 
 			if (Target.GetType() == 0)
-				nDmg = (IPlayer.GetAttack()*FSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*FSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*FSStrMultiPvP) + (nSkillGrade*FSPerGradeMultiPvP);
+				nDmg = (GetAttack()*FSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*FSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*FSStrMultiPvP) + (nSkillGrade*FSPerGradeMultiPvP);
 
 
 			if (nTime > 1000)
@@ -61,15 +61,15 @@ void __fastcall FocusShot(int pSkill, void *pPlayer, int pPacket, int pPos)
 			}
 			
 
-			IPlayer.OktayDamageSingle(Target, nDmg, 16);
+			OktayDamageSingle(Target, nDmg, 16);
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}
 		else
 		{
-			IPlayer._ShowBattleMiss(Target, 16);
+			_ShowBattleMiss(Target, 16);
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}
 	}
-	IPlayer.DecreaseMana(nMana);
+	DecreaseMana(nMana);
 }
 #endif

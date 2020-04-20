@@ -3,9 +3,9 @@
 
 void __fastcall SpiritOfTheArrows(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(93);
+	int pSkill = GetSkillPointer(93);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -26,23 +26,23 @@ void __fastcall SpiritOfTheArrows(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType >= 2)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsOnline())
+		if (pTarget && nSkillGrade && IsOnline())
 		{
 			ICharacter Target(pTarget);
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (!IPlayer.IsInRange(Target, 20))
+			if (!IsInRange(Target, 20))
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
@@ -54,23 +54,23 @@ void __fastcall SpiritOfTheArrows(ICharacter IPlayer, int pPacket, int pPos)
 			{
 				ICharacter Object((void*)*(DWORD*)Around);
 
-				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+				if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 				{
-					int nDmg = (IPlayer.GetAttack()*SOTABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*SOTAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*SOTAStrMultiPvE) + (nSkillGrade*SOTAPerGradeMultiPvE);
+					int nDmg = (GetAttack()*SOTABaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*SOTAAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*SOTAStrMultiPvE) + (nSkillGrade*SOTAPerGradeMultiPvE);
 
 					if (Target.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*SOTABaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*SOTAAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*SOTAStrMultiPvP) + (nSkillGrade*SOTAPerGradeMultiPvE);
+						nDmg = (GetAttack()*SOTABaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*SOTAAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*SOTAStrMultiPvP) + (nSkillGrade*SOTAPerGradeMultiPvE);
 
 
-					IPlayer.OktayDamageArea(Object, nDmg, 93);
+					OktayDamageArea(Object, nDmg, 93);
 				}
 
 				Around = CBaseList::Pop((void*)Around);
 			}
 
-			IPlayer.SetDirection(Target);
-			IPlayer._ShowBattleAnimation(Target, 93);
-			IPlayer.DecreaseMana(nMana);
+			SetDirection(Target);
+			_ShowBattleAnimation(Target, 93);
+			DecreaseMana(nMana);
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}
 	}

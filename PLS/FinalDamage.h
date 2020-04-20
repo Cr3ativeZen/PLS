@@ -5,16 +5,16 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 	ICharacter ITarget(Target);
 	int CheckDamage = CChar::GetFinalDamage(Target, Player, Damage, Argument);
 
-	if (IPlayer.IsValid() && IPlayer.GetType() == 0)
-		IPlayer.Buff(313, 3, 0);
+	if (IsValid() && GetType() == 0)
+		Buff(313, 3, 0);
 
 	if (ITarget.IsValid() && ITarget.GetType() == 0)
 		ITarget.Buff(313, 3, 0);
 
 
-	if (IPlayer.IsValid() && ITarget.IsValid() && IPlayer.GetType() == 0 && ITarget.GetType() == 0 &&IPlayer.IsBuff(LawlessZone::BuffID)&& ITarget.IsBuff(LawlessZone::BuffID) &&IPlayer.GetPartyID()==ITarget.GetPartyID()&&IPlayer.IsParty()&&ITarget.IsParty())
+	if (IsValid() && ITarget.IsValid() && GetType() == 0 && ITarget.GetType() == 0 &&IsBuff(LawlessZone::BuffID)&& ITarget.IsBuff(LawlessZone::BuffID) &&GetPartyID()==ITarget.GetPartyID()&&IsParty()&&ITarget.IsParty())
 	{
-		IPlayer.SystemMessage("You cannot attack your party members at Lawless Zone!", TEXTCOLOR_RED);
+		SystemMessage("You cannot attack your party members at Lawless Zone!", TEXTCOLOR_RED);
 		return 0;
 	}
 
@@ -29,9 +29,9 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 			ISkill xSkill((void*)pSkill);
 			int nSkillGrade = xSkill.GetGrade();
 
-			if (pSkill && ITarget.IsValid() && IPlayer.IsValid() && GetTickCount() >= CODelay.find(ITarget.GetPID())->second && (int)CTools::Rate(1, 1000) <= (COChanceToPopBase + (COChanceToPopPerGrade*nSkillGrade)) * 10)
+			if (pSkill && ITarget.IsValid() && IsValid() && GetTickCount() >= CODelay.find(ITarget.GetPID())->second && (int)CTools::Rate(1, 1000) <= (COChanceToPopBase + (COChanceToPopPerGrade*nSkillGrade)) * 10)
 			{
-				int Around = IPlayer.GetObjectListAround(3);
+				int Around = GetObjectListAround(3);
 				int nDmg = 0;
 
 				while (Around)
@@ -68,14 +68,14 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 			ISkill xSkill((void*)pSkill);
 			int nSkillGrade = xSkill.GetGrade();
 
-			if (pSkill && ITarget.IsValid() && IPlayer.IsValid() && (int)CTools::Rate(1, 1000) <= (CAChanceToPopBase + (CAChanceToPopPerGrade*nSkillGrade)) * 10)
+			if (pSkill && ITarget.IsValid() && IsValid() && (int)CTools::Rate(1, 1000) <= (CAChanceToPopBase + (CAChanceToPopPerGrade*nSkillGrade)) * 10)
 			{
-				if (IPlayer.GetCurHp() > 1)
+				if (GetCurHp() > 1)
 				{
 
 					int nDmg = CheckDamage * (CADamageMultiPvE / 100) + CABaseDamagePvE;
 
-					if (IPlayer.GetType() == 0)
+					if (GetType() == 0)
 						nDmg = CheckDamage * (CADamageMultiPvP / 100) + CABaseDamagePvP;
 
 					ITarget.OktayDamageNoAgro(IPlayer, nDmg, 20);
@@ -86,16 +86,16 @@ int __fastcall FinalDamage(void *Target, void *edx, int Player, int Damage, int 
 		}
 
 
-		if (IPlayer.IsValid()&&IPlayer.GetType()==1&&ITarget.IsValid() && ITarget.GetType() == 0 && ITarget.IsBuff(5565)&& CheckDamage > 100)
+		if (IsValid()&&GetType()==1&&ITarget.IsValid() && ITarget.GetType() == 0 && ITarget.IsBuff(5565)&& CheckDamage > 100)
 		{
 			CheckDamage -= (CheckDamage * ARDamagePercentageReducePvE) / 100;
 		}
 
-		if (IPlayer.IsValid() && IPlayer.IsOnline() && IPlayer.GetType() == 0 && ITarget.GetType() == 1 && BossDropsMap.count(ITarget.GetMobIndex()))
+		if (IsValid() && IsOnline() && GetType() == 0 && ITarget.GetType() == 1 && BossDropsMap.count(ITarget.GetMobIndex()))
 		{
 			if (CheckDamage > 1)
 			{
-				BossRNG[{ITarget.GetOffset(), IPlayer.GetOffset()}] += CheckDamage;
+				BossRNG[{ITarget.GetOffset(), GetOffset()}] += CheckDamage;
 
 			}
 		}

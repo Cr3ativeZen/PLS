@@ -3,11 +3,11 @@
 //void __fastcall ContinueThunderbolt(ICharacter IPlayer)
 //{
 //
-//	if (IPlayer.IsValid())
+//	if (IsValid())
 //	{
-//		int pSkill = IPlayer.GetSkillPointer(75);
+//		int pSkill = GetSkillPointer(75);
 //		ISkill xSkill((void*)pSkill);
-//		void *pTarget = CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerTarget;
+//		void *pTarget = CheckContinueSkill.find(GetPID())->second.PlayerTarget;
 //		ICharacter Target(pTarget);
 //
 //		if (!Target.IsValid())
@@ -17,36 +17,36 @@
 //			return;
 //		}
 //
-//		if (CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
+//		if (CheckContinueSkill.find(GetPID())->second.PlayerSkillCount)
 //		{
-//			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
+//			CheckContinueSkill[GetPID()].PlayerSkillCount--;
 //
-//			if (!IPlayer.IsInRange(Target, 30))
+//			if (!IsInRange(Target, 30))
 //			{
 //				ResetContinueSkill(IPlayer);
 //				return;
 //			}
 //
-//			if (!IPlayer.IsValid() || !Target.IsValid())
+//			if (!IsValid() || !Target.IsValid())
 //			{
 //				ResetContinueSkill(IPlayer);
 //				return;
 //			}
 //
 //
-//				int nDmg = (IPlayer.GetMagic()*TBoltMBaseDmgMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*TBoltMIntMultiPvE) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvE);
+//				int nDmg = (GetMagic()*TBoltMBaseDmgMultiPvE) + (CChar::GetInt((int)GetOffset())*TBoltMIntMultiPvE) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvE);
 //
 //				if (Target.GetType() == 0)
-//					nDmg = (IPlayer.GetMagic()*TBoltMBaseDmgMultiPvP) + (CChar::GetInt((int)IPlayer.GetOffset())*TBoltMIntMultiPvP) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvP);
+//					nDmg = (GetMagic()*TBoltMBaseDmgMultiPvP) + (CChar::GetInt((int)GetOffset())*TBoltMIntMultiPvP) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvP);
 //
-//				IPlayer.OktayDamageSingle(Target, nDmg, 75);
-//				IPlayer.SetDirection(Target);
+//				OktayDamageSingle(Target, nDmg, 75);
+//				SetDirection(Target);
 //			
 //
-//			if (IPlayer.IsOnline())
-//				CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 200;
+//			if (IsOnline())
+//				CheckContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 200;
 //
-//			if (IPlayer.IsOnline() && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount == 0)
+//			if (IsOnline() && CheckContinueSkill.find(GetPID())->second.PlayerSkillCount == 0)
 //				ResetContinueSkill(IPlayer);
 //
 //			return;
@@ -59,9 +59,9 @@
 
 void __fastcall Thunderbolt(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(75);
+	int pSkill = GetSkillPointer(75);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 
@@ -80,35 +80,35 @@ void __fastcall Thunderbolt(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
-		if (pTarget && xSkill.GetGrade() && IPlayer.IsValid())
+		if (pTarget && xSkill.GetGrade() && IsValid())
 		{
 			ICharacter Target(pTarget);
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			int nDmg = (IPlayer.GetMagic()*TBoltMBaseDmgMultiPvE) + (CChar::GetInt((int)IPlayer.GetOffset())*TBoltMIntMultiPvE) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvE);
+			int nDmg = (GetMagic()*TBoltMBaseDmgMultiPvE) + (CChar::GetInt((int)GetOffset())*TBoltMIntMultiPvE) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvE);
 			
 				if (Target.GetType() == 0)
-					nDmg = (IPlayer.GetMagic()*TBoltMBaseDmgMultiPvP) + (CChar::GetInt((int)IPlayer.GetOffset())*TBoltMIntMultiPvP) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvP);
+					nDmg = (GetMagic()*TBoltMBaseDmgMultiPvP) + (CChar::GetInt((int)GetOffset())*TBoltMIntMultiPvP) + (xSkill.GetGrade()*TBoltMPerGradeMultiPvP);
 
-				IPlayer.SetDirection(Target);
+				SetDirection(Target);
 
 				for (int i = 0; i < 6; i++)
 				{
-					IPlayer.OktayDamageSingle(Target, nDmg+CTools::Rate(1,200), 75);
+					OktayDamageSingle(Target, nDmg+CTools::Rate(1,200), 75);
 					Sleep(100);
 				}
 			

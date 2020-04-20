@@ -22,39 +22,39 @@ void __fastcall LifeAbsorption(int pSkill, void *edx, void *pPlayer, char *pPack
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 		return;
 
 	ICharacter ITarget(pTarget);
 
-	if (pTarget && ITarget.IsValid() && IPlayer.IsValid() && nTargetID != IPlayer.GetID())
+	if (pTarget && ITarget.IsValid() && IsValid() && nTargetID != GetID())
 	{
 
-		int nDmg = (IPlayer.GetAttack()*LAbsBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*LAbsAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*LAbsStrMultiPvE) + (nSkillGrade*LAbsPerGradeMultiPvE);
+		int nDmg = (GetAttack()*LAbsBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*LAbsAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*LAbsStrMultiPvE) + (nSkillGrade*LAbsPerGradeMultiPvE);
 
 		if (ITarget.GetType() == 0)
-			nDmg = (IPlayer.GetAttack()*LAbsBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*LAbsAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*LAbsStrMultiPvP) + (nSkillGrade*LAbsPerGradeMultiPvP);
+			nDmg = (GetAttack()*LAbsBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*LAbsAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*LAbsStrMultiPvP) + (nSkillGrade*LAbsPerGradeMultiPvP);
 
-		if (IPlayer.CheckHit(ITarget.GetOffset(), 50))
+		if (CheckHit(ITarget.GetOffset(), 50))
 		{
-			unsigned int GetAttackSpeed = CChar::GetASpeed((int)IPlayer.GetOffset());
+			unsigned int GetAttackSpeed = CChar::GetASpeed((int)GetOffset());
 			unsigned int GetASpeedValue = GetAttackSpeed;
 			int NormalDamage = 0, DamageArgument = 0, EBDamage = 0, Check = 0, TypeKind = 0, GetType = 0;
-			TypeKind = (*(int(__thiscall **)(LONG, void *))(*(DWORD *)ITarget.GetOffset() + 148))((int)ITarget.GetOffset(), IPlayer.GetOffset());
-			Check = (*(int(__thiscall**)(LONG, void*, unsigned int, int*, int*, int*, DWORD))(*(DWORD*)ITarget.GetOffset() + 72))((int)ITarget.GetOffset(), IPlayer.GetOffset(), GetASpeedValue * nDmg / GetAttackSpeed, &NormalDamage, &DamageArgument, &EBDamage, 0);
+			TypeKind = (*(int(__thiscall **)(LONG, void *))(*(DWORD *)ITarget.GetOffset() + 148))((int)ITarget.GetOffset(), GetOffset());
+			Check = (*(int(__thiscall**)(LONG, void*, unsigned int, int*, int*, int*, DWORD))(*(DWORD*)ITarget.GetOffset() + 72))((int)ITarget.GetOffset(), GetOffset(), GetASpeedValue * nDmg / GetAttackSpeed, &NormalDamage, &DamageArgument, &EBDamage, 0);
 			GetType = Check | 2 * DamageArgument | 4 * TypeKind;
 
 			if (NormalDamage > 0)
-				IPlayer.IncreaseHp(NormalDamage *LAbsHealPerGrade*nSkillGrade/100);
+				IncreaseHp(NormalDamage *LAbsHealPerGrade*nSkillGrade/100);
 
-				CChar::WriteInSight(IPlayer.GetOffset(), 63, "bddbbwwb", ISkill.GetIndex(), IPlayer.GetID(), ITarget.GetID(), 1, 1, NormalDamage, 0, GetType);
+				CChar::WriteInSight(GetOffset(), 63, "bddbbwwb", ISkill.GetIndex(), GetID(), ITarget.GetID(), 1, 1, NormalDamage, 0, GetType);
 		}
 		else 
 		{
-			IPlayer._ShowBattleMiss(ITarget, ISkill.GetIndex());
+			_ShowBattleMiss(ITarget, ISkill.GetIndex());
 		}
 
-		IPlayer.DecreaseMana(nMana);
+		DecreaseMana(nMana);
 	}
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 }

@@ -3,12 +3,12 @@
 
 void __fastcall ReleasingTheEnergy(ICharacter IPlayer)
 {
-	if (IPlayer.IsBuff(391))
+	if (IsBuff(391))
 		return;
 
-	int pSkill = IPlayer.GetSkillPointer(92);
+	int pSkill = GetSkillPointer(92);
 
-	if (IPlayer.IsOnline() && pSkill)
+	if (IsOnline() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 
@@ -19,21 +19,21 @@ void __fastcall ReleasingTheEnergy(ICharacter IPlayer)
 
 		int Mana = (15 + (xSkill.GetGrade() * 5));
 
-		if (IPlayer.GetCurMp() < Mana)
+		if (GetCurMp() < Mana)
 			return;
 
-		if (IPlayer.IsValid() && !IPlayer.IsBuff(391))
+		if (IsValid() && !IsBuff(391))
 		{
-			IPlayer.AddFxToTarget("island_boss_m", 1, 0, 0);
-			IPlayer.DecreaseMana(Mana);
-			IPlayer.Buff(390, 10 * xSkill.GetGrade(), 0);
-			IPlayer.Buff(391, 3600, 0);
-			IPlayer._ShowBattleAnimation(IPlayer, 92);
-			IPlayer.SetBuffIcon(10000 * xSkill.GetGrade(), 0, 4244, 952);
-			IPlayer.IncreaseMaxHp(500 * xSkill.GetGrade());
-			IPlayer.IncreaseHp(500 * xSkill.GetGrade());
-			IPlayer.AddMaxAttack(100 * xSkill.GetGrade());
-			IPlayer.AddMinAttack(100 * xSkill.GetGrade());
+			AddFxToTarget("island_boss_m", 1, 0, 0);
+			DecreaseMana(Mana);
+			Buff(390, 10 * xSkill.GetGrade(), 0);
+			Buff(391, 3600, 0);
+			_ShowBattleAnimation(IPlayer, 92);
+			SetBuffIcon(10000 * xSkill.GetGrade(), 0, 4244, 952);
+			IncreaseMaxHp(500 * xSkill.GetGrade());
+			IncreaseHp(500 * xSkill.GetGrade());
+			AddMaxAttack(100 * xSkill.GetGrade());
+			AddMinAttack(100 * xSkill.GetGrade());
 		}
 	}
 }

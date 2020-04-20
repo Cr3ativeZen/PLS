@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 #include "Resources.h"
+=======
+#include "CKnight.h"
+#include "CMage.h"
+#include "CArcher.h"
+#include "CThief.h"
+
+>>>>>>> hubert
 #include "BlowUpArrow.h"
 #include "Calls.h"
 #include "MuscleSolidation.h"

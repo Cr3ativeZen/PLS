@@ -2,9 +2,9 @@
 #define MASSIVEARROW_H
 void __fastcall MassiveFire(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(91);
+	int pSkill = GetSkillPointer(91);
 
-	if (pSkill && IPlayer.IsValid())
+	if (pSkill && IsValid())
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -26,36 +26,36 @@ void __fastcall MassiveFire(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType >= 2)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsValid())
+		if (pTarget && nSkillGrade && IsValid())
 		{
 			ICharacter Target(pTarget);
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 					return;
 
-				int nDmg = (IPlayer.GetAttack()*MFBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MFAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MFStrMultiPvE) + (nSkillGrade*MFPerGradeMultiPvE);
+				int nDmg = (GetAttack()*MFBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*MFAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*MFStrMultiPvE) + (nSkillGrade*MFPerGradeMultiPvE);
 
 				if (Target.GetType() == 0)
-					nDmg = (IPlayer.GetAttack()*MFBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*MFAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*MFStrMultiPvP) + (nSkillGrade*MFPerGradeMultiPvE);
+					nDmg = (GetAttack()*MFBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*MFAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*MFStrMultiPvP) + (nSkillGrade*MFPerGradeMultiPvE);
 
 
-				IPlayer.OktayDamageSingle(Target, nDmg, 91);
-				IPlayer.SetDirection(Target);
-				IPlayer.DecreaseMana(nMana);
+				OktayDamageSingle(Target, nDmg, 91);
+				SetDirection(Target);
+				DecreaseMana(nMana);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

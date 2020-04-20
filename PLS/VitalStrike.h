@@ -3,9 +3,9 @@
 
 void __fastcall VitalStrike(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(16);
+	int pSkill = GetSkillPointer(16);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -23,39 +23,39 @@ void __fastcall VitalStrike(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
 			return;
 
-		if (pTarget && nSkillGrade && IPlayer.IsValid())
+		if (pTarget && nSkillGrade && IsValid())
 		{
 			ICharacter Target(pTarget);
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				if (IPlayer.CheckHit(Target, 25))
+				if (CheckHit(Target, 25))
 				{
-					int nDmg = (IPlayer.GetAttack()*VSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*VSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*VSStrMultiPvE) + (nSkillGrade*VSPerGradeMultiPvE);
+					int nDmg = (GetAttack()*VSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*VSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*VSStrMultiPvE) + (nSkillGrade*VSPerGradeMultiPvE);
 
 					if (Target.GetType() == 0)
-						nDmg = (IPlayer.GetAttack()*VSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*VSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*VSStrMultiPvP) + (nSkillGrade*VSPerGradeMultiPvP);
+						nDmg = (GetAttack()*VSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*VSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*VSStrMultiPvP) + (nSkillGrade*VSPerGradeMultiPvP);
 
 
 
@@ -74,14 +74,14 @@ void __fastcall VitalStrike(ICharacter IPlayer, int pPacket, int pPos)
 					}
 
 					
-					IPlayer.OktayDamageSingle(Target, nDmg, 16);
+					OktayDamageSingle(Target, nDmg, 16);
 				}
 				else {
-					IPlayer._ShowBattleMiss(Target, 16);
+					_ShowBattleMiss(Target, 16);
 				}
 
-				IPlayer.SetDirection(Target);
-				IPlayer.DecreaseMana(nMana);
+				SetDirection(Target);
+				DecreaseMana(nMana);
 			}
 
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);

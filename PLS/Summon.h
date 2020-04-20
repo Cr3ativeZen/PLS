@@ -59,17 +59,17 @@ void BossDropDraw(ICharacter IMonster)
 		}
 		temp_drop_iterator->ItemAmount--;
 
-		if (CPlayer::GetInvenSize(PlayerMapIt->first) > IPlayer.MaxInventorySize())
+		if (CPlayer::GetInvenSize(PlayerMapIt->first) > MaxInventorySize())
 		{
 			PlayerMap.erase(PlayerMapIt);
 		}
 
-		if (temp_bool==true&&IPlayer.IsOnline())
+		if (temp_bool==true&&IsOnline())
 		{
 
 			dropsgiven--;
 
-			if(IPlayer.IsOnline())
+			if(IsOnline())
 				CItem::InsertItem((int)PlayerMapIt->first, 0, temp_drop_iterator->ItemID, 0, 1, 0);
 
 			PlayerMapIt->second++;
@@ -194,7 +194,7 @@ int __fastcall SummonTick(void *Monster, void *edx)
 	//		IMonster.Buff(697, 20, 0);
 	//		IMonster.AddFxToTarget("davi_M564_71", 1, 0, 0);
 	//		ICharacter IPlayer((void*)IMonster.GetMobTanker());
-	//		int Around = IPlayer.GetObjectListAround(2);
+	//		int Around = GetObjectListAround(2);
 	//		IMonster.OktayDamageSingle(IPlayer, 3000, 14);
 	//		while (Around)
 	//		{

@@ -3,9 +3,9 @@
 #include "ServerFunctions.h"
 void __fastcall CombativeSpirit(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = IPlayer.GetSkillPointer(51);
+	int pSkill = GetSkillPointer(51);
 
-	if (IPlayer.IsValid() && pSkill)
+	if (IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -22,55 +22,55 @@ void __fastcall CombativeSpirit(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
+		if (bType >= 2 || !pTarget || pTarget == GetOffset())
 			return;
 
-		if (IPlayer.IsValid() && pTarget && nSkillGrade)
+		if (IsValid() && pTarget && nSkillGrade)
 		{
 			ICharacter Target(pTarget);
 			int nMana = (int)(((((nSkillGrade-1)+20) * nSkillGrade)+200) * 1.85);
 
-			if (pTarget == IPlayer.GetOffset())
+			if (pTarget == GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.GetCurMp() < nMana)
+			if (GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IPlayer.IsValid() && Target.IsValid())
+			if (IsValid() && Target.IsValid())
 			{
-				if (!IPlayer.IsInRange(Target, 20))
+				if (!IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				IPlayer.DecreaseMana(nMana);
+				DecreaseMana(nMana);
 
 
-				IPlayer.SetDirection(Target);
-				IPlayer._ShowBattleAnimation(Target, 51);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 51);
 				int Around = Target.GetObjectListAround(3);
 
 				while (Around)
 				{
 					ICharacter Object((void*)*(DWORD*)Around);
 
-					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 					{
-						int nDmg = (IPlayer.GetAttack()*CSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*CSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*CSStrMultiPvE) + (nSkillGrade*CSPerGradeMultiPvE);
+						int nDmg = (GetAttack()*CSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*CSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*CSStrMultiPvE) + (nSkillGrade*CSPerGradeMultiPvE);
 
 
 						if (Target.GetType() == 0)
-							nDmg = (IPlayer.GetAttack()*CSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*CSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*CSStrMultiPvP + (nSkillGrade*CSPerGradeMultiPvP));
+							nDmg = (GetAttack()*CSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*CSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*CSStrMultiPvP + (nSkillGrade*CSPerGradeMultiPvP));
 
-						if (Object.GetX() <= max(IPlayer.GetX(), Target.GetX()) && Object.GetX() >= min(IPlayer.GetX(), Target.GetX()) && Object.GetY() <= max(IPlayer.GetY(), Target.GetY()) && Object.GetY() >= min(IPlayer.GetY(), Target.GetY()))
-							IPlayer.OktayDamageArea(Object, nDmg, 51);
+						if (Object.GetX() <= max(GetX(), Target.GetX()) && Object.GetX() >= min(GetX(), Target.GetX()) && Object.GetY() <= max(GetY(), Target.GetY()) && Object.GetY() >= min(GetY(), Target.GetY()))
+							OktayDamageArea(Object, nDmg, 51);
 					}
 
 					Around = CBaseList::Pop((void*)Around);

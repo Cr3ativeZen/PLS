@@ -8,8 +8,9 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 	IChar IPlayer(Player);
 	IChar plss((void*)a1);
 	time_t now = time(0);
-
-	char* dt = ctime(&now);
+	//char* dt = ctime(&now);
+	char dt;
+	ctime_s(&dt, 1, &now);
 
 	/*IPlayer.SystemMessage(ReceiverName, TEXTCOLOR_RED);
 	IPlayer.SystemMessage(Text, TEXTCOLOR_RED);
@@ -65,7 +66,7 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 
 
 		char* file = new char[FileN.size() + 1];
-		strcpy(file, FileN.c_str());
+		strcpy_s(file, FileN.size() + 1, FileN.c_str());
 		if (!dirExists(FileN))
 		{
 			_mkdir(file);
@@ -74,7 +75,7 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 		delete[] file;
 		FileN += type_for_dir;
 		file = new char[FileN.size() + 1];
-		strcpy(file, FileN.c_str());
+		strcpy_s(file, FileN.size() + 1, FileN.c_str());
 
 		if (!dirExists(FileN))
 		{

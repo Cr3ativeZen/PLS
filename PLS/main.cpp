@@ -1,5 +1,8 @@
 #pragma comment(lib, "detours.lib")
 
+
+
+
 #undef UNICODE
 #include <cstdio>
 #include <windows.h>
@@ -17,25 +20,29 @@
 #include <direct.h>
 #include <set>
 
-
  
 
 std::string Int2String(int value)
 {
+	/*
 	std::stringstream ss;
 	ss << value;
 	std::string str = ss.str();
 	return str;
+	*/
+	return std::to_string(value);
 }
-
  
 
 int String2Int(std::string String)
 {
+	/*
 	int Integer;
 	std::istringstream iss(String);
 	iss >> Integer;
 	return Integer;
+	*/
+	return std::stoi(String);
 }
 
 bool dirExists(const std::string& dirName_in)
@@ -1214,6 +1221,9 @@ namespace Mautareta
 #include "PowerfulWideningWound.h"
 #include "SendMail.h"
 
+
+
+
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
 	CIOServer::Start(Start, hostshort);
@@ -1223,9 +1233,6 @@ void __fastcall Start(int Start, void *edx, u_short hostshort)
 	MautaretaConfig();
 	ConsoleWriteBlue("CreativeZen's DLL loaded successfully");
 	Sleep(500);
-
-
-
 }
 
 
@@ -1242,47 +1249,46 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 {
 	switch (ul_reason_for_call)
 	{
-	case DLL_PROCESS_ATTACH:
-	{
-
-		DetourTransactionBegin();
-		DetourUpdateThread(GetCurrentThread());
-		DetourAttach(&(PVOID&)CIOServer::Start, Start);
-		DetourAttach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
-		DetourAttach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
-		DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
-		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
-		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
-		DetourAttach(&(PVOID&)CMonsterReal::Die, MonsterDie);
-		DetourAttach(&(PVOID&)CPlayer::PKKill, PKKill);
-		DetourAttach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
-		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
-		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
-		DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
-		DetourAttach(&(PVOID&)CPlayer::SendMail, SendMail);
-		DetourTransactionCommit();
-		break;
-	}
-	case DLL_PROCESS_DETACH:
-	{
-		DetourTransactionBegin();
-		DetourUpdateThread(GetCurrentThread());
-		DetourDetach(&(PVOID&)CIOServer::Start, Start);
-		DetourDetach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
-		DetourDetach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
-		DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
-		DetourDetach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
-		DetourDetach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
-		DetourDetach(&(PVOID&)CMonsterReal::Die, MonsterDie);
-		DetourDetach(&(PVOID&)CPlayer::PKKill, PKKill);
-		DetourDetach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
-		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
-		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
-		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
-		DetourDetach(&(PVOID&)CPlayer::SendMail, SendMail);
-		DetourTransactionCommit();
-		break;
-	}
+		case DLL_PROCESS_ATTACH:
+		{
+			DetourTransactionBegin();
+			DetourUpdateThread(GetCurrentThread());
+			DetourAttach(&(PVOID&)CIOServer::Start, Start);
+			DetourAttach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
+			DetourAttach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
+			DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
+			DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
+			DetourAttach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
+			DetourAttach(&(PVOID&)CMonsterReal::Die, MonsterDie);
+			DetourAttach(&(PVOID&)CPlayer::PKKill, PKKill);
+			DetourAttach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
+			DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
+			DetourAttach(&(PVOID&)CPlayer::Process, Packet);
+			DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
+			DetourAttach(&(PVOID&)CPlayer::SendMail, SendMail);
+			DetourTransactionCommit();
+			break;
+		}
+		case DLL_PROCESS_DETACH:
+		{
+			DetourTransactionBegin();
+			DetourUpdateThread(GetCurrentThread());
+			DetourDetach(&(PVOID&)CIOServer::Start, Start);
+			DetourDetach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
+			DetourDetach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
+			DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
+			DetourDetach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
+			DetourDetach(&(PVOID&)CMonsterMaguniMaster::Tick, SummonTick);
+			DetourDetach(&(PVOID&)CMonsterReal::Die, MonsterDie);
+			DetourDetach(&(PVOID&)CPlayer::PKKill, PKKill);
+			DetourDetach(&(PVOID&)CPlayer::UpdateProperty, UpdateProperty);
+			DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
+			DetourDetach(&(PVOID&)CPlayer::Process, Packet);
+			DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
+			DetourDetach(&(PVOID&)CPlayer::SendMail, SendMail);
+			DetourTransactionCommit();
+			break;
+		}
 	}
 
 	return TRUE;

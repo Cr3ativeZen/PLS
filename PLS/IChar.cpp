@@ -23,20 +23,29 @@ void *IChar::GetOffset()
 	return this->Offset;
 }
 
-int IChar::IsOnline()
+bool IChar::IsOnline()
 {
 	if ((int)this->GetOffset())
-	{
-		if (CBase::IsDeleted((int)this->GetOffset()))
-			return 0;
-		else
-			return 1;
-	} else {
-		return 0;
-	}
+		return CBase::IsDeleted((int)this->GetOffset());
 
-	return 0;
+	return false;
 }
+
+//int IChar::IsOnline()
+//{
+//	if ((int)this->GetOffset())
+//	{
+//		if (CBase::IsDeleted((int)this->GetOffset()))
+//			return 0;
+//		else
+//			return 1;
+//	} 
+//	else {
+//		return 0;
+//	}
+//
+//	return 0;
+//}
 
 void IChar::Announcement(std::string msg, int color)
 {
@@ -1779,6 +1788,6 @@ void IChar::SetAsSleep()
 std::string IChar::GetIP()
 {
 	std::string Check = "error";
-	if (this->IsOnline()) Check = inet_ntoa(*(struct in_addr*)(*(DWORD*)((int)this->GetOffset() + 1676) + 140));
+	//if (this->IsOnline()) Check = inet_ntoa(*(struct in_addr*)(*(DWORD*)((int)this->GetOffset() + 1676) + 140));
 	return Check;
 }

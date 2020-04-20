@@ -116,7 +116,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 					{
 						IPlayer.CancelBuff(73);
 					}
-					IPlayer.RemoveEva(*(DWORD*)(Buff + 12));
+					IPlayer.RemoveEva(*(DWORD*)(static_cast<long long>(Buff) + 12ll));
 					IPlayer.CancelBuff(70);
 					IPlayer.CancelBuff(550);
 

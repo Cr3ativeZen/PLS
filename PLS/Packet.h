@@ -1,6 +1,8 @@
 #ifndef PACKET_H
 #define PACKET_H
 
+#pragma warning (disable : 4996)
+
 void WritePacketToFile(IChar IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
 {
 	
@@ -13,7 +15,8 @@ void WritePacketToFile(IChar IPlayer,ToFile WHICH_FILE,const std::string &str_to
 	tm* timePtr = localtime(&now);
 	std::string date = Int2String(timePtr->tm_mday)+ "_" + Int2String(timePtr->tm_mon)+ "_" + Int2String(timePtr->tm_year + 1900)+"_" + Int2String(timePtr->tm_hour);
 
-	char* dt = ctime(&now);
+	char dt;
+	ctime_s(&dt, 1, &now);
 
 switch (WHICH_FILE)
 {
@@ -108,7 +111,8 @@ switch (WHICH_FILE)
 	//std::string FileN = "C:\\Users\\Admin\\Desktop\\kal\\Shaman ServSide\\ZenLogs\\Characters\\" + Nick;
 
 	char* file = new char[FileN.size() + 1];
-	strcpy(file, FileN.c_str());
+	strcpy_s(file, FileN.size() + 1,  FileN.c_str());
+
 	if (!dirExists(FileN))
 	{
 		_mkdir(file);
@@ -117,7 +121,7 @@ switch (WHICH_FILE)
 	delete[] file;
 	FileN += type_for_dir;
 	file = new char[FileN.size() + 1];
-	strcpy(file, FileN.c_str());
+	strcpy_s(file, FileN.size() + 1, FileN.c_str());
 
 	if (!dirExists(FileN))
 	{
@@ -146,8 +150,10 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		if (packet == 94 && Logs == true)
 		{
 			time_t now = time(0);
+			//char* dt = ctime(&now);
+			char dt;
+			ctime_s(&dt, 1, &now);
 
-			char* dt = ctime(&now);
 			std::string to_file = "WOODEN BOX OPENNED BY: ";
 			to_file += IPlayer.GetName();
 			to_file += "--- X " + Int2String(IPlayer.GetX()) + "--- Y " + Int2String(IPlayer.GetY()) + "--- Z " + Int2String(IPlayer.GetX()) + "--- " + dt;
@@ -814,8 +820,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			if (Logs == true)
 			{
 				time_t now = time(0);
-
-				char* dt = ctime(&now);
+				//char* dt = ctime(&now);
+				char dt;
+				ctime_s(&dt, 1, &now);
 
 				std::string to_file = "------|Name: ";
 				to_file += IPlayer.GetName();

@@ -15,7 +15,7 @@ void __fastcall Bombing(IChar IPlayer)
 
 		if (IPlayer.IsValid() && nSkillGrade)
 		{
-			int nMana = 180 + static_cast<int>((1.25 * (nSkillGrade * (IPlayer.GetLevel() + nSkillGrade))));
+			int nMana = 180 + static_cast<int>(1.25 * (nSkillGrade * (IPlayer.GetLevel() + nSkillGrade)));
 
 			if (IPlayer.GetCurMp() < nMana)
 				return;

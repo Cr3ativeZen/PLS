@@ -19,7 +19,7 @@ public:
 
 
 	void *GetOffset();
-	int IsOnline();
+	bool IsOnline();
 	void Announcement(std::string msg, int color);
 	void SystemMessage(std::string msg, int color);
 	int Buff(int id, int time, int value);

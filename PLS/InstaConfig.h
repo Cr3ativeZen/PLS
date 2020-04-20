@@ -56,20 +56,21 @@ void InstaConfig()
 
 void ZenConfig()
 {
-	FILE *filez = fopen("./Configs/Cooldown.txt", "r");
+	FILE* filez;
+	fopen_s(&filez, "./Configs/Cooldown.txt", "r");
 	if (filez != NULL)
 	{
 		char line[BUFSIZ];
 		while (fgets(line, sizeof line, filez) != NULL)
 		{
 			int GetClass = 0, GetSkillID = 0, GetDelay = 0, GetCooldown = 0, GetSkillIDx = 0, GetDelayx = 0, GetCooldownx = 0;
-			if (sscanf(line, "(eggskill (action %d)(delay %d)(cooldown %d))", &GetSkillIDx, &GetDelayx, &GetCooldownx) == 3)
+			if (sscanf_s(line, "(eggskill (action %d)(delay %d)(cooldown %d))", &GetSkillIDx, &GetDelayx, &GetCooldownx) == 3)
 			{
 				CheckEggCooldownConfig[GetSkillIDx].EggCooldownConfig = GetCooldownx;
 				CheckEggCooldownConfig[GetSkillIDx].EggDelayConfig = GetDelayx;
 			}
 
-			if (sscanf(line, "(skill (class %d)(action %d)(delay %d)(cooldown %d))", &GetClass, &GetSkillID, &GetDelay, &GetCooldown) == 4)
+			if (sscanf_s(line, "(skill (class %d)(action %d)(delay %d)(cooldown %d))", &GetClass, &GetSkillID, &GetDelay, &GetCooldown) == 4)
 			{
 				CheckCooldownConfig[GetSkillID + (GetClass * 100)].CooldownConfig = GetCooldown;
 				CheckCooldownConfig[GetSkillID + (GetClass * 100)].DelayConfig = GetDelay;
@@ -77,14 +78,16 @@ void ZenConfig()
 		}
 		fclose(filez);
 	}
-	FILE *filex = fopen("./Configs/Teleport.txt", "r");
+
+	FILE* filex;
+	fopen_s(&filex, "./Configs/Teleport.txt", "r");
 	if (filex != NULL)
 	{
 		char line[BUFSIZ];
 		while (fgets(line, sizeof line, filez) != NULL)
 		{
 			int Index = 0, TeleportX = 0, TeleportY = 0, TeleportMap = 0, LevelLimit = 0;
-			if (sscanf(line, "(teleport (index %d)(X %d)(Y %d)(Map %d)(LvlLimit %d))", &Index, &TeleportX, &TeleportY, &TeleportMap, &LevelLimit) == 5)
+			if (sscanf_s(line, "(teleport (index %d)(X %d)(Y %d)(Map %d)(LvlLimit %d))", &Index, &TeleportX, &TeleportY, &TeleportMap, &LevelLimit) == 5)
 			{
 				ZenTP[Index].TeleportX = TeleportX;
 				ZenTP[Index].TeleportY = TeleportY;

@@ -772,8 +772,10 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
 				if (PlayerCoords[IPlayer.GetPID()].current_check > 12)
 				{
 					time_t now = time(0);
+					//char* dt = ctime(&now);
+					char dt;
+					ctime_s(&dt, 1, &now);
 
-					char* dt = ctime(&now);
 					std::string to_file = "------|Name: ";
 					to_file += IPlayer.GetName();
 					to_file += "------|PID: ";
@@ -810,8 +812,10 @@ if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
 				if (PlayerCoords[IPlayer.GetPID()].current_check > 12)
 				{
 					time_t now = time(0);
+					//char* dt = ctime(&now);
+					char dt;
+					ctime_s(&dt, 1, &now);
 
-					char* dt = ctime(&now);
 					std::string to_file = "ON MOUNT!------|Name: ";
 					to_file += IPlayer.GetName();
 					to_file += "------|PID: ";

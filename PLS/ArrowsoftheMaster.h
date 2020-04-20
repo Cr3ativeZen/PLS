@@ -27,7 +27,7 @@ void __fastcall ArrowsOfTheMaster(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			nMana = static_cast<int>((1.85 * (200 + (nSkillGrade * (20 + (nSkillGrade - 1))))));
+			nMana = static_cast<int>(1.85 * (200 + (nSkillGrade * (20 + (nSkillGrade - 1)))));
 			IChar Target(pTarget);
 
 			if (pTarget == IPlayer.GetOffset())

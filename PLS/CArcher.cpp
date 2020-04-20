@@ -1,4 +1,6 @@
+
 #include "CArcher.h"
+
 
 CArcher::CArcher() :ICharacter()
 {

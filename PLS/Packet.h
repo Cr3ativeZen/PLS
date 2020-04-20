@@ -411,7 +411,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if (!CParty::IsHead((int)D4Instance::Party, (int)IPlayer.Offset))
+				if (!CParty::IsHead((int)D4Instance::Party, (int)IPlayer.m_Offset))
 				{
 					IPlayer.SystemMessage("You are not the party leader so you cannot start Instance", TEXTCOLOR_RED);
 					return;
@@ -712,7 +712,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						return;
 					}
 
-					if (!CParty::IsHead((int)Partyia, (int)IPlayer.Offset))
+					if (!CParty::IsHead((int)Partyia, (int)IPlayer.m_Offset))
 					{
 						IPlayer.SystemMessage("You are not the party leader so you cannot start Mautareta", TEXTCOLOR_RED);
 						return;

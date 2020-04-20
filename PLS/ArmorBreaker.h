@@ -3,9 +3,9 @@
 #include "CanAttack.h"
 void __fastcall ArmorBreaker(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(22);
+	int pSkill = IPlayer.GetSkillPointer(22);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 
@@ -23,38 +23,38 @@ void __fastcall ArmorBreaker(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == GetOffset())
+		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 			return;
 
-		if (IsValid() && pTarget && nSkillGrade)
+		if (IPlayer.IsValid() && pTarget && nSkillGrade)
 		{
-			if (pTarget == GetOffset())
+			if (pTarget == IPlayer.GetOffset())
 				return;
 
 			int nMana = (30 * nSkillGrade) + 35;
 			ICharacter Target(pTarget);
 
-			if (GetCurMp() < nMana)
+			if (IPlayer.GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IsValid() && Target.IsValid())
+			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!CanAttack(GetOffset(), 0, (int)Target.GetOffset(), 0))
+				if (!CanAttack(IPlayer.GetOffset(), 0, (int)Target.GetOffset(), 0))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				if (!IsInRange(Target, 20))
+				if (!IPlayer.IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
-				DecreaseMana(nMana);
+				IPlayer.DecreaseMana(nMana);
 
 				if (!Target.IsBuff(342))
 				{
@@ -62,8 +62,8 @@ void __fastcall ArmorBreaker(ICharacter IPlayer, int pPacket, int pPos)
 					Target.Buff(342, ABreakerDuration+(ABreakerDurationPerGrade*nSkillGrade), 0);
 				}
 
-				SetDirection(Target);
-				_ShowBattleAnimation(Target, 22, nSkillGrade);
+				IPlayer.SetDirection(Target);
+				IPlayer._ShowBattleAnimation(Target, 22, nSkillGrade);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

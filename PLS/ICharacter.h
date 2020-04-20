@@ -1,26 +1,21 @@
-
-#ifndef _ICHARACTER_H
-#define _ICHARACTER_H
+#ifndef _ICharacter_H
+#define _ICharacter_H
 
 #include <string>
 #include "ServerFunctions.h"
 
-
 class ICharacter
 {
-protected:
-
-	void* m_Offset;
-
+public:
+	void* Offset;
 
 public:
+	ICharacter() : Offset(nullptr) {}
+	ICharacter(void* Object);
+	virtual ~ICharacter();
 
-	ICharacter() : m_Offset(nullptr) {}
-	ICharacter(void* offset) : m_Offset(offset) {}
-	virtual ~ICharacter() { if (m_Offset) delete m_Offset; }
 
-
-	void* GetOffset();
+	void *GetOffset();
 	bool IsOnline();
 	void Announcement(std::string msg, int color);
 	void SystemMessage(std::string msg, int color);
@@ -200,4 +195,4 @@ public:
 
 };
 
-#endif // _ICHARACTER_H
+#endif

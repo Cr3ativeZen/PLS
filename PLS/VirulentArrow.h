@@ -51,7 +51,7 @@ void __fastcall VirulentArrow(ICharacter IPlayer, int pPacket, int pPos)
 					return;
 				}
 
-				int Item = CPlayer::FindItem(IPlayer.m_Offset, 360, 2);
+				int Item = CPlayer::FindItem(IPlayer.Offset, 360, 2);
 
 				if (Item)
 					(*(int (__thiscall **)(DWORD, void *, signed int, signed int))(*(DWORD*)Item + 120))(Item,IPlayer.GetOffset(),9,-2);

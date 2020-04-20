@@ -1,6 +1,5 @@
-
-#ifndef _CKNIGHT_H_
-#define _CKNIGHT_H_
+#ifndef CKNIGHT_H
+#define CKNIGHT_H
 
 #include "ICharacter.h"
 
@@ -9,10 +8,7 @@ class CKnight: public ICharacter
 public:
 	CKnight();
 	CKnight(void* offset);
-	virtual ~CKnight();
-
-	// SKILLS
-	void __fastcall PowerfulUpwardSlash(void* pSkill, void* pPacket, void* pPos);
+	~CKnight();
 };
 
-#endif // _CKNIGHT_H_
+#endif

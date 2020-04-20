@@ -23,7 +23,7 @@ void __fastcall Sacrifice(int pSkill, void *edx, int Player, int pPacket, int pP
 	if (bType == 1)
 		return;
 
-	if (bType >= 2 || !pTarget || pTarget == GetOffset())
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 		return;
 
 	ICharacter ITarget((void*)pTarget);
@@ -32,22 +32,22 @@ void __fastcall Sacrifice(int pSkill, void *edx, int Player, int pPacket, int pP
 
 	double nHealAmountSacrifice = SacrificeBaseHeal + (ITarget.GetMaxHp()*SacrificeBasePercentageHeal / 100) + (ITarget.GetMaxHp()*(ISkill.GetGrade()*SacrificeHealPerGradePercentage / 100));
 	
-	double nHpLossSacrifice = SacrificeBaseLoss + (GetMaxHp()*SacrificeBasePercentageLoss / 100) + (GetMaxHp()*(ISkill.GetGrade()*SacrificeLossPerGradePercentage / 100));
+	double nHpLossSacrifice = SacrificeBaseLoss + (IPlayer.GetMaxHp()*SacrificeBasePercentageLoss / 100) + (IPlayer.GetMaxHp()*(ISkill.GetGrade()*SacrificeLossPerGradePercentage / 100));
 
 
-	if (pTarget && ITarget.IsValid() && IsValid())
+	if (pTarget && ITarget.IsValid() && IPlayer.IsValid())
 	{
-		if (GetCurHp() - nHpLossSacrifice <= 0)
+		if (IPlayer.GetCurHp() - nHpLossSacrifice <= 0)
 		{
-			SystemMessage("Your HP is too low to use this skill", TEXTCOLOR_RED);
+			IPlayer.SystemMessage("Your HP is too low to use this skill", TEXTCOLOR_RED);
 			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 			return;
 		}
 		else
 		{
-			DecreaseHp(static_cast<int>(nHpLossSacrifice));
+			IPlayer.DecreaseHp(static_cast<int>(nHpLossSacrifice));
 			ITarget.IncreaseHp(static_cast<int>(nHealAmountSacrifice));
-			_ShowBattleAnimation(IPlayer, 26);
+			IPlayer._ShowBattleAnimation(IPlayer, 26);
 			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 			return;
 		}

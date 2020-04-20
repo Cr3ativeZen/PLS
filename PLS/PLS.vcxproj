@@ -257,7 +257,7 @@
     <ClCompile Include="CKnight.cpp" />
     <ClCompile Include="CMage.cpp" />
     <ClCompile Include="CThief.cpp" />
-    <ClCompile Include="ICharacter.cpp" />
+    <ClCompile Include="IChar.cpp" />
     <ClCompile Include="IItem.cpp" />
     <ClCompile Include="IQuest.cpp" />
     <ClCompile Include="ISkill.cpp" />

@@ -3,9 +3,9 @@
 #include "ServerFunctions.h"
 void __fastcall SpinSlash(ICharacter IPlayer)
 {
-	int pSkill = GetSkillPointer(38);
+	int pSkill = IPlayer.GetSkillPointer(38);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nMana = (xSkill.GetGrade() == 1) ? 209 : (200 + (xSkill.GetGrade() * 20));
@@ -14,40 +14,40 @@ void __fastcall SpinSlash(ICharacter IPlayer)
 		if (!nSkillGrade)
 			return;
 
-		if (GetCurMp() < nMana)
+		if (IPlayer.GetCurMp() < nMana)
 			return;
 
-		if (IsValid() && CPlayer::IsWState((int)GetOffset(), 12))
+		if (IPlayer.IsValid() && CPlayer::IsWState((int)IPlayer.GetOffset(), 12))
 		{
-			int Around = GetObjectListAround(3);
+			int Around = IPlayer.GetObjectListAround(3);
 
 			while (Around)
 			{
 				ICharacter Object((void*)*(DWORD*)Around);
 
-				if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
-					int nDmg = static_cast<int>(((GetAttack()*SSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*SSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*SSStrMultiPvE) + (xSkill.GetGrade()*SSPerGradeMultiPvE))*(0.5+(GetDeathBlow()*0.1)));
+					int nDmg = static_cast<int>(((IPlayer.GetAttack()*SSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*SSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*SSStrMultiPvE) + (xSkill.GetGrade()*SSPerGradeMultiPvE))*(0.5+(IPlayer.GetDeathBlow()*0.1)));
 
-					if (IsBuff(69) && Object.GetType() == 1)
+					if (IPlayer.IsBuff(69) && Object.GetType() == 1)
 					{
 						nDmg = nDmg + SSAdditonalDMG;
 					}
 				
 
 					if (Object.GetType() == 0)
-						nDmg = static_cast<int>((GetAttack()*SSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*SSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*SSStrMultiPvP) + (xSkill.GetGrade()*SSPerGradeMultiPvP)*(0.5 + (GetDeathBlow()*0.1)));
+						nDmg = static_cast<int>((IPlayer.GetAttack()*SSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*SSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*SSStrMultiPvP) + (xSkill.GetGrade()*SSPerGradeMultiPvP)*(0.5 + (IPlayer.GetDeathBlow()*0.1)));
 
 
-					OktayDamageArea(Object, nDmg, 38);
+					IPlayer.OktayDamageArea(Object, nDmg, 38);
 				}
 
 				Around = CBaseList::Pop((void*)Around);
 			}
 
-			_ShowBattleAnimation(IPlayer, 38);
-			RemoveDeathBlow(GetDeathBlow());
-			DecreaseMana(nMana);
+			IPlayer._ShowBattleAnimation(IPlayer, 38);
+			IPlayer.RemoveDeathBlow(IPlayer.GetDeathBlow());
+			IPlayer.DecreaseMana(nMana);
 		}
 	}
 }

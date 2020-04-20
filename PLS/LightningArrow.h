@@ -34,9 +34,9 @@ void __fastcall StormActivateShiny(ICharacter IPlayer, ICharacter Target)
 
 						if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
 						{
-							if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.m_Offset, 128) && !CChar::IsGState((int)Object.m_Offset, 128)) {
+							if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.Offset, 128) && !CChar::IsGState((int)Object.Offset, 128)) {
 							}
-							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.m_Offset, 256) && Object.GetID() != Target.GetID()) {
+							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
 							}
 							else {
 								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);
@@ -126,9 +126,9 @@ void __fastcall ActivateShiny(ICharacter IPlayer, int pPacket, int pPos)
 
 						if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
 						{
-							if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.m_Offset, 128) && !CChar::IsGState((int)Object.m_Offset, 128)) {
+							if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.Offset, 128) && !CChar::IsGState((int)Object.Offset, 128)) {
 							}
-							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.m_Offset, 256) && Object.GetID() != Target.GetID()) {
+							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
 							}
 							else {
 								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);

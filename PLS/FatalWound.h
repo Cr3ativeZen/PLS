@@ -2,37 +2,37 @@
 #define FATALWOUND_H
 void __fastcall ContinueFatalWound(ICharacter IPlayer)
 {
-	if (IsValid())
+	if (IPlayer.IsValid())
 	{
-		int nSkillGrade = CheckFarContinueSkill.find(GetPID())->second.PlayerSkillGrade;
-		void *pTarget = CheckFarContinueSkill.find(GetPID())->second.PlayerTarget;
+		int nSkillGrade = CheckFarContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillGrade;
+		void *pTarget = CheckFarContinueSkill.find(IPlayer.GetPID())->second.PlayerTarget;
 
-		if (nSkillGrade && pTarget && CheckFarContinueSkill.find(GetPID())->second.PlayerSkillCount)
+		if (nSkillGrade && pTarget && CheckFarContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
 			ICharacter Target(pTarget);
-			CheckFarContinueSkill[GetPID()].PlayerSkillCount--;
+			CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
-			if (!Target.IsValid() || !IsValid())
+			if (!Target.IsValid() || !IPlayer.IsValid())
 			{
 				ResetFarContinueSkill(IPlayer);
-				CancelBuff(5576);
+				IPlayer.CancelBuff(5576);
 				return;
 			}
 
-			if (!IsInRange(Target, 20))
+			if (!IPlayer.IsInRange(Target, 20))
 			{
 				ResetFarContinueSkill(IPlayer);
-				CancelBuff(5576);
+				IPlayer.CancelBuff(5576);
 				return;
 			}
 
-			if (IsValid() && Target.IsValid())
+			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				int nDmg = (GetAttack()*FWBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*FWAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*FWStrMultiPvE) + (nSkillGrade*FWPerGradeMultiPvE);
+				int nDmg = (IPlayer.GetAttack()*FWBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*FWAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*FWStrMultiPvE) + (nSkillGrade*FWPerGradeMultiPvE);
 
 				if (Target.GetType() == 0)
 				{
-					nDmg = (GetAttack()*FWBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*FWAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*FWStrMultiPvP) + (nSkillGrade*FWPerGradeMultiPvP);
+					nDmg = (IPlayer.GetAttack()*FWBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*FWAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*FWStrMultiPvP) + (nSkillGrade*FWPerGradeMultiPvP);
 					if (Target.IsBuff(346))
 					{
 						nDmg +=(nDmg * (AnkleAPercentDamageIncreasePvP)/100);
@@ -47,16 +47,16 @@ void __fastcall ContinueFatalWound(ICharacter IPlayer)
 				}
 
 
-				OktayDamageArea(Target, nDmg, 14);
+				IPlayer.OktayDamageArea(Target, nDmg, 14);
 			}
 
-			if (IsOnline())
-				CheckFarContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
+			if (IPlayer.IsOnline())
+				CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
 
-			if (IsOnline() && CheckFarContinueSkill.find(GetPID())->second.PlayerSkillCount == 0)
+			if (IPlayer.IsOnline() && CheckFarContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount == 0)
 			{
 				ResetFarContinueSkill(IPlayer);
-				CancelBuff(5576);
+				IPlayer.CancelBuff(5576);
 			}
 
 			return;
@@ -64,15 +64,15 @@ void __fastcall ContinueFatalWound(ICharacter IPlayer)
 	}
 
 	ResetFarContinueSkill(IPlayer);
-	CancelBuff(5576);
+	IPlayer.CancelBuff(5576);
 	return;
 }
 
 void __fastcall FatalWound(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(14);
+	int pSkill = IPlayer.GetSkillPointer(14);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -89,28 +89,28 @@ void __fastcall FatalWound(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType == 1 && nTargetID)
 			pTarget = CMonster::FindMonster(nTargetID);
 
-		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 			return;
 
-		if (pTarget && nSkillGrade && IsValid())
+		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
 			ICharacter Target(pTarget);
 
-			if (GetCurMp() < nMana)
+			if (IPlayer.GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == GetOffset())
+			if (pTarget == IPlayer.GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IsValid() && Target.IsValid())
+			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IsInRange(Target, 20))
+				if (!IPlayer.IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
@@ -121,18 +121,18 @@ void __fastcall FatalWound(ICharacter IPlayer, int pPacket, int pPos)
 					
 					Target.SendGStateEx(Target.GetGStateEx() + 32768);
 					Target.Buff(348, 16, 0);
-					CheckFarContinueSkill[GetPID()].PlayerTarget = Target.GetOffset();
-					CheckFarContinueSkill[GetPID()].PlayerSkillID = 14;
-					CheckFarContinueSkill[GetPID()].PlayerSkillCount = 8;
-					CheckFarContinueSkill[GetPID()].PlayerSkillDelay = 0;
-					CheckFarContinueSkill[GetPID()].PlayerSkillGrade = nSkillGrade;
-					CheckFarContinueSkill[GetPID()].CasterOffset = GetOffset();
-					Buff(5576, 16, 0);
+					CheckFarContinueSkill[IPlayer.GetPID()].PlayerTarget = Target.GetOffset();
+					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillID = 14;
+					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 8;
+					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = 0;
+					CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
+					CheckFarContinueSkill[IPlayer.GetPID()].CasterOffset = IPlayer.GetOffset();
+					IPlayer.Buff(5576, 16, 0);
 				}
 
-				SetDirection(Target);
-				DecreaseMana(nMana);
-				_ShowBattleAnimation(Target, 14, nSkillGrade);
+				IPlayer.SetDirection(Target);
+				IPlayer.DecreaseMana(nMana);
+				IPlayer._ShowBattleAnimation(Target, 14, nSkillGrade);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

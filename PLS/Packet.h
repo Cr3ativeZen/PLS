@@ -4,7 +4,6 @@
 
 #pragma warning (disable : 4996)
 
-
 void WritePacketToFile(ICharacter IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
 {
 	
@@ -140,65 +139,17 @@ switch (WHICH_FILE)
 	delete[] file;
 }
 
+
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
-<<<<<<< HEAD
 	ICharacter IPlayer((void*)Player);
 	
-=======
-	int CLASS_ID = *(DWORD*)(Player + 460);
-	int skillID = 0;
-	void* skillPtr = (void*)CPacket::Read((char*)pPacket, (char*)pPos, "b", &skillID);
-
-	switch (CLASS_ID)
-	{
-		case CLASS_KNIGHT:
-		{
-			CKnight knight((void*)Player);
-			
-			switch (skillID)
-			{
-				case SKILL_POWERFULLUPWARDSLASH:
-					knight.PowerfulUpwardSlash(skillPtr, pPacket, (void*)pPos);
-					break;
-				default:
-					break;
-			}
-			break;
-		}
-		case CLASS_MAGE:
-		{
-			CMage mage((void*)Player);
-			break;
-		}
-		case CLASS_ARCHER:
-		{
-			CArcher archer((void*)Player);
-			break;
-		}
-		case CLASS_THIEF:
-		{
-			CThief thief((void*)Player);
-			break;
-		}
-		default:
-			break;
-	}
-
-
->>>>>>> hubert
 	if (IPlayer.IsOnline())
 	{
 		//if (packet != 20 && packet != 21)
 		//	IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
-<<<<<<< HEAD
 		if (packet == PACKET_WOODENBOX && Logs == true)
-=======
-
-
-		if (packet == 94 && Logs == true)
->>>>>>> hubert
 		{
 			time_t now = time(0);
 			//char* dt = ctime(&now);
@@ -462,7 +413,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if (!CParty::IsHead((int)D4Instance::Party, (int)IPlayer.m_Offset))
+				if (!CParty::IsHead((int)D4Instance::Party, (int)IPlayer.Offset))
 				{
 					IPlayer.SystemMessage("You are not the party leader so you cannot start Instance", TEXTCOLOR_RED);
 					return;
@@ -763,7 +714,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						return;
 					}
 
-					if (!CParty::IsHead((int)Partyia, (int)IPlayer.m_Offset))
+					if (!CParty::IsHead((int)Partyia, (int)IPlayer.Offset))
 					{
 						IPlayer.SystemMessage("You are not the party leader so you cannot start Mautareta", TEXTCOLOR_RED);
 						return;
@@ -1722,5 +1673,4 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 	}
 
 }
-
 #endif

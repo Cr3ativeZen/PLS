@@ -22,13 +22,13 @@ void __fastcall BlowUpArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
 
-	if (bType >= 2 ||!pTarget||pTarget==GetOffset()||GetCurMp()<nMana)
+	if (bType >= 2 ||!pTarget||pTarget==IPlayer.GetOffset()||IPlayer.GetCurMp()<nMana)
 		return;
 
 
 	ICharacter Target(pTarget);
 
-	if (!IsInRange(Target, 20))
+	if (!IPlayer.IsInRange(Target, 20))
 	{
 		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		return;
@@ -37,39 +37,39 @@ void __fastcall BlowUpArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType == 0)
 	{
 		
-		if (IsValid() &&Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+		if (IPlayer.IsValid() &&Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (CheckHit(Target, 14))
+			if (IPlayer.CheckHit(Target, 14))
 			{
-				int nDmg = (GetAttack()*BlowUpBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*BlowUpAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*BlowUpStrMultiPvP) + (ISkill.GetGrade()*BlowUpPerGradeMultiPvP);
-				OktayDamageSingle(Target, nDmg, 14);
-				SetDirection(Target);
-				_ShowBattleAnimation(Target, 14);
+				int nDmg = (IPlayer.GetAttack()*BlowUpBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*BlowUpAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*BlowUpStrMultiPvP) + (ISkill.GetGrade()*BlowUpPerGradeMultiPvP);
+				IPlayer.OktayDamageSingle(Target, nDmg, 14);
+				IPlayer.SetDirection(Target);
+				IPlayer._ShowBattleAnimation(Target, 14);
 			}
 			else
 			{
-				_ShowBattleMiss(Target, 14);
+				IPlayer._ShowBattleMiss(Target, 14);
 			}
 		}
 	}
 	if (bType == 1)
 	{
 		int Around = Target.GetObjectListAround(3);
-		if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
 
-			if (CheckHit(Target, 14))
+			if (IPlayer.CheckHit(Target, 14))
 			{
 
-				int nDmge = (GetAttack()*BlowUpBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*BlowUpAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*BlowUpStrMultiPvE) + (ISkill.GetGrade()*BlowUpPerGradeMultiPvE);
-				OktayDamageSingle(Target, nDmge, 14);
-				SetDirection(Target);
-				_ShowBattleAnimation(Target, 14);
+				int nDmge = (IPlayer.GetAttack()*BlowUpBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*BlowUpAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*BlowUpStrMultiPvE) + (ISkill.GetGrade()*BlowUpPerGradeMultiPvE);
+				IPlayer.OktayDamageSingle(Target, nDmge, 14);
+				IPlayer.SetDirection(Target);
+				IPlayer._ShowBattleAnimation(Target, 14);
 
 			}
 			else
 			{
-				_ShowBattleMiss(Target, 14);
+				IPlayer._ShowBattleMiss(Target, 14);
 			}
 		}
 		int i = 0;
@@ -78,22 +78,22 @@ void __fastcall BlowUpArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 			
 			ICharacter Object((void*)*(DWORD*)Around);
 
-			if (Object.GetType() == 1 && Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 2))
+			if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 			{
 				
 				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
 				{
 
-					if (CheckHit(Object, 14))
+					if (IPlayer.CheckHit(Object, 14))
 					{
-						int nDmg = (GetAttack()*BlowUpBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*BlowUpAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*BlowUpStrMultiPvE) + (ISkill.GetGrade()*BlowUpPerGradeMultiPvE);
-						OktayDamageSingle(Object, nDmg, 14);
-						_ShowBattleAnimation(Object, 14);
+						int nDmg = (IPlayer.GetAttack()*BlowUpBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*BlowUpAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*BlowUpStrMultiPvE) + (ISkill.GetGrade()*BlowUpPerGradeMultiPvE);
+						IPlayer.OktayDamageSingle(Object, nDmg, 14);
+						IPlayer._ShowBattleAnimation(Object, 14);
 						i++;
 					}
 					else
 					{
-						_ShowBattleMiss(Object, 14);
+						IPlayer._ShowBattleMiss(Object, 14);
 						i++;
 					}
 				}
@@ -102,7 +102,7 @@ void __fastcall BlowUpArrow(int pSkill, void *pPlayer, int pPacket, int pPos)
 			Around = CBaseList::Pop((void*)Around);
 		}
 	}
-	DecreaseMana(nMana);
+	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 #endif

@@ -3,20 +3,20 @@
 
 void __fastcall ContinueIceStorm(ICharacter IPlayer)
 {
-	if (IsValid())
+	if (IPlayer.IsValid())
 	{
-		int nSkillGrade = CheckContinueIceStorm.find(GetPID())->second.PlayerSkillGrade;
-		void *pTarget = CheckContinueIceStorm.find(GetPID())->second.PlayerTarget;
+		int nSkillGrade = CheckContinueIceStorm.find(IPlayer.GetPID())->second.PlayerSkillGrade;
+		void *pTarget = CheckContinueIceStorm.find(IPlayer.GetPID())->second.PlayerTarget;
 
-		if (pTarget && nSkillGrade && CheckContinueIceStorm.find(GetPID())->second.PlayerSkillCount)
+		if (pTarget && nSkillGrade && CheckContinueIceStorm.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
 			ICharacter Target(pTarget);
-			CheckContinueIceStorm[GetPID()].PlayerSkillCount--;
+			CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillCount--;
 
-			if (!IsValid() || !Target.IsValid())
+			if (!IPlayer.IsValid() || !Target.IsValid())
 			{
 				ResetContinueIceStorm(IPlayer);
-				CancelBuff(5559);
+				IPlayer.CancelBuff(5559);
 				return;
 			}
 
@@ -26,27 +26,27 @@ void __fastcall ContinueIceStorm(ICharacter IPlayer)
 			{
 				ICharacter Object((void*)*(DWORD*)Around);
 
-				if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
 
-					int nDmg = (GetMagic()*IStormBaseDmgMultiPvE) + CChar::GetInt((int)GetOffset())*IStormIntMultiPvE;
+					int nDmg = (IPlayer.GetMagic()*IStormBaseDmgMultiPvE) + CChar::GetInt((int)IPlayer.GetOffset())*IStormIntMultiPvE;
 
 					if (Object.GetType() == 0)
-						nDmg = (GetMagic()*IStormBaseDmgMultiPvP) + CChar::GetInt((int)GetOffset())*IStormIntMultiPvP;
+						nDmg = (IPlayer.GetMagic()*IStormBaseDmgMultiPvP) + CChar::GetInt((int)IPlayer.GetOffset())*IStormIntMultiPvP;
 
-					OktayDamageStorm(Object, nDmg);
+					IPlayer.OktayDamageStorm(Object, nDmg);
 				}
 
 				Around = CBaseList::Pop((void*)Around);
 			}
 
-			if (IsOnline())
-				CheckContinueIceStorm[GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
+			if (IPlayer.IsOnline())
+				CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount() + 1800;
 
-			if (IsOnline() && CheckContinueIceStorm.find(GetPID())->second.PlayerSkillCount == 0)
+			if (IPlayer.IsOnline() && CheckContinueIceStorm.find(IPlayer.GetPID())->second.PlayerSkillCount == 0)
 			{
 				ResetContinueIceStorm(IPlayer);
-				CancelBuff(5559);
+				IPlayer.CancelBuff(5559);
 			}
 
 			return;
@@ -54,7 +54,7 @@ void __fastcall ContinueIceStorm(ICharacter IPlayer)
 	}
 
 	ResetContinueIceStorm(IPlayer);
-	CancelBuff(5559);
+	IPlayer.CancelBuff(5559);
 	return;
 }
 
@@ -63,7 +63,7 @@ void __fastcall IceStorm(int pSkill, void *pPlayer, int pPacket, int pPos)
 	ICharacter IPlayer((void*)pPlayer);
 	ISkill xSkill((void*)pSkill);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		int x = 0, y = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "dd", &x, &y);
@@ -74,29 +74,29 @@ void __fastcall IceStorm(int pSkill, void *pPlayer, int pPacket, int pPos)
 		if (!nSkillGrade)
 			return;
 
-		int nMana = 20 + (GetLevel() * 4);
+		int nMana = 20 + (IPlayer.GetLevel() * 4);
 
 		if (x <= 0 || y <= 0)
 			return;
 
-		if (nSkillGrade && IsValid())
+		if (nSkillGrade && IPlayer.IsValid())
 		{
-			if (GetCurMp() < nMana)
+			if (IPlayer.GetCurMp() < nMana)
 				return;
 
-			Buff(5559, 16, 0);
-			DecreaseMana(nMana);
-			_ShowBattleAnimation(IPlayer, 45);
+			IPlayer.Buff(5559, 16, 0);
+			IPlayer.DecreaseMana(nMana);
+			IPlayer._ShowBattleAnimation(IPlayer, 45);
 			int *GetSetXY = new int[1];
 			GetSetXY[0] = x;
 			GetSetXY[1] = y;
-			int check = CMonsterMagic::Create(229, GetMap(), (int)GetSetXY, 1, (int)GetOffset(), 0, 16000);
+			int check = CMonsterMagic::Create(229, IPlayer.GetMap(), (int)GetSetXY, 1, (int)IPlayer.GetOffset(), 0, 16000);
 			delete[] GetSetXY;
-			CheckContinueIceStorm[GetPID()].PlayerSkillID = 45;
-			CheckContinueIceStorm[GetPID()].PlayerTarget = (void*)check;
-			CheckContinueIceStorm[GetPID()].PlayerSkillGrade = nSkillGrade;
-			CheckContinueIceStorm[GetPID()].PlayerSkillCount = 8;
-			CheckContinueIceStorm[GetPID()].PlayerSkillDelay = 0;
+			CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillID = 45;
+			CheckContinueIceStorm[IPlayer.GetPID()].PlayerTarget = (void*)check;
+			CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
+			CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillCount = 8;
+			CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillDelay = 0;
 		}
 		ContinueIceStorm(IPlayer);
 	}

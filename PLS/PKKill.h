@@ -10,17 +10,17 @@ int __fastcall PKKill(void *Player, void* edx, int a5)
 	{
 		for (TradeSystem::it = TradeSystem::Quest.begin(); TradeSystem::it != TradeSystem::Quest.end(); TradeSystem::it++)
 		{
-			if (CPlayer::FindItem(GetOffset(), TradeSystem::it->second, 1))
+			if (CPlayer::FindItem(IPlayer.GetOffset(), TradeSystem::it->second, 1))
 			{
 				std::string rip = "The trader ";
-				rip = rip + GetName();
+				rip = rip + IPlayer.GetName();
 				rip = rip + " is dead!";
 				CPlayer::WriteAll(0xFF, "dsd", 247, rip, 2);
 				for (TradeSystem::it = TradeSystem::Quest.begin(); TradeSystem::it != TradeSystem::Quest.end(); TradeSystem::it++)
 				{
-					while (CPlayer::FindItem(GetOffset(), TradeSystem::it->second, 1))
+					while (CPlayer::FindItem(IPlayer.GetOffset(), TradeSystem::it->second, 1))
 					{
-						CPlayer::RemoveItem(GetOffset(), 9, TradeSystem::it->second, 1);
+						CPlayer::RemoveItem(IPlayer.GetOffset(), 9, TradeSystem::it->second, 1);
 						CItem::InsertItem((int)IKiller.GetOffset(), 0, TradeSystem::it->second, 256, 1, 0);
 						trade = true;
 					}
@@ -41,10 +41,10 @@ int __fastcall PKKill(void *Player, void* edx, int a5)
 
 
 
-	if (IsBuff(LawlessZone::BuffID) && IKiller.IsBuff(LawlessZone::BuffID) && LawlessZoneON == true)
+	if (IPlayer.IsBuff(LawlessZone::BuffID) && IKiller.IsBuff(LawlessZone::BuffID) && LawlessZoneON == true)
 	{
 		std::string kill = "You killed ";
-		kill += GetName();
+		kill += IPlayer.GetName();
 		kill += " You got extra ";
 		kill += Int2String(LawlessZone::PKPoints);
 		kill += " Points";

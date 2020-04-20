@@ -2,9 +2,9 @@
 #define THERAPEUTICTOUCH_H
 void __fastcall TherapeuticTouch(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(72);
+	int pSkill = IPlayer.GetSkillPointer(72);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 
@@ -23,25 +23,25 @@ void __fastcall TherapeuticTouch(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType >= 1)
 			return;
 
-		if (bType >= 2 || !pTarget || GetCurMp() < nMana)
+		if (bType >= 2 || !pTarget || IPlayer.GetCurMp() < nMana)
 			return;
 
-		if (pTarget && IsValid())
+		if (pTarget && IPlayer.IsValid())
 		{
 			ICharacter Target(pTarget);
 
-			if (!IsInRange(Target, 20))
+			if (!IPlayer.IsInRange(Target, 20))
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (IsValid() && Target.IsValid())
+			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				Target.Buff(45, TTDuration, TTBaseHeal+ xSkill.GetGrade() *TTPerGradeHeal + CChar::GetWis((int)GetOffset())*TTWisdom);
+				Target.Buff(45, TTDuration, TTBaseHeal+ xSkill.GetGrade() *TTPerGradeHeal + CChar::GetWis((int)IPlayer.GetOffset())*TTWisdom);
 				Target.RemoveBuffIcon(0, 0, 803, 59);
-				_ShowBattleAnimation(Target, 72);
-				DecreaseMana(nMana);
+				IPlayer._ShowBattleAnimation(Target, 72);
+				IPlayer.DecreaseMana(nMana);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

@@ -3,29 +3,29 @@
 
 void __fastcall RevolveAttack(ICharacter IPlayer)
 {
-	if (IsValid() && GetRage() >= 15000)
+	if (IPlayer.IsValid() && IPlayer.GetRage() >= 15000)
 	{
-		int Around = GetObjectListAround(2);
+		int Around = IPlayer.GetObjectListAround(2);
 
 		while (Around)
 		{
 			ICharacter Object((void*)*(DWORD*)Around);
 
-			if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+			if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 			{
-				int nDmg = (GetMagic() + GetAttack())*RABaseDmgMultiPvE;
+				int nDmg = (IPlayer.GetMagic() + IPlayer.GetAttack())*RABaseDmgMultiPvE;
 
 
 				if (Object.GetType() == 0)
-					nDmg = (GetMagic() + GetAttack())*RABaseDmgMultiPvP;
+					nDmg = (IPlayer.GetMagic() + IPlayer.GetAttack())*RABaseDmgMultiPvP;
 
-				OktayDamageSingle(Object, nDmg, 113);
+				IPlayer.OktayDamageSingle(Object, nDmg, 113);
 			}
 
 			Around = CBaseList::Pop((void*)Around);
 		}
 
-		DecreaseRage(15000);
+		IPlayer.DecreaseRage(15000);
 	}
 }
 

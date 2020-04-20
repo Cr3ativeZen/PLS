@@ -125,7 +125,7 @@ int ICharacter::GetMaxMagAttack()
 int ICharacter::GetX()
 {
 	if (this->IsOnline())
-		return *(DWORD*)((int)this->GetOffset()+ 0x14c);
+		return *(DWORD*)((int)this->GetOffset()+0x14c);
 	else
 		return 0;
 }

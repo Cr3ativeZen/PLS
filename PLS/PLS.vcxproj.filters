@@ -338,6 +338,9 @@
     <ClCompile Include="PLS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="IChar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ISkill.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -361,9 +364,6 @@
     </ClCompile>
     <ClCompile Include="CThief.cpp">
       <Filter>Characters</Filter>
-    </ClCompile>
-    <ClCompile Include="ICharacter.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -23,12 +23,12 @@ void __fastcall BuffRemover(int pSkill, void *edx, int Player, int pPacket, int 
 	if (bType == 1)
 		return;
 
-	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	ICharacter ITarget((void*)pTarget);
 
-	if (pTarget && ITarget.IsValid() && IsValid())
+	if (pTarget && ITarget.IsValid() && IPlayer.IsValid())
 	{
 		ITarget.CancelBuff(282);
 		ITarget.CancelBuff(283);

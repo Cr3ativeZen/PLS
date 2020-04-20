@@ -1,13 +1,9 @@
-
 #ifndef POWERFULUPWARDSLASH_H
 #define POWERFULUPWARDSLASH_H
-
-
 void __fastcall PowerfulUpwardSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
-
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

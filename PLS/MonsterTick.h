@@ -6,9 +6,9 @@ int __fastcall MonsterDie(int mob,void* edx,int tankerID, int a3, int a4, int a5
 	ICharacter IPlayer((void*)tankerID);
 
 
-	if (LawlessZoneON==true&& IsBuff(LawlessZone::BuffID)&&std::find(LawlessZone::MobID.begin(), LawlessZone::MobID.end(), IMonster.GetMobIndex()) != LawlessZone::MobID.end() )
+	if (LawlessZoneON==true&& IPlayer.IsBuff(LawlessZone::BuffID)&&std::find(LawlessZone::MobID.begin(), LawlessZone::MobID.end(), IMonster.GetMobIndex()) != LawlessZone::MobID.end() )
 	{
-		LawlessZone::PointCounter[GetPID()] += LawlessZone::MobPoints;
+		LawlessZone::PointCounter[IPlayer.GetPID()] += LawlessZone::MobPoints;
 	}
 
 

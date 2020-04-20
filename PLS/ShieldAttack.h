@@ -22,7 +22,7 @@ void __fastcall ShieldAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	ICharacter Target(pTarget);
@@ -30,27 +30,27 @@ void __fastcall ShieldAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 
 	if (bType == 1)
 	{
-		SystemMessage("You cannot attack player with Shield Attack", TEXTCOLOR_RED);
+		IPlayer.SystemMessage("You cannot attack player with Shield Attack", TEXTCOLOR_RED);
 	}
 	if (bType == 0)
 	{
-		if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (CheckHit(Target, 15))
+			if (IPlayer.CheckHit(Target, 15))
 			{
 				Target.Buff(7, ShieldAttackBaseStunTime, 0);
 
-				OktayDamageSingle(Target, GetAttack()*ShieldAttackDamageMulti, 15);
-				SetDirection(Target);
-				_ShowBattleAnimation(Target, 15);
+				IPlayer.OktayDamageSingle(Target, IPlayer.GetAttack()*ShieldAttackDamageMulti, 15);
+				IPlayer.SetDirection(Target);
+				IPlayer._ShowBattleAnimation(Target, 15);
 			}
 			else
 			{
-				_ShowBattleMiss(Target, 15);
+				IPlayer._ShowBattleMiss(Target, 15);
 			}
 		}
 	}
-	DecreaseMana(nMana);
+	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 #endif

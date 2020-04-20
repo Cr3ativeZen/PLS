@@ -22,25 +22,25 @@ void __fastcall PassiveAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType == 1 && nTargetID)
 		pTarget = CMonster::FindMonster(nTargetID);
 
-	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	ICharacter Target(pTarget);
 
-		if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{
-			if (CheckHit(Target, 20))
+			if (IPlayer.CheckHit(Target, 20))
 			{
 				Target.Buff(8, PassiveAttackBaseFreezeTime + PassiveAttackPerGradeFreezeTime * ISkill.GetGrade(), 0);
-				SetDirection(Target);
-				_ShowBattleAnimation(Target, 4);
+				IPlayer.SetDirection(Target);
+				IPlayer._ShowBattleAnimation(Target, 4);
 			}
 			else
 			{
-				_ShowBattleMiss(Target, 4);
+				IPlayer._ShowBattleMiss(Target, 4);
 			}
 		}
-	DecreaseMana(nMana);
+	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 #endif

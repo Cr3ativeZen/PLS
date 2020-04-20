@@ -21,82 +21,82 @@ void __fastcall MysteriousArrow(int pSkill, void *pPlayer, int pPacket, int pPos
 		pTarget = CMonster::FindMonster(nTargetID);
 
 
-	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
 	ICharacter Target(pTarget);
 
 
-	if (IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+	if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 	{
-		if (CheckHit(Target, 20))
+		if (IPlayer.CheckHit(Target, 20))
 		{
-			int nDmg = (GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
+			int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
 
 			if (Target.GetType() == 0)
 			{
 				Target.Buff(39, MADoTDuration, MADoTPerGradePvP*ISkill.GetGrade());
-				nDmg = (GetAttack()*MABaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*MAAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*MAStrMultiPvP) + (ISkill.GetGrade()*MAPerGradeMultiPvP);
+				nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvP) + (ISkill.GetGrade()*MAPerGradeMultiPvP);
 			}
 			if (Target.GetType() == 1)
 			{
 				Target.Buff(39, MADoTDuration, MADoTPerGradePvE*ISkill.GetGrade());
 			}
-			OktayDamageSingle(Target, nDmg, 21);
-			_ShowBattleAnimation(Target, 21);
+			IPlayer.OktayDamageSingle(Target, nDmg, 21);
+			IPlayer._ShowBattleAnimation(Target, 21);
 		}
 		else
 		{
-			_ShowBattleMiss(Target, 21);
+			IPlayer._ShowBattleMiss(Target, 21);
 		}
 	}
-	DecreaseMana(nMana);
+	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 
 	/*if (bType == 0 && nTargetID)
 	{
-		if (GetCurMp() < nMana)
+		if (IPlayer.GetCurMp() < nMana)
 			return;
 
-		if (!IsInRange(Target, 20))
+		if (!IPlayer.IsInRange(Target, 20))
 			return;
 
-		if (CheckHit(Target, 21))
+		if (IPlayer.CheckHit(Target, 21))
 		{
 			Target.Buff(39, MADoTDuration, MADoTPerGradePvP*ISkill.GetGrade());
-			int nDmg = (GetAttack()*MABaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*MAAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*MAStrMultiPvP) + (ISkill.GetGrade()*MAPerGradeMultiPvP);
-			OktayDamageSingle(Target, nDmg, 21);
-			_ShowBattleAnimation(Target, 21);
-			DecreaseMana(nMana);
+			int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvP) + (ISkill.GetGrade()*MAPerGradeMultiPvP);
+			IPlayer.OktayDamageSingle(Target, nDmg, 21);
+			IPlayer._ShowBattleAnimation(Target, 21);
+			IPlayer.DecreaseMana(nMana);
 		}
 		else
 		{
-			_ShowBattleMiss(Target, 21);
+			IPlayer._ShowBattleMiss(Target, 21);
 		}
 	}
 
 	if (bType == 1 && nTargetID)
 	{
-		if (GetCurMp() < nMana)
+		if (IPlayer.GetCurMp() < nMana)
 			return;
 
-		if (!IsInRange(Target, 20))
+		if (!IPlayer.IsInRange(Target, 20))
 			return;
 
-		if (CheckHit(Target, 21))
+		if (IPlayer.CheckHit(Target, 21))
 		{
 			Target.Buff(39, MADoTDuration, MADoTPerGradePvE*ISkill.GetGrade());
-			int nDmg = (GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
-			OktayDamageSingle(Target, nDmg, 21);
-			_ShowBattleAnimation(Target, 21);
+			int nDmg = (IPlayer.GetAttack()*MABaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*MAAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*MAStrMultiPvE) + (ISkill.GetGrade()*MAPerGradeMultiPvE);
+			IPlayer.OktayDamageSingle(Target, nDmg, 21);
+			IPlayer._ShowBattleAnimation(Target, 21);
 		}
 		else
 		{
-			_ShowBattleMiss(Target, 21);
+			IPlayer._ShowBattleMiss(Target, 21);
 
 		}
 	}
-	DecreaseMana(nMana);
+	IPlayer.DecreaseMana(nMana);
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);*/
 }
 #endif

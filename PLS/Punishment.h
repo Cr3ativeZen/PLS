@@ -2,9 +2,9 @@
 #define PUNISHMENT_H
 void __fastcall Punishment(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(90);
+	int pSkill = IPlayer.GetSkillPointer(90);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -26,19 +26,19 @@ void __fastcall Punishment(ICharacter IPlayer, int pPacket, int pPos)
 		if (bType >= 2)
 			return;
 
-		if (pTarget && nSkillGrade && IsValid())
+		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			if (GetCurMp() < nMana)
+			if (IPlayer.GetCurMp() < nMana)
 				return;
 
-			if (pTarget == GetOffset())
+			if (pTarget == IPlayer.GetOffset())
 				return;
 
 			ICharacter Target(pTarget);
 
-			if (IsValid() && Target.IsValid())
+			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IsInRange(Target, 20))
+				if (!IPlayer.IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
@@ -51,10 +51,10 @@ void __fastcall Punishment(ICharacter IPlayer, int pPacket, int pPos)
 				
 				
 				Target.AddFxToTarget("HellGate_FX40", 1, 0, 0);
-				AddFxToTarget("island_boss03", 1, 0, 0);
-				SetDirection(Target);
-				OktayDamageSingle(Target, nDmg, 90);
-				DecreaseMana(nMana);
+				IPlayer.AddFxToTarget("island_boss03", 1, 0, 0);
+				IPlayer.SetDirection(Target);
+				IPlayer.OktayDamageSingle(Target, nDmg, 90);
+				IPlayer.DecreaseMana(nMana);
 			}
 			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 		}

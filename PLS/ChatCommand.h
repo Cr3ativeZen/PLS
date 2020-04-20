@@ -10,18 +10,18 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	std::string cmd = (std::string)command;
 	ICharacter IPlayer((void*)Player);
 
-	if (IsOnline() && cmd.substr(0, 5) == "/exit" && D4InstanceON==true)
+	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/exit" && D4InstanceON==true)
 	{
-		if (IsBuff(666))
+		if (IPlayer.IsBuff(666))
 		{
-			D4Instance::PartyMembers.erase(GetPID());
+			D4Instance::PartyMembers.erase(IPlayer.GetPID());
 			D4Instance::PartySize--;
-			CancelBuff(666);
-			CloseScreenTime();
-			Teleport(0, D4Instance::ReturnX, D4Instance::ReturnY);
-			CPlayer::LeaveParty((int)GetOffset());
-			Announcement("You left the instance", TEXTCOLOR_RED);
-			Buff(240, D4Instance::Cooldown, 0);
+			IPlayer.CancelBuff(666);
+			IPlayer.CloseScreenTime();
+			IPlayer.Teleport(0, D4Instance::ReturnX, D4Instance::ReturnY);
+			CPlayer::LeaveParty((int)IPlayer.GetOffset());
+			IPlayer.Announcement("You left the instance", TEXTCOLOR_RED);
+			IPlayer.Buff(240, D4Instance::Cooldown, 0);
 			if (D4Instance::PartySize <= 1)
 			{
 				CPlayer::WriteInMap(D4Instance::MapNumber, 0xFF, "dsd", 247, "Party destroyed, instance failed", 1);
@@ -34,11 +34,11 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		}
 		else
 		{
-			SystemMessage("You are not at instance atm", TEXTCOLOR_RED);
+			IPlayer.SystemMessage("You are not at instance atm", TEXTCOLOR_RED);
 			return;
 		}
 	}
-	if (IsOnline() && cmd.substr(0, 9) == "/instaoff" && GetAdmin() >= 8 && D4InstanceON == true)
+	if (IPlayer.IsOnline() && cmd.substr(0, 9) == "/instaoff" && IPlayer.GetAdmin() >= 8 && D4InstanceON == true)
 	{
 		D4Instance::IsUp = false;
 		D4Instance::StageNumber = 0;
@@ -48,16 +48,16 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		return;
 	}
 
-	if (IsOnline() && cmd.substr(0, 12) == "/instaconfig" && GetAdmin() >= 8 && D4InstanceON == true)
+	if (IPlayer.IsOnline() && cmd.substr(0, 12) == "/instaconfig" && IPlayer.GetAdmin() >= 8 && D4InstanceON == true)
 	{
 		if (D4Instance::IsUp == false)
 		{
-			SystemMessage("Insta config reloaded", TEXTCOLOR_GREEN);
+			IPlayer.SystemMessage("Insta config reloaded", TEXTCOLOR_GREEN);
 			InstaConfig();
 		}
 		else
 		{
-			SystemMessage("You cannot reload Instance config when Instance is running", TEXTCOLOR_RED);
+			IPlayer.SystemMessage("You cannot reload Instance config when Instance is running", TEXTCOLOR_RED);
 			return;
 		}
 	}
@@ -65,105 +65,105 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 
 
 
-	if (IsOnline() && cmd.substr(0, 10) == "/zenconfig" && GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 10) == "/zenconfig" && IPlayer.GetAdmin() >= 8)
 	{
-		SystemMessage("Zen skill config reloaded successfully", TEXTCOLOR_GREEN);
+		IPlayer.SystemMessage("Zen skill config reloaded successfully", TEXTCOLOR_GREEN);
 		ZenConfig();
 	}
 
-	if (IsOnline() && cmd.substr(0, 11) == "/riftconfig" && GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/riftconfig" && IPlayer.GetAdmin() >= 8)
 	{
 
-			SystemMessage("Rift skill config reloaded successfully", TEXTCOLOR_GREEN);
+			IPlayer.SystemMessage("Rift skill config reloaded successfully", TEXTCOLOR_GREEN);
 			RiftConfig();
 	}
 
-	if (IsOnline() && cmd.substr(0, 12) == "/currentbuff" && GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 12) == "/currentbuff" && IPlayer.GetAdmin() >= 8)
 	{
 		for (int i = 0; i < 1000; i++)
 		{
-			if (IsBuff(i))
+			if (IPlayer.IsBuff(i))
 			{
 				std::string kapi = "Buff: " + Int2String(i);
-				SystemMessage(kapi.c_str(), TEXTCOLOR_BLUE);
+				IPlayer.SystemMessage(kapi.c_str(), TEXTCOLOR_BLUE);
 			}
 		}
 
 	}
 
-	if (IsOnline() && cmd.substr(0, 6) == "/point")
+	if (IPlayer.IsOnline() && cmd.substr(0, 6) == "/point")
 	{
-		if (!IsBuff(LawlessZone::BuffID))
+		if (!IPlayer.IsBuff(LawlessZone::BuffID))
 		{
-			SystemMessage("You are not at Lawless Zone right now", TEXTCOLOR_RED);
+			IPlayer.SystemMessage("You are not at Lawless Zone right now", TEXTCOLOR_RED);
 			return;
 		}
 
 			std::string points = "Current points: ";
-			points += Int2String(LawlessZone::PointCounter.find(GetPID())->second);
-			SystemMessage(points, TEXTCOLOR_PINK);
+			points += Int2String(LawlessZone::PointCounter.find(IPlayer.GetPID())->second);
+			IPlayer.SystemMessage(points, TEXTCOLOR_PINK);
 
 	}
 
-	if (IsOnline() && cmd.substr(0, 11) == "/lawlessoff" && IsBuff(LawlessZone::BuffID))
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/lawlessoff" && IPlayer.IsBuff(LawlessZone::BuffID))
 	{
-			CancelBuff(LawlessZone::BuffID);
+			IPlayer.CancelBuff(LawlessZone::BuffID);
 			for (int i = 0; i < 10; i++)
 			{
-				CancelBuff(LawlessZone::ExpBuffID[i]);
-				RemoveBuffIcon(0, 0, 0, 1500 + i);
+				IPlayer.CancelBuff(LawlessZone::ExpBuffID[i]);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 1500 + i);
 			}
-			CancelBuff(104);
-			Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
-			LawlessZone::PointCounter[GetPID()] = 0;
+			IPlayer.CancelBuff(104);
+			IPlayer.Teleport(0, LawlessZone::ReturnTeleportX, LawlessZone::ReturnTeleportY);
+			LawlessZone::PointCounter[IPlayer.GetPID()] = 0;
 	}
 
-	if (IsOnline() && cmd.substr(0, 11) == "/mautconfig"&& GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautconfig"&& IPlayer.GetAdmin() >= 8)
 	{
 		if (Mautareta::IsUp == false)
 		{
 			MautaretaConfig();
-			SystemMessage("Mautareta config reloaded successfully", TEXTCOLOR_GREEN);
+			IPlayer.SystemMessage("Mautareta config reloaded successfully", TEXTCOLOR_GREEN);
 			Mautareta::PartyLimit = 0;
-			Teleport(0, Mautareta::SpawnMautX, Mautareta::SpawnMautX);
+			IPlayer.Teleport(0, Mautareta::SpawnMautX, Mautareta::SpawnMautX);
 		}
 		else
-			SystemMessage("Mautareta is not running right now", TEXTCOLOR_RED);
+			IPlayer.SystemMessage("Mautareta is not running right now", TEXTCOLOR_RED);
 		return;
 	}
 
 
-	if (IsOnline() && cmd.substr(0, 11) == "/mautreload" && GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/mautreload" && IPlayer.GetAdmin() >= 8)
 	{
 		if (Mautareta::IsUp == true)
 		{
 			Mautareta::IsUp = false;
-			SystemMessage("Mautareta stopped", TEXTCOLOR_GREEN);
+			IPlayer.SystemMessage("Mautareta stopped", TEXTCOLOR_GREEN);
 			Mautareta::PartyLimit = 0;
 		}
 		return;
 	}
 
-	//if (IsOnline() && cmd.substr(0, 5) == "/test"&&GetAdmin() >= 11)
+	//if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/test"&&IPlayer.GetAdmin() >= 11)
 	//{
-	//	CPlayer::Write(GetOffset(), 68, "bbb", 43, 13, 0);
-	//	SystemMessage(Int2String(Undefined::sub_446FF0((int)GetOffset())),TEXTCOLOR_YELLOW);
+	//	CPlayer::Write(IPlayer.GetOffset(), 68, "bbb", 43, 13, 0);
+	//	IPlayer.SystemMessage(Int2String(Undefined::sub_446FF0((int)IPlayer.GetOffset())),TEXTCOLOR_YELLOW);
 	//}
 
 
-	if (IsOnline())
+	if (IPlayer.IsOnline())
 	{
 
 	}
 
-	if (IsOnline() && cmd.substr(0, 5) == "/puff" && GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/puff" && IPlayer.GetAdmin() >= 8)
 	{
-		AddDef(10000);
-		AddMaxAttack(10000);
-		AddMinAttack(10000);
-		AddEva(10000);
-		AddOTP(10000);
-		AddHp(10000);
+		IPlayer.AddDef(10000);
+		IPlayer.AddMaxAttack(10000);
+		IPlayer.AddMinAttack(10000);
+		IPlayer.AddEva(10000);
+		IPlayer.AddOTP(10000);
+		IPlayer.AddHp(10000);
 	}
 
 	CPlayer::ChatCommand(Player, command);

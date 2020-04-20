@@ -3,13 +3,13 @@
 
 void __fastcall TheBoomOfEarth(ICharacter IPlayer)
 {
-	if (IsOnline())
+	if (IPlayer.IsOnline())
 	{
-		int pSkill = GetSkillPointer(91);
+		int pSkill = IPlayer.GetSkillPointer(91);
 
-		if (pSkill && IsValid())
+		if (pSkill && IPlayer.IsValid())
 		{
-			if (CPlayer::IsWState((int)GetOffset(), 12))
+			if (CPlayer::IsWState((int)IPlayer.GetOffset(), 12))
 				return;
 
 			ISkill xSkill((void*)pSkill);
@@ -20,21 +20,21 @@ void __fastcall TheBoomOfEarth(ICharacter IPlayer)
 			if (!nSkillGrade)
 				return;
 
-			if (GetCurMp() <= Mana)
+			if (IPlayer.GetCurMp() <= Mana)
 				return;
 
-			DecreaseMana(Mana);
-			_ShowBattleAnimation(IPlayer, 91);
+			IPlayer.DecreaseMana(Mana);
+			IPlayer._ShowBattleAnimation(IPlayer, 91);
 
-			if (IsValid())
+			if (IPlayer.IsValid())
 			{
-				int Around = GetObjectListAround(3);
+				int Around = IPlayer.GetObjectListAround(3);
 
 				while (Around)
 				{
 					ICharacter Object((void*)*(DWORD*)Around);
 
-					if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+					if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 						Object.Buff(7, 2 * xSkill.GetGrade(), 0);
 
 					Around = CBaseList::Pop((void*)Around);

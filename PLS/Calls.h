@@ -18,11 +18,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 	//Call of Evasion
 	if (ISkill.GetIndex() == 27)
 	{
-		if (IsValid())
+		if (IPlayer.IsValid())
 		{
-			if (IsParty())
+			if (IPlayer.IsParty())
 			{
-				void *Party = (void*)CParty::FindParty(GetPartyID());
+				void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 				if (Party)
 				{
@@ -32,11 +32,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						int Buff = CChar::FindBuff((int)IMembers.GetOffset(), 550);
 						
-						if (CChar::IsNormal(Members) && IsValid())
+						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{
 							if (!IMembers.IsBuff(70))
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									if (IMembers.IsBuff(73))
 									{
@@ -48,10 +48,10 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 
 									IMembers.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
 
-									_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 									IMembers.AddFxToTarget("test_item_ef_09", 1, 0, 1);
 
-									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
+									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
 
@@ -60,7 +60,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 
 							else
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 
 									if (IMembers.IsBuff(73))
@@ -77,12 +77,12 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 									IMembers.Buff(70, 0, 0);
 									IMembers.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
 									IMembers.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
-									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
+									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
 
 									IMembers.AddFxToTarget("test_item_ef_09", 1, 0, 1);
-									_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 								}
 							}
 						}
@@ -92,40 +92,40 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 			}
 			else
 			{
-				int Buff = CChar::FindBuff((int)GetOffset(), 550);
+				int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
 
-				if (!IsBuff(70))
+				if (!IPlayer.IsBuff(70))
 				{
-					if (IsBuff(73))
+					if (IPlayer.IsBuff(73))
 					{
-						CancelBuff(73);
+						IPlayer.CancelBuff(73);
 					}
 
-					Buff(70, 0, 0);
-					Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
+					IPlayer.Buff(70, 0, 0);
+					IPlayer.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
 
-					AddEva((ISkill.GetGrade() - 1) * 5 + 10);
+					IPlayer.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
 
-					AddFxToTarget("test_item_ef_09", 1, 0, 1);
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer.AddFxToTarget("test_item_ef_09", 1, 0, 1);
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 				else
 				{
-					if (IsBuff(73))
+					if (IPlayer.IsBuff(73))
 					{
-						CancelBuff(73);
+						IPlayer.CancelBuff(73);
 					}
-					RemoveEva(*(DWORD*)(static_cast<long long>(Buff) + 12ll));
-					CancelBuff(70);
-					CancelBuff(550);
+					IPlayer.RemoveEva(*(DWORD*)(static_cast<long long>(Buff) + 12ll));
+					IPlayer.CancelBuff(70);
+					IPlayer.CancelBuff(550);
 
-					Buff(70, 0, 0);
-					Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
-					AddEva((ISkill.GetGrade() - 1) * 5 + 10);
+					IPlayer.Buff(70, 0, 0);
+					IPlayer.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
+					IPlayer.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
 
-					AddFxToTarget("test_item_ef_09", 1, 0, 1);
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer.AddFxToTarget("test_item_ef_09", 1, 0, 1);
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 			}
@@ -136,11 +136,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 	if (ISkill.GetIndex() == 31)
 	{
 		int EvaBuff = 0;
-		if (IsValid())
+		if (IPlayer.IsValid())
 		{
-			if (IsParty())
+			if (IPlayer.IsParty())
 			{
-				void *Party = (void*)CParty::FindParty(GetPartyID());
+				void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 				if (Party)
 				{
@@ -150,11 +150,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						EvaBuff= CChar::FindBuff((int)IMembers.GetOffset(), 550);
 
-						if (CChar::IsNormal(Members) && IsValid())
+						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{
 							if (!IMembers.IsBuff(73))
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									if (IMembers.IsBuff(70) && IMembers.IsBuff(550))
 									{
@@ -163,14 +163,14 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 										IMembers.CancelBuff(550);
 									}
 									IMembers.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
-									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
+									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
 								}
 							}
 							else
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									if (IMembers.IsBuff(70) && IMembers.IsBuff(550))
 									{
@@ -180,7 +180,7 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 									}
 									IMembers.CancelBuff(73);
 									IMembers.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
-									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
+									CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 									CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
 								}
@@ -192,31 +192,31 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 			}
 			else
 			{
-				EvaBuff = CChar::FindBuff((int)GetOffset(), 550);
-				if (!IsBuff(73))
+				EvaBuff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
+				if (!IPlayer.IsBuff(73))
 				{
-					if (IsBuff(70) && IsBuff(550))
+					if (IPlayer.IsBuff(70) && IPlayer.IsBuff(550))
 					{
-						RemoveEva(*(DWORD*)(EvaBuff + 12));
-						CancelBuff(70);
-						CancelBuff(550);
+						IPlayer.RemoveEva(*(DWORD*)(EvaBuff + 12));
+						IPlayer.CancelBuff(70);
+						IPlayer.CancelBuff(550);
 					}
-					Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 				else
 				{
-					if (IsBuff(70) && IsBuff(550))
+					if (IPlayer.IsBuff(70) && IPlayer.IsBuff(550))
 					{
-						RemoveEva(*(DWORD*)(EvaBuff + 12));
-						CancelBuff(70);
-						CancelBuff(550);
+						IPlayer.RemoveEva(*(DWORD*)(EvaBuff + 12));
+						IPlayer.CancelBuff(70);
+						IPlayer.CancelBuff(550);
 					}
-					CancelBuff(73);
+					IPlayer.CancelBuff(73);
 
-					Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 			}
@@ -226,11 +226,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 	//Call of Recoveryy
 	if (ISkill.GetIndex() == 23)
 	{
-		if (IsValid())
+		if (IPlayer.IsValid())
 		{
-			if (IsParty())
+			if (IPlayer.IsParty())
 			{
-				void *Party = (void*)CParty::FindParty(GetPartyID());
+				void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 				if (Party)
 				{
@@ -240,23 +240,23 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 
-						if (CChar::IsNormal(Members) && IsValid())
+						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{
 							if (!IMembers.IsBuff(38))
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									if (IMembers.GetSpecialty() == 23 && IMembers.GetClass() == 1)
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
-										CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
 									}
 									else
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
-										CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
 									}
@@ -265,20 +265,20 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 
 							else
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.CancelBuff(38);
 									if (IMembers.GetSpecialty() == 23 && IMembers.GetClass() == 1)
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
-										CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
 									}
 									else
 									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
-										CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
+										CallOfRecovery[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 										CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
 									}
@@ -292,18 +292,18 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 			}
 			else
 			{
-				if (!IsBuff(38))
+				if (!IPlayer.IsBuff(38))
 				{
-					Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 				else
 				{
-					CancelBuff(38);
+					IPlayer.CancelBuff(38);
 
-					Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 			}
@@ -313,11 +313,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 	//Call of physical attack
 	if (ISkill.GetIndex() == 32)
 	{
-		if (IsValid())
+		if (IPlayer.IsValid())
 		{
-			if (IsParty())
+			if (IPlayer.IsParty())
 			{
-				void *Party = (void*)CParty::FindParty(GetPartyID());
+				void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 				if (Party)
 				{
@@ -327,27 +327,27 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						int Buff = CChar::FindBuff((int)IMembers.GetOffset(), 560);
 
-						if (CChar::IsNormal(Members) && IsValid())
+						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{
 							if (!IMembers.IsBuff(74))
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
 									IMembers.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 
 									IMembers.Buff(74, 0, 0);
 									IMembers.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
-									CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = GetOffset();
+									CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 									CallOfPhysicalAttack[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 									CallOfPhysicalAttack[IMembers.GetPID()].SkillID = SkillID;
 
-									_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 								}
 							}
 							else
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									IMembers.RemoveMinAttack(*(DWORD*)(Buff + 12));
 									IMembers.RemoveMaxAttack(*(DWORD*)(Buff + 12));
@@ -359,13 +359,13 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 									IMembers.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 									IMembers.Buff(74, 0, 0);
 									IMembers.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
-									CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = GetOffset();
+									CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = IPlayer.GetOffset();
 									CallOfPhysicalAttack[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
 									CallOfPhysicalAttack[IMembers.GetPID()].SkillID = SkillID;
 
 
 
-									_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+									IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 								}
 							}
 						}
@@ -375,38 +375,38 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 			}
 			else
 			{
-				int Buff = CChar::FindBuff((int)GetOffset(), 560);
+				int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 560);
 
 
-				if (!IsBuff(74))
+				if (!IPlayer.IsBuff(74))
 				{
 
-					AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
-					AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
+					IPlayer.AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
+					IPlayer.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 
-					Buff(74, 0, 0);
-					Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
+					IPlayer.Buff(74, 0, 0);
+					IPlayer.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
 
 
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 				else
 				{
-					RemoveMinAttack(*(DWORD*)(Buff + 12));
-					RemoveMaxAttack(*(DWORD*)(Buff + 12));
+					IPlayer.RemoveMinAttack(*(DWORD*)(Buff + 12));
+					IPlayer.RemoveMaxAttack(*(DWORD*)(Buff + 12));
 
-					CancelBuff(74);
-					CancelBuff(560);
+					IPlayer.CancelBuff(74);
+					IPlayer.CancelBuff(560);
 
 
-					AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
-					AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
+					IPlayer.AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
+					IPlayer.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 
-					Buff(74, 0, 0);
-					Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
+					IPlayer.Buff(74, 0, 0);
+					IPlayer.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
 
-					_ShowBattleAnimation(IPlayer, ISkill.GetIndex());
+					IPlayer._ShowBattleAnimation(IPlayer, ISkill.GetIndex());
 					return;
 				}
 			}
@@ -416,11 +416,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 	//Call of heal
 	if (ISkill.GetIndex() == 29)
 	{
-		if (IsValid())
+		if (IPlayer.IsValid())
 		{
-			if (IsParty())
+			if (IPlayer.IsParty())
 			{
-				void *Party = (void*)CParty::FindParty(GetPartyID());
+				void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 				if (Party)
 				{
@@ -431,24 +431,24 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 						int Members = *(DWORD*)((void*)i);
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
-						if (CChar::IsNormal(Members) && IsValid())
+						if (CChar::IsNormal(Members) && IPlayer.IsValid())
 						{
-							if (IsInRange(IMembers, CallRANGE))
+							if (IPlayer.IsInRange(IMembers, CallRANGE))
 							{
 								IMembers.IncreaseHp(CallofHealBase + (IMembers.GetMaxHp()*CallofHealBasePercentage / 100) + (IMembers.GetMaxHp()*ISkill.GetGrade()*CallofHealPerGradePercentage/100));
 								IMembers.AddFxToTarget("davi_M573_76_bhit", 1, 0, 1);
 							}
 						}
 					}
-					_ShowBattleAnimation(IPlayer, 29);
+					IPlayer._ShowBattleAnimation(IPlayer, 29);
 
 				}
 			}
 			else
 			{
-				AddFxToTarget("davi_M573_76_bhit", 1, 0, 1);
-				IncreaseHp(CallofHealBase + (GetMaxHp()*CallofHealBasePercentage / 100) + (GetMaxHp()*ISkill.GetGrade()*CallofHealPerGradePercentage/100));
-				_ShowBattleAnimation(IPlayer, 29);
+				IPlayer.AddFxToTarget("davi_M573_76_bhit", 1, 0, 1);
+				IPlayer.IncreaseHp(CallofHealBase + (IPlayer.GetMaxHp()*CallofHealBasePercentage / 100) + (IPlayer.GetMaxHp()*ISkill.GetGrade()*CallofHealPerGradePercentage/100));
+				IPlayer._ShowBattleAnimation(IPlayer, 29);
 			}
 		}
 	}
@@ -457,11 +457,11 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 	{
 		int DebuffList[22] = { 7,8,11,15,26,29,39,81,85,86,87,88,89,90,91,92,93,94,105,4001,4002,790 };
 
-			if (IsValid())
+			if (IPlayer.IsValid())
 			{
-				if (IsParty())
+				if (IPlayer.IsParty())
 				{
-					void *Party = (void*)CParty::FindParty(GetPartyID());
+					void *Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 
 					if (Party)
 					{
@@ -470,9 +470,9 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							int Members = *(DWORD*)((void*)i);
 							ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
-							if (CChar::IsNormal(Members) && IsValid())
+							if (CChar::IsNormal(Members) && IPlayer.IsValid())
 							{
-								if (IsInRange(IMembers, CallRANGE))
+								if (IPlayer.IsInRange(IMembers, CallRANGE))
 								{
 									for (int i = 0; i < 22; i++)
 									{
@@ -551,20 +551,20 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 				}
 				else
 				{
-					AddFxToTarget("davi_M635_75", 1, 0, 1);
+					IPlayer.AddFxToTarget("davi_M635_75", 1, 0, 1);
 					for (int i = 0; i < 22; i++)
 					{
-						CancelBuff(DebuffList[i]);
+						IPlayer.CancelBuff(DebuffList[i]);
 					}
-					RemoveBuffIcon(0, 0, 0, 225);
-					RemoveBuffIcon(0, 0, 0, 224);
+					IPlayer.RemoveBuffIcon(0, 0, 0, 225);
+					IPlayer.RemoveBuffIcon(0, 0, 0, 224);
 
-					if (IsBuff(350))
+					if (IPlayer.IsBuff(350))
 					{
-						CancelBuff(350);
+						IPlayer.CancelBuff(350);
 						for (auto it = CheckRuptureContinueSkill.begin(); it != CheckRuptureContinueSkill.end(); ++it)
 						{
-							if (it->second.PlayerTarget == GetOffset())
+							if (it->second.PlayerTarget == IPlayer.GetOffset())
 							{
 
 								ICharacter Caster(it->second.CasterOffset);
@@ -577,12 +577,12 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							}
 						}
 					}
-					if (IsBuff(348))
+					if (IPlayer.IsBuff(348))
 					{
-						CancelBuff(348);
+						IPlayer.CancelBuff(348);
 						for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
 						{
-							if (it->second.PlayerTarget == GetOffset())
+							if (it->second.PlayerTarget == IPlayer.GetOffset())
 							{
 
 								ICharacter Caster(it->second.CasterOffset);
@@ -594,19 +594,19 @@ void __fastcall Calls(int pSkill, void *edx, void* Player, int pPacket, int pPos
 							}
 						}
 					}
-					if (IsBuff(339) || IsBuff(340))
+					if (IPlayer.IsBuff(339) || IPlayer.IsBuff(340))
 					{
-						if (IsBuff(339))
-							CancelBuff(339);
+						if (IPlayer.IsBuff(339))
+							IPlayer.CancelBuff(339);
 
-						if (IsBuff(340))
-							CancelBuff(340);
+						if (IPlayer.IsBuff(340))
+							IPlayer.CancelBuff(340);
 
-						RemoveBuffIcon(0, 0, 0, 219);
+						IPlayer.RemoveBuffIcon(0, 0, 0, 219);
 
 						for (auto it = CheckFarContinueSkill.begin(); it != CheckFarContinueSkill.end(); ++it)
 						{
-							if (it->second.PlayerTarget == GetOffset())
+							if (it->second.PlayerTarget == IPlayer.GetOffset())
 							{
 
 								ICharacter Caster(it->second.CasterOffset);

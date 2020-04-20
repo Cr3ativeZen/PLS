@@ -3,9 +3,9 @@
 
 void __fastcall OneHitStrike(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(90);
+	int pSkill = IPlayer.GetSkillPointer(90);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		ISkill xSkill((void*)pSkill);
 		int nSkillGrade = xSkill.GetGrade();
@@ -28,48 +28,48 @@ void __fastcall OneHitStrike(ICharacter IPlayer, int pPacket, int pPos)
 
 		ICharacter Target(pTarget);
 
-		if (pTarget && nSkillGrade && IsValid())
+		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
 
 
-			if (GetCurMp() < nMana)
+			if (IPlayer.GetCurMp() < nMana)
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
-			if (pTarget == GetOffset())
+			if (pTarget == IPlayer.GetOffset())
 			{
 				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 				return;
 			}
 
 
-			if (IsValid() && Target.IsValid())
+			if (IPlayer.IsValid() && Target.IsValid())
 			{
-				if (!IsInRange(Target, 20))
+				if (!IPlayer.IsInRange(Target, 20))
 				{
 					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 					return;
 				}
 
 				Target.AddFxToTarget("test_item_ef_small_11", 1, 0, 0);
-					AddFxToTarget("davi_M598_71", 1, 0, 0);
+					IPlayer.AddFxToTarget("davi_M598_71", 1, 0, 0);
 
-				int nDmg = (GetAttack()*OHSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*OHSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*OHSStrMultiPvE) + (nSkillGrade*OHSPerGradeMultiPvE);
+				int nDmg = (IPlayer.GetAttack()*OHSBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*OHSAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*OHSStrMultiPvE) + (nSkillGrade*OHSPerGradeMultiPvE);
 
 				if (Target.GetType() == 0)
-					nDmg = (GetAttack()*OHSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*OHSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*OHSStrMultiPvP) + (nSkillGrade*OHSPerGradeMultiPvE);
+					nDmg = (IPlayer.GetAttack()*OHSBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*OHSAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*OHSStrMultiPvP) + (nSkillGrade*OHSPerGradeMultiPvE);
 
 
-				OktayDamageSingle(Target, nDmg, 90);
-				SetDirection(Target);
-				DecreaseMana(nMana);
+				IPlayer.OktayDamageSingle(Target, nDmg, 90);
+				IPlayer.SetDirection(Target);
+				IPlayer.DecreaseMana(nMana);
 			}
 
 		}
 		else {
-			CouldntExecuteSkill();
+			IPlayer.CouldntExecuteSkill();
 		}
 		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 	}

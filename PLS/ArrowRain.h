@@ -4,27 +4,27 @@
 #include "ResetContinueSkill.h"
 void __fastcall ContinueArrowRain(ICharacter IPlayer)
 {
-	if (IsValid())
+	if (IPlayer.IsValid())
 	{
-		int nSkillGrade = CheckContinueSkill.find(GetPID())->second.PlayerSkillGrade;
-		void *pTarget = CheckContinueSkill.find(GetPID())->second.PlayerTarget;
+		int nSkillGrade = CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillGrade;
+		void *pTarget = CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerTarget;
 
-		if (pTarget && nSkillGrade && CheckContinueSkill.find(GetPID())->second.PlayerSkillCount)
+		if (pTarget && nSkillGrade && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
 			ICharacter Target(pTarget);
-			CheckContinueSkill[GetPID()].PlayerSkillCount--;
+			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
-			if (!IsValid() || !Target.IsValid())
+			if (!IPlayer.IsValid() || !Target.IsValid())
 			{
 				ResetContinueSkill(IPlayer);
-				CancelBuff(5565);
+				IPlayer.CancelBuff(5565);
 				return;
 			}
 
-			if (IsMoved(CheckContinueSkill.find(GetPID())->second.PlayerX, CheckContinueSkill.find(GetPID())->second.PlayerY))
+			if (IPlayer.IsMoved(CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerX, CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerY))
 			{
 				ResetContinueSkill(IPlayer);
-				CancelBuff(5565);
+				IPlayer.CancelBuff(5565);
 				return;
 			}
 
@@ -34,27 +34,27 @@ void __fastcall ContinueArrowRain(ICharacter IPlayer)
 			{
 				ICharacter Object((void*)*(DWORD*)Around);
 
-				if (Object.IsValid() && IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+				if (Object.IsValid() && IPlayer.IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
-					int nDmg = (GetAttack()*ARBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*ARAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvE) + (nSkillGrade*ARPerGradeMultiPvE);
+					int nDmg = (IPlayer.GetAttack()*ARBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*ARAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvE) + (nSkillGrade*ARPerGradeMultiPvE);
 
 					if (Object.GetType() == 0)
-						nDmg = (GetAttack()*ARBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*ARAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvP) + (nSkillGrade*ARPerGradeMultiPvP);
+						nDmg = (IPlayer.GetAttack()*ARBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*ARAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvP) + (nSkillGrade*ARPerGradeMultiPvP);
 
 
-					OktayDamageArea(Object,nDmg,47);
+					IPlayer.OktayDamageArea(Object,nDmg,47);
 				}
 
 				Around = CBaseList::Pop((void*)Around);
 			}
 
-			if (IsOnline())
-				CheckContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount64() + 900;
+			if (IPlayer.IsOnline())
+				CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = GetTickCount64() + 900;
 
-			if (IsOnline() && CheckContinueSkill.find(GetPID())->second.PlayerSkillCount == 0)
+			if (IPlayer.IsOnline() && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount == 0)
 			{
 				ResetContinueSkill(IPlayer);
-				CancelBuff(5565);
+				IPlayer.CancelBuff(5565);
 			}
 
 			return;
@@ -62,15 +62,15 @@ void __fastcall ContinueArrowRain(ICharacter IPlayer)
 	}
 
 	ResetContinueSkill(IPlayer);
-	CancelBuff(5565);
+	IPlayer.CancelBuff(5565);
 	return;
 }
 
 void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(47);
+	int pSkill = IPlayer.GetSkillPointer(47);
 
-	if (IsValid() && pSkill)
+	if (IPlayer.IsValid() && pSkill)
 	{
 		int x = 0, y = 0;
 		CPacket::Read((char*)pPacket, (char*)pPos, "dd", &x, &y);
@@ -80,31 +80,31 @@ void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 		if (!nSkillGrade)
 			return;
 
-		int nMana = 20 + (GetLevel() * 4);
+		int nMana = 20 + (IPlayer.GetLevel() * 4);
 
 		if (x <= 0 || y <= 0)
 			return;
 
-		if (nSkillGrade && IsValid())
+		if (nSkillGrade && IPlayer.IsValid())
 		{
-			if (GetCurMp() < nMana)
+			if (IPlayer.GetCurMp() < nMana)
 				return;
 
-			Buff(5565, 10, 0);
-			DecreaseMana(nMana);
-			_ShowBattleAnimation(IPlayer,47);
+			IPlayer.Buff(5565, 10, 0);
+			IPlayer.DecreaseMana(nMana);
+			IPlayer._ShowBattleAnimation(IPlayer,47);
 			int *GetSetXY = new int[1];
 			GetSetXY[0] = x;
 			GetSetXY[1] = y;
-			int check = CMonsterMagic::Create(567,GetMap(),(int)GetSetXY,1,(int)GetOffset(),0,10000);
+			int check = CMonsterMagic::Create(567,IPlayer.GetMap(),(int)GetSetXY,1,(int)IPlayer.GetOffset(),0,10000);
 			delete[] GetSetXY;
-			CheckContinueSkill[GetPID()].PlayerSkillID = 47;
-			CheckContinueSkill[GetPID()].PlayerTarget = (void*)check;
-			CheckContinueSkill[GetPID()].PlayerSkillGrade = nSkillGrade;
-			CheckContinueSkill[GetPID()].PlayerSkillCount = 10;
-			CheckContinueSkill[GetPID()].PlayerSkillDelay = 0;
-			CheckContinueSkill[GetPID()].PlayerX = GetX();
-			CheckContinueSkill[GetPID()].PlayerY = GetY();
+			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillID = 47;
+			CheckContinueSkill[IPlayer.GetPID()].PlayerTarget = (void*)check;
+			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillGrade = nSkillGrade;
+			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount = 10;
+			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay = 0;
+			CheckContinueSkill[IPlayer.GetPID()].PlayerX = IPlayer.GetX();
+			CheckContinueSkill[IPlayer.GetPID()].PlayerY = IPlayer.GetY();
 		}
 		ContinueArrowRain(IPlayer);
 	}
@@ -112,9 +112,9 @@ void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 
 //void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 //{
-//	int pSkill = GetSkillPointer(47);
+//	int pSkill = IPlayer.GetSkillPointer(47);
 //
-//	if (IsValid() && pSkill)
+//	if (IPlayer.IsValid() && pSkill)
 //	{
 //		int x = 0, y = 0;
 //		CPacket::Read((char*)pPacket, (char*)pPos, "dd", &x, &y);
@@ -124,28 +124,28 @@ void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 //		if (!nSkillGrade)
 //			return;
 //
-//		int nMana = 20 + (GetLevel() * 4);
+//		int nMana = 20 + (IPlayer.GetLevel() * 4);
 //
 //		if (x <= 0 || y <= 0)
 //			return;
 //
-//		if (nSkillGrade && IsValid())
+//		if (nSkillGrade && IPlayer.IsValid())
 //		{
-//			if (GetCurMp() < nMana)
+//			if (IPlayer.GetCurMp() < nMana)
 //				return;
 //
-//			DecreaseMana(nMana);
-//			_ShowBattleAnimation(IPlayer,47);
+//			IPlayer.DecreaseMana(nMana);
+//			IPlayer._ShowBattleAnimation(IPlayer,47);
 //			int *GetSetXY = new int[1];
 //			GetSetXY[0] = x;
 //			GetSetXY[1] = y;
-//			int check = CMonsterMagic::Create(567,GetMap(),(int)GetSetXY,1,(int)GetOffset(),0,10000);
+//			int check = CMonsterMagic::Create(567,IPlayer.GetMap(),(int)GetSetXY,1,(int)IPlayer.GetOffset(),0,10000);
 //			delete[] GetSetXY;
 //
-//			int XX=GetX();
-//			int YY=GetY();
-//			CheckContinueSkill[GetPID()].PlayerX = GetX();
-//			CheckContinueSkill[GetPID()].PlayerY = GetY();
+//			int XX=IPlayer.GetX();
+//			int YY=IPlayer.GetY();
+//			CheckContinueSkill[IPlayer.GetPID()].PlayerX = IPlayer.GetX();
+//			CheckContinueSkill[IPlayer.GetPID()].PlayerY = IPlayer.GetY();
 //
 //			int delay = GetTickCount();
 //			int skillCount = 0;
@@ -153,12 +153,12 @@ void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 //			while (skillCount < 10)
 //			{
 //
-//				if (IsMoved(XX,YY))
+//				if (IPlayer.IsMoved(XX,YY))
 //				{
 //					break;
 //				}
 //
-//				if (!IsValid() || !Target.IsValid())
+//				if (!IPlayer.IsValid() || !Target.IsValid())
 //				{
 //					break;
 //				}
@@ -171,15 +171,15 @@ void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 //					{
 //						ICharacter Object((void*)*(DWORD*)Around);
 //
-//						if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+//						if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 //						{
-//							int nDmg = (GetAttack()*ARBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*ARAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvE) + (nSkillGrade*ARPerGradeMultiPvE);
+//							int nDmg = (IPlayer.GetAttack()*ARBaseDmgMultiPvE) + (CChar::GetDex((int)IPlayer.GetOffset())*ARAgiMultiPvE) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvE) + (nSkillGrade*ARPerGradeMultiPvE);
 //
 //							if (Object.GetType() == 0)
-//								nDmg = (GetAttack()*ARBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*ARAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvP) + (nSkillGrade*ARPerGradeMultiPvE);
+//								nDmg = (IPlayer.GetAttack()*ARBaseDmgMultiPvP) + (CChar::GetDex((int)IPlayer.GetOffset())*ARAgiMultiPvP) + (CChar::GetStr((int)IPlayer.GetOffset())*ARStrMultiPvP) + (nSkillGrade*ARPerGradeMultiPvE);
 //
 //
-//							OktayDamageArea(Object, nDmg, 47);
+//							IPlayer.OktayDamageArea(Object, nDmg, 47);
 //						}
 //						Around = CBaseList::Pop((void*)Around);
 //					}
@@ -190,6 +190,6 @@ void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 //		}
 //		//ContinueArrowRain(IPlayer);
 //	}
-//	CouldntExecuteSkill();
+//	IPlayer.CouldntExecuteSkill();
 //}
 #endif

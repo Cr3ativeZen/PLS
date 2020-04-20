@@ -33,10 +33,14 @@ void __fastcall PowerfulWideningWound(ICharacter IPlayer, int pPacket, int pPos)
 		{
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 			if (IPlayer.GetCurMp() < nMana || pTarget == IPlayer.GetOffset())
 
 			if (GetCurMp() < nMana)
+=======
+			if (IPlayer.GetCurMp() < nMana)
+>>>>>>> parent of e123e09... pus
 =======
 			if (IPlayer.GetCurMp() < nMana)
 >>>>>>> parent of e123e09... pus
@@ -50,8 +54,12 @@ void __fastcall PowerfulWideningWound(ICharacter IPlayer, int pPacket, int pPos)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if (pTarget == GetOffset())
 
+=======
+			if (pTarget == IPlayer.GetOffset())
+>>>>>>> parent of e123e09... pus
 =======
 			if (pTarget == IPlayer.GetOffset())
 >>>>>>> parent of e123e09... pus

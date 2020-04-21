@@ -43,6 +43,12 @@
 
 
 
+#define SKILL_MAGE_CURE 10
+#define SKILL_MAGE_CURE2 22
+#define SKILL_MAGE_CURE3 35
+
+
+
 
 
 

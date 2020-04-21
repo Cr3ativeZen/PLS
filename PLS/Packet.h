@@ -960,6 +960,22 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				
 				case CLASS_MAGE:
 				{
+					CMage mage((void*)Player);
+					switch (SkillID)
+					{
+					case SKILL_MAGE_CURE:
+					{
+						mage.Cure(pSkill,0,kappa,pPos);
+					}
+					case SKILL_MAGE_CURE2:
+					{
+						mage.Cure2(pSkill, 0, kappa, pPos);
+					}
+					case SKILL_MAGE_CURE3:
+					{
+						mage.Cure3(pSkill, 0, kappa, pPos);
+					}
+					}
 					break;
 				}			
 				case CLASS_ARCHER:

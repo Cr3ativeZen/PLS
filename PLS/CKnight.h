@@ -20,10 +20,11 @@ public:
 	{
 
 	}
-	//void __fastcall BrutalAttack(int pSkill, int pPacket, int pPos);
+
+	void __fastcall BrutalAttack(int pSkill, int pPacket, int pPos);
 	//void __fastcall Calls(int pSkill, int pPacket, int pPos);
-	//void __fastcall HalfSwing(int pSkill, int pPacket, int pPos);
-	//void __fastcall LightningSlash(int pSkill, int pPacket, int pPos);
+	void __fastcall HalfSwing(int pSkill, int pPacket, int pPos);
+	void __fastcall LightningSlash(int pSkill, int pPacket, int pPos);
 	void __fastcall PowerfulUpwardSlash(int pSkill, int pPacket, int pPos);
 	//void __fastcall PowerfulWideningWound(int pSkill, int pPacket, int pPos);
 	//void __fastcall ProvocationOfBlow(int pSkill, int pPacket, int pPos);

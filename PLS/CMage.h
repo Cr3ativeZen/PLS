@@ -21,9 +21,9 @@ public:
 
 	}
 
-	void __fastcall Cure(int pSkill, void* edx, int pPacket, int pPos);
-	void __fastcall Cure2(int pSkill, void* edx, int pPacket, int pPos);
-	void __fastcall Cure3(int pSkill, void* edx, int pPacket, int pPos);
+	void __fastcall Cure(int pPacket, int pPos);
+	void __fastcall Cure2(int pPacket, int pPos);
+	void __fastcall Cure3(int pPacket, int pPos);
 
 
 

@@ -20,7 +20,6 @@ public:
 	{
 
 	}
-
 	//void __fastcall BrutalAttack(int pSkill, int pPacket, int pPos);
 	//void __fastcall Calls(int pSkill, int pPacket, int pPos);
 	//void __fastcall HalfSwing(int pSkill, int pPacket, int pPos);

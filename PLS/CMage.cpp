@@ -1,7 +1,8 @@
 #include "CMage.h"
 
-void __fastcall CMage::Cure(int pSkill,void* edx, int pPacket, int pPos)
+void __fastcall CMage::Cure(int pPacket, int pPos)
 {
+	int pSkill = GetSkillPointer(SKILL_MAGE_CURE);
 	ISkill ISkill((void*)pSkill);
 
 
@@ -65,8 +66,9 @@ void __fastcall CMage::Cure(int pSkill,void* edx, int pPacket, int pPos)
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall CMage::Cure2(int pSkill, void* edx, int pPacket, int pPos)
+void __fastcall CMage::Cure2(int pPacket, int pPos)
 {
+	int pSkill = GetSkillPointer(SKILL_MAGE_CURE2);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -122,8 +124,9 @@ void __fastcall CMage::Cure2(int pSkill, void* edx, int pPacket, int pPos)
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall CMage::Cure3(int pSkill, void* edx, int pPacket, int pPos)
+void __fastcall CMage::Cure3(int pPacket, int pPos)
 {
+	int pSkill = GetSkillPointer(SKILL_MAGE_CURE);
 	ISkill ISkill((void*)pSkill);
 
 	int nTargetID = 0;

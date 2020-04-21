@@ -799,7 +799,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		{
 
 			int SkillID = 0;
-			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
+			int PACKET = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
 			int pSkill = IPlayer.GetSkillPointer(SkillID);
 			bool check = false;
 
@@ -935,7 +935,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
 			{
-				ActivateShiny(IPlayer, kappa, pPos);
+				ActivateShiny(IPlayer, PACKET, pPos);
 			}
 
 
@@ -951,7 +951,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					{
 					case SKILL_KNIGHT_POWERFULUPWARDSLASH:
 						{
-							knight.PowerfulUpwardSlash(pSkill, kappa, pPos);
+							knight.PowerfulUpwardSlash(pSkill, PACKET, pPos);
 							return;
 						}
 					case SKILL_KNIGHT_SPINSLASH:
@@ -970,17 +970,17 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					{
 					case SKILL_MAGE_CURE:
 					{
-						mage.Cure(pSkill,0,kappa,pPos);
+						mage.Cure(PACKET,pPos);
 						return;
 					}
 					case SKILL_MAGE_CURE2:
 					{
-						mage.Cure2(pSkill, 0, kappa, pPos);
+						mage.Cure2(PACKET, pPos);
 						return;
 					}
 					case SKILL_MAGE_CURE3:
 					{
-						mage.Cure3(pSkill, 0, kappa, pPos);
+						mage.Cure3(PACKET, pPos);
 						return;
 					}
 					}
@@ -1010,25 +1010,25 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			//	if (SkillID == 43 && IPlayer.GetSpecialty() == 23 && SwordDanceON == true)
 			//	{
-			//		SwordDance(IPlayer, kappa, pPos);
+			//		SwordDance(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 42 && IPlayer.GetSpecialty() == 43&& ProvocationOfBlowON== true)
 			//	{
-			//		ProvocationOfBlow(IPlayer, kappa, pPos);
+			//		ProvocationOfBlow(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 41 &&  PowerfulWideningWoundON == true)
 			//	{
-			//		PowerfulWideningWound(IPlayer, kappa, pPos);
+			//		PowerfulWideningWound(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if ((SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
 			//	{
-			//		Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
+			//		Calls(pSkill, edx, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1092,46 +1092,46 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			//	if (SkillID == 26 && SacrificeON == true)
 			//	{
-			//		Sacrifice(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		Sacrifice(pSkill, edx, (int)IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 15 && ShieldAttackON== true)
 			//	{
-			//		ShieldAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		ShieldAttack(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 
 			//	if (SkillID == 3 && LightningSlashON == true)
 			//	{
-			//		LightningSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		LightningSlash(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 
 			//	if (SkillID == 5 && TranscendentalBlowON == true)
 			//	{
-			//		TranscendentalBlow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		TranscendentalBlow(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 
 			//	if (SkillID == 16 && PowerfulUpwardSlashON == true)
 			//	{
-			//		PowerfulUpwardSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		PowerfulUpwardSlash(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 17 && BrutalAttackON == true)
 			//	{
-			//		BrutalAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		BrutalAttack(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 25 && HalfSwingON == true)
 			//	{
-			//		HalfSwing(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		HalfSwing(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1167,88 +1167,88 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//{
 			//	if (SkillID == 8 && HealON == true)
 			//	{
-			//		Heal(pSkill, kappa, (int)IPlayer.GetOffset());
+			//		Heal(pSkill, pPacket, (int)IPlayer.GetOffset());
 			//		return;
 			//	}
 
 			//	if ((SkillID == 10) && CureON == true)
 			//	{
-			//		Cure(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		Cure(pSkill, edx, (int)IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if ((SkillID == 22) && CureON == true)
 			//	{
-			//		Cure2(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		Cure2(pSkill, edx, (int)IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if ((SkillID == 35) && CureON == true)
 			//	{
-			//		Cure3(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		Cure3(pSkill, edx, (int)IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 9 && ShockWaveON == true)
 			//	{
-			//		ShockWave(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		ShockWave(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 61 && AmnesiaON == true)
 			//	{
-			//		Amnesia(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		Amnesia(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 54 && PurificationON == true)
 			//	{
-			//		Purification(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		Purification(pSkill, edx, (int)IPlayer.GetOffset(), pPacket, pPos);
 			//	}
 
 			//	
 
 			//	if (SkillID == 34 && SummonsON == true)
 			//	{
-			//		Summons(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		Summons(pSkill, edx, (int)IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 
 			//	if (SkillID == 41 &&ChainLightningON==true)
 			//	{
-			//		ChainLightning(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		ChainLightning(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 40 && SoulDestructionON == true)
 			//	{
-			//		SoulDestruction(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		SoulDestruction(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 
 			//	if (SkillID == 45 && IceStormON == true)
 			//	{
-			//		IceStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		IceStorm(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 48 && FireStormON == true)
 			//	{
-			//		FireStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		FireStorm(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 43 && ThunderStormON == true)
 			//	{
-			//		ThunderStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		ThunderStorm(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 65 && IPlayer.GetSpecialty() == 23 &&FlameInjectionON==true)
 			//	{
-			//		FlameInjection(IPlayer, kappa, pPos);
+			//		FlameInjection(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1260,37 +1260,37 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 			//	if (SkillID == 67 && IPlayer.GetSpecialty() == 23 &&LightningArrowON==true)
 			//	{
-			//		LightningArrow(IPlayer, kappa, pPos);
+			//		LightningArrow(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 72 && IPlayer.GetSpecialty() == 43 && TherapeuticTouchON == true)
 			//	{
-			//		TherapeuticTouch(IPlayer, kappa, pPos);
+			//		TherapeuticTouch(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 73 && IPlayer.GetSpecialty() == 23 && FireballON == true)
 			//	{
-			//		Fireball(IPlayer, kappa, pPos);
+			//		Fireball(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 99 && IPlayer.GetSpecialty() == 23 &&IceArrowON == true&&(IPlayer.IsBuff(295)||IPlayer.IsBuff(5605)))
 			//	{
-			//		IceArrow(IPlayer, kappa, pPos);
+			//		IceArrow(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 75 && IPlayer.GetSpecialty() == 23 && ThunderboltON == true)
 			//	{
-			//		Thunderbolt(IPlayer, kappa, pPos);
+			//		Thunderbolt(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && PunishmentON == true)
 			//	{
-			//		Punishment(IPlayer, kappa, pPos);
+			//		Punishment(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1320,95 +1320,95 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//{
 			//	if (SkillID == 18 &&LifeAbsorptionON==true)
 			//	{
-			//		LifeAbsorption(pSkill, edx, IPlayer.GetOffset(), (char*)kappa, (char*)pPos);
+			//		LifeAbsorption(pSkill, edx, IPlayer.GetOffset(), (char*)pPacket, (char*)pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 16 && IPlayer.IsValid() && FocusShotON== true)
 			//	{
-			//		FocusShot(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		FocusShot(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 21 && MysteriousArrowON == true)
 			//	{
-			//		MysteriousArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		MysteriousArrow(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 6 && FlamyArrowON == true)
 			//	{
-			//		FlamyArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		FlamyArrow(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 4 && PassiveAttackON == true)
 			//	{
-			//		PassiveAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		PassiveAttack(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 14 && BlowUpArrowON == true)
 			//	{
-			//		BlowUpArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		BlowUpArrow(pSkill, IPlayer.GetOffset(), pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 10 && MuscleSolidationON == true)
 			//	{
-			//		MuscleSolidation(pSkill, kappa, (int)IPlayer.GetOffset());
+			//		MuscleSolidation(pSkill, pPacket, (int)IPlayer.GetOffset());
 			//		return;
 			//	}
 			//	if (SkillID == 45 && BuffRemoverON == true)
 			//	{
-			//		BuffRemover(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		BuffRemover(pSkill, edx, (int)IPlayer.GetOffset(), pPacket, pPos);
 			//	}
 
 			//	if (SkillID == 47 && IPlayer.GetSpecialty() == 23 && ArrowRainON == true)
 			//	{
-			//		ArrowRain(IPlayer, kappa, pPos);
+			//		ArrowRain(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 49 && IPlayer.GetSpecialty() == 43 && ArrowExplosionON==true)
 			//	{
-			//		ArrowExplosion(IPlayer, kappa, pPos);
+			//		ArrowExplosion(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 50 && IPlayer.GetSpecialty() == 43 && VirulentArrowON==true)
 			//	{
-			//		VirulentArrow(IPlayer, kappa, pPos);
+			//		VirulentArrow(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 51 && IPlayer.GetSpecialty() == 23 && CombativeSpiritON == true)
 			//	{
-			//		CombativeSpirit(IPlayer, kappa, pPos);
+			//		CombativeSpirit(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && ArrowsoftheMasterON == true)
 			//	{
-			//		ArrowsOfTheMaster(IPlayer, kappa, pPos);
+			//		ArrowsOfTheMaster(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && OneHitStrikeON == true)
 			//	{
-			//		OneHitStrike(IPlayer, kappa, pPos);
+			//		OneHitStrike(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && MassiveFireON == true)
 			//	{
-			//		MassiveFire(IPlayer, kappa, pPos);
+			//		MassiveFire(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
 			//	if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && SpiritOfTheArrowsON == true)
 			//	{
-			//		SpiritOfTheArrows(IPlayer, kappa, pPos);
+			//		SpiritOfTheArrows(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1423,7 +1423,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//	{
 			//		IPlayer.CancelBuff(329);
 			//		IPlayer.CancelBuff(40);
-			//		WrathOfHeaven(IPlayer, kappa, pPos);
+			//		WrathOfHeaven(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1434,7 +1434,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		ShadowSlash(IPlayer, kappa, pPos);
+			//		ShadowSlash(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1456,7 +1456,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		LightningSlashThief(IPlayer, kappa, pPos);
+			//		LightningSlashThief(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1467,7 +1467,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		SpinAttack(IPlayer, kappa, pPos);
+			//		SpinAttack(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1478,7 +1478,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		ArmorBreaker(IPlayer, kappa, pPos);
+			//		ArmorBreaker(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1489,7 +1489,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		TwinBladeStrike(IPlayer, kappa, pPos);
+			//		TwinBladeStrike(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1500,7 +1500,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		FinalBlow(IPlayer, kappa, pPos);
+			//		FinalBlow(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1511,7 +1511,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		AnkleAmputate(IPlayer, kappa, pPos);
+			//		AnkleAmputate(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1522,7 +1522,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		VitalStrike(IPlayer, kappa, pPos);
+			//		VitalStrike(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1533,7 +1533,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		FatalWound(IPlayer, kappa, pPos);
+			//		FatalWound(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1544,7 +1544,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		Rupture(IPlayer, kappa, pPos);
+			//		Rupture(IPlayer, pPacket, pPos);
 			//		return;
 			//	}
 
@@ -1555,7 +1555,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		SuicidalBlow(IPlayer, kappa, pPos);
+			//		SuicidalBlow(IPlayer, pPacket, pPos);
 			//		return;
 
 			//	}
@@ -1625,7 +1625,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			//			IPlayer.CancelBuff(329);
 			//			IPlayer.CancelBuff(40);
 			//		}
-			//		CriticalStrike(IPlayer,kappa,pPos);
+			//		CriticalStrike(IPlayer,pPacket,pPos);
 			//		return;
 			//	}
 
@@ -1658,7 +1658,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 		if (packet == PACKET_ANIMALUSESKILL)
 		{
 			int SkillID = 0;
-			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
+			int PACKET = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
 
 			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 
@@ -1688,7 +1688,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				//IPlayer.SystemMessage(Int2String(SkillID), TEXTCOLOR_RED);
 				if (SkillID == 101)
 				{
-					ActivateShiny(IPlayer, kappa, pPos);
+					ActivateShiny(IPlayer, PACKET, pPos);
 				}
 
 				if (SkillID == 113 && RevolveAttackON == true)
@@ -1705,7 +1705,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 115&& BloodSuctionON == true)
 				{
-					BloodSuction(IPlayer, kappa, pPos);
+					BloodSuction(IPlayer, PACKET, pPos);
 					return;
 				}
 

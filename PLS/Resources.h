@@ -2,13 +2,8 @@
 #define _RESOURCES_H_
 
 
-
-
-
-
-
-
-
+#define TYPE_PLAYER 1
+#define TYPE_MONSTER 1
 
 
 

@@ -950,16 +950,31 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					switch (SkillID)
 					{
 					case SKILL_KNIGHT_POWERFULUPWARDSLASH:
-						{
-							knight.PowerfulUpwardSlash(pSkill, PACKET, pPos);
-							return;
-						}
-					case SKILL_KNIGHT_SPINSLASH:
-						{
-							knight.SpinSlash();
-							return;
-						}
+					{
+						knight.PowerfulUpwardSlash(pSkill, PACKET, pPos);
+						return;
 					}
+					case SKILL_KNIGHT_SPINSLASH:
+					{
+						knight.SpinSlash();
+						return;
+					}
+					case SKILL_KNIGHT_HALFSWING:
+					{
+						knight.HalfSwing(pSkill, PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_BRUTALATTACK:
+					{
+						knight.BrutalAttack(pSkill, PACKET, pPos);
+						return;
+					}
+					case SKILLL_KNIGHT_LIGHTNINGSLASH:
+					{
+						knight.LightningSlash(pSkill, PACKET, pPos);
+						return;
+					}
+				}
 					break;
 				}
 				

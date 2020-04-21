@@ -21,11 +21,11 @@ public:
 
 	}
 
-	void __fastcall BrutalAttack(int pSkill, int pPacket, int pPos);
+	void __fastcall BrutalAttack(int pPacket, int pPos);
 	//void __fastcall Calls(int pSkill, int pPacket, int pPos);
-	void __fastcall HalfSwing(int pSkill, int pPacket, int pPos);
-	void __fastcall LightningSlash(int pSkill, int pPacket, int pPos);
-	void __fastcall PowerfulUpwardSlash(int pSkill, int pPacket, int pPos);
+	void __fastcall HalfSwing(int pPacket, int pPos);
+	void __fastcall LightningSlash(int pPacket, int pPos);
+	void __fastcall PowerfulUpwardSlash(int pPacket, int pPos);
 	//void __fastcall PowerfulWideningWound(int pSkill, int pPacket, int pPos);
 	//void __fastcall ProvocationOfBlow(int pSkill, int pPacket, int pPos);
 	//void __fastcall Sacrifice(int pSkill, int pPacket, int pPos);

@@ -1003,6 +1003,16 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						mage.Heal();
 						return;
 					}
+					case SKILL_MAGE_CHAINLIGHTNING:
+					{
+						mage.ChainLightning(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_AMNESIA:
+					{
+						mage.Amnesia(PACKET, pPos);
+						return;
+					}
 					}
 					break;
 				}			

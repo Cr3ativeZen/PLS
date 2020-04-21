@@ -37,6 +37,7 @@ public:
 	//2nd job Hermit skills
 
 	void __fastcall ChainLightning(int pPacket, int pPos);
+	void __fastcall SoulDestruction(int pPacket, int pPos);
 
 
 };

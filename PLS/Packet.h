@@ -969,7 +969,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						knight.BrutalAttack(pSkill, PACKET, pPos);
 						return;
 					}
-					case SKILLL_KNIGHT_LIGHTNINGSLASH:
+					case SKILL_KNIGHT_LIGHTNINGSLASH:
 					{
 						knight.LightningSlash(pSkill, PACKET, pPos);
 						return;

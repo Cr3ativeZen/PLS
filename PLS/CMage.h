@@ -25,6 +25,8 @@ public:
 	void __fastcall Cure2(int pPacket, int pPos);
 	void __fastcall Cure3(int pPacket, int pPos);
 	void __fastcall Heal();
+	void __fastcall ShockWave(int pPacket, int pPos);
+	void __fastcall Amnesia(int pPacket, int pPos);
 
 
 

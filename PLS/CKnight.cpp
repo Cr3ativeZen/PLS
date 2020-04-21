@@ -2,7 +2,7 @@
 
 void __fastcall CKnight::BrutalAttack(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_BRUTALATTACK));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -60,7 +60,7 @@ void __fastcall CKnight::BrutalAttack(int pPacket, int pPos)
 
 void __fastcall CKnight::HalfSwing( int pPacket, int pPos)
 {
-	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_HALFSWING));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -120,7 +120,7 @@ void __fastcall CKnight::HalfSwing( int pPacket, int pPos)
 
 void __fastcall CKnight::LightningSlash(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
+	ISkill ISkill((void*)GetSkillPointer(SKILLL_KNIGHT_LIGHTNINGSLASH));
 
 	int nSkillGrade = ISkill.GetGrade();
 

@@ -31,6 +31,7 @@ void __fastcall CMage::Cure(int pSkill,void* edx, int pPacket, int pPos)
 
 	
 	
+	
 	//int nCure1HealAmount = CureBase + ((ITarget.GetMaxHp() * (CureBasePercentage / 100)) + (ITarget.GetMaxHp() * (ISkill.GetGrade() * CurePerGradePercentage / 100)) + CChar::GetWis((int)GetOffset()) * CureWisdom);
 	int nCure1HealAmount = 1000;
 	int Self1 = 1000;
@@ -43,7 +44,7 @@ void __fastcall CMage::Cure(int pSkill,void* edx, int pPacket, int pPos)
 		{
 
 			IncreaseHp(Self1);
-			_ShowBattleAnimation(this, ISkill.GetIndex());
+			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 			DecreaseMana(nMana);
 		}
 		else
@@ -55,7 +56,7 @@ void __fastcall CMage::Cure(int pSkill,void* edx, int pPacket, int pPos)
 			_ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
 			IncreaseHp(Self1);
-			_ShowBattleAnimation(this, ISkill.GetIndex());
+			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 
 			DecreaseMana(nMana);
 		}
@@ -102,7 +103,7 @@ void __fastcall CMage::Cure2(int pSkill, void* edx, int pPacket, int pPos)
 		if (nTargetID == GetID())
 		{
 			IncreaseHp(Self2);
-			_ShowBattleAnimation(this, ISkill.GetIndex());
+			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 			DecreaseMana(nMana);
 
 		}
@@ -113,7 +114,7 @@ void __fastcall CMage::Cure2(int pSkill, void* edx, int pPacket, int pPos)
 			_ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
 			IncreaseHp(Self2);
-			_ShowBattleAnimation(this, ISkill.GetIndex());
+			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 
 			DecreaseMana(nMana);
 		}
@@ -141,7 +142,7 @@ void __fastcall CMage::Cure3(int pSkill, void* edx, int pPacket, int pPos)
 		return;
 
 	ICharacter ITarget((void*)pTarget);
-
+	
 	//int nCure3HealAmount = CureBase3 + ((ITarget.GetMaxHp() * (CureBasePercentage3 / 100)) + (ITarget.GetMaxHp() * (ISkill.GetGrade() * CurePerGradePercentage3 / 100)) + CChar::GetWis((int)GetOffset()) * Cure3Wisdom);
 	//int Self3 = (CureBase3 + ((GetMaxHp() * (CureBasePercentage3 / 100)) + (GetMaxHp() * (ISkill.GetGrade() * CurePerGradePercentage3 / 100)) + CChar::GetWis((int)GetOffset()) * Cure3Wisdom)) / 2;
 	int nCure3HealAmount = 1000;
@@ -151,7 +152,7 @@ void __fastcall CMage::Cure3(int pSkill, void* edx, int pPacket, int pPos)
 		if (nTargetID == GetID())
 		{
 			IncreaseHp(Self3);
-			_ShowBattleAnimation(this, ISkill.GetIndex());
+			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 			DecreaseMana(nMana);
 		}
 		else
@@ -163,7 +164,7 @@ void __fastcall CMage::Cure3(int pSkill, void* edx, int pPacket, int pPos)
 			_ShowBattleAnimation(ITarget, ISkill.GetIndex());
 
 			IncreaseHp(Self3);
-			_ShowBattleAnimation(this, ISkill.GetIndex());
+			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 
 			DecreaseMana(nMana);
 		}

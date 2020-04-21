@@ -954,6 +954,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							knight.PowerfulUpwardSlash(pSkill, kappa, pPos);
 							return;
 						}
+					case SKILL_KNIGHT_SPINSLASH:
+						{
+							knight.SpinSlash();
+							return;
+						}
 					}
 					break;
 				}
@@ -966,14 +971,17 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					case SKILL_MAGE_CURE:
 					{
 						mage.Cure(pSkill,0,kappa,pPos);
+						return;
 					}
 					case SKILL_MAGE_CURE2:
 					{
 						mage.Cure2(pSkill, 0, kappa, pPos);
+						return;
 					}
 					case SKILL_MAGE_CURE3:
 					{
 						mage.Cure3(pSkill, 0, kappa, pPos);
+						return;
 					}
 					}
 					break;

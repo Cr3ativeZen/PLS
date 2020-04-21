@@ -99,7 +99,7 @@ void __fastcall CKnight::SpinSlash()
 				Around = CBaseList::Pop((void*)Around);
 			}
 
-			_ShowBattleAnimation(this, 38);
+			_ShowBattleAnimation(GetOffset(), 38);
 			RemoveDeathBlow(GetDeathBlow());
 			DecreaseMana(nMana);
 		}

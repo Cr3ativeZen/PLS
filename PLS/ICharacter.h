@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "ServerFunctions.h"
+#include "Resources.h"
 class ICharacter
 {
 

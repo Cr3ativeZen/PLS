@@ -272,6 +272,295 @@ void __fastcall CKnight::PowerfulUpwardSlash(int pPacket, int pPos)
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
+void __fastcall CKnight::PowerfulWideningWound(int pPacket, int pPos)
+{
+	int pSkill = GetSkillPointer(SKILL_KNIGHT_POWERFULWIDENINGWOUND);
+
+	if (IsValid() && pSkill)
+	{
+		ISkill xSkill((void*)pSkill);
+		int nTargetID = 0; char bType = 0; void* pTarget = 0;
+		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+		int nMana = xSkill.GetGrade() + 30;
+
+		if (bType == 0 && nTargetID)
+			pTarget = CPlayer::FindPlayer(nTargetID);
+
+		if (bType == 1 && nTargetID)
+			pTarget = CMonster::FindMonster(nTargetID);
+
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+			return;
+
+		ICharacter Target(pTarget);
+
+		if (!IsInRange(Target, 20))
+		{
+			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+			return;
+		}
+
+		if (pTarget && xSkill.GetGrade() && IsValid())
+		{
+			if (GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
+
+			if (pTarget == GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
+
+			if (IsValid() && Target.IsValid())
+			{
+				if (!IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+					return;
+				}
+
+				if (CheckHit(Target, 10 + ((GetLevel() / 20) + xSkill.GetGrade() * 3)))
+				{
+					int nDmg = 5000;
+					/*int nDmg = (GetAttack() * PWWBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * PWWAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * PWWStrMultiPvE) + (xSkill.GetGrade() * PWWPerGradeMultiPvE);
+
+					if (Target.GetType() == 0)
+						nDmg = (GetAttack() * PWWBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset()) * PWWAgiMultiPvP) + (CChar::GetStr((int)GetOffset()) * PWWStrMultiPvP) + (xSkill.GetGrade() * PWWPerGradeMultiPvP);*/
+
+
+					OktayDamageSingle(Target, nDmg, 41);
+
+					if (IsOnline() && IsValid() && Target.IsOnline() && Target.IsValid() && Target.GetType() == 1 && Target.GetCurHp() > 0 && Target.IsMobAggressive() && Target.IsMobHaveTarget())
+					{
+						//CMonsterReal::AddHostility(Target.GetOffset(), (int)GetOffset(), nDmg * PWWHostilityMultiplier, 0);
+						CMonsterReal::AddHostility(Target.GetOffset(), (int)GetOffset(), nDmg * 500, 0);
+					}
+				}
+				else
+				{
+					_ShowBattleMiss(Target, 41);
+				}
+
+				SetDirection(Target);
+			}
+		}
+		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+		DecreaseMana(nMana);
+	}
+}
+
+void __fastcall CKnight::ProvocationOfBlow(int pPacket, int pPos)
+{
+	int pSkill = GetSkillPointer(SKILL_KNIGHT_PROVOCATIONOFBLOW);
+
+	if (IsValid() && pSkill)
+	{
+		ISkill xSkill((void*)pSkill);
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
+		int nTargetID = 0, nMana = 0; char bType = 0; void* pTarget = 0;
+		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+
+		if (bType == 0 && nTargetID)
+			pTarget = CPlayer::FindPlayer(nTargetID);
+
+		if (bType == 1 && nTargetID)
+			pTarget = CMonster::FindMonster(nTargetID);
+
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+			return;
+
+		if (pTarget && nSkillGrade && IsValid())
+		{
+			if (nSkillGrade <= 1)
+				nMana = 220;
+			else if (nSkillGrade == 2)
+				nMana = 242;
+			else if (nSkillGrade == 3)
+				nMana = 266;
+			else if (nSkillGrade == 4)
+				nMana = 292;
+			else if (nSkillGrade >= 5)
+				nMana = 320;
+
+			if (IsOnline() && CPlayer::IsWState((int)GetOffset(), 12))
+				return;
+
+			if (GetCurMp() < nMana)
+				return;
+
+			if (pTarget == GetOffset())
+				return;
+
+			if (pTarget && IsOnline())
+			{
+				ICharacter Target(pTarget);
+
+				if (!IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+					return;
+				}
+
+				int Around = GetObjectListAround(2);
+
+				while (Around)
+				{
+					ICharacter Object((void*)*(DWORD*)Around);
+
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+					{
+						int nDmg = 5000;
+
+						/*int nDmg = (GetAttack() * PoBBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * PoBAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * PoBStrMultiPvE) + (nSkillGrade * PoBPerGradeMultiPvE);
+
+						if (Object.GetType() == 0)
+							nDmg = (GetAttack() * PoBBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset()) * PoBAgiMultiPvP) + (CChar::GetStr((int)GetOffset()) * PoBStrMultiPvP) + (nSkillGrade * PoBPerGradeMultiPvP);
+
+						if (Object.GetType() == 1 && IsBuff(284))
+						{
+							nDmg *= (PoBDmgPercentIncreasePDPvE / 100);
+						}*/
+
+						OktayDamageArea(Object, nDmg, 42);
+
+						if (IsOnline() && IsValid() && Object.IsOnline() && Object.IsValid() && Object.GetType() == 1 && Object.GetCurHp() > 0 && Object.IsMobAggressive() && Object.IsMobHaveTarget())
+						{
+							//CMonsterReal::AddHostility(Object.GetOffset(), (int)GetOffset(), nDmg * PoBHostilityMultiplier, 0);
+							CMonsterReal::AddHostility(Object.GetOffset(), (int)GetOffset(), nDmg * 500, 0);
+						}
+							
+					}
+
+					Around = CBaseList::Pop((void*)Around);
+				}
+
+				_ShowBattleAnimation(Target, 42);
+				SetDirection(Target);
+				DecreaseMana(nMana);
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+			}
+
+		}
+	}
+}
+
+void __fastcall CKnight::Sacrifice(int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SACRIFICE));
+
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
+
+	int nTargetID = 0;
+	char bType = 0;
+	void* pTarget = 0;
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+
+	if (bType == 0 && nTargetID)
+		pTarget = CPlayer::FindPlayer(nTargetID);
+
+	if (bType == 1)
+		return;
+
+	if (bType >= 2 || !pTarget || pTarget == GetOffset())
+		return;
+
+	ICharacter ITarget((void*)pTarget);
+
+
+
+	//double nHealAmountSacrifice = SacrificeBaseHeal + (ITarget.GetMaxHp() * SacrificeBasePercentageHeal / 100) + (ITarget.GetMaxHp() * (ISkill.GetGrade() * SacrificeHealPerGradePercentage / 100));
+	double nHealAmountSacrifice = 1000.0;
+
+	//double nHpLossSacrifice = SacrificeBaseLoss + (GetMaxHp() * SacrificeBasePercentageLoss / 100) + (GetMaxHp() * (ISkill.GetGrade() * SacrificeLossPerGradePercentage / 100));
+	double nHpLossSacrifice = 1000.0;
+
+
+	if (pTarget && ITarget.IsValid() && IsValid())
+	{
+		if (GetCurHp() - nHpLossSacrifice <= 0)
+		{
+			//SystemMessage("Your HP is too low to use this skill", TEXTCOLOR_RED);
+			SystemMessage("Your HP is too low to use this skill", RGB(255, 0, 0));
+			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
+			return;
+		}
+		else
+		{
+			DecreaseHp(static_cast<int>(nHpLossSacrifice));
+			ITarget.IncreaseHp(static_cast<int>(nHealAmountSacrifice));
+			_ShowBattleAnimation(GetOffset(), 26);
+			CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
+			return;
+		}
+	}
+	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
+}
+
+void __fastcall CKnight::ShieldAttack(int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SHIELDATTACK));
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
+
+	int nTargetID = 0; char bType = 0; void* pTarget = 0;
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+	int nMana = ISkill.DecreaseMana();
+
+	if (bType == 0 && nTargetID)
+		pTarget = CPlayer::FindPlayer(nTargetID);
+
+	if (bType == 1 && nTargetID)
+		pTarget = CMonster::FindMonster(nTargetID);
+
+
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+		return;
+
+	ICharacter Target(pTarget);
+
+
+	if (bType == 1)
+	{
+		//SystemMessage("You cannot attack player with Shield Attack", TEXTCOLOR_RED);
+		SystemMessage("You cannot attack player with Shield Attack", RGB(255,0,0));
+
+	}
+	if (bType == 0)
+	{
+		if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+		{
+			if (CheckHit(Target, 15))
+			{
+				//Target.Buff(7, ShieldAttackBaseStunTime, 0);
+				Target.Buff(7, 1000, 0);
+
+				//OktayDamageSingle(Target, GetAttack() * ShieldAttackDamageMulti, 15);
+				OktayDamageSingle(Target, GetAttack() * 5, 15);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 15);
+			}
+			else
+			{
+				_ShowBattleMiss(Target, 15);
+			}
+		}
+	}
+	DecreaseMana(nMana);
+	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+}
+
 void __fastcall CKnight::SpinSlash()
 {
 	int pSkill = GetSkillPointer(SKILL_KNIGHT_SPINSLASH);

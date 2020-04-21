@@ -26,17 +26,17 @@ public:
 	void __fastcall HalfSwing(int pPacket, int pPos);
 	void __fastcall LightningSlash(int pPacket, int pPos);
 	void __fastcall PowerfulUpwardSlash(int pPacket, int pPos);
-	//void __fastcall PowerfulWideningWound(int pSkill, int pPacket, int pPos);
-	//void __fastcall ProvocationOfBlow(int pSkill, int pPacket, int pPos);
-	//void __fastcall Sacrifice(int pSkill, int pPacket, int pPos);
-	//void __fastcall ShieldAttack(int pSkill, int pPacket, int pPos);
-	//void __fastcall ShoutOfDefense(int pSkill, int pPacket, int pPos);
-	//void __fastcall ShoutOfFightingSpirit(int pSkill, int pPacket, int pPos);
+	void __fastcall PowerfulWideningWound(int pPacket, int pPos);
+	void __fastcall ProvocationOfBlow(int pPacket, int pPos);
+	void __fastcall Sacrifice(int pPacket, int pPos);
+	void __fastcall ShieldAttack(int pPacket, int pPos);
+	//void __fastcall ShoutOfDefense(int pSkill, int pPacket, int pPos); git
+	//void __fastcall ShoutOfFightingSpirit(int pSkill, int pPacket, int pPos); git
 	void __fastcall SpinSlash();
 	//void __fastcall SwordDance(int pSkill, int pPacket, int pPos);
-	//void __fastcall TheWaveOfEarth(int pSkill, int pPacket, int pPos);
-	//void __fastcall TheBoomOfEarth(int pSkill, int pPacket, int pPos);
-	//void __fastcall TranscendentalBlow(int pSkill, int pPacket, int pPos);
+	//void __fastcall TheWaveOfEarth(int pSkill, int pPacket, int pPos); git
+	//void __fastcall TheBoomOfEarth(int pSkill, int pPacket, int pPos); git
+	//void __fastcall TranscendentalBlow(int pSkill, int pPacket, int pPos); git
 
 };
 

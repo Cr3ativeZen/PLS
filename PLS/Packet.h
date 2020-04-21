@@ -983,6 +983,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						mage.Cure3(PACKET, pPos);
 						return;
 					}
+					case SKILL_MAGE_HEAL:
+					{
+						mage.Heal();
+						return;
+					}
 					}
 					break;
 				}			

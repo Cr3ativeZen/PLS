@@ -174,3 +174,23 @@ void __fastcall CMage::Cure3(int pPacket, int pPos)
 	}
 	CSkill::ObjectRelease(ITarget.GetOffset(), (int)pTarget + 352);
 }
+
+void __fastcall CMage::Heal()
+{
+
+	int pSkill = GetSkillPointer(SKILL_MAGE_HEAL);
+	ISkill ISkill((void*)pSkill);
+
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
+
+	//int nHealAmount = HealBase + ((GetMaxHp() * (HealBasePercentage / 100)) + (GetMaxHp() * (ISkill.GetGrade() * HealPerGradePercentage / 100)) + CChar::GetWis((int)GetOffset()) * HealWisdom);
+	int nHealAmount = 1000;
+
+	_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
+	IncreaseHp(nHealAmount);
+	DecreaseMana((ISkill.GetGrade() * 4) + 16);
+
+}

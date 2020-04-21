@@ -24,7 +24,7 @@ public:
 	void __fastcall Cure(int pPacket, int pPos);
 	void __fastcall Cure2(int pPacket, int pPos);
 	void __fastcall Cure3(int pPacket, int pPos);
-
+	void __fastcall Heal();
 
 
 

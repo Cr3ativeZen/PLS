@@ -32,7 +32,7 @@ public:
 	//void __fastcall ShieldAttack(int pSkill, int pPacket, int pPos);
 	//void __fastcall ShoutOfDefense(int pSkill, int pPacket, int pPos);
 	//void __fastcall ShoutOfFightingSpirit(int pSkill, int pPacket, int pPos);
-	void __fastcall SpinSlash(int pSkill, int pPacket, int pPos);
+	void __fastcall SpinSlash();
 	//void __fastcall SwordDance(int pSkill, int pPacket, int pPos);
 	//void __fastcall TheWaveOfEarth(int pSkill, int pPacket, int pPos);
 	//void __fastcall TheBoomOfEarth(int pSkill, int pPacket, int pPos);

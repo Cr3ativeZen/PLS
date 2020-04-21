@@ -55,7 +55,7 @@ void __fastcall CKnight::PowerfulUpwardSlash(int pSkill, int pPacket, int pPos)
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall CKnight::SpinSlash(int pSkill, int pPacket, int pPos)
+void __fastcall CKnight::SpinSlash()
 {
 	int pSkill = GetSkillPointer(38);
 

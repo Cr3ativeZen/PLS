@@ -1088,9 +1088,9 @@ int IChar::OktayDamageNoAgro(IChar Target, int Damage, int SkillID)
 		(*(void (__thiscall **)(int, int))(*(DWORD*)Target.GetOffset() + 80))((int)Target.GetOffset(), (int)this->GetOffset());
 
 		if (GiveCrit == true)
-			CChar::WriteInSight(this->GetOffset(), 63, "bddbbwwb", SkillID, this->GetID(), Target.GetID(), 1, 1, Damage, 0, Target.GetType() + 2);
+			CChar::WriteInSight(this->GetOffset(), 63, "bddbbwwbd", SkillID, this->GetID(), Target.GetID(), 1, 1, Damage, 0, Target.GetType() + 2, 0);
 		else
-			CChar::WriteInSight(this->GetOffset(), 10, "bbddww", Target.GetType(), SkillID, this->GetID(), Target.GetID(), Damage, 0);
+			CChar::WriteInSight(this->GetOffset(), 10, "bbddddd", Target.GetType(), SkillID, this->GetID(), Target.GetID(), Damage, 0, 0);
 
 		return Damage;
 	} else {
@@ -1153,7 +1153,7 @@ int IChar::OktayDamageSingle(IChar Target, int Damage, int SkillID)
 		
 		Check = (*(int (__thiscall**)(LONG,void*,unsigned int,int*,int*,int*, DWORD))(*(DWORD*)Target.GetOffset() + 72))((int)Target.GetOffset(),this->GetOffset(),GetASpeedValue * Damage / GetAttackSpeed,&NormalDamage,&DamageArgument,&EBDamage,0);
 		GetType = Check | 2 * DamageArgument | 4 * TypeKind;
-		CChar::WriteInSight(this->GetOffset(), 63, "bddbbwwb", SkillID, this->GetID(), Target.GetID(), 1, 1, NormalDamage, EBDamage, GetType);
+		CChar::WriteInSight(this->GetOffset(), 63, "bddbbwwbd", SkillID, this->GetID(), Target.GetID(), 1, 1, NormalDamage, EBDamage, GetType, 0); //swapped
 		return NormalDamage;
 	} else {
 		return 0;
@@ -1209,7 +1209,7 @@ void IChar::OktayDamageArea(IChar Target, int Damage, int SkillID)
 		
 		Check = (*(int (__thiscall**)(LONG,void*,unsigned int,int*,int*,int*, DWORD))(*(DWORD*)Target.GetOffset() + 72))((int)Target.GetOffset(),this->GetOffset(),GetASpeedValue * Damage / GetAttackSpeed,&NormalDamage,&DamageArgument,&EBDamage,0);
 		GetType = Check | 2 * DamageArgument | 4 * TypeKind;
-		CChar::WriteInSight(this->GetOffset(), 10, "bbddww", GetType, SkillID, this->GetID(), Target.GetID(), NormalDamage, EBDamage);
+		CChar::WriteInSight(this->GetOffset(), 10, "bbddddd", GetType, SkillID, this->GetID(), Target.GetID(), NormalDamage, EBDamage, 0);
 	} else {
 		return;
 	}

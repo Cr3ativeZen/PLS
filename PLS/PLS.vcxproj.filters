@@ -31,6 +31,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Characters">
+      <UniqueIdentifier>{e4c19218-0f9a-4484-aa6c-14e7ad97b419}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowExplosion.h">
@@ -207,9 +210,6 @@
     <ClInclude Include="FinalDamage.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="IChar.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="IItem.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
@@ -315,12 +315,27 @@
     <ClInclude Include="SendMail.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
+    <ClInclude Include="CArcher.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CKnight.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CMage.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="CThief.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="ICharacter.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IChar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ISkill.cpp">
@@ -333,6 +348,21 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CThief.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="CMage.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="CKnight.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcher.cpp">
+      <Filter>Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="ICharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

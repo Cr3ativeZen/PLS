@@ -3,7 +3,7 @@
 #define _BUFFREMOVER_H
 void __fastcall BuffRemover(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -26,7 +26,7 @@ void __fastcall BuffRemover(int pSkill, void *edx, int Player, int pPacket, int 
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar ITarget((void*)pTarget);
+	ICharacter ITarget((void*)pTarget);
 
 	if (pTarget && ITarget.IsValid() && IPlayer.IsValid())
 	{

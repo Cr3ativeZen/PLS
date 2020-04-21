@@ -1,7 +1,7 @@
 #ifndef FIRESTORM_H
 #define FIRESTORM_H
 
-void __fastcall ContinueFireStorm(IChar IPlayer)
+void __fastcall ContinueFireStorm(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
@@ -10,7 +10,7 @@ void __fastcall ContinueFireStorm(IChar IPlayer)
 
 		if (pTarget && nSkillGrade && CheckContinueFireStorm.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			CheckContinueFireStorm[IPlayer.GetPID()].PlayerSkillCount--;
 
 			if (!IPlayer.IsValid() || !Target.IsValid())
@@ -24,7 +24,7 @@ void __fastcall ContinueFireStorm(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
@@ -60,7 +60,7 @@ void __fastcall ContinueFireStorm(IChar IPlayer)
 
 void __fastcall FireStorm(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer((void*)pPlayer);
+	ICharacter IPlayer((void*)pPlayer);
 	ISkill xSkill((void*)pSkill);
 
 	if (IPlayer.IsValid() && pSkill)

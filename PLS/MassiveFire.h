@@ -1,6 +1,6 @@
 #ifndef MASSIVEARROW_H
 #define MASSIVEARROW_H
-void __fastcall MassiveFire(IChar IPlayer, int pPacket, int pPos)
+void __fastcall MassiveFire(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(91);
 
@@ -28,7 +28,7 @@ void __fastcall MassiveFire(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

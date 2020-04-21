@@ -1,7 +1,7 @@
 #ifndef POWERFULWIDENINGWOUND_H
 #define POWERFULWIDENINGWOUND_H
 
-void __fastcall PowerfulWideningWound(IChar IPlayer, int pPacket, int pPos)
+void __fastcall PowerfulWideningWound(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(41);
 
@@ -21,7 +21,7 @@ void __fastcall PowerfulWideningWound(IChar IPlayer, int pPacket, int pPos)
 		if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 			return;
 
-		IChar Target(pTarget);
+		ICharacter Target(pTarget);
 
 		if (!IPlayer.IsInRange(Target, 20))
 		{

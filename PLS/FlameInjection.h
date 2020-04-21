@@ -1,6 +1,6 @@
 #ifndef FLAMEINJECTION_H
 #define FLAMEINJECTION_H
-void __fastcall ContinueFlameInjection(IChar IPlayer)
+void __fastcall ContinueFlameInjection(ICharacter IPlayer)
 {
 
 	if (IPlayer.IsValid())
@@ -29,7 +29,7 @@ void __fastcall ContinueFlameInjection(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
@@ -64,7 +64,7 @@ void __fastcall ContinueFlameInjection(IChar IPlayer)
 	return;
 }
 
-void __fastcall FlameInjection(IChar IPlayer, int pPacket, int pPos)
+void __fastcall FlameInjection(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(65);
 
@@ -91,7 +91,7 @@ void __fastcall FlameInjection(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

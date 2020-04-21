@@ -6,7 +6,7 @@ void __fastcall LightningSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 
 
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -28,7 +28,7 @@ void __fastcall LightningSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-		IChar Target(pTarget);
+		ICharacter Target(pTarget);
 
 
 		if (bType == 0)
@@ -70,7 +70,7 @@ void __fastcall LightningSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 			while (Around&&i < LSPvEMaxHits - 1)
 			{
 
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.GetType() == 1 && Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 2))
 				{

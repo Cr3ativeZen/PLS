@@ -1,6 +1,6 @@
 #ifndef ANKLEAMPUTATE_H
 #define ANKLEAMPUTATE_H
-void __fastcall AnkleAmputate(IChar IPlayer, int pPacket, int pPos)
+void __fastcall AnkleAmputate(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(15);
 
@@ -31,7 +31,7 @@ void __fastcall AnkleAmputate(IChar IPlayer, int pPacket, int pPos)
 		{
 
 			int nMana = (10 * nSkillGrade) + 45;
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

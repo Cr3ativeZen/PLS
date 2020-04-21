@@ -1,6 +1,6 @@
 #ifndef SHOUTOFFIGHTINGSPIRIT_H
 #define SHOUTOFFIGHTINGSPIRIT_H
-void __fastcall ShoutOfFightingSpirit(IChar IPlayer)
+void __fastcall ShoutOfFightingSpirit(ICharacter IPlayer)
 {
 	if (IPlayer.IsOnline())
 	{
@@ -34,7 +34,7 @@ void __fastcall ShoutOfFightingSpirit(IChar IPlayer)
 						for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 						{
 							int Members = *(DWORD*)((void*)i);
-							IChar IMembers((void*)*(DWORD*)((void*)i));
+							ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 							if (CChar::IsNormal(Members) && IPlayer.IsValid())
 							{

@@ -1,6 +1,6 @@
 int __cdecl UpdateProperty(int Player, int Type, int InOut, signed __int64 Exp)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 
 
 	if (Type == 25 && IPlayer.IsOnline() && InOut &&IPlayer.IsBuff(LawlessZone::BuffID) && LawlessZoneON == true)

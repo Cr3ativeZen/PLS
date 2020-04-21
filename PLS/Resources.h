@@ -1,0 +1,46 @@
+#ifndef _RESOURCES_H
+#define _RESOURCES_H_
+
+
+
+
+
+
+
+
+
+
+
+
+//Characters
+
+#define CLASS_KNIGHT 0
+#define CLASS_MAGE 1
+#define CLASS_ARCHER 2
+#define CLASS_THIEF 3
+
+
+
+
+
+//Packets
+
+#define PACKET_WOODENBOX 94
+#define PACKET_LEAVEPARTY 47
+#define PACKET_USEITEM 33
+#define PACKET_ACCEPTQUEST 51
+#define PACKET_SKILLANIMATION 43
+#define PACKET_USESKILL 16
+#define PACKET_ANIMALUSESKILL 84
+
+
+
+
+
+
+
+
+
+
+
+#endif

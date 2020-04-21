@@ -8,7 +8,7 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		return;
 
 	std::string cmd = (std::string)command;
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 
 	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/exit" && D4InstanceON==true)
 	{

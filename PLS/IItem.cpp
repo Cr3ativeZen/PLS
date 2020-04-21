@@ -1,6 +1,6 @@
 #include <windows.h>
 #include "IItem.h"
-#include "IChar.h"
+#include "ICharacter.h"
 
 IItem::IItem(void* Offset)
 {
@@ -138,7 +138,7 @@ void IItem::SetLevelLimit(int Value)
 
 int IItem::GetItemPointerFromIID(void *Player, int IID)
 {
-	IChar IPlayer(Player);
+	ICharacter IPlayer(Player);
 
 	if (IPlayer.IsOnline())
 	{

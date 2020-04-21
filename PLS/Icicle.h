@@ -1,6 +1,6 @@
 #ifndef ICICLE_H
 #define ICICLE_H
-void __fastcall ContinueIcicle(IChar IPlayer)
+void __fastcall ContinueIcicle(ICharacter IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(66);
 	ISkill xSkill((void*)pSkill);
@@ -30,7 +30,7 @@ void __fastcall ContinueIcicle(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
@@ -72,7 +72,7 @@ void __fastcall ContinueIcicle(IChar IPlayer)
 	return;
 }
 
-void __fastcall Icicle(IChar IPlayer)
+void __fastcall Icicle(ICharacter IPlayer)
 {
 	int pSkill = IPlayer.GetSkillPointer(66);
 	if (IPlayer.IsValid() && pSkill)

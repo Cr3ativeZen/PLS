@@ -1,6 +1,6 @@
 #ifndef FATALWOUND_H
 #define FATALWOUND_H
-void __fastcall ContinueFatalWound(IChar IPlayer)
+void __fastcall ContinueFatalWound(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
@@ -9,7 +9,7 @@ void __fastcall ContinueFatalWound(IChar IPlayer)
 
 		if (nSkillGrade && pTarget && CheckFarContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
 			if (!Target.IsValid() || !IPlayer.IsValid())
@@ -68,7 +68,7 @@ void __fastcall ContinueFatalWound(IChar IPlayer)
 	return;
 }
 
-void __fastcall FatalWound(IChar IPlayer, int pPacket, int pPos)
+void __fastcall FatalWound(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(14);
 
@@ -94,7 +94,7 @@ void __fastcall FatalWound(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

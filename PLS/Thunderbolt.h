@@ -1,6 +1,6 @@
 #ifndef THUNDERBOLT_H
 #define THUNDERBOLT_H
-//void __fastcall ContinueThunderbolt(IChar IPlayer)
+//void __fastcall ContinueThunderbolt(ICharacter IPlayer)
 //{
 //
 //	if (IPlayer.IsValid())
@@ -8,7 +8,7 @@
 //		int pSkill = IPlayer.GetSkillPointer(75);
 //		ISkill xSkill((void*)pSkill);
 //		void *pTarget = CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerTarget;
-//		IChar Target(pTarget);
+//		ICharacter Target(pTarget);
 //
 //		if (!Target.IsValid())
 //		{
@@ -57,7 +57,7 @@
 //	return;
 //}
 
-void __fastcall Thunderbolt(IChar IPlayer, int pPacket, int pPos)
+void __fastcall Thunderbolt(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(75);
 
@@ -85,7 +85,7 @@ void __fastcall Thunderbolt(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && xSkill.GetGrade() && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

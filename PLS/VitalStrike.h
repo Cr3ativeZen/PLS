@@ -1,7 +1,7 @@
 #ifndef VITALSTRIKE_H
 #define VITALSTRIKE_H
 
-void __fastcall VitalStrike(IChar IPlayer, int pPacket, int pPos)
+void __fastcall VitalStrike(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(16);
 
@@ -28,7 +28,7 @@ void __fastcall VitalStrike(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

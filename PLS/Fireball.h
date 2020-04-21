@@ -1,7 +1,7 @@
 #ifndef FIREBALL_H
 #define FIREBALL_H
 
-void __fastcall Fireball(IChar IPlayer, int pPacket, int pPos)
+void __fastcall Fireball(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(73);
 
@@ -28,7 +28,7 @@ void __fastcall Fireball(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

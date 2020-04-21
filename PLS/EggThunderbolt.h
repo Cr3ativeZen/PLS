@@ -1,6 +1,6 @@
 #ifndef EGGTHUNDERBOLT_H
 #define EGGTHUNDERBOLT_H
-void __fastcall ContinueEggThunderbolt(IChar IPlayer)
+void __fastcall ContinueEggThunderbolt(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid() && CChar::IsGState((int)IPlayer.GetOffset(), 512))
 	{
@@ -8,7 +8,7 @@ void __fastcall ContinueEggThunderbolt(IChar IPlayer)
 
 		if (pTarget && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
 			if (!IPlayer.IsValid() || !Target.IsValid())
@@ -23,7 +23,7 @@ void __fastcall ContinueEggThunderbolt(IChar IPlayer)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
@@ -61,7 +61,7 @@ void __fastcall ContinueEggThunderbolt(IChar IPlayer)
 	return;
 }
 
-void __fastcall EggThunderbolt(IChar IPlayer)
+void __fastcall EggThunderbolt(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid() && IPlayer.GetRage() >= 15000)
 	{

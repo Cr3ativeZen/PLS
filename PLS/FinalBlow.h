@@ -1,6 +1,6 @@
 #ifndef FINALBLOW_H
 #define FINALBLOW_H
-void __fastcall FinalBlow(IChar IPlayer, int pPacket, int pPos)
+void __fastcall FinalBlow(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(18);
 
@@ -26,7 +26,7 @@ void __fastcall FinalBlow(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{

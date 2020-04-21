@@ -2,8 +2,8 @@
 #define CANATTACK_H
 int __fastcall CanAttack(void *Player, void *edx, int Target, int Value)
 {
-	IChar IPlayer(Player);
-	IChar ITarget((void*)Target);
+	ICharacter IPlayer(Player);
+	ICharacter ITarget((void*)Target);
 
 	if (IPlayer.IsOnline() && ITarget.IsOnline())
 	{

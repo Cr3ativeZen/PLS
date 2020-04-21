@@ -1,7 +1,8 @@
 #ifndef PACKET_H
 #define PACKET_H
 
-void WritePacketToFile(IChar IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
+
+void WritePacketToFile(ICharacter IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
 {
 	
 	std::string type_for_dir;
@@ -137,13 +138,13 @@ switch (WHICH_FILE)
 
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	if (IPlayer.IsOnline())
 	{
 		//if (packet != 20 && packet != 21)
 		//	IPlayer.SystemMessage(Int2String(packet), TEXTCOLOR_PUPIL);
 
-		if (packet == 94 && Logs == true)
+		if (packet == PACKET_WOODENBOX && Logs == true)
 		{
 			time_t now = time(0);
 
@@ -154,7 +155,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			WritePacketToFile(IPlayer, WoodenBox, to_file);
 		}
 
-		if (packet == 47)
+		if (packet == PACKET_LEAVEPARTY)
 		{
 			if (D4Instance::IsUp == true && D4Instance::PartyMembers.count(IPlayer.GetPID()))
 			{
@@ -173,7 +174,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 
 
-		if (packet == 33)
+		if (packet == PACKET_USEITEM)
 		{
 			int IID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "d", &IID);
@@ -360,7 +361,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 		}
 
-		if (packet == 51)
+		if (packet == PACKET_ACCEPTQUEST)
 		{
 			int ID = 0;
 			CPacket::Read((char*)pPacket, (char*)pPos, "d", &ID);
@@ -422,7 +423,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						sizecheck++;
 						if (IMembers.GetLevel() < D4Instance::MinLevel)
 						{
@@ -451,7 +452,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 
 						IMembers.Buff(666, D4Instance::Time, 0);
 						IMembers.Teleport(D4Instance::MapNumber, D4Instance::SpawnX, D4Instance::SpawnY);
@@ -468,7 +469,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					for (int i = CParty::GetPlayerList(D4Instance::Party); i; i = CBaseList::Pop((void*)i))
 					{
 						int Members = *(DWORD*)((void*)i);
-						IChar IMembers((void*)*(DWORD*)((void*)i));
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
 						D4Instance::PartyMembers.insert(IPlayer.GetPID());
 					}
 
@@ -737,7 +738,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						{
 							IPlayer.Teleport(Mautareta::Map, Mautareta::StartTeleportX, Mautareta::StartTeleportY);
 							int Members = *(DWORD*)((void*)i);
-							IChar IMembers((void*)*(DWORD*)((void*)i));
+							ICharacter IMembers((void*)*(DWORD*)((void*)i));
 							IMembers.Teleport(Mautareta::Map, Mautareta::StartTeleportX, Mautareta::StartTeleportY);
 							IMembers.Buff(254, 1800, 0);
 							IMembers.ScreenTime(1800);
@@ -756,7 +757,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			}
 		}
 
-		if (packet == 43)
+		if (packet == PACKET_SKILLANIMATION)
 		{
 			int SkillID = 0;
 			int ID = 0;
@@ -794,7 +795,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 			}
 		}
-		if (packet == 16)
+		if (packet == PACKET_USESKILL)
 		{
 
 			int SkillID = 0;
@@ -973,7 +974,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (SkillID == 19 && CallsON == true)
 				{
-					IChar Playere((void*)Player);
+					ICharacter Playere((void*)Player);
 
 					void* pSkill = (void*)Playere.GetSkillPointer(19);
 					if (Playere.IsValid())
@@ -1000,7 +1001,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 											CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
 
 
-											IChar Member((void*)Members);
+											ICharacter Member((void*)Members);
 
 											if (Playere.IsInRange(Member, CallRANGE))
 											{
@@ -1594,7 +1595,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 		}
 
-		if (packet == 84)
+		if (packet == PACKET_ANIMALUSESKILL)
 		{
 			int SkillID = 0;
 			int kappa = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);

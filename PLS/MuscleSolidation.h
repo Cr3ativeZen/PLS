@@ -3,7 +3,7 @@
 
 void __fastcall MuscleSolidation(int Skill, int a6, int Player)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	ISkill ISkill((void*)Skill);
 
 	int nSkillGrade = ISkill.GetGrade();

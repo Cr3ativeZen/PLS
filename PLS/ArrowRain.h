@@ -2,7 +2,7 @@
 #define ARROWRAIN_H
 #include "ServerFunctions.h"
 #include "ResetContinueSkill.h"
-void __fastcall ContinueArrowRain(IChar IPlayer)
+void __fastcall ContinueArrowRain(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
@@ -11,7 +11,7 @@ void __fastcall ContinueArrowRain(IChar IPlayer)
 
 		if (pTarget && nSkillGrade && CheckContinueSkill.find(IPlayer.GetPID())->second.PlayerSkillCount)
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 			CheckContinueSkill[IPlayer.GetPID()].PlayerSkillCount--;
 
 			if (!IPlayer.IsValid() || !Target.IsValid())
@@ -32,7 +32,7 @@ void __fastcall ContinueArrowRain(IChar IPlayer)
 
 			while(Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{
@@ -66,7 +66,7 @@ void __fastcall ContinueArrowRain(IChar IPlayer)
 	return;
 }
 
-void __fastcall ArrowRain(IChar IPlayer, int pPacket, int pPos)
+void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(47);
 
@@ -110,7 +110,7 @@ void __fastcall ArrowRain(IChar IPlayer, int pPacket, int pPos)
 	}
 }
 
-//void __fastcall ArrowRain(IChar IPlayer, int pPacket, int pPos)
+//void __fastcall ArrowRain(ICharacter IPlayer, int pPacket, int pPos)
 //{
 //	int pSkill = IPlayer.GetSkillPointer(47);
 //
@@ -149,7 +149,7 @@ void __fastcall ArrowRain(IChar IPlayer, int pPacket, int pPos)
 //
 //			int delay = GetTickCount();
 //			int skillCount = 0;
-//			IChar Target((void*)check);
+//			ICharacter Target((void*)check);
 //			while (skillCount < 10)
 //			{
 //
@@ -169,7 +169,7 @@ void __fastcall ArrowRain(IChar IPlayer, int pPacket, int pPos)
 //
 //					while (Around)
 //					{
-//						IChar Object((void*)*(DWORD*)Around);
+//						ICharacter Object((void*)*(DWORD*)Around);
 //
 //						if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 //						{

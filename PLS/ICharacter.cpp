@@ -5,25 +5,25 @@
 #include <fstream>
 #include <sstream>
 #include <time.h>
-#include "IChar.h"
+#include "ICharacter.h"
 #pragma warning (disable : 4244)
 #pragma warning (disable : 4018)
 
-IChar::IChar(void *Offset)
+ICharacter::ICharacter(void *Offset)
 {
 	this->Offset = Offset;
 }
 
-IChar::~IChar()
+ICharacter::~ICharacter()
 {
 }
 
-void *IChar::GetOffset()
+void *ICharacter::GetOffset()
 {
 	return this->Offset;
 }
 
-int IChar::IsOnline()
+int ICharacter::IsOnline()
 {
 	if ((int)this->GetOffset())
 	{
@@ -38,19 +38,19 @@ int IChar::IsOnline()
 	return 0;
 }
 
-void IChar::Announcement(std::string msg, int color)
+void ICharacter::Announcement(std::string msg, int color)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(), 0xFF, "dsd", 247, msg.c_str(), color);
 }
 
-void IChar::SystemMessage(std::string msg, int color)
+void ICharacter::SystemMessage(std::string msg, int color)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(), 0xFF, "dsd", 248, msg.c_str(), color);
 }
 
-int IChar::Buff(int id, int time, int value)
+int ICharacter::Buff(int id, int time, int value)
 {
 	if(time < 0)
 		return 0;
@@ -68,7 +68,7 @@ int IChar::Buff(int id, int time, int value)
 	return 1;
 }
 
-int IChar::GetAdmin()
+int ICharacter::GetAdmin()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 456);
@@ -76,7 +76,7 @@ int IChar::GetAdmin()
 		return 0;
 }
 
-int IChar::GetMinPhyAttack()
+int ICharacter::GetMinPhyAttack()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 128);
@@ -86,7 +86,7 @@ int IChar::GetMinPhyAttack()
 
 
 
-int IChar::GetMaxPhyAttack()
+int ICharacter::GetMaxPhyAttack()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 132);
@@ -94,7 +94,7 @@ int IChar::GetMaxPhyAttack()
 		return 0;
 }
 
-int IChar::GetMinMagAttack()
+int ICharacter::GetMinMagAttack()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 136);
@@ -102,7 +102,7 @@ int IChar::GetMinMagAttack()
 		return 0;
 }
 
-int IChar::GetMaxMagAttack()
+int ICharacter::GetMaxMagAttack()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 140);
@@ -110,7 +110,7 @@ int IChar::GetMaxMagAttack()
 		return 0;
 }
 
-int IChar::GetX()
+int ICharacter::GetX()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset()+0x14c);
@@ -118,7 +118,7 @@ int IChar::GetX()
 		return 0;
 }
 
-int IChar::GetY()
+int ICharacter::GetY()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset()+0x150);
@@ -126,7 +126,7 @@ int IChar::GetY()
 		return 0;
 }
 
-int IChar::GetZ()
+int ICharacter::GetZ()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset()+0x154);
@@ -134,7 +134,7 @@ int IChar::GetZ()
 		return 0;
 }
 
-int IChar::GetMap()
+int ICharacter::GetMap()
 {
 	if (this->IsOnline())
 	{
@@ -145,7 +145,7 @@ int IChar::GetMap()
 	}
 }
 
-void IChar::Teleport(int Map, int X, int Y)
+void ICharacter::Teleport(int Map, int X, int Y)
 {
 	if (this->IsOnline() && X > 0 && Y > 0)
 	{
@@ -163,7 +163,7 @@ void IChar::Teleport(int Map, int X, int Y)
 	}
 }
 
-void IChar::Kick()
+void ICharacter::Kick()
 {
 	if (this->IsOnline())
 	{
@@ -172,25 +172,25 @@ void IChar::Kick()
 	}
 }
 
-void IChar::SetX(int Value)
+void ICharacter::SetX(int Value)
 {
 	if (this->IsOnline())
 		*(DWORD*)((int)this->GetOffset()+332) = Value;
 }
 
-void IChar::SetY(int Value)
+void ICharacter::SetY(int Value)
 {
 	if (this->IsOnline())
 		*(DWORD*)((int)this->GetOffset()+336) = Value;
 }
 
-void IChar::SetZ(int Value)
+void ICharacter::SetZ(int Value)
 {
 	if (this->IsOnline())
 		*(DWORD*)((int)this->GetOffset()+340) = Value;
 }
 
-int IChar::IsValid()
+int ICharacter::IsValid()
 {
 	if (this->IsOnline())
 	{
@@ -216,7 +216,7 @@ int IChar::IsValid()
 	}
 }
 
-int IChar::IsParty()
+int ICharacter::IsParty()
 {
 	if (this->IsOnline())
 	{
@@ -229,7 +229,7 @@ int IChar::IsParty()
 	}
 }
 
-int IChar::GetPartyID()
+int ICharacter::GetPartyID()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 1016);
@@ -237,7 +237,7 @@ int IChar::GetPartyID()
 		return 0;
 }
 
-int IChar::GetID()
+int ICharacter::GetID()
 {
 	if (this->GetOffset())
 		return *(DWORD*)((int)this->GetOffset() + 28);
@@ -245,7 +245,7 @@ int IChar::GetID()
 		return 0;
 }
 
-int IChar::GetUID()
+int ICharacter::GetUID()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 448);
@@ -253,7 +253,7 @@ int IChar::GetUID()
 		return 0;
 }
 
-int IChar::GetPID()
+int ICharacter::GetPID()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 452);
@@ -261,7 +261,7 @@ int IChar::GetPID()
 		return 0;
 }
 
-int IChar::GetCurHp()
+int ICharacter::GetCurHp()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 272);
@@ -269,7 +269,7 @@ int IChar::GetCurHp()
 		return 0;
 }
 
-int IChar::GetCurMp()
+int ICharacter::GetCurMp()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 276);
@@ -277,7 +277,7 @@ int IChar::GetCurMp()
 		return 0;
 }
 
-void IChar::DecreaseMana(int amount)
+void ICharacter::DecreaseMana(int amount)
 {
 	if (this->IsOnline())
 	{
@@ -286,13 +286,13 @@ void IChar::DecreaseMana(int amount)
 	}
 }
 
-void IChar::IncreaseMana(int amount)
+void ICharacter::IncreaseMana(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(DWORD, signed int, DWORD, int))(*(DWORD *)(int)this->GetOffset() + 88))((int)this->GetOffset(), 8, 1, amount);
 }
 
-int IChar::GetType()
+int ICharacter::GetType()
 {
 	if (this->IsOnline())
 	{
@@ -302,13 +302,13 @@ int IChar::GetType()
 	}
 }
 
-void IChar::_ShowBattleAnimation(IChar Target, int skillID, int SkillGrade)
+void ICharacter::_ShowBattleAnimation(ICharacter Target, int skillID, int SkillGrade)
 {
 	if (this->IsValid())
 		CChar::WriteInSight(this->GetOffset(), 0x3f, "bddbbwwb", skillID, this->GetID(), Target.GetID(), Target.GetType(), SkillGrade, 0, 0, true);
 }
 
-int IChar::GetClass()
+int ICharacter::GetClass()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 460);
@@ -316,7 +316,7 @@ int IChar::GetClass()
 		return 10;
 }
 
-int IChar::GetTransformGrade()
+int ICharacter::GetTransformGrade()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 1112);
@@ -324,13 +324,13 @@ int IChar::GetTransformGrade()
 		return 0;
 }
 
-void IChar::CancelBuff(int BuffID)
+void ICharacter::CancelBuff(int BuffID)
 {
 	if (this->IsOnline())
 		CChar::CancelAllBuff(this->GetOffset(),BuffID);
 }
 
-int IChar::IsBuff(int id)
+int ICharacter::IsBuff(int id)
 {
 	if (this->IsOnline() && id >= 0 && id <= 7000)
 	{
@@ -343,7 +343,7 @@ int IChar::IsBuff(int id)
 	}
 }
 
-int IChar::GetLevel()
+int ICharacter::GetLevel()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 60);
@@ -351,13 +351,13 @@ int IChar::GetLevel()
 		return 0;
 }
 
-void IChar::BoxMsg(std::string msg)
+void ICharacter::BoxMsg(std::string msg)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(), 0xFF, "ds", 249, msg.c_str());
 }
 
-const char *IChar::GetName()
+const char *ICharacter::GetName()
 {
 	if (this->IsOnline())
 		return (const char*)((int)this->GetOffset() + 32);
@@ -365,7 +365,7 @@ const char *IChar::GetName()
 		return "Nothing";
 }
 
-int IChar::GetSkillPointer(int SkillID)
+int ICharacter::GetSkillPointer(int SkillID)
 {
 	if (this->IsOnline() && this->GetType() == 0)
 		return *((DWORD *)((int)this->GetOffset() + 624) + SkillID + 2);
@@ -373,151 +373,151 @@ int IChar::GetSkillPointer(int SkillID)
 		return 0;
 }
 
-void IChar::AddMinAttack(int amount)
+void ICharacter::AddMinAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),27,1,amount,amount);
 }
 
-void IChar::RemoveMinAttack(int amount)
+void ICharacter::RemoveMinAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),27,0,amount,amount);
 }
 
-void IChar::AddMaxAttack(int amount)
+void ICharacter::AddMaxAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),28,1,amount,amount);
 }
 
-void IChar::RemoveMaxAttack(int amount)
+void ICharacter::RemoveMaxAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),28,0,amount,amount);
 }
 
-void IChar::DecreaseMaxHp(int amount)
+void ICharacter::DecreaseMaxHp(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, signed int, signed int, __int32))(*(DWORD*)(int)this->GetOffset() + 92))((int)this->GetOffset(), 5, 0, amount);
 }
 
-void IChar::IncreaseMaxHp(int amount)
+void ICharacter::IncreaseMaxHp(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, signed int, signed int, __int32))(*(DWORD*)(int)this->GetOffset() + 92))((int)this->GetOffset(), 5, 1, amount);
 }
 
-void IChar::DecreaseMaxMp(int amount)
+void ICharacter::DecreaseMaxMp(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, signed int, signed int, __int32))(*(DWORD*)(int)this->GetOffset() + 92))((int)this->GetOffset(), 6, 0, amount);
 }
 
-void IChar::IncreaseMaxMp(int amount)
+void ICharacter::IncreaseMaxMp(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, signed int, signed int, __int32))(*(DWORD*)(int)this->GetOffset() + 92))((int)this->GetOffset(), 6, 1, amount);
 }
 
-void IChar::AddHp(int amount)
+void ICharacter::AddHp(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, signed int, DWORD, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 1, 1, amount);
 }
 
-void IChar::RemoveHp(int amount)
+void ICharacter::RemoveHp(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, signed int, DWORD, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 1, 0, amount);
 }
 
-void IChar::AddStr(int amount)
+void ICharacter::AddStr(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, DWORD, signed int, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 0, 1, amount);
 }
 
-void IChar::RemoveStr(int amount)
+void ICharacter::RemoveStr(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, DWORD, signed int, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 0, 0, amount);
 }
 
-void IChar::AddInt(int amount)
+void ICharacter::AddInt(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, signed int, DWORD, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 2, 1, amount);
 }
 
-void IChar::RemoveInt(int amount)
+void ICharacter::RemoveInt(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, signed int, DWORD, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 2, 0, amount);
 }
 
-void IChar::AddWis(int amount)
+void ICharacter::AddWis(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, signed int, signed int, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 3, 1, amount);
 }
 
-void IChar::RemoveWis(int amount)
+void ICharacter::RemoveWis(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, signed int, signed int, signed int))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 3, 0, amount);
 }
 
-void IChar::AddAgi(int amount)
+void ICharacter::AddAgi(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 4, 1, amount);
 }
 
-void IChar::RemoveAgi(int amount)
+void ICharacter::RemoveAgi(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 4, 0, amount);
 }
 
-void IChar::AddOTP(int amount)
+void ICharacter::AddOTP(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),9,1,amount,amount);
 }
 
-void IChar::RemoveOTP(int amount)
+void ICharacter::RemoveOTP(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),9,0,amount,amount);
 }
 
-void IChar::AddEva(int amount)
+void ICharacter::AddEva(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),10,1,amount);
 }
 
-void IChar::RemoveEva(int amount)
+void ICharacter::RemoveEva(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),10,0,amount);
 }
 
-void IChar::AddDef(int amount)
+void ICharacter::AddDef(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),15,1,amount,amount);
 }
 
-void IChar::RemoveDef(int amount)
+void ICharacter::RemoveDef(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),15,0,amount,amount);
 }
 
-void IChar::AddFxToTarget(std::string effectName, bool AutoRemove, bool Continues, bool nForced)
+void ICharacter::AddFxToTarget(std::string effectName, bool AutoRemove, bool Continues, bool nForced)
 {
 	if (this->IsOnline())
 	{
@@ -528,13 +528,13 @@ void IChar::AddFxToTarget(std::string effectName, bool AutoRemove, bool Continue
 	}
 }
 
-void IChar::AddParticle(int Bone, const char *ParticleName)
+void ICharacter::AddParticle(int Bone, const char *ParticleName)
 {
 	if (this->IsOnline() && !this->IsBuff(331))
 		CChar::WriteInSight(this->GetOffset(), 0xFF, "dsdd", 247, ParticleName, *(DWORD *)((int)this->GetOffset() + 28), Bone);
 }
 
-int IChar::GetSpecialty()
+int ICharacter::GetSpecialty()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 464);
@@ -544,7 +544,7 @@ int IChar::GetSpecialty()
 
 
 
-int IChar::IsMobMoving()
+int ICharacter::IsMobMoving()
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -557,7 +557,7 @@ int IChar::IsMobMoving()
 	}
 }
 
-int IChar::IsMobAggressive()
+int ICharacter::IsMobAggressive()
 {
 	if (this->IsOnline() && this->IsValid())
 		return *(DWORD *)((int)this->Offset + 476);
@@ -565,7 +565,7 @@ int IChar::IsMobAggressive()
 		return 0;
 }
 
-int IChar::GetMobIndex()
+int ICharacter::GetMobIndex()
 {
 	if (this->IsOnline() && this->IsValid())
 		return *(DWORD *)((int)this->GetOffset() + 512);
@@ -573,7 +573,7 @@ int IChar::GetMobIndex()
 		return 0;
 }
 
-int IChar::IsMobHaveTarget()
+int ICharacter::IsMobHaveTarget()
 {
 	if (this->IsOnline() && this->IsValid())
 		return *(DWORD*)((int)this->GetOffset() + 464);
@@ -581,7 +581,7 @@ int IChar::IsMobHaveTarget()
 		return 0;
 }
 
-void IChar::SetMobTarget(int target)
+void ICharacter::SetMobTarget(int target)
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -594,7 +594,7 @@ void IChar::SetMobTarget(int target)
 
 		if (!this->GetMobTanker() && target)
 		{
-			IChar ITarget((void*)target);
+			ICharacter ITarget((void*)target);
 
 			if (ITarget.IsValid())
 			{
@@ -605,7 +605,7 @@ void IChar::SetMobTarget(int target)
 	}
 }
 
-DWORD IChar::MobUnAttack(DWORD amount)
+DWORD ICharacter::MobUnAttack(DWORD amount)
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -618,7 +618,7 @@ DWORD IChar::MobUnAttack(DWORD amount)
 	}
 }
 
-DWORD IChar::MobDelay(DWORD amount)
+DWORD ICharacter::MobDelay(DWORD amount)
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -631,7 +631,7 @@ DWORD IChar::MobDelay(DWORD amount)
 	}
 }
 
-void IChar::MobDelete()
+void ICharacter::MobDelete()
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -643,7 +643,7 @@ void IChar::MobDelete()
 	}
 }
 
-void IChar::Blob()
+void ICharacter::Blob()
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -656,13 +656,13 @@ void IChar::Blob()
 	}
 }
 
-void IChar::UpdateHonor(int HP, int HK, int HD, int DKPT, int DKPW, int PLT, int PLW, int SVT, int SVW, int RP)
+void ICharacter::UpdateHonor(int HP, int HK, int HD, int DKPT, int DKPW, int PLT, int PLW, int SVT, int SVW, int RP)
 {
 	if (this->IsOnline())
 		CDBSocket::Write(81,"ddddddddddd", this->GetPID(), HP,HK,HD,DKPT,DKPW,PLT,PLW,SVT,SVW,RP);
 }
 
-void IChar::ShowHonor(int HP, int HK, int HD, int DKPT, int DKPW, int PLT, int PLW, int SVT, int SVW, int RP)
+void ICharacter::ShowHonor(int HP, int HK, int HD, int DKPT, int DKPW, int PLT, int PLW, int SVT, int SVW, int RP)
 {
 	if (this->IsValid() && !this->IsBuff(331))
 	{
@@ -686,7 +686,7 @@ void IChar::ShowHonor(int HP, int HK, int HD, int DKPT, int DKPW, int PLT, int P
 	}
 }
 
-int IChar::IsWarRelated()
+int ICharacter::IsWarRelated()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 484);
@@ -694,19 +694,19 @@ int IChar::IsWarRelated()
 		return 0;
 }
 
-void IChar::SetBuffIcon(int Time,int Type,int nMsg,int Key)
+void ICharacter::SetBuffIcon(int Time,int Type,int nMsg,int Key)
 {
 	if (this->IsOnline() && this->GetType() == 0)
 		CPlayer::Write(this->GetOffset(),0xFF,"dddddd",243,Time,5000,Type,nMsg,Key);
 }
 
-void IChar::RemoveBuffIcon(int Time,int Type,int nMsg,int Key)
+void ICharacter::RemoveBuffIcon(int Time,int Type,int nMsg,int Key)
 {
 	if (this->IsOnline() && this->GetType() == 0)
 		CPlayer::Write(this->GetOffset(),0xFF,"dddddd",243,Time,6000,Type,nMsg,Key);
 }
 
-int IChar::GetBuffRemain(int BuffID)
+int ICharacter::GetBuffRemain(int BuffID)
 {
 	int Check = 0;
 
@@ -724,7 +724,7 @@ int IChar::GetBuffRemain(int BuffID)
 	return Check;
 }
 
-int IChar::GetSkillPoint()
+int ICharacter::GetSkillPoint()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 548);
@@ -732,7 +732,7 @@ int IChar::GetSkillPoint()
 		return 0;
 }
 
-void IChar::RemoveSkillPoint(int amount)
+void ICharacter::RemoveSkillPoint(int amount)
 {
 	if (this->IsOnline())
 	{
@@ -741,13 +741,13 @@ void IChar::RemoveSkillPoint(int amount)
 	}
 }
 
-void IChar::AddSkillPoint(int amount)
+void ICharacter::AddSkillPoint(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, DWORD, signed int, signed int))(*(DWORD *)(int)this->GetOffset() + 88))((int)this->GetOffset(), 24, 1, amount);
 }
 
-int IChar::GetStatPoint()
+int ICharacter::GetStatPoint()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 544);
@@ -755,31 +755,31 @@ int IChar::GetStatPoint()
 		return 0;
 }
 
-void IChar::AddStatPoint(int Amount)
+void ICharacter::AddStatPoint(int Amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(DWORD, signed int, DWORD, int))(*(DWORD *)(int)this->GetOffset() + 88))((int)this->GetOffset(), 23, 1, Amount);
 }
 
-void IChar::RemoveStatPoint(int Amount)
+void ICharacter::RemoveStatPoint(int Amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(DWORD, signed int, DWORD, int))(*(DWORD *)(int)this->GetOffset() + 88))((int)this->GetOffset(), 23, 0, Amount);
 }
 
-void IChar::IncreaseStat(int amount, int Type)
+void ICharacter::IncreaseStat(int amount, int Type)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, DWORD, signed int, signed int))(*(DWORD *)(this->GetOffset()) + 88))((int)(this->GetOffset()), Type, 1, amount);
 }
 
-void IChar::DecreaseStat(int amount, int Type)
+void ICharacter::DecreaseStat(int amount, int Type)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, DWORD, signed int, signed int))(*(DWORD *)(this->GetOffset()) + 88))((int)(this->GetOffset()), Type, 0, amount);
 }
 
-int IChar::GetStr()
+int ICharacter::GetStr()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 64);
@@ -787,7 +787,7 @@ int IChar::GetStr()
 		return 0;
 }
 
-int IChar::GetHth()
+int ICharacter::GetHth()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 68);
@@ -795,7 +795,7 @@ int IChar::GetHth()
 		return 0;
 }
 
-int IChar::GetInt()
+int ICharacter::GetInt()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 72);
@@ -803,7 +803,7 @@ int IChar::GetInt()
 		return 0;
 }
 
-int IChar::GetWis()
+int ICharacter::GetWis()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 76);
@@ -811,7 +811,7 @@ int IChar::GetWis()
 		return 0;
 }
 
-int IChar::GetAgi()
+int ICharacter::GetAgi()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 80);
@@ -819,7 +819,7 @@ int IChar::GetAgi()
 		return 0;
 }
 
-int IChar::GetEva()
+int ICharacter::GetEva()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 124);
@@ -827,7 +827,7 @@ int IChar::GetEva()
 		return 0;
 }
 
-int IChar::GetDef()
+int ICharacter::GetDef()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 144);
@@ -835,7 +835,7 @@ int IChar::GetDef()
 		return 0;
 }
 
-int IChar::GetRage()
+int ICharacter::GetRage()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 580);
@@ -843,13 +843,13 @@ int IChar::GetRage()
 		return 0;
 }
 
-void IChar::IncreaseRage(int amount)
+void ICharacter::IncreaseRage(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(int, signed int, signed int, int))(*(DWORD*)(int)this->GetOffset() + 88))((int)this->GetOffset(), 35, 1, amount);
 }
 
-void IChar::DecreaseRage(int amount)
+void ICharacter::DecreaseRage(int amount)
 {
 	if (this->IsOnline())
 	{
@@ -858,7 +858,7 @@ void IChar::DecreaseRage(int amount)
 	}
 }
 
-void IChar::IncreaseHp(int amount)
+void ICharacter::IncreaseHp(int amount)
 {
 	if (this->IsOnline())
 	{
@@ -869,7 +869,7 @@ void IChar::IncreaseHp(int amount)
 	}
 }
 
-void IChar::DecreaseHp(int amount)
+void ICharacter::DecreaseHp(int amount)
 {
 	if (this->IsOnline())
 	{
@@ -878,7 +878,7 @@ void IChar::DecreaseHp(int amount)
 	}
 }
 
-int IChar::GetObjectListAround(int range)
+int ICharacter::GetObjectListAround(int range)
 {
 	if (this->IsValid() && this->GetX() > 0 && this->GetY() > 0)
 		return CPlayer::GetObjectAround(*(void **)((int)this->GetOffset() + 320), (int)this->GetOffset() + 324, range);
@@ -886,7 +886,7 @@ int IChar::GetObjectListAround(int range)
 		return 0;
 }
 
-__int64 IChar::GetGStateEx()
+__int64 ICharacter::GetGStateEx()
 {
 	if (this->IsOnline())
 	{
@@ -912,7 +912,7 @@ __int64 IChar::GetGStateEx()
 	}
 }
 
-bool IChar::IsGStateEx(__int64 state)
+bool ICharacter::IsGStateEx(__int64 state)
 {
 	if (this->IsOnline())
 	{
@@ -923,7 +923,7 @@ bool IChar::IsGStateEx(__int64 state)
 	return false;
 }
 
-void IChar::SendGStateExIceArrow(__int64 state)
+void ICharacter::SendGStateExIceArrow(__int64 state)
 {
 	if (this->IsValid() && !this->IsBuff(331))
 	{
@@ -935,7 +935,7 @@ void IChar::SendGStateExIceArrow(__int64 state)
 	}
 }
 
-void IChar::SendGStateEx(__int64 state)
+void ICharacter::SendGStateEx(__int64 state)
 {
 	if (this->IsValid() && !this->IsBuff(331))
 	{
@@ -947,7 +947,7 @@ void IChar::SendGStateEx(__int64 state)
 	}
 }
 
-int IChar::CheckHit(IChar Target, int value)
+int ICharacter::CheckHit(ICharacter Target, int value)
 {
 	if ( this->IsOnline() && this->IsValid() && Target.IsOnline() )
 	{
@@ -960,13 +960,13 @@ int IChar::CheckHit(IChar Target, int value)
 	}
 }
 
-void IChar::CouldntExecuteSkill()
+void ICharacter::CouldntExecuteSkill()
 {
 	if (this->IsValid() && !this->IsBuff(331))
 		CChar::WriteInSight(this->GetOffset(), 61, "db", *(DWORD *)((int)this->GetOffset() + 28), 0);
 }
 
-int IChar::GetAttack()
+int ICharacter::GetAttack()
 {
 	if (this->IsOnline())
 		return CChar::GetAttack(this->GetOffset());
@@ -974,7 +974,7 @@ int IChar::GetAttack()
 		return 0;
 }
 
-int IChar::_ShowBattleMiss(IChar Target, int skillID)
+int ICharacter::_ShowBattleMiss(ICharacter Target, int skillID)
 {
 	if (this->IsOnline() && this->IsValid() && Target.IsValid())
 	{
@@ -993,13 +993,13 @@ int IChar::_ShowBattleMiss(IChar Target, int skillID)
 	}
 }
 
-void IChar::SetDirection(IChar Target)
+void ICharacter::SetDirection(ICharacter Target)
 {
 	if (this->IsOnline() && this->IsValid() && Target.IsOnline())
 		CChar::SetDirection(this->GetOffset(),*(DWORD *)((int)Target.GetOffset() + 332) - *(DWORD *)((int)this->GetOffset() + 332),*(DWORD *)((int)Target.GetOffset() + 336) - *(DWORD *)((int)this->GetOffset() + 336));
 }
 
-int IChar::OktayDamageNoAgro(IChar Target, int Damage, int SkillID)
+int ICharacter::OktayDamageNoAgro(ICharacter Target, int Damage, int SkillID)
 {
 	if (Damage <= 0)
 		return 0;
@@ -1098,7 +1098,7 @@ int IChar::OktayDamageNoAgro(IChar Target, int Damage, int SkillID)
 	}
 }
 
-int IChar::OktayDamageSingle(IChar Target, int Damage, int SkillID)
+int ICharacter::OktayDamageSingle(ICharacter Target, int Damage, int SkillID)
 {
 	if (Damage <= 0)
 		return 0;
@@ -1160,7 +1160,7 @@ int IChar::OktayDamageSingle(IChar Target, int Damage, int SkillID)
 	}
 }
 
-void IChar::OktayDamageArea(IChar Target, int Damage, int SkillID)
+void ICharacter::OktayDamageArea(ICharacter Target, int Damage, int SkillID)
 {
 	if (Damage <= 0)
 		return;
@@ -1215,7 +1215,7 @@ void IChar::OktayDamageArea(IChar Target, int Damage, int SkillID)
 	}
 }
 
-void IChar::OktayDamageStorm(IChar Target, int Damage)
+void ICharacter::OktayDamageStorm(ICharacter Target, int Damage)
 {
 	if (Damage <= 0)
 		return;
@@ -1260,7 +1260,7 @@ void IChar::OktayDamageStorm(IChar Target, int Damage)
 	}
 }
 
-int IChar::GetDeathBlow()
+int ICharacter::GetDeathBlow()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->GetOffset() + 184);
@@ -1268,7 +1268,7 @@ int IChar::GetDeathBlow()
 		return 0;
 }
 
-void IChar::AddDeathBlow(int amount)
+void ICharacter::AddDeathBlow(int amount)
 {
 	if (this->IsOnline())
 	{
@@ -1280,7 +1280,7 @@ void IChar::AddDeathBlow(int amount)
 	}
 }
 
-void IChar::RemoveDeathBlow(int amount)
+void ICharacter::RemoveDeathBlow(int amount)
 {
 	if (this->IsOnline())
 	{
@@ -1294,7 +1294,7 @@ void IChar::RemoveDeathBlow(int amount)
 	}
 }
 
-int IChar::IsInRange(IChar Target, int maxRange)
+int ICharacter::IsInRange(ICharacter Target, int maxRange)
 {
 	if (this->IsOnline() && Target.IsOnline())
 	{
@@ -1305,19 +1305,19 @@ int IChar::IsInRange(IChar Target, int maxRange)
 	return 0;
 }
 
-void IChar::AddAbsorb(int amount)
+void ICharacter::AddAbsorb(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),16,1,amount,amount);
 }
 
-void IChar::RemoveAbsorb(int amount)
+void ICharacter::RemoveAbsorb(int amount)
 {
 	if (this->IsOnline())
 		(*(int (__cdecl **)(int, signed int, signed int, DWORD, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(),16,0,amount,amount);
 }
 
-int IChar::GetMagic()
+int ICharacter::GetMagic()
 {
 	if (this->IsOnline())
 		return CChar::GetMagic(this->GetOffset());
@@ -1325,7 +1325,7 @@ int IChar::GetMagic()
 		return 0;
 }
 
-int IChar::IsMoved(int x, int y)
+int ICharacter::IsMoved(int x, int y)
 {
 	if ( this->IsOnline() && this->IsValid() )
 	{
@@ -1338,7 +1338,7 @@ int IChar::IsMoved(int x, int y)
 	}
 }
 
-DWORD IChar::UnAttack(DWORD amount)
+DWORD ICharacter::UnAttack(DWORD amount)
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -1351,7 +1351,7 @@ DWORD IChar::UnAttack(DWORD amount)
 	}
 }
 
-DWORD IChar::Delay(DWORD amount)
+DWORD ICharacter::Delay(DWORD amount)
 {
 	if (this->IsOnline() && this->IsValid())
 	{
@@ -1364,7 +1364,7 @@ DWORD IChar::Delay(DWORD amount)
 	}
 }
 
-void IChar::MonsterSummonWrite(int SafeZoneCheck,int Monster,int CellMapCoordinate)
+void ICharacter::MonsterSummonWrite(int SafeZoneCheck,int Monster,int CellMapCoordinate)
 {
 	if (this->IsOnline())
 	{
@@ -1395,7 +1395,7 @@ void IChar::MonsterSummonWrite(int SafeZoneCheck,int Monster,int CellMapCoordina
 	}
 }
 
-int IChar::GetMobTanker()
+int ICharacter::GetMobTanker()
 {
 	if (this->IsOnline() && this->IsValid())
 		return *(DWORD*)((int)this->GetOffset() + 464);
@@ -1403,7 +1403,7 @@ int IChar::GetMobTanker()
 		return 0;
 }
 
-int IChar::GetMaxHp()
+int ICharacter::GetMaxHp()
 {
 	if (this->IsOnline())
 		return CChar::GetMaxHp((int)this->Offset);
@@ -1411,25 +1411,25 @@ int IChar::GetMaxHp()
 		return 0;
 }
 
-void IChar::OpenHTML(int html)
+void ICharacter::OpenHTML(int html)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->Offset, 74, "d", html);
 }
 
-void IChar::OpenWindow(std::string WindowName,int Type,int Time)
+void ICharacter::OpenWindow(std::string WindowName,int Type,int Time)
 {
 	if (this->IsOnline())
 		CPlayer::Write(Offset, 0xFF, "dsdd", 237,WindowName.c_str(),Type,Time);
 }
 
-void IChar::CloseWindow(std::string WindowName)
+void ICharacter::CloseWindow(std::string WindowName)
 {
 	if (this->IsOnline())
 		CPlayer::Write(Offset, 0xFF, "ds", 236,WindowName.c_str());
 }
 
-void IChar::Revive()
+void ICharacter::Revive()
 {
 	if (this->IsOnline())
 	{
@@ -1449,31 +1449,31 @@ void IChar::Revive()
 	}
 }
 
-void IChar::SetBlue()
+void ICharacter::SetBlue()
 {
 	if (this->IsValid() && !this->IsBuff(331))
 		CChar::WriteInSight(this->GetOffset(),46,"dI",this->GetID(),__int64(0x00040000) << 32);
 }
 
-void IChar::SetRed()
+void ICharacter::SetRed()
 {
 	if (this->IsValid() && !this->IsBuff(331))
 		CChar::WriteInSight(this->GetOffset(),46,"dI",this->GetID(),__int64(0x00020000) << 32);
 }
 
-void IChar::RemoveSetBlue()
+void ICharacter::RemoveSetBlue()
 {
 	if (this->IsOnline() && !this->IsBuff(331))
 		CChar::WriteInSight(this->GetOffset(),46,"dI",this->GetID(),(__int64)0);
 }
 
-void IChar::RemoveSetRed()
+void ICharacter::RemoveSetRed()
 {
 	if (this->IsOnline() && !this->IsBuff(331))
 		CChar::WriteInSight(this->GetOffset(),46,"dI",this->GetID(),(__int64)0);
 }
 
-int IChar::GetGID()
+int ICharacter::GetGID()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->Offset + 480);
@@ -1481,7 +1481,7 @@ int IChar::GetGID()
 		return 0;
 }
 
-int IChar::GetRectX()
+int ICharacter::GetRectX()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->Offset + 324);
@@ -1489,7 +1489,7 @@ int IChar::GetRectX()
 		return 0;
 }
 
-int IChar::GetRectY()
+int ICharacter::GetRectY()
 {
 	if (this->IsOnline())
 		return *(DWORD*)((int)this->Offset + 328);
@@ -1497,7 +1497,7 @@ int IChar::GetRectY()
 		return 0;
 }
 
-void IChar::IncreaseCritRate(int Amount)
+void ICharacter::IncreaseCritRate(int Amount)
 {
 	if (this->IsOnline())
 	{
@@ -1506,7 +1506,7 @@ void IChar::IncreaseCritRate(int Amount)
 	}
 }
 
-void IChar::DecreaseCritRate(int Amount)
+void ICharacter::DecreaseCritRate(int Amount)
 {
 	if (this->IsOnline())
 	{
@@ -1515,49 +1515,49 @@ void IChar::DecreaseCritRate(int Amount)
 	}
 }
 
-void IChar::NewAnnouncement(std::string msg)
+void ICharacter::NewAnnouncement(std::string msg)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(),0xFF, "ds", 234, msg.c_str());
 }
 
-void IChar::ScreenTime(int Time)
+void ICharacter::ScreenTime(int Time)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(),0xFF, "dd", 233, Time);
 }
 
-void IChar::CloseScreenTime()
+void ICharacter::CloseScreenTime()
 {
 	if (this->IsOnline())
 		this->CloseWindow("hell_time");
 }
 
-void IChar::Scenario3Score(int Time,int RedScore,int BlueScore)
+void ICharacter::Scenario3Score(int Time,int RedScore,int BlueScore)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(),106,"bdbb",8,Time,RedScore,BlueScore);
 }
 
-void IChar::CloseScenario3Score()
+void ICharacter::CloseScenario3Score()
 {
 	if (this->IsOnline())
 		this->CloseWindow("scenario3_timescore");
 }
 
-void IChar::Scenario3_3Score(int Time,int RedScore,int BlueScore)
+void ICharacter::Scenario3_3Score(int Time,int RedScore,int BlueScore)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(),0xFF,"dbddd",232,7,Time,RedScore,BlueScore);
 }
 
-void IChar::CloseScenario3_3Score()
+void ICharacter::CloseScenario3_3Score()
 {
 	if (this->IsOnline())
 		this->CloseWindow("Scenario3_3_timescore");
 }
 
-void IChar::SpScore(int Time,int Type,int RedScore,int BlueScore,int RedWin,int BlueWin)
+void ICharacter::SpScore(int Time,int Type,int RedScore,int BlueScore,int RedWin,int BlueWin)
 {
 	if (this->IsOnline())
 	{
@@ -1566,31 +1566,31 @@ void IChar::SpScore(int Time,int Type,int RedScore,int BlueScore,int RedWin,int 
 	}
 }
 
-void IChar::CloseSpScore()
+void ICharacter::CloseSpScore()
 {
 	if (this->IsOnline())
 		this->CloseWindow("sp_timescore");
 }
 
-void IChar::SetRebirthTalisman(int Amount)
+void ICharacter::SetRebirthTalisman(int Amount)
 {
 	if (this->IsOnline())
 		CPlayer::Write(this->GetOffset(),0xFF,"dbbbbb",231,6,0,0,0,Amount);
 }
 
-void IChar::CloseRebirthTalisman()
+void ICharacter::CloseRebirthTalisman()
 {
 	if (this->IsOnline())
 		this->CloseWindow("hell_life");
 }
 
-void IChar::IncreaseCritDamage(int Amount)
+void ICharacter::IncreaseCritDamage(int Amount)
 {
 	if (this->IsOnline())
 		*(DWORD*)((int)this->GetOffset() + 180) += Amount;
 }
 
-void IChar::DecreaseCritDamage(int Amount)
+void ICharacter::DecreaseCritDamage(int Amount)
 {
 	if (this->IsOnline())
 	{
@@ -1599,13 +1599,13 @@ void IChar::DecreaseCritDamage(int Amount)
 	}
 }
 
-void IChar::SetMobHostility(int Amount)
+void ICharacter::SetMobHostility(int Amount)
 {
 	if (this->IsOnline())
 		*(DWORD*)((int)this->GetOffset() + 608) = Amount;
 }
 
-int IChar::GetAlliance()
+int ICharacter::GetAlliance()
 {
 	if (this->IsOnline())
 		return *(DWORD*)(*(DWORD*)((int)this->Offset + 484) + 392);
@@ -1613,26 +1613,26 @@ int IChar::GetAlliance()
 		return 0;
 }
 
-void IChar::SetAsAdmin()
+void ICharacter::SetAsAdmin()
 {
 	if (this->IsOnline())
 		*(DWORD*)((int)this->GetOffset() + 456) = 11;
 }
 
 
-void IChar::IncreaseMovingSpeed(int amount)
+void ICharacter::IncreaseMovingSpeed(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, DWORD, DWORD, DWORD))(*(DWORD*)(int)this->GetOffset() + 96))((int)this->GetOffset(), 32, 1, amount);
 }
 
-void IChar::DecreaseMovingSpeed(int amount)
+void ICharacter::DecreaseMovingSpeed(int amount)
 {
 	if (this->IsOnline())
 		(*(void (__cdecl **)(DWORD, DWORD, DWORD, DWORD))(*(DWORD*)(int)this->GetOffset() + 96))((int)this->GetOffset(), 32, 0, amount);
 }
 
-int IChar::GetRidingType()
+int ICharacter::GetRidingType()
 {
 	int state = 0;
 
@@ -1665,7 +1665,7 @@ int IChar::GetRidingType()
 	return state;
 }
 
-void IChar::EnableRiding(int Type)
+void ICharacter::EnableRiding(int Type)
 {
 	if (this->IsOnline() && !this->IsBuff(331))
 	{
@@ -1680,7 +1680,7 @@ void IChar::EnableRiding(int Type)
 	}
 }
 
-void IChar::DisableRiding()
+void ICharacter::DisableRiding()
 {
 	if (this->IsOnline() && !this->IsBuff(331))
 	{
@@ -1698,7 +1698,7 @@ void IChar::DisableRiding()
 }
 
 
-int IChar::MaxInventorySize()
+int ICharacter::MaxInventorySize()
 {
 	if (this->IsOnline())
 	{
@@ -1712,56 +1712,56 @@ int IChar::MaxInventorySize()
 	return 0;
 }
 
-void IChar::AddMinPhysAttack(int amount)
+void ICharacter::AddMinPhysAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 11, 1, amount);
 }
 
-void IChar::AddMaxPhysAttack(int amount)
+void ICharacter::AddMaxPhysAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 12, 1, amount);
 }
 
-void IChar::AddMinMagicAttack(int amount)
+void ICharacter::AddMinMagicAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 13, 1, amount);
 }
 
-void IChar::AddMaxMagicAttack(int amount)
+void ICharacter::AddMaxMagicAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 96))((int)this->GetOffset(), 14, 1, static_cast<int>(amount * 0.41));
 }
 
-void IChar::RemoveMinPhysAttack(int amount)
+void ICharacter::RemoveMinPhysAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 11, 0, amount);
 }
 
-void IChar::RemoveMaxPhysAttack(int amount)
+void ICharacter::RemoveMaxPhysAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 12, 0, amount);
 }
 
-void IChar::RemoveMinMagicAttack(int amount)
+void ICharacter::RemoveMinMagicAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 92))((int)this->GetOffset(), 13, 0, amount);
 }
 
-void IChar::RemoveMaxMagicAttack(int amount)
+void ICharacter::RemoveMaxMagicAttack(int amount)
 {
 	if (this->IsOnline())
 		(*(int(__cdecl **)(int, signed int, signed int, DWORD))(*(DWORD *)(int)this->GetOffset() + 96))((int)this->GetOffset(), 14, 0, static_cast<int>(amount * 0.41));
 
 }
 
-int IChar::GetMoveSpeed()
+int ICharacter::GetMoveSpeed()
 {
 	if (this->IsOnline())
 		return *(DWORD *)((int)this->GetOffset() + 260);
@@ -1770,13 +1770,13 @@ int IChar::GetMoveSpeed()
 }
 
 
-void IChar::SetAsSleep()
+void ICharacter::SetAsSleep()
 {
 	if (this->IsOnline())
 		Sleep(60000);
 }
 
-std::string IChar::GetIP()
+std::string ICharacter::GetIP()
 {
 	std::string Check = "error";
 	if (this->IsOnline()) Check = inet_ntoa(*(struct in_addr*)(*(DWORD*)((int)this->GetOffset() + 1676) + 140));

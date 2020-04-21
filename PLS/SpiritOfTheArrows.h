@@ -1,7 +1,7 @@
 #ifndef SPIRITOFTHEARROWS_H
 #define SPIRITOFTHEARROWS_H
 
-void __fastcall SpiritOfTheArrows(IChar IPlayer, int pPacket, int pPos)
+void __fastcall SpiritOfTheArrows(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(93);
 
@@ -28,7 +28,7 @@ void __fastcall SpiritOfTheArrows(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && nSkillGrade && IPlayer.IsOnline())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < nMana)
 			{
@@ -52,7 +52,7 @@ void __fastcall SpiritOfTheArrows(IChar IPlayer, int pPacket, int pPos)
 
 			while (Around)
 			{
-				IChar Object((void*)*(DWORD*)Around);
+				ICharacter Object((void*)*(DWORD*)Around);
 
 				if (Object.IsValid() && IPlayer.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Object.GetOffset(), 0))
 				{

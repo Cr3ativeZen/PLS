@@ -4,7 +4,7 @@
 
 void __fastcall Sacrifice(int pSkill, void *edx, int Player, int pPacket, int pPos)
 {
-	IChar IPlayer((void*)Player);
+	ICharacter IPlayer((void*)Player);
 	ISkill ISkill((void*)pSkill);
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -26,7 +26,7 @@ void __fastcall Sacrifice(int pSkill, void *edx, int Player, int pPacket, int pP
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
 		return;
 
-	IChar ITarget((void*)pTarget);
+	ICharacter ITarget((void*)pTarget);
 
 
 

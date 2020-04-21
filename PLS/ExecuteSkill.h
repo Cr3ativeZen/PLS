@@ -67,3 +67,4 @@
 #include "DestroyingArmor.h"
 #include "SoulDestruction.h"
 #include "PowerfulWideningWound.h"
+#include "Resources.h"

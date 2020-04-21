@@ -1,6 +1,6 @@
 #ifndef _D4INSTANCE_H
 #define _D4INSTANCE_H
-void __fastcall DFourInstance(IChar IPlayer)
+void __fastcall DFourInstance(ICharacter IPlayer)
 {
 
 	if (D4Instance::IsUp == true && D4Instance::StageNumber == D4Instance::F2TP[2] && IPlayer.IsOnline() && IPlayer.IsBuff(666) && IPlayer.GetMap() == D4Instance::MapNumber&&D4Instance::FloorNumber == 1)
@@ -13,7 +13,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
 		//	{
 		//		int Members = *(DWORD*)((void*)i);
-		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		ICharacter IMembers((void*)*(DWORD*)((void*)i));
 		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F2TP[0], D4Instance::F2TP[1]);
 
 		//	}
@@ -30,7 +30,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
 		//	{
 		//		int Members = *(DWORD*)((void*)i);
-		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		ICharacter IMembers((void*)*(DWORD*)((void*)i));
 		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F3TP[0], D4Instance::F3TP[1]);
 
 		//	}
@@ -47,7 +47,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
 		//	{
 		//		int Members = *(DWORD*)((void*)i);
-		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		ICharacter IMembers((void*)*(DWORD*)((void*)i));
 		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F4TP[0], D4Instance::F4TP[1]);
 
 		//	}
@@ -64,7 +64,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
 		//	{
 		//		int Members = *(DWORD*)((void*)i);
-		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		ICharacter IMembers((void*)*(DWORD*)((void*)i));
 		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F5TP[0], D4Instance::F5TP[1]);
 
 		//	}
@@ -81,7 +81,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
 		//	{
 		//		int Members = *(DWORD*)((void*)i);
-		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		ICharacter IMembers((void*)*(DWORD*)((void*)i));
 		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::F6TP[0], D4Instance::F6TP[1]);
 
 		//	}
@@ -99,7 +99,7 @@ void __fastcall DFourInstance(IChar IPlayer)
 		//	for (int i = CParty::GetPlayerList(Partyia); i; i = CBaseList::Pop((void*)i))
 		//	{
 		//		int Members = *(DWORD*)((void*)i);
-		//		IChar IMembers((void*)*(DWORD*)((void*)i));
+		//		ICharacter IMembers((void*)*(DWORD*)((void*)i));
 		//		IMembers.Teleport(D4Instance::MapNumber, D4Instance::LastRoomTP[0], D4Instance::LastRoomTP[1]);
 
 		//	}

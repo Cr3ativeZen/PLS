@@ -3,8 +3,8 @@
 int __fastcall PKKill(void *Player, void* edx, int a5)
 {
 	//Check for duels...
-	IChar IKiller(Player);
-	IChar IPlayer((void*)a5);
+	ICharacter IKiller(Player);
+	ICharacter IPlayer((void*)a5);
 	bool trade = false;
 	if (TradeSystemON == true)
 	{

@@ -1,7 +1,7 @@
 #ifndef CRITICALSTRIKE_H
 #define CRITICALSTRIKE_H
 
-void __fastcall CriticalStrike(IChar IPlayer, int pPacket, int pPos)
+void __fastcall CriticalStrike(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(90);
 
@@ -31,7 +31,7 @@ void __fastcall CriticalStrike(IChar IPlayer, int pPacket, int pPos)
 			if (IPlayer.GetCurMp() < nMana)
 				return;
 
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.IsValid() && Target.IsValid())
 			{

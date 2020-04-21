@@ -6,7 +6,7 @@
 void __fastcall PassiveAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
 	ISkill ISkill((void*)pSkill);
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -25,7 +25,7 @@ void __fastcall PassiveAttack(int pSkill, void *pPlayer, int pPacket, int pPos)
 	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset() || IPlayer.GetCurMp() < nMana)
 		return;
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 		if (IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)IPlayer.GetOffset() + 176))((int)IPlayer.GetOffset(), (int)Target.GetOffset(), 2))
 		{

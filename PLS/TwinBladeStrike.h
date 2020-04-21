@@ -1,11 +1,11 @@
 #ifndef TWINBLADESTRIKE_H
 #define TWINBLADESTRIKE_H
-void __fastcall ContinueTwinBladeStrike(IChar IPlayer)
+void __fastcall ContinueTwinBladeStrike(ICharacter IPlayer)
 {
 	if (IPlayer.IsValid())
 	{
 		void *pTarget = CheckFarContinueSkill.find(IPlayer.GetPID())->second.PlayerTarget;
-		IChar Target(pTarget);
+		ICharacter Target(pTarget);
 
 		if (pTarget && Target.IsValid() && IPlayer.IsValid())
 		{
@@ -47,7 +47,7 @@ void __fastcall ContinueTwinBladeStrike(IChar IPlayer)
 	return;
 }
 
-void __fastcall TwinBladeStrike(IChar IPlayer, int pPacket, int pPos)
+void __fastcall TwinBladeStrike(ICharacter IPlayer, int pPacket, int pPos)
 {
 	int pSkill = IPlayer.GetSkillPointer(23);
 
@@ -74,7 +74,7 @@ void __fastcall TwinBladeStrike(IChar IPlayer, int pPacket, int pPos)
 
 		if (pTarget && IPlayer.IsValid())
 		{
-			IChar Target(pTarget);
+			ICharacter Target(pTarget);
 
 			if (IPlayer.GetCurMp() < 65)
 			{

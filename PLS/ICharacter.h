@@ -1,21 +1,21 @@
-#ifndef _ICHAR_H
-#define _ICHAR_H
+#ifndef _ICHARACTER_H
+#define _ICHARACTER_H
 
 #include <iostream>
 #include "ServerFunctions.h"
-class IChar
+class ICharacter
 {
 
 public:
 	void* Offset;
 
 public:
-	IChar()
+	ICharacter()
 	{
 	}
 
-	IChar(void* Object);
-	virtual ~IChar();
+	ICharacter(void* Object);
+	virtual ~ICharacter();
 
 
 	void *GetOffset();
@@ -48,7 +48,7 @@ public:
 	void DecreaseMana(int amount);
 	void IncreaseMana(int amount);
 	int GetType();
-	void _ShowBattleAnimation(IChar Target, int skillID, int SkillGrade = 1);
+	void _ShowBattleAnimation(ICharacter Target, int skillID, int SkillGrade = 1);
 	int GetClass();
 	int GetTransformGrade();
 	void CancelBuff(int BuffID);
@@ -124,19 +124,19 @@ public:
 	bool IsGStateEx(__int64 state);
 	void SendGStateExIceArrow(__int64 state);
 	void SendGStateEx(__int64 state);
-	int CheckHit(IChar Target, int value);
+	int CheckHit(ICharacter Target, int value);
 	void CouldntExecuteSkill();
 	int GetAttack();
-	int _ShowBattleMiss(IChar Target, int skillID);
-	void SetDirection(IChar Target);
-	int OktayDamageNoAgro(IChar Target, int Damage, int SkillID);
-	int OktayDamageSingle(IChar Target, int Damage, int SkillID);
-	void OktayDamageArea(IChar Target, int Damage, int SkillID);
-	void OktayDamageStorm(IChar Target, int Damage);
+	int _ShowBattleMiss(ICharacter Target, int skillID);
+	void SetDirection(ICharacter Target);
+	int OktayDamageNoAgro(ICharacter Target, int Damage, int SkillID);
+	int OktayDamageSingle(ICharacter Target, int Damage, int SkillID);
+	void OktayDamageArea(ICharacter Target, int Damage, int SkillID);
+	void OktayDamageStorm(ICharacter Target, int Damage);
 	int GetDeathBlow();
 	void AddDeathBlow(int amount);
 	void RemoveDeathBlow(int amount);
-	int IsInRange(IChar Target, int maxRange);
+	int IsInRange(ICharacter Target, int maxRange);
 	void AddAbsorb(int amount);
 	void RemoveAbsorb(int amount);
 	int GetMagic();

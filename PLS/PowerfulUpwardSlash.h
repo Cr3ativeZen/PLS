@@ -2,7 +2,7 @@
 #define POWERFULUPWARDSLASH_H
 void __fastcall PowerfulUpwardSlash(int pSkill, void *pPlayer, int pPacket, int pPos)
 {
-	IChar IPlayer(pPlayer);
+	ICharacter IPlayer(pPlayer);
 	ISkill ISkill((void*)pSkill);
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -24,7 +24,7 @@ void __fastcall PowerfulUpwardSlash(int pSkill, void *pPlayer, int pPacket, int 
 		return;
 
 
-	IChar Target(pTarget);
+	ICharacter Target(pTarget);
 
 	if (!IPlayer.IsInRange(Target, 20))
 	{

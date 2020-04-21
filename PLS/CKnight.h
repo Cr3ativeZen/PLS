@@ -5,6 +5,7 @@
 
 class CKnight : public ICharacter
 {
+public:
 	CKnight() : ICharacter()
 	{
 
@@ -20,7 +21,7 @@ class CKnight : public ICharacter
 
 	}
 
-
+	void __fastcall PowerfulUpwardSlash(int pSkill, int pPacket, int pPos);
 
 
 

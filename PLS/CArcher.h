@@ -5,6 +5,7 @@
 
 class CArcher: public ICharacter
 {
+public:
 	CArcher() : ICharacter()
 	{
 

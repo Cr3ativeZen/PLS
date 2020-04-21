@@ -35,6 +35,9 @@
 
 
 
+//Skills
+
+#define SKILL_KNIGHT_POWERFULUPWARDSLASH 16
 
 
 

@@ -5,6 +5,7 @@
 
 class CMage : public ICharacter
 {
+public:
 	CMage() : ICharacter()
 	{
 

@@ -5,6 +5,7 @@
 
 class CThief : public ICharacter
 {
+public:
 	CThief() : ICharacter()
 	{
 

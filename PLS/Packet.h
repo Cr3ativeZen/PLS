@@ -938,660 +938,696 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				ActivateShiny(IPlayer, kappa, pPos);
 			}
 
-			//Knight Skills
 
-			if (IPlayer.GetClass() == 0)
+
+
+
+			switch (IPlayer.GetClass())
 			{
-				if (SkillID == 38 && IPlayer.GetSpecialty() == 23 &&SpinSlashON == true)
+				case CLASS_KNIGHT:
 				{
-					SpinSlash(IPlayer);
-					return;
-				}
-
-				if (SkillID == 43 && IPlayer.GetSpecialty() == 23 && SwordDanceON == true)
-				{
-					SwordDance(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 42 && IPlayer.GetSpecialty() == 43&& ProvocationOfBlowON== true)
-				{
-					ProvocationOfBlow(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 41 &&  PowerfulWideningWoundON == true)
-				{
-					PowerfulWideningWound(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if ((SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
-				{
-					Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 19 && CallsON == true)
-				{
-					ICharacter Playere((void*)Player);
-
-					void* pSkill = (void*)Playere.GetSkillPointer(19);
-					if (Playere.IsValid())
+					CKnight knight((void*)Player);
+					switch (SkillID)
 					{
-						ISkill ISkill(pSkill);
-						int nSkillGrade = ISkill.GetGrade();
-						int Action = 0, Check = 0;
-						Check = (*(int(__thiscall **)(void *, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
-
-						if (nSkillGrade && Check && Playere.IsValid())
+					case SKILL_KNIGHT_POWERFULUPWARDSLASH:
 						{
-							if (Playere.IsParty())
-							{
-								void *Party = (void*)CParty::FindParty(Playere.GetPartyID());
-
-								if (Party)
-								{
-									for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
-									{
-										int Members = *(DWORD*)((void*)i);
-
-										if (CChar::IsNormal(Members) && Playere.IsValid())
-										{
-											CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
-
-
-											ICharacter Member((void*)Members);
-
-											if (Playere.IsInRange(Member, CallRANGE))
-											{
-												int Buff = (*(int(__thiscall **)(DWORD))(*(DWORD *)Check + 20))(Check);
-
-												CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
-												CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
-												CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
-
-												(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
-											}
-										}
-
-									}
-								}
-							}
-							else 
-							{
-								CChar::CancelAllBuff(Playere.GetOffset(),28);
-								(*(void(__thiscall **)(int, int))(*(DWORD*)Player + 180))(Player, Check);
-							}
-
-							Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
+							knight.PowerfulUpwardSlash(pSkill, kappa, pPos);
+							return;
 						}
 					}
-					return;
+					break;
 				}
-
-				if (SkillID == 26 && SacrificeON == true)
-				{
-					Sacrifice(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 15 && ShieldAttackON== true)
-				{
-					ShieldAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-
-				if (SkillID == 3 && LightningSlashON == true)
-				{
-					LightningSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-
-				if (SkillID == 5 && TranscendentalBlowON == true)
-				{
-					TranscendentalBlow(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-
-				if (SkillID == 16 && PowerfulUpwardSlashON == true)
-				{
-					PowerfulUpwardSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 17 && BrutalAttackON == true)
-				{
-					BrutalAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 25 && HalfSwingON == true)
-				{
-					HalfSwing(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && TheBoomofEarthON == true)
-				{
-					TheBoomOfEarth(IPlayer);
-					return;
-				}
-
-				if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && ThewaveofEarthON == true)
-				{
-					ThewaveofEarth(IPlayer);
-					return;
-				}
-
-				if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && ShoutOfDefenseON == true)
-				{
-					ShoutOfDefense(IPlayer);
-					return;
-				}
-
-				if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && ShoutOfFightingSpiritON == true)
-				{
-					ShoutOfFightingSpirit(IPlayer);
-					return;
-				}
-
-			}
-
-			//Mage skills
-
-			if (IPlayer.GetClass() == 1)
-			{
-				if (SkillID == 8 && HealON == true)
-				{
-					Heal(pSkill, kappa, (int)IPlayer.GetOffset());
-					return;
-				}
-
-				if ((SkillID == 10) && CureON == true)
-				{
-					Cure(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if ((SkillID == 22) && CureON == true)
-				{
-					Cure2(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if ((SkillID == 35) && CureON == true)
-				{
-					Cure3(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 9 && ShockWaveON == true)
-				{
-					ShockWave(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 61 && AmnesiaON == true)
-				{
-					Amnesia(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 54 && PurificationON == true)
-				{
-					Purification(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
-				}
-
 				
-
-				if (SkillID == 34 && SummonsON == true)
+				case CLASS_MAGE:
 				{
-					Summons(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-
-				if (SkillID == 41 &&ChainLightningON==true)
+					break;
+				}			
+				case CLASS_ARCHER:
 				{
-					ChainLightning(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 40 && SoulDestructionON == true)
+					break;
+				}			
+				case CLASS_THIEF:
 				{
-					SoulDestruction(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
+					break;
 				}
-
-
-				if (SkillID == 45 && IceStormON == true)
-				{
-					IceStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 48 && FireStormON == true)
-				{
-					FireStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 43 && ThunderStormON == true)
-				{
-					ThunderStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 65 && IPlayer.GetSpecialty() == 23 &&FlameInjectionON==true)
-				{
-					FlameInjection(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 66 && IPlayer.GetSpecialty() == 23&&IcicleON==true)
-				{
-					Icicle(IPlayer);
-					return;
-				}
-
-				if (SkillID == 67 && IPlayer.GetSpecialty() == 23 &&LightningArrowON==true)
-				{
-					LightningArrow(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 72 && IPlayer.GetSpecialty() == 43 && TherapeuticTouchON == true)
-				{
-					TherapeuticTouch(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 73 && IPlayer.GetSpecialty() == 23 && FireballON == true)
-				{
-					Fireball(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 99 && IPlayer.GetSpecialty() == 23 &&IceArrowON == true&&(IPlayer.IsBuff(295)||IPlayer.IsBuff(5605)))
-				{
-					IceArrow(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 75 && IPlayer.GetSpecialty() == 23 && ThunderboltON == true)
-				{
-					Thunderbolt(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && PunishmentON == true)
-				{
-					Punishment(IPlayer, kappa, pPos);
-					return;
-				}
-
-				if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && ReleasingTheEnergyON == true)
-				{
-					ReleasingTheEnergy(IPlayer);
-					return;
-				}
-
-				if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && IncapacitationON == true)
-				{
-					Incapacitation(IPlayer);
-					return;
-				}
-
-				if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && BombingON == true)
-				{
-					Bombing(IPlayer);
-					return;
-				}
-
+				default:
+					break;
 			}
 
-			//Archer skills
+			////Knight Skills
 
-			if (IPlayer.GetClass() == 2)
-			{
-				if (SkillID == 18 &&LifeAbsorptionON==true)
-				{
-					LifeAbsorption(pSkill, edx, IPlayer.GetOffset(), (char*)kappa, (char*)pPos);
-					return;
-				}
+			//if (IPlayer.GetClass() == 0)
+			//{
+			//	if (SkillID == 38 && IPlayer.GetSpecialty() == 23 &&SpinSlashON == true)
+			//	{
+			//		SpinSlash(IPlayer);
+			//		return;
+			//	}
 
-				if (SkillID == 16 && IPlayer.IsValid() && FocusShotON== true)
-				{
-					FocusShot(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 43 && IPlayer.GetSpecialty() == 23 && SwordDanceON == true)
+			//	{
+			//		SwordDance(IPlayer, kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 21 && MysteriousArrowON == true)
-				{
-					MysteriousArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 42 && IPlayer.GetSpecialty() == 43&& ProvocationOfBlowON== true)
+			//	{
+			//		ProvocationOfBlow(IPlayer, kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 6 && FlamyArrowON == true)
-				{
-					FlamyArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 41 &&  PowerfulWideningWoundON == true)
+			//	{
+			//		PowerfulWideningWound(IPlayer, kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 4 && PassiveAttackON == true)
-				{
-					PassiveAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
+			//	if ((SkillID == 23 || SkillID == 27 || SkillID == 28 || SkillID == 29 || SkillID == 31 || SkillID == 32) && CallsON == true)
+			//	{
+			//		Calls(pSkill, edx, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 14 && BlowUpArrowON == true)
-				{
-					BlowUpArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 19 && CallsON == true)
+			//	{
+			//		ICharacter Playere((void*)Player);
 
-				if (SkillID == 10 && MuscleSolidationON == true)
-				{
-					MuscleSolidation(pSkill, kappa, (int)IPlayer.GetOffset());
-					return;
-				}
-				if (SkillID == 45 && BuffRemoverON == true)
-				{
-					BuffRemover(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
-				}
+			//		void* pSkill = (void*)Playere.GetSkillPointer(19);
+			//		if (Playere.IsValid())
+			//		{
+			//			ISkill ISkill(pSkill);
+			//			int nSkillGrade = ISkill.GetGrade();
+			//			int Action = 0, Check = 0;
+			//			Check = (*(int(__thiscall **)(void *, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
 
-				if (SkillID == 47 && IPlayer.GetSpecialty() == 23 && ArrowRainON == true)
-				{
-					ArrowRain(IPlayer, kappa, pPos);
-					return;
-				}
+			//			if (nSkillGrade && Check && Playere.IsValid())
+			//			{
+			//				if (Playere.IsParty())
+			//				{
+			//					void *Party = (void*)CParty::FindParty(Playere.GetPartyID());
 
-				if (SkillID == 49 && IPlayer.GetSpecialty() == 43 && ArrowExplosionON==true)
-				{
-					ArrowExplosion(IPlayer, kappa, pPos);
-					return;
-				}
+			//					if (Party)
+			//					{
+			//						for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+			//						{
+			//							int Members = *(DWORD*)((void*)i);
 
-				if (SkillID == 50 && IPlayer.GetSpecialty() == 43 && VirulentArrowON==true)
-				{
-					VirulentArrow(IPlayer, kappa, pPos);
-					return;
-				}
+			//							if (CChar::IsNormal(Members) && Playere.IsValid())
+			//							{
+			//								CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
 
-				if (SkillID == 51 && IPlayer.GetSpecialty() == 23 && CombativeSpiritON == true)
-				{
-					CombativeSpirit(IPlayer, kappa, pPos);
-					return;
-				}
 
-				if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && ArrowsoftheMasterON == true)
-				{
-					ArrowsOfTheMaster(IPlayer, kappa, pPos);
-					return;
-				}
+			//								ICharacter Member((void*)Members);
 
-				if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && OneHitStrikeON == true)
-				{
-					OneHitStrike(IPlayer, kappa, pPos);
-					return;
-				}
+			//								if (Playere.IsInRange(Member, CallRANGE))
+			//								{
+			//									int Buff = (*(int(__thiscall **)(DWORD))(*(DWORD *)Check + 20))(Check);
 
-				if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && MassiveFireON == true)
-				{
-					MassiveFire(IPlayer, kappa, pPos);
-					return;
-				}
+			//									CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
+			//									CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
+			//									CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
 
-				if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && SpiritOfTheArrowsON == true)
-				{
-					SpiritOfTheArrows(IPlayer, kappa, pPos);
-					return;
-				}
+			//									(*(void(__thiscall **)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
+			//								}
+			//							}
 
-				
-			}
+			//						}
+			//					}
+			//				}
+			//				else 
+			//				{
+			//					CChar::CancelAllBuff(Playere.GetOffset(),28);
+			//					(*(void(__thiscall **)(int, int))(*(DWORD*)Player + 180))(Player, Check);
+			//				}
 
-			//Thief skills
+			//				Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
+			//			}
+			//		}
+			//		return;
+			//	}
 
-			if (IPlayer.GetClass() == 3)
-			{
-				if (SkillID == 33 && IPlayer.GetSpecialty() == 23 && WrathOfHeavenON==true)
-				{
-					IPlayer.CancelBuff(329);
-					IPlayer.CancelBuff(40);
-					WrathOfHeaven(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 26 && SacrificeON == true)
+			//	{
+			//		Sacrifice(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 32 &&ShadowSlashON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					ShadowSlash(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 15 && ShieldAttackON== true)
+			//	{
+			//		ShieldAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 36 &&SpinBladeON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					SpinBlade(IPlayer);
-					return;
-				}
 
-				if (SkillID == 28 && LightningSlashThiefON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					LightningSlashThief(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 3 && LightningSlashON == true)
+			//	{
+			//		LightningSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 19 &&SpinAttackON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					SpinAttack(IPlayer, kappa, pPos);
-					return;
-				}
 
-				if (SkillID == 22 &&ArmorBreakerON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					ArmorBreaker(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 5 && TranscendentalBlowON == true)
+			//	{
+			//		TranscendentalBlow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 23 &&TwinBladeStrikeON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					TwinBladeStrike(IPlayer, kappa, pPos);
-					return;
-				}
 
-				if (SkillID == 18 && FinalBlowON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					FinalBlow(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 16 && PowerfulUpwardSlashON == true)
+			//	{
+			//		PowerfulUpwardSlash(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 15 && AnkleAmputateON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					AnkleAmputate(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 17 && BrutalAttackON == true)
+			//	{
+			//		BrutalAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 16 && VitalStrikeON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					VitalStrike(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 25 && HalfSwingON == true)
+			//	{
+			//		HalfSwing(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 14 && FatalWoundON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					FatalWound(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && TheBoomofEarthON == true)
+			//	{
+			//		TheBoomOfEarth(IPlayer);
+			//		return;
+			//	}
 
-				if (SkillID == 17 &&RuptureON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					Rupture(IPlayer, kappa, pPos);
-					return;
-				}
+			//	if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && ThewaveofEarthON == true)
+			//	{
+			//		ThewaveofEarth(IPlayer);
+			//		return;
+			//	}
 
-				if (SkillID == 21 &&SuicidalBlowON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					SuicidalBlow(IPlayer, kappa, pPos);
-					return;
+			//	if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && ShoutOfDefenseON == true)
+			//	{
+			//		ShoutOfDefense(IPlayer);
+			//		return;
+			//	}
 
-				}
+			//	if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && ShoutOfFightingSpiritON == true)
+			//	{
+			//		ShoutOfFightingSpirit(IPlayer);
+			//		return;
+			//	}
 
-				if (SkillID == 20 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(4848) && CounterAttackON == true)
-				{
-					int pSkill = IPlayer.GetSkillPointer(20);
+			//}
 
-					if (pSkill)
-					{
-						ISkill xSkill((void*)pSkill);
-						int nSkillGrade = xSkill.GetGrade();
-						int nMana = nSkillGrade * 30 + 45;
+			////Mage skills
 
-						if (IPlayer.GetCurMp() >= nMana && nSkillGrade)
-						{
-							IPlayer.Buff(4848, 30, 0);
-							IPlayer.Buff(4849, 35, 0);
-							IPlayer.SetBuffIcon(30000, 0, 2019, 217);
-							IPlayer.DecreaseMana(nMana);
-							IPlayer._ShowBattleAnimation(IPlayer, 20);
-							CChar::CancelAllBuff(IPlayer.GetOffset(), 4877);
-						}
-					}
+			//if (IPlayer.GetClass() == 1)
+			//{
+			//	if (SkillID == 8 && HealON == true)
+			//	{
+			//		Heal(pSkill, kappa, (int)IPlayer.GetOffset());
+			//		return;
+			//	}
 
-					return;
-				}
+			//	if ((SkillID == 10) && CureON == true)
+			//	{
+			//		Cure(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 63 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(4877) && CounterOffensiveON==true)
-				{
-					int pSkill = IPlayer.GetSkillPointer(63);
+			//	if ((SkillID == 22) && CureON == true)
+			//	{
+			//		Cure2(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-					if (pSkill)
-					{
-						ISkill xSkill((void*)pSkill);
-						int nSkillGrade = xSkill.GetGrade();
-						int nMana = nSkillGrade * 30 + 50;
+			//	if ((SkillID == 35) && CureON == true)
+			//	{
+			//		Cure3(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-						if (IPlayer.GetCurMp() >= nMana && nSkillGrade)
-						{
-							IPlayer.Buff(4877, 30, 0);
-							IPlayer.Buff(4878, 35, 0);
-							IPlayer.SetBuffIcon(30000, 0, 2427, 323);
-							IPlayer.DecreaseMana(nMana);
-							IPlayer._ShowBattleAnimation(IPlayer, 63);
-							CChar::CancelAllBuff(IPlayer.GetOffset(), 4848);
-						}
-					}
-					return;
-				}
+			//	if (SkillID == 9 && ShockWaveON == true)
+			//	{
+			//		ShockWave(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && CriticalDiffusionON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					CriticalDiffusion(IPlayer);
-					return;
-				}
+			//	if (SkillID == 61 && AmnesiaON == true)
+			//	{
+			//		Amnesia(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-				if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && CriticalStrikeON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					CriticalStrike(IPlayer,kappa,pPos);
-					return;
-				}
+			//	if (SkillID == 54 && PurificationON == true)
+			//	{
+			//		Purification(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//	}
 
-				if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && StrikeOfGodON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					StrikeOfGod(IPlayer);
-					return;
-				}
+			//	
 
-				if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && DestroyingArmorON == true)
-				{
-					if (IPlayer.IsBuff(329))
-					{
-						IPlayer.CancelBuff(329);
-						IPlayer.CancelBuff(40);
-					}
-					DestroyingArmor(IPlayer);
-					return;
-				}
+			//	if (SkillID == 34 && SummonsON == true)
+			//	{
+			//		Summons(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
 
-			}
+
+			//	if (SkillID == 41 &&ChainLightningON==true)
+			//	{
+			//		ChainLightning(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 40 && SoulDestructionON == true)
+			//	{
+			//		SoulDestruction(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+
+			//	if (SkillID == 45 && IceStormON == true)
+			//	{
+			//		IceStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 48 && FireStormON == true)
+			//	{
+			//		FireStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 43 && ThunderStormON == true)
+			//	{
+			//		ThunderStorm(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 65 && IPlayer.GetSpecialty() == 23 &&FlameInjectionON==true)
+			//	{
+			//		FlameInjection(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 66 && IPlayer.GetSpecialty() == 23&&IcicleON==true)
+			//	{
+			//		Icicle(IPlayer);
+			//		return;
+			//	}
+
+			//	if (SkillID == 67 && IPlayer.GetSpecialty() == 23 &&LightningArrowON==true)
+			//	{
+			//		LightningArrow(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 72 && IPlayer.GetSpecialty() == 43 && TherapeuticTouchON == true)
+			//	{
+			//		TherapeuticTouch(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 73 && IPlayer.GetSpecialty() == 23 && FireballON == true)
+			//	{
+			//		Fireball(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 99 && IPlayer.GetSpecialty() == 23 &&IceArrowON == true&&(IPlayer.IsBuff(295)||IPlayer.IsBuff(5605)))
+			//	{
+			//		IceArrow(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 75 && IPlayer.GetSpecialty() == 23 && ThunderboltON == true)
+			//	{
+			//		Thunderbolt(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && PunishmentON == true)
+			//	{
+			//		Punishment(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && ReleasingTheEnergyON == true)
+			//	{
+			//		ReleasingTheEnergy(IPlayer);
+			//		return;
+			//	}
+
+			//	if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && IncapacitationON == true)
+			//	{
+			//		Incapacitation(IPlayer);
+			//		return;
+			//	}
+
+			//	if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && BombingON == true)
+			//	{
+			//		Bombing(IPlayer);
+			//		return;
+			//	}
+
+			//}
+
+			////Archer skills
+
+			//if (IPlayer.GetClass() == 2)
+			//{
+			//	if (SkillID == 18 &&LifeAbsorptionON==true)
+			//	{
+			//		LifeAbsorption(pSkill, edx, IPlayer.GetOffset(), (char*)kappa, (char*)pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 16 && IPlayer.IsValid() && FocusShotON== true)
+			//	{
+			//		FocusShot(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 21 && MysteriousArrowON == true)
+			//	{
+			//		MysteriousArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 6 && FlamyArrowON == true)
+			//	{
+			//		FlamyArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 4 && PassiveAttackON == true)
+			//	{
+			//		PassiveAttack(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 14 && BlowUpArrowON == true)
+			//	{
+			//		BlowUpArrow(pSkill, IPlayer.GetOffset(), kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 10 && MuscleSolidationON == true)
+			//	{
+			//		MuscleSolidation(pSkill, kappa, (int)IPlayer.GetOffset());
+			//		return;
+			//	}
+			//	if (SkillID == 45 && BuffRemoverON == true)
+			//	{
+			//		BuffRemover(pSkill, edx, (int)IPlayer.GetOffset(), kappa, pPos);
+			//	}
+
+			//	if (SkillID == 47 && IPlayer.GetSpecialty() == 23 && ArrowRainON == true)
+			//	{
+			//		ArrowRain(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 49 && IPlayer.GetSpecialty() == 43 && ArrowExplosionON==true)
+			//	{
+			//		ArrowExplosion(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 50 && IPlayer.GetSpecialty() == 43 && VirulentArrowON==true)
+			//	{
+			//		VirulentArrow(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 51 && IPlayer.GetSpecialty() == 23 && CombativeSpiritON == true)
+			//	{
+			//		CombativeSpirit(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && ArrowsoftheMasterON == true)
+			//	{
+			//		ArrowsOfTheMaster(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && OneHitStrikeON == true)
+			//	{
+			//		OneHitStrike(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && MassiveFireON == true)
+			//	{
+			//		MassiveFire(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && SpiritOfTheArrowsON == true)
+			//	{
+			//		SpiritOfTheArrows(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	
+			//}
+
+			////Thief skills
+
+			//if (IPlayer.GetClass() == 3)
+			//{
+			//	if (SkillID == 33 && IPlayer.GetSpecialty() == 23 && WrathOfHeavenON==true)
+			//	{
+			//		IPlayer.CancelBuff(329);
+			//		IPlayer.CancelBuff(40);
+			//		WrathOfHeaven(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 32 &&ShadowSlashON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		ShadowSlash(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 36 &&SpinBladeON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		SpinBlade(IPlayer);
+			//		return;
+			//	}
+
+			//	if (SkillID == 28 && LightningSlashThiefON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		LightningSlashThief(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 19 &&SpinAttackON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		SpinAttack(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 22 &&ArmorBreakerON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		ArmorBreaker(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 23 &&TwinBladeStrikeON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		TwinBladeStrike(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 18 && FinalBlowON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		FinalBlow(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 15 && AnkleAmputateON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		AnkleAmputate(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 16 && VitalStrikeON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		VitalStrike(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 14 && FatalWoundON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		FatalWound(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 17 &&RuptureON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		Rupture(IPlayer, kappa, pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 21 &&SuicidalBlowON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		SuicidalBlow(IPlayer, kappa, pPos);
+			//		return;
+
+			//	}
+
+			//	if (SkillID == 20 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(4848) && CounterAttackON == true)
+			//	{
+			//		int pSkill = IPlayer.GetSkillPointer(20);
+
+			//		if (pSkill)
+			//		{
+			//			ISkill xSkill((void*)pSkill);
+			//			int nSkillGrade = xSkill.GetGrade();
+			//			int nMana = nSkillGrade * 30 + 45;
+
+			//			if (IPlayer.GetCurMp() >= nMana && nSkillGrade)
+			//			{
+			//				IPlayer.Buff(4848, 30, 0);
+			//				IPlayer.Buff(4849, 35, 0);
+			//				IPlayer.SetBuffIcon(30000, 0, 2019, 217);
+			//				IPlayer.DecreaseMana(nMana);
+			//				IPlayer._ShowBattleAnimation(IPlayer, 20);
+			//				CChar::CancelAllBuff(IPlayer.GetOffset(), 4877);
+			//			}
+			//		}
+
+			//		return;
+			//	}
+
+			//	if (SkillID == 63 && (IPlayer.GetSpecialty() == 11 || IPlayer.GetSpecialty() == 43) && !IPlayer.IsBuff(4877) && CounterOffensiveON==true)
+			//	{
+			//		int pSkill = IPlayer.GetSkillPointer(63);
+
+			//		if (pSkill)
+			//		{
+			//			ISkill xSkill((void*)pSkill);
+			//			int nSkillGrade = xSkill.GetGrade();
+			//			int nMana = nSkillGrade * 30 + 50;
+
+			//			if (IPlayer.GetCurMp() >= nMana && nSkillGrade)
+			//			{
+			//				IPlayer.Buff(4877, 30, 0);
+			//				IPlayer.Buff(4878, 35, 0);
+			//				IPlayer.SetBuffIcon(30000, 0, 2427, 323);
+			//				IPlayer.DecreaseMana(nMana);
+			//				IPlayer._ShowBattleAnimation(IPlayer, 63);
+			//				CChar::CancelAllBuff(IPlayer.GetOffset(), 4848);
+			//			}
+			//		}
+			//		return;
+			//	}
+
+			//	if (SkillID == 92 && IPlayer.GetSpecialty() == 23 && CriticalDiffusionON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		CriticalDiffusion(IPlayer);
+			//		return;
+			//	}
+
+			//	if (SkillID == 90 && IPlayer.GetSpecialty() == 23 && CriticalStrikeON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		CriticalStrike(IPlayer,kappa,pPos);
+			//		return;
+			//	}
+
+			//	if (SkillID == 91 && IPlayer.GetSpecialty() == 43 && StrikeOfGodON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		StrikeOfGod(IPlayer);
+			//		return;
+			//	}
+
+			//	if (SkillID == 93 && IPlayer.GetSpecialty() == 43 && DestroyingArmorON == true)
+			//	{
+			//		if (IPlayer.IsBuff(329))
+			//		{
+			//			IPlayer.CancelBuff(329);
+			//			IPlayer.CancelBuff(40);
+			//		}
+			//		DestroyingArmor(IPlayer);
+			//		return;
+			//	}
+
+			//}
 
 		}
 

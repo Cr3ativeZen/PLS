@@ -1,8 +1,8 @@
 #include "CKnight.h"
 
-void __fastcall CKnight::BrutalAttack(int pSkill, int pPacket, int pPos)
+void __fastcall CKnight::BrutalAttack(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -58,9 +58,9 @@ void __fastcall CKnight::BrutalAttack(int pSkill, int pPacket, int pPos)
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall CKnight::HalfSwing(int pSkill, int pPacket, int pPos)
+void __fastcall CKnight::HalfSwing( int pPacket, int pPos)
 {
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -118,9 +118,9 @@ void __fastcall CKnight::HalfSwing(int pSkill, int pPacket, int pPos)
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall CKnight::LightningSlash(int pSkill, int pPacket, int pPos)
+void __fastcall CKnight::LightningSlash(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
 
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -217,9 +217,9 @@ void __fastcall CKnight::LightningSlash(int pSkill, int pPacket, int pPos)
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall CKnight::PowerfulUpwardSlash(int pSkill, int pPacket, int pPos)
+void __fastcall CKnight::PowerfulUpwardSlash(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -274,7 +274,7 @@ void __fastcall CKnight::PowerfulUpwardSlash(int pSkill, int pPacket, int pPos)
 
 void __fastcall CKnight::SpinSlash()
 {
-	int pSkill = GetSkillPointer(38);
+	int pSkill = GetSkillPointer(SKILL_KNIGHT_SPINSLASH);
 
 	if (IsValid() && pSkill)
 	{

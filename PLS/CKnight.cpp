@@ -120,7 +120,7 @@ void __fastcall CKnight::HalfSwing( int pPacket, int pPos)
 
 void __fastcall CKnight::LightningSlash(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)GetSkillPointer(SKILLL_KNIGHT_LIGHTNINGSLASH));
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_LIGHTNINGSLASH));
 
 	int nSkillGrade = ISkill.GetGrade();
 

@@ -1013,6 +1013,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						mage.Amnesia(PACKET, pPos);
 						return;
 					}
+					case SKILL_MAGE_SOULDESTRUCTION:
+					{
+						mage.SoulDestruction(PACKET, pPos);
+						return;
+					}
 					}
 					break;
 				}			

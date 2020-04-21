@@ -21,6 +21,9 @@ public:
 
 	}
 	
+
+	//1st job skills
+	void __fastcall BlowUpArrow(int pPacket, int pPos);
 	
 
 

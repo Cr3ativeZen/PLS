@@ -2,8 +2,7 @@
 
 void __fastcall CMage::Cure(int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(SKILL_MAGE_CURE);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_CURE));
 
 
 	int nSkillGrade = ISkill.GetGrade();
@@ -68,8 +67,7 @@ void __fastcall CMage::Cure(int pPacket, int pPos)
 
 void __fastcall CMage::Cure2(int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(SKILL_MAGE_CURE2);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_CURE2));
 
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -126,8 +124,7 @@ void __fastcall CMage::Cure2(int pPacket, int pPos)
 
 void __fastcall CMage::Cure3(int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(SKILL_MAGE_CURE);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_CURE3));
 
 	int nTargetID = 0;
 	char bType = 0;
@@ -178,8 +175,7 @@ void __fastcall CMage::Cure3(int pPacket, int pPos)
 void __fastcall CMage::Heal()
 {
 
-	int pSkill = GetSkillPointer(SKILL_MAGE_HEAL);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_HEAL));
 
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -197,8 +193,7 @@ void __fastcall CMage::Heal()
 
 void __fastcall CMage::ShockWave(int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(SKILL_MAGE_SHOCKWAVE);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_SHOCKWAVE));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)
@@ -275,8 +270,7 @@ void __fastcall CMage::ShockWave(int pPacket, int pPos)
 
 void __fastcall CMage::Amnesia(int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(SKILL_MAGE_AMNESIA);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_AMNESIA));
 
 	int nSkillGrade = ISkill.GetGrade();
 
@@ -332,8 +326,7 @@ void __fastcall CMage::Amnesia(int pPacket, int pPos)
 
 void __fastcall CMage::ChainLightning(int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(SKILL_MAGE_CHAINLIGHTNING);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_CHAINLIGHTNING));
 
 	int nTargetID = 0; char bType = 0; void* pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
@@ -385,8 +378,7 @@ void __fastcall CMage::ChainLightning(int pPacket, int pPos)
 
 void __fastcall CMage::SoulDestruction(int pPacket, int pPos)
 {
-	int pSkill = GetSkillPointer(SKILL_MAGE_SOULDESTRUCTION);
-	ISkill ISkill((void*)pSkill);
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_SOULDESTRUCTION));
 
 	int nTargetID = 0; char bType = 0; void* pTarget = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);

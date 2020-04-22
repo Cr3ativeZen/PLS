@@ -949,31 +949,31 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					CKnight knight((void*)Player);
 					switch (SkillID)
 					{
-					case SKILL_KNIGHT_POWERFULUPWARDSLASH:
-					{
-						knight.PowerfulUpwardSlash(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_SPINSLASH:
-					{
-						knight.SpinSlash();
-						return;
-					}
-					case SKILL_KNIGHT_HALFSWING:
-					{
-						knight.HalfSwing(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_BRUTALATTACK:
-					{
-						knight.BrutalAttack(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_LIGHTNINGSLASH:
-					{
-						knight.LightningSlash(PACKET, pPos);
-						return;
-					}
+						case SKILL_KNIGHT_POWERFULUPWARDSLASH:
+						{
+							knight.PowerfulUpwardSlash(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_SPINSLASH:
+						{
+							knight.SpinSlash();
+							return;
+						}
+						case SKILL_KNIGHT_HALFSWING:
+						{
+							knight.HalfSwing(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_BRUTALATTACK:
+						{
+							knight.BrutalAttack(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_LIGHTNINGSLASH:
+						{
+							knight.LightningSlash(PACKET, pPos);
+							return;
+						}
 				}
 					break;
 				}
@@ -983,46 +983,85 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					CMage mage((void*)Player);
 					switch (SkillID)
 					{
-					case SKILL_MAGE_CURE:
-					{
-						mage.Cure(PACKET,pPos);
-						return;
-					}
-					case SKILL_MAGE_CURE2:
-					{
-						mage.Cure2(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_CURE3:
-					{
-						mage.Cure3(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_HEAL:
-					{
-						mage.Heal();
-						return;
-					}
-					case SKILL_MAGE_CHAINLIGHTNING:
-					{
-						mage.ChainLightning(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_AMNESIA:
-					{
-						mage.Amnesia(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_SOULDESTRUCTION:
-					{
-						mage.SoulDestruction(PACKET, pPos);
-						return;
-					}
+						case SKILL_MAGE_CURE:
+						{
+							mage.Cure(PACKET,pPos);
+							return;
+						}
+						case SKILL_MAGE_CURE2:
+						{
+							mage.Cure2(PACKET, pPos);
+							return;
+						}
+						case SKILL_MAGE_CURE3:
+						{
+							mage.Cure3(PACKET, pPos);
+							return;
+						}
+						case SKILL_MAGE_HEAL:
+						{
+							mage.Heal();
+							return;
+						}
+						case SKILL_MAGE_CHAINLIGHTNING:
+						{
+							mage.ChainLightning(PACKET, pPos);
+							return;
+						}
+						case SKILL_MAGE_AMNESIA:
+						{
+							mage.Amnesia(PACKET, pPos);
+							return;
+						}
+						case SKILL_MAGE_SOULDESTRUCTION:
+						{
+							mage.SoulDestruction(PACKET, pPos);
+							return;
+						}
 					}
 					break;
 				}			
 				case CLASS_ARCHER:
 				{
+					CArcher archer((void*)Player);
+					switch (SkillID)
+					{
+						case SKILL_ARCHER_BLOWUPARROW:
+						{
+							archer.BlowUpArrow(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_FLAMYARROW:
+						{
+							archer.FlamyArrow(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_MUSCLESOLIDATION:
+						{
+							archer.MuscleSolidation();
+							return;
+						}
+						case SKILL_ARCHER_PASSIVEATTACK:
+						{
+							archer.PassiveAttack(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_FOCUSSHOT:
+						{
+							archer.FocusShot(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_LIFEABSORPTION:
+						{
+							archer.LifeAbsorption(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_MYSTERIOUSARROW:
+						{
+							archer.MysteriousArrow(PACKET, pPos);
+							return;
+						}
+					}
 					break;
 				}			
 				case CLASS_THIEF:

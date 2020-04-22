@@ -561,6 +561,112 @@ void __fastcall CKnight::ShieldAttack(int pPacket, int pPos)
 	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
+void __fastcall CKnight::ShoutOfDefense()
+{
+	if (IsBuff(380))
+		return;
+
+
+	if (IsValid())
+	{
+		int pSkill = GetSkillPointer(SKILL_KNIGHT_SHOUTOFDEFENSE);
+		ISkill xSkill((void*)pSkill);
+
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
+		int Mana = (20 + GetLevel()) + ((20 + (GetLevel() * 4)) / 10);
+
+		if (GetCurMp() <= Mana)
+			return;
+
+		if (pSkill && IsValid() && !IsBuff(380))
+		{
+			AddFxToTarget("island_boss03", 1, 0, 0);
+			DecreaseMana(Mana);
+
+			Buff(379, 25, 0);
+			Buff(380, 3600, 0);
+			//_ShowBattleAnimation(IPlayer, 90);
+			SetBuffIcon(25000, 0, 4240, 948);
+			AddDef(50 + (xSkill.GetGrade() * 50));
+		}
+	}
+}
+
+void __fastcall CKnight::ShoutOfFightingSpirit()
+{
+	if (IsOnline())
+	{
+		int pSkill = GetSkillPointer(SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT);
+
+		if (IsValid() && pSkill)
+		{
+			ISkill xSkill((void*)pSkill);
+
+			int nSkillGrade = xSkill.GetGrade();
+
+			if (!nSkillGrade)
+				return;
+
+			int Mana = 180 + static_cast<int>((1.25 * (xSkill.GetGrade() * (GetLevel() + xSkill.GetGrade()))));
+
+			if (GetCurMp() <= Mana)
+				return;
+
+			DecreaseMana(Mana);
+			_ShowBattleAnimation(GetOffset(), 92);
+
+			if (IsValid())
+			{
+				if (IsParty())
+				{
+					void* Party = (void*)CParty::FindParty(GetPartyID());
+
+					if (Party)
+					{
+						for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+						{
+							int Members = *(DWORD*)((void*)i);
+							ICharacter IMembers((void*)*(DWORD*)((void*)i));
+
+							if (CChar::IsNormal(Members) && IsValid())
+							{
+								if (CChar::GetRange((int)GetOffset() + 332, Members + 332) <= 300 && !IMembers.IsBuff(383) && !IMembers.IsBuff(382) && !IMembers.IsBuff(381))
+								{
+									IMembers.SetBuffIcon(1000 * (4 + (xSkill.GetGrade() * 3)), 0, 4243, 951);
+									IMembers.Buff(380 + xSkill.GetGrade(), 6 + (xSkill.GetGrade() * 3), 0);
+									IMembers.Buff(384, 4 + (xSkill.GetGrade() * 3), 0);
+									IMembers.AddMaxAttack(xSkill.GetGrade() * 200);
+									IMembers.AddMinAttack(xSkill.GetGrade() * 200);
+								}
+							}
+						}
+					}
+				}
+				else {
+					if (!IsBuff(383) && !IsBuff(382) && !IsBuff(381))
+					{
+						AddFxToTarget("fire_flower_01", 1, 0, 0);
+
+						AddFxToTarget("fire_flower_02", 1, 0, 0);
+
+						AddFxToTarget("fire_flower_03", 1, 0, 0);
+
+						SetBuffIcon(1000 * (4 + (xSkill.GetGrade() * 3)), 0, 4243, 951);
+						Buff(380 + xSkill.GetGrade(), 6 + (xSkill.GetGrade() * 3), 0);
+						Buff(384, 4 + (xSkill.GetGrade() * 3), 0);
+						AddMaxAttack(xSkill.GetGrade() * 200);
+						AddMinAttack(xSkill.GetGrade() * 200);
+					}
+				}
+			}
+		}
+	}
+}
+
 void __fastcall CKnight::SpinSlash()
 {
 	int pSkill = GetSkillPointer(SKILL_KNIGHT_SPINSLASH);

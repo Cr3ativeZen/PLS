@@ -30,13 +30,13 @@ public:
 	void __fastcall ProvocationOfBlow(int pPacket, int pPos);
 	void __fastcall Sacrifice(int pPacket, int pPos);
 	void __fastcall ShieldAttack(int pPacket, int pPos);
-	//void __fastcall ShoutOfDefense(int pSkill, int pPacket, int pPos); git
-	//void __fastcall ShoutOfFightingSpirit(int pSkill, int pPacket, int pPos); git
+	void __fastcall ShoutOfDefense();
+	void __fastcall ShoutOfFightingSpirit();
 	void __fastcall SpinSlash();
 	//void __fastcall SwordDance(int pSkill, int pPacket, int pPos);
-	//void __fastcall TheWaveOfEarth(int pSkill, int pPacket, int pPos); git
-	//void __fastcall TheBoomOfEarth(int pSkill, int pPacket, int pPos); git
-	//void __fastcall TranscendentalBlow(int pSkill, int pPacket, int pPos); git
+	//void __fastcall TheWaveOfEarth(int pSkill, int pPacket, int pPos);
+	//void __fastcall TheBoomOfEarth(int pSkill, int pPacket, int pPos);
+	//void __fastcall TranscendentalBlow(int pSkill, int pPacket, int pPos);
 
 };
 

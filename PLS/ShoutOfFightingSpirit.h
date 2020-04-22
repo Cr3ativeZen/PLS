@@ -4,7 +4,7 @@ void __fastcall ShoutOfFightingSpirit(ICharacter IPlayer)
 {
 	if (IPlayer.IsOnline())
 	{
-		int pSkill = IPlayer.GetSkillPointer(92);
+		int pSkill = IPlayer.GetSkillPointer(SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT);
 
 		if (IPlayer.IsValid() && pSkill)
 		{

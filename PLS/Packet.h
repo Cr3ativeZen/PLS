@@ -936,6 +936,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 			if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
 			{
 				ActivateShiny(IPlayer, PACKET, pPos);
+				// no return here because it still needs to execute the proper skill.
 			}
 
 
@@ -974,6 +975,52 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							knight.LightningSlash(PACKET, pPos);
 							return;
 						}
+						case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
+						{
+							knight.PowerfulWideningWound(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_PROVOCATIONOFBLOW:
+						{
+							knight.ProvocationOfBlow(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_SACRIFICE:
+						{
+							knight.Sacrifice(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_SHIELDATTACK:
+						{
+							knight.ShieldAttack(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_SHOUTOFDEFENSE:
+						{
+							knight.ShoutOfDefense();
+							return;
+						}
+						case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
+						{
+							knight.ShoutOfFightingSpirit();
+							return;
+						}
+						case SKILL_KNIGHT_THEWAVEOFEARTH:
+						{
+							knight.TheWaveOfEarth();
+							return;
+						}
+						case SKILL_KNIGHT_THEBOOMOFEARTH:
+						{
+							knight.TheBoomOfEarth();
+							return;
+						}
+						case SKILL_KNIGHT_TRANSCENDENTALBLOW:
+						{
+							knight.TranscendentalBlow(PACKET, pPos);
+							return;
+						}
+
 				}
 					break;
 				}

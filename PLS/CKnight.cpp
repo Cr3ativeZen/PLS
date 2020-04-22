@@ -717,3 +717,192 @@ void __fastcall CKnight::SpinSlash()
 		}
 	}
 }
+
+void __fastcall CKnight::TheWaveOfEarth()
+{
+	if (IsOnline())
+	{
+		int pSkill = GetSkillPointer(SKILL_KNIGHT_THEWAVEOFEARTH);
+
+		if (IsValid() && pSkill)
+		{
+			if (CPlayer::IsWState((int)GetOffset(), 12))
+				return;
+
+			ISkill xSkill((void*)pSkill);
+
+			int nSkillGrade = xSkill.GetGrade();
+
+			if (!nSkillGrade)
+				return;
+
+			int Mana = 180 + static_cast<int>((1.25 * (xSkill.GetGrade() * (GetLevel() + xSkill.GetGrade()))));
+
+			if (GetCurMp() <= Mana)
+				return;
+
+			DecreaseMana(Mana);
+			_ShowBattleAnimation(GetOffset(), 93);
+
+			if (IsValid())
+			{
+				int Around = GetObjectListAround(3);
+
+				while (Around)
+				{
+					ICharacter Object((void*)*(DWORD*)Around);
+
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+					{
+						int nDmg = 5000;
+
+						if (Object.GetType() == 0)
+							nDmg = 5000;
+
+						OktayDamageArea(Object, nDmg, 93);
+					}
+
+					Around = CBaseList::Pop((void*)Around);
+				}
+			}
+		}
+	}
+}
+
+void __fastcall CKnight::TheBoomOfEarth()
+{
+	if (IsOnline())
+	{
+		int pSkill = GetSkillPointer(SKILL_KNIGHT_THEBOOMOFEARTH);
+
+		if (pSkill && IsValid())
+		{
+			if (CPlayer::IsWState((int)GetOffset(), 12))
+				return;
+
+			ISkill xSkill((void*)pSkill);
+			int Mana = 200 + (xSkill.GetGrade() * (20 + (xSkill.GetGrade() - 1)));
+
+			int nSkillGrade = xSkill.GetGrade();
+
+			if (!nSkillGrade)
+				return;
+
+			if (GetCurMp() <= Mana)
+				return;
+
+			DecreaseMana(Mana);
+			_ShowBattleAnimation(GetOffset(), 91);
+
+			if (IsValid())
+			{
+				int Around = GetObjectListAround(3);
+
+				while (Around)
+				{
+					ICharacter Object((void*)*(DWORD*)Around);
+
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+						Object.Buff(7, 2 * xSkill.GetGrade(), 0);
+
+					Around = CBaseList::Pop((void*)Around);
+				}
+			}
+		}
+	}
+}
+
+void __fastcall CKnight::TranscendentalBlow(int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_TRANSCENDENTALBLOW));
+	int nSkillGrade = ISkill.GetGrade();
+
+	if (!nSkillGrade)
+		return;
+
+	int nTargetID = 0; char bType = 0; void* pTarget = 0;
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+	int nMana = ISkill.DecreaseMana();
+
+	if (bType == 0 && nTargetID)
+		pTarget = CPlayer::FindPlayer(nTargetID);
+
+	if (bType == 1 && nTargetID)
+		pTarget = CMonster::FindMonster(nTargetID);
+
+
+	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+		return;
+
+	ICharacter Target(pTarget);
+
+
+	if (bType == 0)
+	{
+
+		if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+		{
+			if (CheckHit(Target, 20))
+			{
+				//int nDmg = (GetAttack() * TBBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset()) * TBAgiMultiPvP) + (CChar::GetStr((int)GetOffset()) * TBStrMultiPvP) + (ISkill.GetGrade() * TBPerGradeMultiPvP);
+				int nDmg = 5000;
+				OktayDamageSingle(Target, nDmg, 5);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 5);
+			}
+			else
+			{
+				_ShowBattleMiss(Target, 5);
+			}
+		}
+	}
+	if (bType == 1)
+	{
+		int Around = Target.GetObjectListAround(1);
+		if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+		{
+			if (CheckHit(Target, 20))
+			{
+				//int nDmge = (GetAttack() * TBBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * TBAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * TBStrMultiPvE) + (ISkill.GetGrade() * TBPerGradeMultiPvE);
+				int nDmge = 5000;
+				OktayDamageSingle(Target, nDmge, 5);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 5);
+			}
+			else
+			{
+				_ShowBattleMiss(Target, 5);
+			}
+		}
+		int i = 0;
+		while (Around && i < /*TBPvEMaxHits - 1*/ 2)
+		{
+			ICharacter Object((void*)*(DWORD*)Around);
+
+			if (Object.GetType() == 1 && Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 2))
+			{
+
+				if (Object.GetOffset() != Target.GetOffset() && CChar::IsNormal((int)Object.GetOffset()))
+				{
+
+					if (CheckHit(Object, 20))
+					{
+						//int nDmg = (GetAttack() * TBBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * TBAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * TBStrMultiPvE) + (ISkill.GetGrade() * TBPerGradeMultiPvE);
+						int nDmg = 5000;
+						OktayDamageSingle(Object, nDmg, 5);
+						_ShowBattleAnimation(Object, 5);
+						i++;
+					}
+					else
+					{
+						_ShowBattleMiss(Object, 5);
+						i++;
+					}
+				}
+			}
+			Around = CBaseList::Pop((void*)Around);
+		}
+	}
+	DecreaseMana(nMana);
+	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+}

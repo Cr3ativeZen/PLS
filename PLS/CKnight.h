@@ -21,22 +21,23 @@ public:
 
 	}
 
+	
 	void __fastcall BrutalAttack(int pPacket, int pPos);
 	//void __fastcall Calls(int pSkill, int pPacket, int pPos);
 	void __fastcall HalfSwing(int pPacket, int pPos);
 	void __fastcall LightningSlash(int pPacket, int pPos);
 	void __fastcall PowerfulUpwardSlash(int pPacket, int pPos);
+	void __fastcall SpinSlash();
 	void __fastcall PowerfulWideningWound(int pPacket, int pPos);
 	void __fastcall ProvocationOfBlow(int pPacket, int pPos);
 	void __fastcall Sacrifice(int pPacket, int pPos);
 	void __fastcall ShieldAttack(int pPacket, int pPos);
 	void __fastcall ShoutOfDefense();
 	void __fastcall ShoutOfFightingSpirit();
-	void __fastcall SpinSlash();
 	//void __fastcall SwordDance(int pSkill, int pPacket, int pPos);
-	//void __fastcall TheWaveOfEarth(int pSkill, int pPacket, int pPos);
-	//void __fastcall TheBoomOfEarth(int pSkill, int pPacket, int pPos);
-	//void __fastcall TranscendentalBlow(int pSkill, int pPacket, int pPos);
+	void __fastcall TheWaveOfEarth();
+	void __fastcall TheBoomOfEarth();
+	void __fastcall TranscendentalBlow(int pPacket, int pPos);
 
 };
 

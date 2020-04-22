@@ -430,7 +430,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueIcicle(IPlayer);
+			ContinueIcicle(IPlayer);
 		}
 	}
 
@@ -438,7 +438,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueFlameInjection(IPlayer);
+			ContinueFlameInjection(IPlayer);
 		}
 	}
 
@@ -446,7 +446,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueThunderStorm(IPlayer);
+			ContinueThunderStorm(IPlayer);
 		}
 	}
 
@@ -454,7 +454,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueIceStorm(IPlayer);
+			ContinueIceStorm(IPlayer);
 		}
 	}
 
@@ -462,7 +462,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckContinueFireStorm[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueFireStorm(IPlayer);
+			ContinueFireStorm(IPlayer);
 		}
 	}
 
@@ -470,7 +470,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueArrowRain(IPlayer);
+			ContinueArrowRain(IPlayer);
 		}
 	}
 
@@ -478,7 +478,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueArrowExplosion(IPlayer);
+			ContinueArrowExplosion(IPlayer);
 		}
 	}
 
@@ -486,7 +486,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueSpinBlade(IPlayer);
+			ContinueSpinBlade(IPlayer);
 		}
 	}
 
@@ -494,7 +494,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueFatalWound(IPlayer);
+			ContinueFatalWound(IPlayer);
 		}
 	}
 
@@ -502,7 +502,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckRuptureContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueRupture(IPlayer);
+			ContinueRupture(IPlayer);
 		}
 	}
 
@@ -510,7 +510,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckFarContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueTwinBladeStrike(IPlayer);
+			ContinueTwinBladeStrike(IPlayer);
 		}
 	}
 
@@ -519,7 +519,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueLightningSlash(IPlayer);
+			ContinueLightningSlash(IPlayer);
 		}
 	}
 
@@ -527,7 +527,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueSwordDance(IPlayer);
+			ContinueSwordDance(IPlayer);
 		}
 	}
 
@@ -535,7 +535,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueWhirlwindFeather(IPlayer);
+			ContinueWhirlwindFeather(IPlayer);
 		}
 	}
 
@@ -543,7 +543,7 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
-			//ContinueEggThunderbolt(IPlayer);
+			ContinueEggThunderbolt(IPlayer);
 		}
 	}
 

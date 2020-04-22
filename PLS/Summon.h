@@ -1,5 +1,6 @@
 #ifndef _SUMMON_H
 #define _SUMMON_H
+#include "InstaConfig.h"
 #include "ChatCommand.h"
 
 

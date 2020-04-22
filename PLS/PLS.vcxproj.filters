@@ -34,9 +34,6 @@
     <Filter Include="Characters">
       <UniqueIdentifier>{e4c19218-0f9a-4484-aa6c-14e7ad97b419}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interfaces">
-      <UniqueIdentifier>{13bbf301-bdcf-42ee-89a8-bc5bb40d58b5}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrowExplosion.h">
@@ -213,7 +210,16 @@
     <ClInclude Include="FinalDamage.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
+    <ClInclude Include="IItem.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
     <ClInclude Include="InstaConfig.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="IQuest.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="ISkill.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
     <ClInclude Include="MonsterTick.h">
@@ -321,30 +327,27 @@
     <ClInclude Include="CThief.h">
       <Filter>Characters</Filter>
     </ClInclude>
+    <ClInclude Include="ICharacter.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Characters</Filter>
-    </ClInclude>
-    <ClInclude Include="ICharacter.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IConfig.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IItem.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IQuest.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ISkill.h">
-      <Filter>Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ISkill.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IQuest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CThief.cpp">
@@ -359,20 +362,8 @@
     <ClCompile Include="CArcher.cpp">
       <Filter>Characters</Filter>
     </ClCompile>
-    <ClCompile Include="IConfig.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
     <ClCompile Include="ICharacter.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="IItem.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="IQuest.cpp">
-      <Filter>Interfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="ISkill.cpp">
-      <Filter>Interfaces</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Resources.cpp">
       <Filter>Source Files</Filter>

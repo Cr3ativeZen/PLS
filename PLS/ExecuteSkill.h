@@ -1,5 +1,3 @@
-#include "InstaConfig.h"
-
 #include "BlowUpArrow.h"
 #include "Calls.h"
 #include "MuscleSolidation.h"
@@ -69,8 +67,8 @@
 #include "DestroyingArmor.h"
 #include "SoulDestruction.h"
 #include "PowerfulWideningWound.h"
+#include "Resources.h"
 #include "CKnight.h"
 #include "CMage.h"
 #include "CArcher.h"
 #include "CThief.h"
-#include "Resources.h"

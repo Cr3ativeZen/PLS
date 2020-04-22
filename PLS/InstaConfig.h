@@ -1,11 +1,14 @@
 #ifndef _INSTACONFIG_H
 #define _INSTACONFIG_H
 #include "Resources.h"
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> parent of 23a2b64... preparing for headers to remove them
 void InstaConfig()
 {
 

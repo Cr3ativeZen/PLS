@@ -219,7 +219,7 @@ void __fastcall CKnight::LightningSlash(int pPacket, int pPos)
 
 void __fastcall CKnight::PowerfulUpwardSlash(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SPINSLASH));
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_POWERFULUPWARDSLASH));
 	int nSkillGrade = ISkill.GetGrade();
 
 	if (!nSkillGrade)

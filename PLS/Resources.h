@@ -2,7 +2,6 @@
 #ifndef _RESOURCES_H_
 #define _RESOURCES_H_
 
-
 // TYPES
 #define TYPE_PLAYER 0
 #define TYPE_MONSTER 1
@@ -122,12 +121,9 @@
 
 
 
-<<<<<<< HEAD
 
 
 
 
-=======
->>>>>>> parent of 23a2b64... preparing for headers to remove them
 #endif // _RESOURCES_H_
 

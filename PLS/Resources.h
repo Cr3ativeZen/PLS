@@ -119,5 +119,11 @@
 #define SKILL_THIEF_DESTROYINGARMOR 93
 
 
+
+
+
+
+
+
 #endif // _RESOURCES_H_
 

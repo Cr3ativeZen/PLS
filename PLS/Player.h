@@ -428,7 +428,7 @@ int __fastcall Tick(void *Player, void *edx)
 	
 	if (IPlayer.IsOnline()&&IPlayer.IsBuff(5556) && IPlayer.GetClass() == 1 && IcicleON==true)
 	{
-		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
+		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
 			//ContinueIcicle(IPlayer);
 		}
@@ -436,7 +436,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 	if (IPlayer.IsOnline() && IPlayer.IsBuff(5557)&& IPlayer.GetClass() == 1 &&FlameInjectionON == true)
 	{
-		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
+		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
 			//ContinueFlameInjection(IPlayer);
 		}
@@ -468,7 +468,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 	if (IPlayer.IsOnline() && IPlayer.IsBuff(5565) && IPlayer.GetClass() == 2 &&ArrowRainON == true)
 	{
-		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
+		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
 			//ContinueArrowRain(IPlayer);
 		}
@@ -476,7 +476,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 	if (IPlayer.IsOnline() && IPlayer.IsBuff(5566) && IPlayer.GetClass() == 2 && ArrowExplosionON == true)
 	{
-		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
+		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
 			//ContinueArrowExplosion(IPlayer);
 		}
@@ -484,7 +484,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 	if (IPlayer.IsOnline() && IPlayer.IsBuff(5575) && IPlayer.GetClass() == 3 &&SpinBladeON == true)
 	{
-		if (CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
+		if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
 		{
 			//ContinueSpinBlade(IPlayer);
 		}

@@ -374,5 +374,8 @@
     <ClCompile Include="ISkill.cpp">
       <Filter>Interfaces</Filter>
     </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

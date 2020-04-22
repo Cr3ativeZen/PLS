@@ -897,7 +897,7 @@ void PacketUseSkill(__int32 Player,ICharacter IPlayer, void* pPacket, int pPos)
 
 	if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
 	{
-		//ActivateShiny(IPlayer, PACKET, pPos);
+		ActivateShiny(IPlayer, PACKET, pPos);
 		// no return here because it still needs to execute the proper skill.
 	}
 
@@ -1768,31 +1768,31 @@ void PacketAnimalUseSkill(ICharacter IPlayer, void* pPacket, int pPos)
 
 		if (SkillID == 101)
 		{
-			//ActivateShiny(IPlayer, PACKET, pPos);
+			ActivateShiny(IPlayer, PACKET, pPos);
 		}
 
 		if (SkillID == 113 && RevolveAttackON == true)
 		{
-			//RevolveAttack(IPlayer);
+			RevolveAttack(IPlayer);
 			return;
 		}
 
 		if (SkillID == 114 && WhirlwindFeatherON == true)
 		{
-			//WhirlwindFeather(IPlayer);
+			WhirlwindFeather(IPlayer);
 			return;
 		}
 
 		if (SkillID == 115 && BloodSuctionON == true)
 		{
-			//BloodSuction(IPlayer, PACKET, pPos);
+			BloodSuction(IPlayer, PACKET, pPos);
 			return;
 		}
 
 
 		if (SkillID == 116 && EggThunderboltON == true)
 		{
-			////EggThunderbolt(IPlayer);
+			EggThunderbolt(IPlayer);
 			return;
 		}
 	}

@@ -37,6 +37,10 @@ public:
 	void __fastcall MysteriousArrow(int pPacket, int pPos);
 
 
+	//3rd job skills imperial general
+	void __fastcall ArrowExplosion(int pPacket, int pPos);
+	void __fastcall ContinueArrowExplosion();
+
 
 };
 

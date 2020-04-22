@@ -11,18 +11,6 @@ int __fastcall Tick(void *Player, void *edx)
 	ICharacter IPlayer(Player);
 
 
-
-	//if (IPlayer.IsOnline() && IPlayer.GetClass() == 0 && IPlayer.GetSpecialty() == 23)
-	//{
-	//	SpinSlash(IPlayer);
-	//	IPlayer.IncreaseMana(700);
-	//	IPlayer.IncreaseHp(30000);
-	//}
-
-
-
-
-
 	if (IPlayer.IsOnline() && CheckShiny.count((int)IPlayer.GetOffset()) && CheckShiny.find((int)IPlayer.GetOffset())->second.Target && IPlayer.IsBuff(307) && LightningArrowON == true)
 	{
 		ICharacter Caster(CheckShiny.find((int)IPlayer.GetOffset())->second.Target);

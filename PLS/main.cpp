@@ -1215,6 +1215,45 @@ namespace Mautareta
 #include "SendMail.h"
 #include "Resources.h"
 
+void ContinuesSkill(void* Pack)
+{
+	while (true)
+	{
+
+		//CIOCriticalSection::Enter((void*)0x004e2078);
+		//CIOCriticalSection::Enter((void*)0x004e2098);
+		//CLink::MoveTo((void*)0x004e200c, (int)0x004e2004);
+		//CIOCriticalSection::Leave((void*)0x004e2098);,
+
+			//if ((void*)(i - 428))
+			//{
+			//	ICharacter IPlayer((void*)(i - 428));
+
+
+
+
+
+
+			//}
+			//CIOCriticalSection::Leave((void*)0x004e2078);
+			Sleep(300);
+
+		//}
+
+
+
+
+
+
+
+
+
+
+	}
+
+}
+
+
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
 	CIOServer::Start(Start, hostshort);
@@ -1223,9 +1262,8 @@ void __fastcall Start(int Start, void *edx, u_short hostshort)
 	RiftConfig();
 	MautaretaConfig();
 	ConsoleWriteBlue("CreativeZen's DLL loaded successfully");
+	_beginthread(ContinuesSkill, 0, 0);
 	Sleep(500);
-
-
 
 }
 

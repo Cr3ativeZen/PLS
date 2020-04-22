@@ -165,6 +165,7 @@
     <ClInclude Include="Calls.h" />
     <ClInclude Include="CanAttack.h" />
     <ClInclude Include="CArcher.h" />
+    <ClInclude Include="IConfig.h" />
     <ClInclude Include="ChainLightning.h" />
     <ClInclude Include="ChatCommand.h" />
     <ClInclude Include="CKnight.h" />
@@ -254,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CArcher.cpp" />
+    <ClCompile Include="IConfig.cpp" />
     <ClCompile Include="CKnight.cpp" />
     <ClCompile Include="CMage.cpp" />
     <ClCompile Include="CThief.cpp" />

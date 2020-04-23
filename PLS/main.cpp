@@ -153,13 +153,13 @@ struct Teleport
 	int LevelLimit;
 };
 
-struct CallCheck
-{
-	void* CasterOffset;
-	void* ReciverOffset;
-	int SkillID;
-
-};
+//struct CallCheck
+//{
+//	void* CasterOffset;
+//	void* ReciverOffset;
+//	int SkillID;
+//
+//};
 
 struct BuffItem
 {
@@ -241,17 +241,17 @@ std::map<int, BuffItem>::iterator bufx;
 std::map<int, BuffItem>Buffs;
 //std::map<int, CallCheck>Call;
 std::map<int, int> PlayerBlockCheck;
-std::map<int, CallCheck>CallOfEvasionOTP;
-std::map<int, CallCheck>CallOfDefense;
+//std::map<int, CallCheck>CallOfEvasionOTP;
+//std::map<int, CallCheck>CallOfDefense;
+//
+//std::map<int, CallCheck>CallOfPhysicalAttack;
+//std::map<int, CallCheck>CallOfRecovery;
+
 //std::map<int, CallCheck>CallOfOTP;
-std::map<int, CallCheck>CallOfPhysicalAttack;
-std::map<int, CallCheck>CallOfRecovery;
-
-
 std::map<int, Teleport>ZenTP;
 std::map<int, DWORD> MonsterDisappear;
 std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
-std::map<int, PlayerContinueSkill> CheckContinueSkill;
+//std::map<int, PlayerContinueSkill> CheckContinueSkill;
 std::map<int, RuptureContinueSkill> CheckRuptureContinueSkill;
 
 std::map<int, PlayerContinueIceStorm> CheckContinueIceStorm;
@@ -882,7 +882,7 @@ bool AnkleAmputateON = 0;
 bool ArmorBreakerON = 0;
 bool BuffRemoverON = 0;
 bool BrutalAttackON = 0;
-bool CallsON = 0;
+//bool CallsON = 0;
 bool ChainLightningON = 0;
 bool FatalWoundON = 0;
 bool FinalBlowON = 0;
@@ -1125,93 +1125,92 @@ namespace Mautareta
 #include "ICharacter.h"
 #include "IQuest.h"
 #include "IItem.h"
-#include "Heal.h"
-#include "Cure.h"
+//#include "Heal.h"
+//#include "Cure.h"
 #include "ExecuteSkill.h"
 #include "ChatCommand.h"
 #include "Summon.h"
 #include "InstaConfig.h"
 #include "Player.h"
 #include "D4Instance.h"
-#include "BlowUpArrow.h"
-#include "Calls.h"
-#include "MuscleSolidation.h"
-#include "Sacrifice.h"
-#include "Amnesia.h"
-#include "FocusShot.h"
-#include "MysteriousArrow.h"
-#include "PassiveAttack.h"
-#include "FlamyArrow.h"
-#include "Summons.h"
-#include "Player.h"
-#include "ShieldAttack.h"
-#include "LightningSlash.h"
-#include "TranscendentalBlow.h"
-#include "Purification.h"
-#include "BuffRemover.h"
+//#include "BlowUpArrow.h"
+//#include "Calls.h"
+//#include "MuscleSolidation.h"
+//#include "Sacrifice.h"
+//#include "Amnesia.h"
+//#include "FocusShot.h"
+//#include "MysteriousArrow.h"
+//#include "PassiveAttack.h"
+//#include "FlamyArrow.h"
+//#include "Summons.h"
+//#include "ShieldAttack.h"
+//#include "LightningSlash.h"
+//#include "TranscendentalBlow.h"
+//#include "Purification.h"
+//#include "BuffRemover.h"
 #include "MonsterTick.h"
 #include "PKKill.h"
 #include "UpdateProperty.h"
 #include "FinalDamage.h"
-#include "ShadowSlash.h"
-#include "ArrowRain.h"
+//#include "ShadowSlash.h"
+//#include "ArrowRain.h"
 #include "ResetContinueSkill.h"
-#include "CombativeSpirit.h"
-#include "ArrowExplosion.h"
-#include "VirulentArrow.h"
-#include "LightningSlashThief.h"
-#include "SpinBlade.h"
-#include "SpinSlash.h"
-#include "SwordDance.h"
-#include "ProvocationOfBlow.h"
-#include "TherapeuticTouch.h"
-#include "Icicle.h"
-#include "FlameInjection.h"
-#include "Thunderbolt.h"
-#include "IceArrow.h"
-#include "Fireball.h"
-#include "LightningArrow.h"
-#include "SpinAttack.h"
-#include "ArmorBreaker.h"
+//#include "CombativeSpirit.h"
+//#include "ArrowExplosion.h"
+//#include "VirulentArrow.h"
+//#include "LightningSlashThief.h"
+//#include "SpinBlade.h"
+//#include "SpinSlash.h"
+//#include "SwordDance.h"
+//#include "ProvocationOfBlow.h"
+//#include "TherapeuticTouch.h"
+//#include "Icicle.h"
+//#include "FlameInjection.h"
+//#include "Thunderbolt.h"
+//#include "IceArrow.h"
+//#include "Fireball.h"
+//#include "LightningArrow.h"
+//#include "SpinAttack.h"
+//#include "ArmorBreaker.h"
 #include "CanAttack.h"
-#include "TwinBladeStrike.h"
-#include "AnkleAmputate.h"
-#include "FatalWound.h"
-#include "FinalBlow.h"
-#include "SuicidalBlow.h"
-#include "Rupture.h"
-#include "VitalStrike.h"
-#include "PowerfulUpwardSlash.h"
-#include "BrutalAttack.h"
-#include "HalfSwing.h"
-#include "LifeAbsorption.h"
+//#include "TwinBladeStrike.h"
+//#include "AnkleAmputate.h"
+//#include "FatalWound.h"
+//#include "FinalBlow.h"
+//#include "SuicidalBlow.h"
+//#include "Rupture.h"
+//#include "VitalStrike.h"
+//#include "PowerfulUpwardSlash.h"
+//#include "BrutalAttack.h"
+//#include "HalfSwing.h"
+//#include "LifeAbsorption.h"
 #include "Packet.h"
-#include "ChainLightning.h"
-#include "ThunderStorm.h"
-#include "IceStorm.h"
-#include "FireStorm.h"
-#include "WhirlwindFeather.h"
-#include "RevolveAttack.h"
-#include "EggThunderbolt.h"
-#include "BloodSuction.h"
-#include "OneHitStrike.h"
-#include "ArrowsoftheMaster.h"
-#include "MassiveFire.h"
-#include "SpiritOfTheArrows.h"
-#include "TheBoomofEarth.h"
-#include "ThewaveofEarth.h"
-#include "ShoutOfDefense.h"
-#include "ShoutOfFightingSpirit.h"
-#include "ReleasingTheEnergy.h"
-#include "Punishment.h"
-#include "Bombing.h"
-#include "Incapacitation.h"
-#include "CriticalDiffusion.h"
-#include "CriticalStrike.h"
-#include "StrikeOfGod.h"
-#include "DestroyingArmor.h"
-#include "SoulDestruction.h"
-#include "PowerfulWideningWound.h"
+//#include "ChainLightning.h"
+//#include "ThunderStorm.h"
+//#include "IceStorm.h"
+//#include "FireStorm.h"
+//#include "WhirlwindFeather.h"
+//#include "RevolveAttack.h"
+//#include "EggThunderbolt.h"
+//#include "BloodSuction.h"
+//#include "OneHitStrike.h"
+//#include "ArrowsoftheMaster.h"
+//#include "MassiveFire.h"
+//#include "SpiritOfTheArrows.h"
+//#include "TheBoomofEarth.h"
+//#include "ThewaveofEarth.h"
+//#include "ShoutOfDefense.h"
+//#include "ShoutOfFightingSpirit.h"
+//#include "ReleasingTheEnergy.h"
+//#include "Punishment.h"
+//#include "Bombing.h"
+//#include "Incapacitation.h"
+//#include "CriticalDiffusion.h"
+//#include "CriticalStrike.h"
+//#include "StrikeOfGod.h"
+//#include "DestroyingArmor.h"
+//#include "SoulDestruction.h"
+//#include "PowerfulWideningWound.h"
 #include "SendMail.h"
 #include "Resources.h"
 
@@ -1262,7 +1261,7 @@ void __fastcall Start(int Start, void *edx, u_short hostshort)
 	RiftConfig();
 	MautaretaConfig();
 	ConsoleWriteBlue("CreativeZen's DLL loaded successfully");
-	_beginthread(ContinuesSkill, 0, 0);
+	//_beginthread(ContinuesSkill, 0, 0);
 	Sleep(500);
 
 }
@@ -1299,6 +1298,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
 		DetourAttach(&(PVOID&)CPlayer::CanAttack, CanAttack);
 		DetourAttach(&(PVOID&)CPlayer::SendMail, SendMail);
+		//DetourAttach(&(PVOID&)CSkill::ExecuteSkill, ExecuteSkill);
 		DetourTransactionCommit();
 		break;
 	}
@@ -1319,6 +1319,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
 		DetourDetach(&(PVOID&)CPlayer::CanAttack, CanAttack);
 		DetourDetach(&(PVOID&)CPlayer::SendMail, SendMail);
+		//DetourDetach(&(PVOID&)CSkill::ExecuteSkill, ExecuteSkill);
 		DetourTransactionCommit();
 		break;
 	}

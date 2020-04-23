@@ -327,11 +327,14 @@
     <ClInclude Include="CThief.h">
       <Filter>Characters</Filter>
     </ClInclude>
-    <ClInclude Include="ICharacter.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="IConfig.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ICharacter.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -363,6 +366,9 @@
       <Filter>Characters</Filter>
     </ClCompile>
     <ClCompile Include="ICharacter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

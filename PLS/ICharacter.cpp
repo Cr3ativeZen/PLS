@@ -156,8 +156,8 @@ void ICharacter::Teleport(int Map, int X, int Y)
 			this->Revive();
 
 		int *GetSetXY = new int[1];
-		GetSetXY[0] = X;
-		GetSetXY[1] = Y;
+			GetSetXY[0] = X;
+	GetSetXY[1] = Y;
 		CPlayer::Teleport((int)this->GetOffset(), Map, (int)GetSetXY, 0, 1);
 		delete[] GetSetXY;
 	}
@@ -1781,4 +1781,45 @@ std::string ICharacter::GetIP()
 	std::string Check = "error";
 	if (this->IsOnline()) Check = inet_ntoa(*(struct in_addr*)(*(DWORD*)((int)this->GetOffset() + 1676) + 140));
 	return Check;
+}
+
+void __fastcall ICharacter::ResetContinueSkill()
+{
+	if (this->IsOnline())
+	{
+		if (this->IsValid() && this->IsBuff(300))
+			return;
+
+		if (IConfig::CheckContinueSkill.count(this->GetPID()))
+		{
+			IConfig::CheckContinueSkill[this->GetPID()].PlayerX = 0;
+			IConfig::CheckContinueSkill[this->GetPID()].PlayerY = 0;
+			IConfig::CheckContinueSkill[this->GetPID()].PlayerTarget = 0;
+			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillGrade = 0;
+			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillID = 0;
+			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillDelay = 0;
+			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillCount = 0;
+			this->CouldntExecuteSkill();
+		}
+	}
+}
+
+void __fastcall ICharacter::ResetFarContinueSkill()
+{
+}
+
+void __fastcall ICharacter::ResetRuptureContinueSkill()
+{
+}
+
+void __fastcall ICharacter::ResetContinueIceStorm()
+{
+}
+
+void __fastcall ICharacter::ResetContinueThunderStorm()
+{
+}
+
+void __fastcall ICharacter::ResetContinueFireStorm()
+{
 }

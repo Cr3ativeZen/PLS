@@ -192,6 +192,7 @@
     <ClInclude Include="IceStorm.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="Icicle.h" />
+    <ClInclude Include="IConfig.h" />
     <ClInclude Include="IItem.h" />
     <ClInclude Include="Incapacitation.h" />
     <ClInclude Include="InstaConfig.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="CMage.cpp" />
     <ClCompile Include="CThief.cpp" />
     <ClCompile Include="ICharacter.cpp" />
+    <ClCompile Include="IConfig.cpp" />
     <ClCompile Include="IItem.cpp" />
     <ClCompile Include="IQuest.cpp" />
     <ClCompile Include="ISkill.cpp" />

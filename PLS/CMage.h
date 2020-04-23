@@ -25,12 +25,11 @@ public:
 	void __fastcall Cure(int pPacket, int pPos);
 	void __fastcall Heal();
 	void __fastcall Cure2(int pPacket, int pPos);
+	void __fastcall ShockWave(int pPacket, int pPos);
 
 
 	//2nd job CJB skills
-
 	void __fastcall Cure3(int pPacket, int pPos);
-	void __fastcall ShockWave(int pPacket, int pPos);
 	void __fastcall Amnesia(int pPacket, int pPos);
 
 

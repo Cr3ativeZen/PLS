@@ -319,11 +319,12 @@ void __fastcall CArcher::FocusShot(int pPacket, int pPos)
 	//	{
 	//		int nTime = GetTickCount() - CheckFocus[GetPID()];
 
-	//		int nDmg = (GetAttack() * FSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * FSAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * FSStrMultiPvE) + (nSkillGrade * FSPerGradeMultiPvE);
+	//		//int nDmg = (GetAttack() * FSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * FSAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * FSStrMultiPvE) + (nSkillGrade * FSPerGradeMultiPvE);
 
-	//		if (Target.GetType() == 0)
-	//			nDmg = (GetAttack() * FSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset()) * FSAgiMultiPvP) + (CChar::GetStr((int)GetOffset()) * FSStrMultiPvP) + (nSkillGrade * FSPerGradeMultiPvP);
+	//		//if (Target.GetType() == 0)
+	//		//	nDmg = (GetAttack() * FSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset()) * FSAgiMultiPvP) + (CChar::GetStr((int)GetOffset()) * FSStrMultiPvP) + (nSkillGrade * FSPerGradeMultiPvP);
 
+	//		int nDmg = 5000;
 
 	//		if (nTime > 1000)
 	//		{
@@ -474,81 +475,419 @@ void __fastcall CArcher::MysteriousArrow(int pPacket, int pPos)
 
 void __fastcall CArcher::ContinueArrowExplosion()
 {
+	if (IsValid())
+	{
+		CancelBuff(300);
+		void* pTarget = IConfig::CheckContinueSkill.find(GetPID())->second.PlayerTarget;
+		int nSkillGrade = IConfig::CheckContinueSkill.find(GetPID())->second.PlayerSkillGrade;
+
+		if (nSkillGrade && pTarget && IConfig::CheckContinueSkill.find(GetPID())->second.PlayerSkillCount)
+		{
+			IConfig::CheckContinueSkill[GetPID()].PlayerSkillCount--;
+			ICharacter Target(pTarget);
+
+			if (IsValid() && Target.IsValid())
+			{
+				if (!IsInRange(Target, 300))
+				{
+					ResetContinueSkill();
+					CancelBuff(BUFF_ARROWEXPLOSIONUSE);
+					return;
+				}
+
+				int Around = Target.GetObjectListAround(3);
+				Target.AddFxToTarget("davi_ef131_05", 1, 0, 0);
+				while (Around)
+				{
+					ICharacter Object((void*)*(DWORD*)Around);
+
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+					{
+						//int nDmg = (GetAttack() * AEBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * AEAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * AEStrMultiPvE) + (nSkillGrade * AEPerGradeMultiPvE);
+
+						int nDmg = 5000;
+						//if (Object.GetType() == 0)
+							//nDmg = (GetAttack() * AEBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset()) * AEAgiMultiPvP) + (CChar::GetStr((int)GetOffset()) * AEStrMultiPvP) + (nSkillGrade * AEPerGradeMultiPvP);
+
+
+						OktayDamageArea(Object, nDmg, 49);
+					}
+
+					Around = CBaseList::Pop((void*)Around);
+				}
+			}
+		}
+	}
+
+	ResetContinueSkill();
+	CancelBuff(BUFF_ARROWEXPLOSIONUSE);
+	return;
+}
+
+void __fastcall CArcher::VirulentArrow(int pPacket, int pPos)
+{
+	int pSkill = GetSkillPointer(SKILL_ARCHER_VIRULENTARROW);
+
+	if (IsValid() && pSkill)
+	{
+		ISkill xSkill((void*)pSkill);
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
+		int nTargetID = 0; char bType = 0; void *pTarget = 0;
+		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+		int nMana = (int)(((((nSkillGrade - 1) + 25) * nSkillGrade) + 230) * 0.98);
+
+		if (bType == 0 && nTargetID)
+			pTarget = CPlayer::FindPlayer(nTargetID);
+
+		if (bType == 1 && nTargetID)
+			pTarget = CMonster::FindMonster(nTargetID);
+
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+			return;
+
+		if (pTarget && nSkillGrade && IsValid())
+		{
+			ICharacter Target(pTarget);
+
+			if (GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
+
+			if (pTarget == GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
+
+			if (IsValid() && Target.IsValid())
+			{
+				if (!IsInRange(Target,300))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+					return;
+				}
+
+				int Item = CPlayer::FindItem(Offset, 360, 2);
+
+				if (Item)
+					(*(int (__thiscall **)(DWORD, void *, signed int, signed int))(*(DWORD*)Item + 120))(Item,GetOffset(),9,-2);
+				else
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+					return;
+				}
+
+				DecreaseMana(nMana);
+				_ShowBattleAnimation(Target, SKILL_ARCHER_VIRULENTARROW);
+				SetDirection(Target);
+				int Around = Target.GetObjectListAround(4);
+				//int nDmg = nSkillGrade * VAPerGradeDoTPvE + VABaseDoTPvE;
+				int nDmg = 5000;
+				while(Around)
+				{
+					ICharacter Object((void*)*(DWORD*)Around);
+
+					if (Object.IsValid() && IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+					{
+						/*
+						if (Object.GetType() == 0)
+							nDmg = nSkillGrade* VAPerGradeDoTPvP + VABaseDoTPvP;*/
+
+						/*if (Object.GetType() == 0)
+							OktayDamageArea(Object,(GetAttack()*VABaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*VAAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*VAStrMultiPvP) + (nSkillGrade*VAPerGradeMultiPvP), 50);
+
+						if (Object.GetType() == 1)
+							OktayDamageArea(Object,(GetAttack()*VABaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*VAAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*VAStrMultiPvE) + (nSkillGrade*VAPerGradeMultiPvE), 50);*/
+
+						
+
+						OktayDamageArea(Object, 5000, SKILL_ARCHER_VIRULENTARROW);
+
+						//Object.Buff(11, VADuration, nDmg);
+						Object.Buff(11, 10, nDmg);
+					}
+
+					Around = CBaseList::Pop((void*)Around);
+				}
+			}
+			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+		}
+	}
+
+}
+
+void __fastcall CArcher::CombativeSpirit(int pPacket, int pPos)
+{
+		int pSkill = GetSkillPointer(SKILL_ARCHER_COMBATIVESPIRIT);
+
+	if (IsValid() && pSkill)
+	{
+		ISkill xSkill((void*)pSkill);
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
+		int nTargetID = 0; char bType = 0; void *pTarget = 0;
+		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);	
+		
+		if (bType == 0 && nTargetID)
+			pTarget = CPlayer::FindPlayer(nTargetID);
+
+		if (bType == 1 && nTargetID)
+			pTarget = CMonster::FindMonster(nTargetID);
+
+		if (bType >= 2 || !pTarget || pTarget == GetOffset())
+			return;
+
+		if (IsValid() && pTarget && nSkillGrade)
+		{
+			ICharacter Target(pTarget);
+			int nMana = (int)(((((nSkillGrade-1)+20) * nSkillGrade)+200) * 1.85);
+
+			if (pTarget == GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
+
+			if (GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
+
+			if (IsValid() && Target.IsValid())
+			{
+				if (!IsInRange(Target, 20))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+					return;
+				}
+
+				DecreaseMana(nMana);
+
+
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, SKILL_ARCHER_COMBATIVESPIRIT);
+				int Around = Target.GetObjectListAround(3);
+
+				while (Around)
+				{
+					ICharacter Object((void*)*(DWORD*)Around);
+
+					if (Object.IsValid() && IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+					{
+						int nDmg = 5000;
+						/*int nDmg = (GetAttack()*CSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*CSAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*CSStrMultiPvE) + (nSkillGrade*CSPerGradeMultiPvE);
+
+
+						if (Target.GetType() == 0)
+							nDmg = (GetAttack()*CSBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*CSAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*CSStrMultiPvP + (nSkillGrade*CSPerGradeMultiPvP));*/
+
+						if (Object.GetX() <= max(GetX(), Target.GetX()) && Object.GetX() >= min(GetX(), Target.GetX()) && Object.GetY() <= max(GetY(), Target.GetY()) && Object.GetY() >= min(GetY(), Target.GetY()))
+							//OktayDamageArea(Object, nDmg, SKILL_ARCHER_COMBATIVESPIRIT);
+							OktayDamageArea(Object, nDmg, SKILL_ARCHER_COMBATIVESPIRIT);
+					}
+
+					Around = CBaseList::Pop((void*)Around);
+				}
+
+			}
+			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+		}
+
+	}
+}
+
+void __fastcall CArcher::ContinueArrowRain()
+{
+	if (IsValid())
+	{
+		int nSkillGrade = IConfig::CheckContinueSkill.find(GetPID())->second.PlayerSkillGrade;
+		void *pTarget = IConfig::CheckContinueSkill.find(GetPID())->second.PlayerTarget;
+
+		if (pTarget && nSkillGrade && IConfig::CheckContinueSkill.find(GetPID())->second.PlayerSkillCount)
+		{
+			ICharacter Target(pTarget);
+			IConfig::CheckContinueSkill[GetPID()].PlayerSkillCount--;
+
+			if (!IsValid() || !Target.IsValid())
+			{
+				ResetContinueSkill();
+				CancelBuff(BUFF_ARROWRAINUSE);
+				return;
+			}
+
+			if (IsMoved(IConfig::CheckContinueSkill.find(GetPID())->second.PlayerX, IConfig::CheckContinueSkill.find(GetPID())->second.PlayerY))
+			{
+				ResetContinueSkill();
+				CancelBuff(BUFF_ARROWRAINUSE);
+				return;
+			}
+
+			int Around = Target.GetObjectListAround(3);
+
+			while(Around)
+			{
+				ICharacter Object((void*)*(DWORD*)Around);
+
+				if (Object.IsValid() && IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+				{
+					int nDmg = 5000;
+					//int nDmg = (GetAttack()*ARBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*ARAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvE) + (nSkillGrade*ARPerGradeMultiPvE);
+
+					//if (Object.GetType() == 0)
+					//	nDmg = (GetAttack()*ARBaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*ARAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*ARStrMultiPvP) + (nSkillGrade*ARPerGradeMultiPvP);
+
+
+					OktayDamageArea(Object,nDmg,SKILL_ARCHER_ARROWRAIN);
+				}
+
+				Around = CBaseList::Pop((void*)Around);
+			}
+
+			if (IsOnline())
+				IConfig::CheckContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 900;
+
+			if (IsOnline() && IConfig::CheckContinueSkill.find(GetPID())->second.PlayerSkillCount == 0)
+			{
+				ResetContinueSkill();
+				CancelBuff(BUFF_ARROWRAINUSE);
+			}
+
+			return;
+		}
+	}
+
+	ResetContinueSkill();
+	CancelBuff(5565);
+	return;
+}
+
+void __fastcall CArcher::ArrowRain(int pPacket, int pPos)
+{
+	int pSkill = GetSkillPointer(SKILL_ARCHER_ARROWRAIN);
+
+	if (IsValid() && pSkill)
+	{
+		int x = 0, y = 0;
+		CPacket::Read((char*)pPacket, (char*)pPos, "dd", &x, &y);
+		ISkill xSkill((void*)pSkill);
+		int nSkillGrade = xSkill.GetGrade();
+
+		if (!nSkillGrade)
+			return;
+
+		int nMana = 20 + (GetLevel() * 4);
+
+		if (x <= 0 || y <= 0)
+			return;
+
+		if (nSkillGrade && IsValid())
+		{
+			if (GetCurMp() < nMana)
+				return;
+
+			Buff(5565, 10, 0);
+			DecreaseMana(nMana);
+			_ShowBattleAnimation(this, SKILL_ARCHER_ARROWRAIN);
+			int *GetSetXY = new int[2];
+			GetSetXY[0] = x;
+			GetSetXY[1] = y;
+			int check = CMonsterMagic::Create(567,GetMap(),(int)GetSetXY,1,(int)GetOffset(),0,10000);
+			delete[] GetSetXY;
+			IConfig::CheckContinueSkill[GetPID()].PlayerSkillID = SKILL_ARCHER_ARROWRAIN;
+			IConfig::CheckContinueSkill[GetPID()].PlayerTarget = (void*)check;
+			IConfig::CheckContinueSkill[GetPID()].PlayerSkillGrade = nSkillGrade;
+			IConfig::CheckContinueSkill[GetPID()].PlayerSkillCount = 10;
+			IConfig::CheckContinueSkill[GetPID()].PlayerSkillDelay = 0;
+			IConfig::CheckContinueSkill[GetPID()].PlayerX = GetX();
+			IConfig::CheckContinueSkill[GetPID()].PlayerY = GetY();
+		}
+		ContinueArrowRain();
+	}
 }
 
 void __fastcall CArcher::ArrowExplosion(int pPacket, int pPos)
 {
-	//int pSkill = GetSkillPointer(SKILL_ARCHER_ARROWEXPLOSION);
+	int pSkill = GetSkillPointer(SKILL_ARCHER_ARROWEXPLOSION);
 
-	//if (IsValid() && pSkill)
-	//{
-	//	ISkill xSkill((void*)pSkill);
-	//	int nSkillGrade = xSkill.GetGrade();
+	if (IsValid() && pSkill)
+	{
+		ISkill xSkill((void*)pSkill);
+		int nSkillGrade = xSkill.GetGrade();
 
-	//	if (!nSkillGrade)
-	//		return;
+		if (!nSkillGrade)
+			return;
 
-	//	int nTargetID = 0; char bType = 0; void* pTarget = 0;
-	//	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
-	//	int nMana = 20 + (GetLevel() * 4);
+		int nTargetID = 0; char bType = 0; void* pTarget = 0;
+		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+		int nMana = 20 + (GetLevel() * 4);
 
-	//	if (bType == 0 && nTargetID)
-	//		pTarget = CPlayer::FindPlayer(nTargetID);
+		if (bType == 0 && nTargetID)
+			pTarget = CPlayer::FindPlayer(nTargetID);
 
-	//	if (bType == 1 && nTargetID)
-	//		pTarget = CMonster::FindMonster(nTargetID);
+		if (bType == 1 && nTargetID)
+			pTarget = CMonster::FindMonster(nTargetID);
 
-	//	if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
-	//		return;
+		if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+			return;
 
-	//	if (IsValid() && pTarget && nSkillGrade)
-	//	{
-	//		ICharacter Target(pTarget);
+		if (IsValid() && pTarget && nSkillGrade)
+		{
+			ICharacter Target(pTarget);
 
-	//		if (pTarget == GetOffset())
-	//		{
-	//			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-	//			return;
-	//		}
+			if (pTarget == GetOffset())
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
 
-	//		if (GetCurMp() < nMana)
-	//		{
-	//			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-	//			return;
-	//		}
+			if (GetCurMp() < nMana)
+			{
+				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+				return;
+			}
 
-	//		if (IsValid() && Target.IsValid())
-	//		{
-	//			if (!IsInRange(Target, 300))
-	//			{
-	//				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-	//				return;
-	//			}
+			if (IsValid() && Target.IsValid())
+			{
+				if (!IsInRange(Target, 300))
+				{
+					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+					return;
+				}
 
-	//			DecreaseMana(nMana);
-	//			SetDirection(Target);
-	//			_ShowBattleAnimation(Target, 49);
-	//			Buff(300, 5, 0);
-	//			Buff(5566, 4, 0);
-	//			Target.AddFxToTarget("davi_ef131_04", 1, 0, 0);
-	//			CheckContinueSkill[GetPID()].PlayerSkillID = 49;
-	//			CheckContinueSkill[GetPID()].PlayerTarget = Target.GetOffset();
-	//			CheckContinueSkill[GetPID()].PlayerSkillGrade = nSkillGrade;
-	//			CheckContinueSkill[GetPID()].PlayerSkillCount = 1;
-	//			CheckContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 3000;
+				DecreaseMana(nMana);
+				SetDirection(Target);
+				_ShowBattleAnimation(Target, 49);
+				Buff(300, 5, 0);
+				Buff(5566, 4, 0);
+				Target.AddFxToTarget("davi_ef131_04", 1, 0, 0);
+				IConfig::CheckContinueSkill[GetPID()].PlayerSkillID = 49;
+				IConfig::CheckContinueSkill[GetPID()].PlayerTarget = Target.GetOffset();
+				IConfig::CheckContinueSkill[GetPID()].PlayerSkillGrade = nSkillGrade;
+				IConfig::CheckContinueSkill[GetPID()].PlayerSkillCount = 1;
+				IConfig::CheckContinueSkill[GetPID()].PlayerSkillDelay = GetTickCount() + 3000;
 
-	//			if (Target.IsValid() && Target.GetType() == 1 && Target.GetMobTanker() && Target.GetMobTanker() != (int)GetOffset())
-	//				Target.SetMobHostility(0);
+				if (Target.IsValid() && Target.GetType() == 1 && Target.GetMobTanker() && Target.GetMobTanker() != (int)GetOffset())
+					Target.SetMobHostility(0);
 
-	//			if (Target.GetType() == 1)
-	//				OktayDamageSingle(Target, CTools::Rate(500, 750), 42);
+				if (Target.GetType() == 1)
+					OktayDamageSingle(Target, CTools::Rate(500, 750), 42);
 
 
-	//			if (Target.IsValid() && Target.GetType() == 1 && Target.GetMobTanker() == (int)GetOffset())
-	//				Target.SetMobHostility(25000);
-	//		}
-	//		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-	//	}
-	//}
+				if (Target.IsValid() && Target.GetType() == 1 && Target.GetMobTanker() == (int)GetOffset())
+					Target.SetMobHostility(25000);
+			}
+			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+		}
+	}
 
 }

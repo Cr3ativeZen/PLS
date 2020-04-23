@@ -870,7 +870,7 @@ void ZenConfig()
 		ArmorBreakerON = GetPrivateProfileIntA("SecondJobSkill", "ArmorBreaker", 0, "./Skills/SkillONOFF.txt");
 		BuffRemoverON = GetPrivateProfileIntA("SecondJobSkill", "BuffRemover", 0, "./Skills/SkillONOFF.txt");
 		BrutalAttackON = GetPrivateProfileIntA("SecondJobSkill", "BrutalAttack", 0, "./Skills/SkillONOFF.txt");
-		CallsON = GetPrivateProfileIntA("SecondJobSkill", "Calls", 0, "./Skills/SkillONOFF.txt");
+		//CallsON = GetPrivateProfileIntA("SecondJobSkill", "Calls", 0, "./Skills/SkillONOFF.txt");
 		ChainLightningON = GetPrivateProfileIntA("SecondJobSkill", "ChainLightning", 0, "./Skills/SkillONOFF.txt");
 		FatalWoundON = GetPrivateProfileIntA("SecondJobSkill", "FatalWound", 0, "./Skills/SkillONOFF.txt");
 		FinalBlowON = GetPrivateProfileIntA("SecondJobSkill", "FinalBlow", 0, "./Skills/SkillONOFF.txt");

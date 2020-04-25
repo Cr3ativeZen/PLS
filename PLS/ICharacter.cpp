@@ -1806,51 +1806,20 @@ void __fastcall ICharacter::ResetContinueSkill()
 
 void __fastcall ICharacter::ResetFarContinueSkill()
 {
-	if (IsOnline())
-	{
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerTarget = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerDamage = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillGrade = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].CasterOffset = 0;
-	}
 }
 
+void __fastcall ICharacter::ResetRuptureContinueSkill()
+{
+}
 
 void __fastcall ICharacter::ResetContinueIceStorm()
 {
-	if (IsOnline())
-	{
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerTarget = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillGrade = 0;
-	}
 }
 
 void __fastcall ICharacter::ResetContinueThunderStorm()
 {
-	if (IsOnline())
-	{
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerTarget = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillGrade = 0;
-	}
 }
 
 void __fastcall ICharacter::ResetContinueFireStorm()
 {
-	if (IsOnline())
-	{
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerTarget = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillGrade = 0;
-	}
 }

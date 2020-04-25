@@ -18,19 +18,9 @@ int IConfig::AEPerGradeMultiPvP = 0;
 bool IConfig::ArrowExplosionON = true;
 bool IConfig::ArrowRainON = true;
 
-std::map<int, IConfig::ConfigIceArrow> IConfig::CheckIceArrow;
-std::map<int, IConfig::ConfigShiny> IConfig::CheckShiny;
-std::map<int, int> IConfig::MageMICheck;
-
 std::map<int, IConfig::PlayerContinueSkill> IConfig::CheckContinueSkill;
 std::map<int, IConfig::PlayerFarContinueSkill> IConfig::CheckFarContinueSkill;
-
 std::map<int, IConfig::CallCheck>IConfig::CallOfEvasionOTP;
 std::map<int, IConfig::CallCheck>IConfig::CallOfDefense;
 std::map<int, IConfig::CallCheck>IConfig::CallOfPhysicalAttack;
 std::map<int, IConfig::CallCheck>IConfig::CallOfRecovery;
-
-
-std::map<int, IConfig::PlayerContinueIceStorm>IConfig::CheckContinueIceStorm;
-std::map<int, IConfig::PlayerContinueFireStorm>IConfig::CheckContinueFireStorm;
-std::map<int, IConfig::PlayerContinueThunderStorm>IConfig::CheckContinueThunderStorm;

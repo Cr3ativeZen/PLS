@@ -2280,35 +2280,35 @@ void PacketAnimalUseSkill(ICharacter IPlayer, void* pPacket, int pPos)
 			CooldownCheck = EggCooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
 
 
-		if (SkillID == 101)
-		{
-			//ActivateShiny(IPlayer, PACKET, pPos);
-		}
+		//if (SkillID == 101)
+		//{
+		//	//ActivateShiny(IPlayer, PACKET, pPos);
+		//}
 
-		if (SkillID == 113 && RevolveAttackON == true)
-		{
-			RevolveAttack(IPlayer);
-			return;
-		}
+		//if (SkillID == 113 && RevolveAttackON == true)
+		//{
+		//	RevolveAttack(IPlayer);
+		//	return;
+		//}
 
-		if (SkillID == 114 && WhirlwindFeatherON == true)
-		{
-			//WhirlwindFeather(IPlayer);
-			return;
-		}
+		//if (SkillID == 114 && WhirlwindFeatherON == true)
+		//{
+		//	//WhirlwindFeather(IPlayer);
+		//	return;
+		//}
 
-		if (SkillID == 115 && BloodSuctionON == true)
-		{
-			BloodSuction(IPlayer, PACKET, pPos);
-			return;
-		}
+		//if (SkillID == 115 && BloodSuctionON == true)
+		//{
+		//	BloodSuction(IPlayer, PACKET, pPos);
+		//	return;
+		//}
 
 
-		if (SkillID == 116 && EggThunderboltON == true)
-		{
-			//EggThunderbolt(IPlayer);
-			return;
-		}
+		//if (SkillID == 116 && EggThunderboltON == true)
+		//{
+		//	//EggThunderbolt(IPlayer);
+		//	return;
+		//}
 	}
 }
 

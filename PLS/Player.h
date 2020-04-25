@@ -1,10 +1,6 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
 #include "D4Instance.h"
-#include "WhirlwindFeather.h"
-#include "EggThunderbolt.h"
-#include "RevolveAttack.h"
-#include "BloodSuction.h"
 #include "Packet.h"
 int __fastcall Tick(void *Player, void *edx)
 {

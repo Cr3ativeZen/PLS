@@ -76,15 +76,6 @@
     <ClInclude Include="UpdateProperty.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="IItem.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="InstaConfig.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Summon.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">

@@ -10,9 +10,9 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos);
 void PacketUseSkill(__int32 Player, ICharacter IPlayer, void* pPacket, int pPos);
 void PacketAnimalUseSkill(ICharacter IPlayer, void* pPacket, int pPos);
 
-void WritePacketToFile(ICharacter IPlayer, ToFile WHICH_FILE, const std::string& str_to_write)
+void WritePacketToFile(ICharacter IPlayer,ToFile WHICH_FILE,const std::string &str_to_write)
 {
-
+	
 	std::string type_for_dir;
 	std::string type_for_file;
 	std::string Nick = IPlayer.GetName();
@@ -20,12 +20,12 @@ void WritePacketToFile(ICharacter IPlayer, ToFile WHICH_FILE, const std::string&
 
 	time_t now = time(0);
 	tm* timePtr = localtime(&now);
-	std::string date = Int2String(timePtr->tm_mday) + "_" + Int2String(timePtr->tm_mon) + "_" + Int2String(timePtr->tm_year + 1900) + "_" + Int2String(timePtr->tm_hour);
+	std::string date = Int2String(timePtr->tm_mday)+ "_" + Int2String(timePtr->tm_mon)+ "_" + Int2String(timePtr->tm_year + 1900)+"_" + Int2String(timePtr->tm_hour);
 
 	char* dt = ctime(&now);
 
-	switch (WHICH_FILE)
-	{
+switch (WHICH_FILE)
+{
 
 	case SpeedHack:
 	{
@@ -36,7 +36,7 @@ void WritePacketToFile(ICharacter IPlayer, ToFile WHICH_FILE, const std::string&
 		FilePath += Nick;
 		FilePath += type_for_file;
 
-		std::string speedlog = SpeedHackLogn + "---" + date + ".txt";
+		std::string speedlog = SpeedHackLogn+"---" + date+".txt";
 
 		SpeedHackLog.open(speedlog, std::ios_base::out | std::ios::app);
 		if (SpeedHackLog)
@@ -59,7 +59,7 @@ void WritePacketToFile(ICharacter IPlayer, ToFile WHICH_FILE, const std::string&
 		FilePath += Nick;
 		FilePath += type_for_file;
 
-		std::string skilllog = SkillLogFile + "---" + date + ".txt";
+		std::string skilllog = SkillLogFile+"---" + date+".txt";
 		SkillLog.open(skilllog, std::ios_base::out | std::ios::app);
 		if (SkillLog)
 		{
@@ -111,7 +111,7 @@ void WritePacketToFile(ICharacter IPlayer, ToFile WHICH_FILE, const std::string&
 	{
 		break;
 	}
-	}
+}
 	std::ofstream Folders;
 	std::string FileN = "C:\\Users\\root\\Desktop\\Server Side\\ZenLogs\\Characters\\" + Nick;
 	//std::string FileN = "C:\\Users\\Admin\\Desktop\\kal\\Shaman ServSide\\ZenLogs\\Characters\\" + Nick;
@@ -144,482 +144,482 @@ void WritePacketToFile(ICharacter IPlayer, ToFile WHICH_FILE, const std::string&
 }
 
 
-void __fastcall Packet(__int32 Player, void* edx, int packet, void* pPacket, int pPos)
+void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
 {
 	ICharacter IPlayer((void*)Player);
 	if (IPlayer.IsOnline())
 	{
 		switch (packet)
-		{
-		case PACKET_WOODENBOX:
-		{
-			if (Logs == true)
-				PacketWoodenBox(IPlayer);
-			break;
-		}
-		case PACKET_LEAVEPARTY:
-		{
-			PacketLeaveParty(IPlayer);
-			break;
-		}
-		case PACKET_USEITEM:
-		{
-			PacketUseItem(Player, IPlayer, pPacket, pPos);
-			break;
-		}
-		case PACKET_ACCEPTQUEST:
-		{
-			PacketAcceptQuest(IPlayer, pPacket, pPos);
-			break;
-		}
-		case PACKET_SKILLANIMATION:
-		{
-			PacketSkillAnimation(IPlayer, pPacket, pPos);
-			break;
-		}
-		case PACKET_USESKILL:
-		{
-			int SkillID = 0;
-			int PACKET = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
-			int pSkill = IPlayer.GetSkillPointer(SkillID);
-			bool check = false;
-
-			IPlayer.Buff(313, 3, 0);
-			DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
-
-			if (IPlayer.IsValid() && IPlayer.IsBuff(349))
 			{
-				IPlayer.DisableRiding();
-				return;
+			case PACKET_WOODENBOX:
+			{
+				if(Logs == true)
+					PacketWoodenBox(IPlayer);
+				break;
 			}
-
-			if (Logs == true)
+			case PACKET_LEAVEPARTY:
 			{
-				time_t now = time(0);
+				PacketLeaveParty(IPlayer);
+				break;
+			}
+			case PACKET_USEITEM:
+			{
+				PacketUseItem(Player, IPlayer, pPacket, pPos);
+				break;
+			}
+			case PACKET_ACCEPTQUEST:
+			{
+				PacketAcceptQuest(IPlayer, pPacket, pPos);
+				break;
+			}
+			case PACKET_SKILLANIMATION:
+			{
+				PacketSkillAnimation(IPlayer, pPacket, pPos);
+				break;
+			}
+			case PACKET_USESKILL:
+			{
+				int SkillID = 0;
+				int PACKET = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
+				int pSkill = IPlayer.GetSkillPointer(SkillID);
+				bool check = false;
 
-				char* dt = ctime(&now);
+				IPlayer.Buff(313, 3, 0);
+				DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 
-				std::string to_file = "------|Name: ";
-				to_file += IPlayer.GetName();
-				to_file += "------|Class: ";
-				to_file += Int2String(IPlayer.GetClass());
-				to_file += "------ | SkillID: ";
-				to_file += Int2String(SkillID) + " ";
-				to_file += dt;
-				WritePacketToFile(IPlayer, SkillLogs, to_file);
-
-				if (CastProtection[IPlayer.GetPID()].animation_check == false && !(SkillID >= 88 && SkillID <= 94))
+				if (IPlayer.IsValid() && IPlayer.IsBuff(349))
 				{
-					switch (IPlayer.GetClass())
+					IPlayer.DisableRiding();
+					return;
+				}
+
+				if (Logs == true)
+				{
+					time_t now = time(0);
+
+					char* dt = ctime(&now);
+
+					std::string to_file = "------|Name: ";
+					to_file += IPlayer.GetName();
+					to_file += "------|Class: ";
+					to_file += Int2String(IPlayer.GetClass());
+					to_file += "------ | SkillID: ";
+					to_file += Int2String(SkillID) + " ";
+					to_file += dt;
+					WritePacketToFile(IPlayer, SkillLogs, to_file);
+
+					if (CastProtection[IPlayer.GetPID()].animation_check == false && !(SkillID >= 88 && SkillID <= 94))
 					{
-					case 0:
-					{
-						itt = std::find(Kn8WhiteListSkills.begin(), Kn8WhiteListSkills.end(), SkillID);
-						if (itt != Kn8WhiteListSkills.end())
+						switch (IPlayer.GetClass())
 						{
-
-							check = true;
-						}
-						break;
-
-					}
-					case 1:
-					{
-						itt = std::find(MageWhiteListSkills.begin(), MageWhiteListSkills.end(), SkillID);
-						if (itt != MageWhiteListSkills.end())
+						case 0:
 						{
-
-							check = true;
-						}
-						break;
-
-					}
-					case 2:
-					{
-						itt = std::find(ArcherWhiteListSkills.begin(), ArcherWhiteListSkills.end(), SkillID);
-						if (itt != ArcherWhiteListSkills.end())
-						{
-
-							check = true;
-						}
-						break;
-
-					}
-					default:
-						break;
-					}
-
-					if (check == false && IPlayer.GetClass() != 3 && SkillID != 1 && SkillID != 0)
-					{
-						IPlayer.SystemMessage("Hax Detected!", TEXTCOLOR_RED);
-						WritePacketToFile(IPlayer, SkillHacks, to_file);
-						IPlayer.Kick();
-
-					}
-				}
-			}
-
-			if (CastProtection[IPlayer.GetPID()].animation_check == true)
-			{
-				CastProtection[IPlayer.GetPID()].animation_check = false;
-				CastProtection[IPlayer.GetPID()].SkillID = 0;
-			}
-
-			if (SkillID == 74 && IPlayer.GetClass() == 1)
-			{
-				SkillID = 99;
-			}
-
-			if (SkillID == 6 && IPlayer.GetClass() == 3 && IPlayer.IsBuff(329))
-			{
-				IPlayer.CancelBuff(329);
-				IPlayer.CancelBuff(40);
-				return;
-			}
-
-			if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
-			{
-				CdTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.CooldownConfig;
-				DelayTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.DelayConfig;
-			}
-
-
-			if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
-				CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
-
-
-			if ((IPlayer.IsBuff(5605) && (SkillID == 99 || SkillID == 74)))
-			{
-
-			}
-			else if (CooldownCheck > GetTickCount())
-			{
-
-				IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
-				return;
-
-			}
-			else
-			{
-				CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
-			}
-
-
-
-
-			if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
-			{
-				if (IPlayer.GetClass() == 1 && IPlayer.GetMap() == 21 && (SkillID == 43 || SkillID == 45 || SkillID == 48))
-					return;
-
-			}
-
-			if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
-			{
-				//ActivateShiny(IPlayer, PACKET, pPos);
-				// no return here because it still needs to execute the proper skill.
-			}
-
-
-
-
-
-			switch (IPlayer.GetClass())
-			{
-			case CLASS_KNIGHT:
-			{
-				CKnight knight((void*)Player);
-				switch (SkillID)
-				{
-				case SKILL_KNIGHT_POWERFULUPWARDSLASH:
-				{
-					knight.PowerfulUpwardSlash(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_SPINSLASH:
-				{
-					knight.SpinSlash();
-					return;
-				}
-				case SKILL_KNIGHT_HALFSWING:
-				{
-					knight.HalfSwing(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_BRUTALATTACK:
-				{
-					knight.BrutalAttack(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_LIGHTNINGSLASH:
-				{
-					knight.LightningSlash(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
-				{
-					knight.PowerfulWideningWound(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_PROVOCATIONOFBLOW:
-				{
-					knight.ProvocationOfBlow(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_SACRIFICE:
-				{
-					knight.Sacrifice(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_SHIELDATTACK:
-				{
-					knight.ShieldAttack(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_SHOUTOFDEFENSE:
-				{
-					knight.ShoutOfDefense();
-					return;
-				}
-				case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
-				{
-					knight.ShoutOfFightingSpirit();
-					return;
-				}
-				case SKILL_KNIGHT_THEWAVEOFEARTH:
-				{
-					knight.TheWaveOfEarth();
-					return;
-				}
-				case SKILL_KNIGHT_THEBOOMOFEARTH:
-				{
-					knight.TheBoomOfEarth();
-					return;
-				}
-				case SKILL_KNIGHT_TRANSCENDENTALBLOW:
-				{
-					knight.TranscendentalBlow(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_SWORDDANCE:
-				{
-					knight.SwordDance(PACKET, pPos);
-					return;
-				}
-				case SKILL_KNIGHT_CALLOFEVASION:
-				{
-					knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFEVASION);
-					return;
-				}
-				case SKILL_KNIGHT_CALLOFONTARGETPOINT:
-				{
-					knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFONTARGETPOINT);
-					return;
-				}
-				case SKILL_KNIGHT_CALLOFPHYSICALATTACK:
-				{
-					knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFPHYSICALATTACK);
-					return;
-				}
-				case SKILL_KNIGHT_CALLOFRECOVERY:
-				{
-					knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFRECOVERY);
-					return;
-				}
-				case SKILL_KNIGHT_PURGECONDITIONS:
-				{
-					knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_PURGECONDITIONS);
-					return;
-				}
-				case SKILL_KNIGHT_HEALASONE:
-				{
-					knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_HEALASONE);
-					return;
-				}
-
-				case SKILL_KNIGHT_CALLOFDEFENSE:
-				{
-					ICharacter Playere((void*)Player);
-
-					void* pSkill = (void*)Playere.GetSkillPointer(SKILL_KNIGHT_CALLOFDEFENSE);
-					if (Playere.IsValid())
-					{
-						ISkill ISkill(pSkill);
-						int nSkillGrade = ISkill.GetGrade();
-						int Action = 0, Check = 0;
-						Check = (*(int(__thiscall**)(void*, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
-
-						if (nSkillGrade && Check && Playere.IsValid())
-						{
-							if (Playere.IsParty())
+							itt = std::find(Kn8WhiteListSkills.begin(), Kn8WhiteListSkills.end(), SkillID);
+							if (itt != Kn8WhiteListSkills.end())
 							{
-								void* Party = (void*)CParty::FindParty(Playere.GetPartyID());
 
-								if (Party)
+								check = true;
+							}
+							break;
+
+						}
+						case 1:
+						{
+							itt = std::find(MageWhiteListSkills.begin(), MageWhiteListSkills.end(), SkillID);
+							if (itt != MageWhiteListSkills.end())
+							{
+
+								check = true;
+							}
+							break;
+
+						}
+						case 2:
+						{
+							itt = std::find(ArcherWhiteListSkills.begin(), ArcherWhiteListSkills.end(), SkillID);
+							if (itt != ArcherWhiteListSkills.end())
+							{
+
+								check = true;
+							}
+							break;
+
+						}
+						default:
+							break;
+						}
+
+						if (check == false && IPlayer.GetClass() != 3 && SkillID != 1 && SkillID != 0)
+						{
+							IPlayer.SystemMessage("Hax Detected!", TEXTCOLOR_RED);
+							WritePacketToFile(IPlayer, SkillHacks, to_file);
+							IPlayer.Kick();
+
+						}
+					}
+				}
+
+				if (CastProtection[IPlayer.GetPID()].animation_check == true)
+				{
+					CastProtection[IPlayer.GetPID()].animation_check = false;
+					CastProtection[IPlayer.GetPID()].SkillID = 0;
+				}
+
+				if (SkillID == 74 && IPlayer.GetClass() == 1)
+				{
+					SkillID = 99;
+				}
+
+				if (SkillID == 6 && IPlayer.GetClass() == 3 && IPlayer.IsBuff(329))
+				{
+					IPlayer.CancelBuff(329);
+					IPlayer.CancelBuff(40);
+					return;
+				}
+
+				if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
+				{
+					CdTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.CooldownConfig;
+					DelayTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.DelayConfig;
+				}
+
+
+				if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
+					CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
+
+
+				if ((IPlayer.IsBuff(5605) && (SkillID == 99 || SkillID == 74)))
+				{
+
+				}
+				else if (CooldownCheck > GetTickCount())
+				{
+
+					IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
+					return;
+
+				}
+				else
+				{
+					CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
+				}
+
+
+
+
+				if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
+				{
+					if (IPlayer.GetClass() == 1 && IPlayer.GetMap() == 21 && (SkillID == 43 || SkillID == 45 || SkillID == 48))
+						return;
+
+				}
+
+				if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
+				{
+					//ActivateShiny(IPlayer, PACKET, pPos);
+					// no return here because it still needs to execute the proper skill.
+				}
+
+
+
+
+
+				switch (IPlayer.GetClass())
+				{
+				case CLASS_KNIGHT:
+				{
+					CKnight knight((void*)Player);
+					switch (SkillID)
+					{
+					case SKILL_KNIGHT_POWERFULUPWARDSLASH:
+					{
+						knight.PowerfulUpwardSlash(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_SPINSLASH:
+					{
+						knight.SpinSlash();
+						return;
+					}
+					case SKILL_KNIGHT_HALFSWING:
+					{
+						knight.HalfSwing(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_BRUTALATTACK:
+					{
+						knight.BrutalAttack(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_LIGHTNINGSLASH:
+					{
+						knight.LightningSlash(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
+					{
+						knight.PowerfulWideningWound(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_PROVOCATIONOFBLOW:
+					{
+						knight.ProvocationOfBlow(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_SACRIFICE:
+					{
+						knight.Sacrifice(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_SHIELDATTACK:
+					{
+						knight.ShieldAttack(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_SHOUTOFDEFENSE:
+					{
+						knight.ShoutOfDefense();
+						return;
+					}
+					case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
+					{
+						knight.ShoutOfFightingSpirit();
+						return;
+					}
+					case SKILL_KNIGHT_THEWAVEOFEARTH:
+					{
+						knight.TheWaveOfEarth();
+						return;
+					}
+					case SKILL_KNIGHT_THEBOOMOFEARTH:
+					{
+						knight.TheBoomOfEarth();
+						return;
+					}
+					case SKILL_KNIGHT_TRANSCENDENTALBLOW:
+					{
+						knight.TranscendentalBlow(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_SWORDDANCE:
+					{
+						knight.SwordDance(PACKET, pPos);
+						return;
+					}
+					case SKILL_KNIGHT_CALLOFEVASION:
+					{
+						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFEVASION);
+						return;
+					}
+					case SKILL_KNIGHT_CALLOFONTARGETPOINT:
+					{
+						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFONTARGETPOINT);
+						return;
+					}
+					case SKILL_KNIGHT_CALLOFPHYSICALATTACK:
+					{
+						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFPHYSICALATTACK);
+						return;
+					}
+					case SKILL_KNIGHT_CALLOFRECOVERY:
+					{
+						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFRECOVERY);
+						return;
+					}
+					case SKILL_KNIGHT_PURGECONDITIONS:
+					{
+						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_PURGECONDITIONS);
+						return;
+					}
+					case SKILL_KNIGHT_HEALASONE:
+					{
+						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_HEALASONE);
+						return;
+					}
+
+					case SKILL_KNIGHT_CALLOFDEFENSE:
+					{
+						ICharacter Playere((void*)Player);
+
+						void* pSkill = (void*)Playere.GetSkillPointer(SKILL_KNIGHT_CALLOFDEFENSE);
+						if (Playere.IsValid())
+						{
+							ISkill ISkill(pSkill);
+							int nSkillGrade = ISkill.GetGrade();
+							int Action = 0, Check = 0;
+							Check = (*(int(__thiscall**)(void*, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
+
+							if (nSkillGrade && Check && Playere.IsValid())
+							{
+								if (Playere.IsParty())
 								{
-									for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+									void* Party = (void*)CParty::FindParty(Playere.GetPartyID());
+
+									if (Party)
 									{
-										int Members = *(DWORD*)((void*)i);
-
-										if (CChar::IsNormal(Members) && Playere.IsValid())
+										for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 										{
-											CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
+											int Members = *(DWORD*)((void*)i);
 
-
-											ICharacter Member((void*)Members);
-
-											if (Playere.IsInRange(Member, CallRANGE))
+											if (CChar::IsNormal(Members) && Playere.IsValid())
 											{
-												int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
+												CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
 
-												IConfig::CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
-												IConfig::CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
-												IConfig::CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
 
-												(*(void(__thiscall**)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
+												ICharacter Member((void*)Members);
+
+												if (Playere.IsInRange(Member, CallRANGE))
+												{
+													int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
+
+													IConfig::CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
+													IConfig::CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
+													IConfig::CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
+
+													(*(void(__thiscall**)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
+												}
 											}
-										}
 
+										}
 									}
 								}
-							}
-							else
-							{
-								CChar::CancelAllBuff(Playere.GetOffset(), 28);
-								(*(void(__thiscall**)(int, int))(*(DWORD*)Player + 180))(Player, Check);
-							}
+								else
+								{
+									CChar::CancelAllBuff(Playere.GetOffset(), 28);
+									(*(void(__thiscall**)(int, int))(*(DWORD*)Player + 180))(Player, Check);
+								}
 
-							Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
+								Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
+							}
 						}
+						return;
 					}
-					return;
+
+					}
+					break;
 				}
 
+				case CLASS_MAGE:
+				{
+					CMage mage((void*)Player);
+					switch (SkillID)
+					{
+					case SKILL_MAGE_CURE:
+					{
+						mage.Cure(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_CURE2:
+					{
+						mage.Cure2(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_CURE3:
+					{
+						mage.Cure3(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_HEAL:
+					{
+						mage.Heal();
+						return;
+					}
+					case SKILL_MAGE_CHAINLIGHTNING:
+					{
+						mage.ChainLightning(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_AMNESIA:
+					{
+						mage.Amnesia(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_SOULDESTRUCTION:
+					{
+						mage.SoulDestruction(PACKET, pPos);
+						return;
+					}
+					}
+					break;
 				}
-				break;
+				case CLASS_ARCHER:
+				{
+					CArcher archer((void*)Player);
+					switch (SkillID)
+					{
+					case SKILL_ARCHER_BLOWUPARROW:
+					{
+						archer.BlowUpArrow(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_FLAMYARROW:
+					{
+						archer.FlamyArrow(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_MUSCLESOLIDATION:
+					{
+						archer.MuscleSolidation();
+						return;
+					}
+					case SKILL_ARCHER_PASSIVEATTACK:
+					{
+						archer.PassiveAttack(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_FOCUSSHOT:
+					{
+						archer.FocusShot(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_LIFEABSORPTION:
+					{
+						archer.LifeAbsorption(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_MYSTERIOUSARROW:
+					{
+						archer.MysteriousArrow(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_ARROWEXPLOSION:
+					{
+						archer.ArrowExplosion(PACKET, pPos);
+						return;
+					}
+
+					case SKILL_ARCHER_ARROWRAIN:
+					{
+						archer.ArrowRain(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_VIRULENTARROW:
+					{
+						archer.VirulentArrow(PACKET, pPos);
+						return;
+					}
+					case SKILL_ARCHER_COMBATIVESPIRIT:
+					{
+						archer.CombativeSpirit(PACKET, pPos);
+						return;
+					}
+					}
+
+					break;
+				}
+				case CLASS_THIEF:
+				{
+					break;
+				}
+				default:
+					break;
+				}
 			}
-
-			case CLASS_MAGE:
+			case PACKET_ANIMALUSESKILL:
 			{
-				CMage mage((void*)Player);
-				switch (SkillID)
-				{
-				case SKILL_MAGE_CURE:
-				{
-					mage.Cure(PACKET, pPos);
-					return;
-				}
-				case SKILL_MAGE_CURE2:
-				{
-					mage.Cure2(PACKET, pPos);
-					return;
-				}
-				case SKILL_MAGE_CURE3:
-				{
-					mage.Cure3(PACKET, pPos);
-					return;
-				}
-				case SKILL_MAGE_HEAL:
-				{
-					mage.Heal();
-					return;
-				}
-				case SKILL_MAGE_CHAINLIGHTNING:
-				{
-					mage.ChainLightning(PACKET, pPos);
-					return;
-				}
-				case SKILL_MAGE_AMNESIA:
-				{
-					mage.Amnesia(PACKET, pPos);
-					return;
-				}
-				case SKILL_MAGE_SOULDESTRUCTION:
-				{
-					mage.SoulDestruction(PACKET, pPos);
-					return;
-				}
-				}
+				PacketAnimalUseSkill(IPlayer, pPacket, pPos);
 				break;
 			}
-			case CLASS_ARCHER:
-			{
-				CArcher archer((void*)Player);
-				switch (SkillID)
-				{
-				case SKILL_ARCHER_BLOWUPARROW:
-				{
-					archer.BlowUpArrow(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_FLAMYARROW:
-				{
-					archer.FlamyArrow(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_MUSCLESOLIDATION:
-				{
-					archer.MuscleSolidation();
-					return;
-				}
-				case SKILL_ARCHER_PASSIVEATTACK:
-				{
-					archer.PassiveAttack(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_FOCUSSHOT:
-				{
-					archer.FocusShot(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_LIFEABSORPTION:
-				{
-					archer.LifeAbsorption(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_MYSTERIOUSARROW:
-				{
-					archer.MysteriousArrow(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_ARROWEXPLOSION:
-				{
-					archer.ArrowExplosion(PACKET, pPos);
-					return;
-				}
-
-				case SKILL_ARCHER_ARROWRAIN:
-				{
-					archer.ArrowRain(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_VIRULENTARROW:
-				{
-					archer.VirulentArrow(PACKET, pPos);
-					return;
-				}
-				case SKILL_ARCHER_COMBATIVESPIRIT:
-				{
-					archer.CombativeSpirit(PACKET, pPos);
-					return;
-				}
-				}
-
-				break;
-			}
-			case CLASS_THIEF:
-			{
-				break;
-			}
-			default:
-				break;
-			}
-		}
-		case PACKET_ANIMALUSESKILL:
-		{
-			PacketAnimalUseSkill(IPlayer, pPacket, pPos);
-			break;
-		}
 
 		}
 
@@ -1191,7 +1191,7 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 
 
 }
-void PacketUseSkill(__int32 Player, ICharacter IPlayer, void* pPacket, int pPos)
+void PacketUseSkill(__int32 Player,ICharacter IPlayer, void* pPacket, int pPos)
 {
 	int SkillID = 0;
 	int PACKET = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
@@ -1345,79 +1345,79 @@ void PacketUseSkill(__int32 Player, ICharacter IPlayer, void* pPacket, int pPos)
 		CKnight knight((void*)Player);
 		switch (SkillID)
 		{
-		case SKILL_KNIGHT_POWERFULUPWARDSLASH:
-		{
-			knight.PowerfulUpwardSlash(PACKET, pPos);
-			return;
+			case SKILL_KNIGHT_POWERFULUPWARDSLASH:
+			{
+				knight.PowerfulUpwardSlash(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_SPINSLASH:
+			{
+				knight.SpinSlash();
+				return;
+			}
+			case SKILL_KNIGHT_HALFSWING:
+			{
+				knight.HalfSwing(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_BRUTALATTACK:
+			{
+				knight.BrutalAttack(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_LIGHTNINGSLASH:
+			{
+				knight.LightningSlash(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
+			{
+				knight.PowerfulWideningWound(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_PROVOCATIONOFBLOW:
+			{
+				knight.ProvocationOfBlow(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_SACRIFICE:
+			{
+				knight.Sacrifice(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_SHIELDATTACK:
+			{
+				knight.ShieldAttack(PACKET, pPos);
+				return;
+			}
+			case SKILL_KNIGHT_SHOUTOFDEFENSE:
+			{
+				knight.ShoutOfDefense();
+				return;
+			}
+			case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
+			{
+				knight.ShoutOfFightingSpirit();
+				return;
+			}
+			case SKILL_KNIGHT_THEWAVEOFEARTH:
+			{
+				knight.TheWaveOfEarth();
+				return;
+			}
+			case SKILL_KNIGHT_THEBOOMOFEARTH:
+			{
+				knight.TheBoomOfEarth();
+				return;
+			}
+			case SKILL_KNIGHT_TRANSCENDENTALBLOW:
+			{
+				knight.TranscendentalBlow(PACKET, pPos);
+				return;
+			}
+			
 		}
-		case SKILL_KNIGHT_SPINSLASH:
-		{
-			knight.SpinSlash();
-			return;
-		}
-		case SKILL_KNIGHT_HALFSWING:
-		{
-			knight.HalfSwing(PACKET, pPos);
-			return;
-		}
-		case SKILL_KNIGHT_BRUTALATTACK:
-		{
-			knight.BrutalAttack(PACKET, pPos);
-			return;
-		}
-		case SKILL_KNIGHT_LIGHTNINGSLASH:
-		{
-			knight.LightningSlash(PACKET, pPos);
-			return;
-		}
-		case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
-		{
-			knight.PowerfulWideningWound(PACKET, pPos);
-			return;
-		}
-		case SKILL_KNIGHT_PROVOCATIONOFBLOW:
-		{
-			knight.ProvocationOfBlow(PACKET, pPos);
-			return;
-		}
-		case SKILL_KNIGHT_SACRIFICE:
-		{
-			knight.Sacrifice(PACKET, pPos);
-			return;
-		}
-		case SKILL_KNIGHT_SHIELDATTACK:
-		{
-			knight.ShieldAttack(PACKET, pPos);
-			return;
-		}
-		case SKILL_KNIGHT_SHOUTOFDEFENSE:
-		{
-			knight.ShoutOfDefense();
-			return;
-		}
-		case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
-		{
-			knight.ShoutOfFightingSpirit();
-			return;
-		}
-		case SKILL_KNIGHT_THEWAVEOFEARTH:
-		{
-			knight.TheWaveOfEarth();
-			return;
-		}
-		case SKILL_KNIGHT_THEBOOMOFEARTH:
-		{
-			knight.TheBoomOfEarth();
-			return;
-		}
-		case SKILL_KNIGHT_TRANSCENDENTALBLOW:
-		{
-			knight.TranscendentalBlow(PACKET, pPos);
-			return;
-		}
-
-		}
-		break;
+	break;
 	}
 
 	case CLASS_MAGE:

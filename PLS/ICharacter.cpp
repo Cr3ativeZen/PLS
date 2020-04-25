@@ -1915,3 +1915,43 @@ int ICharacter::CalculateFormula(int character, int skill_id, int skill_grade, b
 
 	return value;
 }
+
+void ICharacter::SkillOnTarget(int character, int skill_id, int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(skill_id));
+
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
+		return;
+
+	bool selftargetable = false;
+	int nTargetID = 0;
+	char bType = 0;
+
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+
+	RAII raii(nTargetID, bType);
+
+	if (!raii.found ||(!selftargetable && raii.pTarget == GetOffset()))
+		return;
+
+	ICharacter Target(raii.pTarget);
+
+
+	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+	{
+		//if damage not found,deal 0 dmg
+		//if dot damage not found not execute a debuff
+		if (CheckHit(Target, 0))
+		{
+			Target.Buff(8, 10, 0);
+			SetDirection(Target);
+			_ShowBattleAnimation(Target, 4);
+		}
+		else
+			_ShowBattleMiss(Target, 4);
+	}
+
+	DecreaseMana(ISkill.DecreaseMana());
+
+	
+}

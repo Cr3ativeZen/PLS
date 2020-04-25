@@ -5,6 +5,7 @@
 #include "ServerFunctions.h"
 #include "Resources.h"
 #include "IConfig.h"
+#include "RAII.h"
 #include <string>
 class ICharacter
 {
@@ -19,6 +20,16 @@ public:
 
 	ICharacter(void* Object);
 	virtual ~ICharacter();
+
+
+
+	enum Targets
+	{
+		pve_only = 0,
+		pvp_only = 1,
+		pve_pvp = 2,
+
+	};
 
 
 	void *GetOffset();
@@ -213,6 +224,10 @@ public:
 	void __fastcall ResetContinueFireStorm();
 	int CalculateFormula(int character,int skill_id, int skill_grade, bool is_mob);
 
+	void SkillCheck(int character, int skill_id, int pPacket, int pPos);                      //Checks if target is attackable/buffable.
+	void SkillOnTarget(int character, int skill_id, int pPacket, int pPos);
+	void SkillNoTarget(int character, int skill_id);
+	//, int additonal_otp, bool damage_over_time, bool always_hit,bool self_cast,bool pve_aoe
 
 };
 #endif

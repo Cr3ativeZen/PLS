@@ -131,7 +131,7 @@ int __cdecl Summon(int Player, int Map, int X, int Y, int Index, int Amount, int
 
 			if (*(DWORD *)(Check + 304))
 			{
-				int *GetSetXY = new int[1];
+				int *GetSetXY = new int[2];
 				GetSetXY[0] = X;
 				GetSetXY[1] = Y;
 				*(DWORD *)(Monster + 316) = Map;
@@ -155,7 +155,7 @@ int __cdecl Summon(int Player, int Map, int X, int Y, int Index, int Amount, int
 
 				CIOCriticalSection::Leave((void*)0x4E182C);
 				CChar::Lock((void*)Monster);
-				int *CellMapCoordinate = new int[1];
+				int *CellMapCoordinate = new int[2];
 				CellMapCoordinate[0] = X >> 5;
 				CellMapCoordinate[1] = Y >> 5;
 				IMonster.MonsterSummonWrite(SafeZoneCheck, Monster, (int)CellMapCoordinate);

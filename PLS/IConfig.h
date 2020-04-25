@@ -4,13 +4,11 @@
 #include <windows.h>
 #include <map>
 
+
+//IConfig is a Singleton used for loading necessary variables from config files.
 class IConfig
 {
 	IConfig()
-	{
-
-	}
-	~IConfig()
 	{
 
 	}
@@ -22,6 +20,27 @@ public:
 	}
 
 	void LoadConfigs();
+
+	void LoadSkillFormulas();
+
+
+	struct SkillFormulas
+	{
+		int character;
+		int skill_id;
+		int damageC;
+		int str;
+		int agi;
+		int wis;
+		int inte;
+		int base_damage;
+		int damage_per_grade;
+		int pvp_reduction;
+		bool enabled;
+
+	};
+
+	static IConfig CONFIG;
 
 
 	struct PlayerContinueSkill
@@ -117,6 +136,9 @@ public:
 
 	static std::map<int, ConfigIceArrow> CheckIceArrow;
 	static std::map<int, ConfigShiny> CheckShiny;
+
+
+	static std::map<std::pair<int, int>, SkillFormulas> SkillCalc;
 
 	static std::map<int, PlayerContinueSkill> CheckContinueSkill;
 	static std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;

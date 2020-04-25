@@ -4,6 +4,51 @@ void IConfig::LoadConfigs()
 {
 }
 
+void IConfig::LoadSkillFormulas()
+{
+	FILE* filez = fopen("./Skills/SkillFormulas.txt", "r");
+	if (filez != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, filez) != NULL)
+		{
+			//int GetClass = 0, GetSkillID = 0, GetDelay = 0, GetCooldown = 0, GetSkillIDx = 0, GetDelayx = 0, GetCooldownx = 0;
+			//if (sscanf(line, "(eggskill (action %d)(delay %d)(cooldown %d))", &GetSkillIDx, &GetDelayx, &GetCooldownx) == 3)
+			//{
+			//	CheckEggCooldownConfig[GetSkillIDx].EggCooldownConfig = GetCooldownx;
+			//	CheckEggCooldownConfig[GetSkillIDx].EggDelayConfig = GetDelayx;
+			//}
+
+			//if (sscanf(line, "(skill (class %d)(action %d)(delay %d)(cooldown %d))", &GetClass, &GetSkillID, &GetDelay, &GetCooldown) == 4)
+			//{
+			//	CheckCooldownConfig[GetSkillID + (GetClass * 100)].CooldownConfig = GetCooldown;
+			//	CheckCooldownConfig[GetSkillID + (GetClass * 100)].DelayConfig = GetDelay;
+			//}
+
+			int character = 0, skill_id = 0, str = 0, agi = 0, wis = 0, inte = 0, base_damage = 0, damage_per_grade = 0, enabled = 0, pvp_reduction = 0, damageC = 0;
+
+			if (sscanf(line, "(skill_damage (class %d)(skill_id %d)(base_damage %d)(damageC %d)(str %d)(agi %d)(wis %d)(inte %d)(damage_per_grade %d)(pvp_reduction %d)(enabled %d))", &character, &skill_id, &base_damage, &damageC, &str, &agi, &wis, &inte, &damage_per_grade, &pvp_reduction, &enabled) == 11)
+			{
+				IConfig::SkillCalc[{character, skill_id}].damageC = damageC;
+				IConfig::SkillCalc[{character, skill_id}].str = str;
+				IConfig::SkillCalc[{character, skill_id}].agi = agi;
+				IConfig::SkillCalc[{character, skill_id}].wis = wis;
+				IConfig::SkillCalc[{character, skill_id}].inte = inte;
+				IConfig::SkillCalc[{character, skill_id}].base_damage = base_damage;
+				IConfig::SkillCalc[{character, skill_id}].damage_per_grade = damage_per_grade;
+				IConfig::SkillCalc[{character, skill_id}].pvp_reduction = pvp_reduction;
+				IConfig::SkillCalc[{character, skill_id}].enabled = enabled;
+			}
+		}
+		fclose(filez);
+	}
+
+
+
+}
+
+
+
 int IConfig::CallRANGE = 20;
 
 int IConfig::AEBaseDmgMultiPvE = 0;
@@ -17,6 +62,9 @@ int IConfig::AEStrMultiPvP = 0;
 int IConfig::AEPerGradeMultiPvP = 0;
 bool IConfig::ArrowExplosionON = true;
 bool IConfig::ArrowRainON = true;
+
+
+std::map<std::pair<int, int>, IConfig::SkillFormulas> IConfig::SkillCalc;
 
 std::map<int, IConfig::ConfigIceArrow> IConfig::CheckIceArrow;
 std::map<int, IConfig::ConfigShiny> IConfig::CheckShiny;
@@ -34,3 +82,4 @@ std::map<int, IConfig::CallCheck>IConfig::CallOfRecovery;
 std::map<int, IConfig::PlayerContinueIceStorm>IConfig::CheckContinueIceStorm;
 std::map<int, IConfig::PlayerContinueFireStorm>IConfig::CheckContinueFireStorm;
 std::map<int, IConfig::PlayerContinueThunderStorm>IConfig::CheckContinueThunderStorm;
+

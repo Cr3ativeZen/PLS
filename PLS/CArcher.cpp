@@ -530,8 +530,8 @@ void __fastcall CArcher::VirulentArrow(int pPacket, int pPos)
 
 	if (IsValid() && pSkill)
 	{
-		ISkill xSkill((void*)pSkill);
-		int nSkillGrade = xSkill.GetGrade();
+		ISkill ISkill((void*)pSkill);
+		int nSkillGrade = ISkill.GetGrade();
 
 		if (!nSkillGrade)
 			return;
@@ -595,19 +595,8 @@ void __fastcall CArcher::VirulentArrow(int pPacket, int pPos)
 
 					if (Object.IsValid() && IsValid() && (*(int (__thiscall **)(int, int, DWORD))(*(DWORD *)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 					{
-						/*
-						if (Object.GetType() == 0)
-							nDmg = nSkillGrade* VAPerGradeDoTPvP + VABaseDoTPvP;*/
 
-						/*if (Object.GetType() == 0)
-							OktayDamageArea(Object,(GetAttack()*VABaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*VAAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*VAStrMultiPvP) + (nSkillGrade*VAPerGradeMultiPvP), 50);
-
-						if (Object.GetType() == 1)
-							OktayDamageArea(Object,(GetAttack()*VABaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset())*VAAgiMultiPvE) + (CChar::GetStr((int)GetOffset())*VAStrMultiPvE) + (nSkillGrade*VAPerGradeMultiPvE), 50);*/
-
-						
-
-						OktayDamageArea(Object, 5000, SKILL_ARCHER_VIRULENTARROW);
+						OktayDamageArea(Object, CalculateFormula(GetClass(), ISkill.GetIndex(), ISkill.GetGrade(),Object.GetType()) , SKILL_ARCHER_VIRULENTARROW);
 
 						//Object.Buff(11, VADuration, nDmg);
 						Object.Buff(11, 10, nDmg);

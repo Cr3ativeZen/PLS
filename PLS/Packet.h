@@ -469,7 +469,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 												ICharacter Member((void*)Members);
 
-												if (Playere.IsInRange(Member, CallRANGE))
+												if (Playere.IsInRange(Member, IConfig::CallRANGE))
 												{
 													int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
 
@@ -1224,7 +1224,7 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 
 
 
-	if (IPlayer.GetClass() == 2 && SkillID == 16 && FocusShotON == true)
+	if (IPlayer.GetClass() == 2 && SkillID == 16 /*&& FocusShotON == true*/)
 	{
 		int pSkill = IPlayer.GetSkillPointer(16);
 		if (pSkill)
@@ -1233,7 +1233,7 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 		}
 	}
 
-	if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
+	if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23/* && IceArrowON == true*/)
 	{
 		if (IConfig::CheckIceArrow.count(IPlayer.GetPID()) && IConfig::CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
 		{

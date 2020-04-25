@@ -157,7 +157,6 @@
     <ClInclude Include="ChatCommand.h" />
     <ClInclude Include="CKnight.h" />
     <ClInclude Include="CMage.h" />
-    <ClInclude Include="CThief.h" />
     <ClInclude Include="D4Instance.h" />
     <ClInclude Include="ExecuteSkill.h" />
     <ClInclude Include="FinalDamage.h" />
@@ -181,7 +180,6 @@
     <ClCompile Include="CArcher.cpp" />
     <ClCompile Include="CKnight.cpp" />
     <ClCompile Include="CMage.cpp" />
-    <ClCompile Include="CThief.cpp" />
     <ClCompile Include="ICharacter.cpp" />
     <ClCompile Include="IConfig.cpp" />
     <ClCompile Include="IItem.cpp" />

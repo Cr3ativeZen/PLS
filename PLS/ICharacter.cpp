@@ -1783,6 +1783,35 @@ std::string ICharacter::GetIP()
 	return Check;
 }
 
+
+//OktayDamageArea(Object,(GetAttack()*VABaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*VAAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*VAStrMultiPvP) + (nSkillGrade*VAPerGradeMultiPvP), 50);
+//int nDmg = (GetMagic() * SoulDestructionBaseDmgMultiPvE) + (CChar::GetWis((int)GetOffset()) * SoulDestructionWisMultiPvE) + (ISkill.GetGrade() * SoulDestructionPerGradeMultiPvE);
+
+int ICharacter::GetStrTotal()
+{
+	return CChar::GetStr((int)this->GetOffset());
+}
+
+int ICharacter::GetHealthTotal()
+{
+	return CChar::GetHth((int)this->GetOffset());
+}
+
+int ICharacter::GetIntTotal()
+{
+	return CChar::GetInt((int)this->GetOffset());
+}
+
+int ICharacter::GetWisTotal()
+{
+	return CChar::GetWis((int)this->GetOffset());
+}
+
+int ICharacter::GetAgiTotal()
+{
+	return CChar::GetDex((int)this->GetOffset());
+}
+
 void __fastcall ICharacter::ResetContinueSkill()
 {
 	if (this->IsOnline())
@@ -1853,4 +1882,36 @@ void __fastcall ICharacter::ResetContinueFireStorm()
 		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillDelay = 0;
 		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillGrade = 0;
 	}
+}
+
+int ICharacter::CalculateFormula(int character, int skill_id, int skill_grade, bool is_mob)
+{
+	int value = 0;
+	std::map<std::pair<int, int>, IConfig::SkillFormulas>::iterator skills;
+
+	skills = IConfig::SkillCalc.find({ character,skill_id });
+
+	if (skills == IConfig::SkillCalc.end())//if skill is not found
+		return 0;
+
+	switch (character)
+	{
+	case CLASS_MAGE:
+	{
+		value = skills->second.base_damage + (GetMagic() * skills->second.damageC) + (GetWisTotal() * skills->second.wis) + (GetIntTotal() * skills->second.inte) + (skill_grade * skills->second.damage_per_grade);
+		break;
+	}
+	case CLASS_KNIGHT:
+	case CLASS_ARCHER:
+	{
+		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.wis) + (GetAgiTotal() * skills->second.inte) + (skill_grade * skills->second.damage_per_grade);
+		break;
+	}
+	default:
+		return 0;
+	}
+	if (!is_mob)
+		value *= (skills->second.pvp_reduction/100);
+
+	return value;
 }

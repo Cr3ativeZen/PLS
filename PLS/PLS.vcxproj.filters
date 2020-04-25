@@ -77,9 +77,6 @@
     <ClInclude Include="CMage.h">
       <Filter>Characters</Filter>
     </ClInclude>
-    <ClInclude Include="CThief.h">
-      <Filter>Characters</Filter>
-    </ClInclude>
     <ClInclude Include="Resources.h">
       <Filter>Characters</Filter>
     </ClInclude>
@@ -105,9 +102,6 @@
     </ClCompile>
     <ClCompile Include="IItem.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CThief.cpp">
-      <Filter>Characters</Filter>
     </ClCompile>
     <ClCompile Include="CMage.cpp">
       <Filter>Characters</Filter>

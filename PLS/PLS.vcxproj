@@ -163,6 +163,8 @@
     <ClInclude Include="FinalDamage.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="IConfig.h" />
+    <ClInclude Include="IItem.h" />
+    <ClInclude Include="InstaConfig.h" />
     <ClInclude Include="IQuest.h" />
     <ClInclude Include="ISkill.h" />
     <ClInclude Include="MonsterTick.h" />
@@ -172,6 +174,7 @@
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SendMail.h" />
     <ClInclude Include="ServerFunctions.h" />
+    <ClInclude Include="Summon.h" />
     <ClInclude Include="UpdateProperty.h" />
   </ItemGroup>
   <ItemGroup>

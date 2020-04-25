@@ -170,6 +170,7 @@
     <ClInclude Include="Packet.h" />
     <ClInclude Include="PKKill.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RAII.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="SendMail.h" />
     <ClInclude Include="ServerFunctions.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="ISkill.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PLS.cpp" />
+    <ClCompile Include="RAII.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

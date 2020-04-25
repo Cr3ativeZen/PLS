@@ -12,19 +12,6 @@ void IConfig::LoadSkillFormulas()
 		char line[BUFSIZ];
 		while (fgets(line, sizeof line, filez) != NULL)
 		{
-			//int GetClass = 0, GetSkillID = 0, GetDelay = 0, GetCooldown = 0, GetSkillIDx = 0, GetDelayx = 0, GetCooldownx = 0;
-			//if (sscanf(line, "(eggskill (action %d)(delay %d)(cooldown %d))", &GetSkillIDx, &GetDelayx, &GetCooldownx) == 3)
-			//{
-			//	CheckEggCooldownConfig[GetSkillIDx].EggCooldownConfig = GetCooldownx;
-			//	CheckEggCooldownConfig[GetSkillIDx].EggDelayConfig = GetDelayx;
-			//}
-
-			//if (sscanf(line, "(skill (class %d)(action %d)(delay %d)(cooldown %d))", &GetClass, &GetSkillID, &GetDelay, &GetCooldown) == 4)
-			//{
-			//	CheckCooldownConfig[GetSkillID + (GetClass * 100)].CooldownConfig = GetCooldown;
-			//	CheckCooldownConfig[GetSkillID + (GetClass * 100)].DelayConfig = GetDelay;
-			//}
-
 			int character = 0, skill_id = 0, str = 0, agi = 0, wis = 0, inte = 0, base_damage = 0, damage_per_grade = 0, enabled = 0, pvp_reduction = 0, damageC = 0;
 
 			if (sscanf(line, "(skill_damage (class %d)(skill_id %d)(base_damage %d)(damageC %d)(str %d)(agi %d)(wis %d)(inte %d)(damage_per_grade %d)(pvp_reduction %d)(enabled %d))", &character, &skill_id, &base_damage, &damageC, &str, &agi, &wis, &inte, &damage_per_grade, &pvp_reduction, &enabled) == 11)
@@ -42,9 +29,6 @@ void IConfig::LoadSkillFormulas()
 		}
 		fclose(filez);
 	}
-
-
-
 }
 
 

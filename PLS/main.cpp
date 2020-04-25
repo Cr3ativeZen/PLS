@@ -71,33 +71,6 @@ struct PlayerContinueSkill
 	int PlayerSkillCount;
 };
 
-struct PlayerContinueThunderStorm
-{
-
-	void *PlayerTarget;
-	int PlayerSkillGrade;
-	int PlayerSkillID;
-	DWORD PlayerSkillDelay;
-	int PlayerSkillCount;
-};
-
-struct PlayerContinueIceStorm
-{
-	void *PlayerTarget;
-	int PlayerSkillGrade;
-	int PlayerSkillID;
-	DWORD PlayerSkillDelay;
-	int PlayerSkillCount;
-};
-
-struct PlayerContinueFireStorm
-{
-	void *PlayerTarget;
-	int PlayerSkillGrade;
-	int PlayerSkillID;
-	DWORD PlayerSkillDelay;
-	int PlayerSkillCount;
-};
 
 struct PlayerFarContinueSkill
 {
@@ -121,17 +94,17 @@ struct RuptureContinueSkill
 	void* CasterOffset;
 };
 
-struct ConfigIceArrow
-{
-	DWORD Cooldown;
-	DWORD Delay;
-};
-
-struct ConfigShiny
-{
-	void *Target;
-	DWORD Delay;
-};
+//struct ConfigIceArrow
+//{
+//	DWORD Cooldown;
+//	DWORD Delay;
+//};
+//
+//struct ConfigShiny
+//{
+//	void *Target;
+//	DWORD Delay;
+//};
 
 struct CheckConfigCooldown
 {
@@ -254,9 +227,6 @@ std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
 //std::map<int, PlayerContinueSkill> CheckContinueSkill;
 std::map<int, RuptureContinueSkill> CheckRuptureContinueSkill;
 
-std::map<int, PlayerContinueIceStorm> CheckContinueIceStorm;
-std::map<int, PlayerContinueFireStorm> CheckContinueFireStorm;
-std::map<int, PlayerContinueThunderStorm> CheckContinueThunderStorm;
 
 std::map<int, CheckConfigCooldown> CheckCooldownConfig;
 std::map<int, CheckConfigEggCooldown> CheckEggCooldownConfig;
@@ -264,9 +234,9 @@ std::map<int, CheckConfigEggCooldown> CheckEggCooldownConfig;
 std::map<int, int> CooldownTable;
 std::map<int, int> EggCooldownTable;
 
-std::map<int, ConfigIceArrow> CheckIceArrow;
-std::map<int, ConfigShiny> CheckShiny;
-std::map<int, int> MageMICheck;
+//std::map<int, ConfigIceArrow> CheckIceArrow;
+//std::map<int, ConfigShiny> CheckShiny;
+//std::map<int, int> MageMICheck;
 std::map<int, DWORD> CODelay;
 std::map<int, int>CheckFocus;
 

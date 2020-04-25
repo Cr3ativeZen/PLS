@@ -2,164 +2,164 @@
 //#define LIGHTNINGARROW_H
 //void __fastcall StormActivateShiny(ICharacter IPlayer, ICharacter Target)
 //{
-//	if (Target.IsValid() && IPlayer.IsValid() && CheckShiny.count((int)Target.GetOffset()))
-//	{
-//		if (CheckShiny.find((int)Target.GetOffset())->second.Delay >= GetTickCount())
-//			return;
-//
-//		if (CheckShiny.find((int)Target.GetOffset())->second.Target && Target.IsBuff(307))
-//		{
-//			ICharacter Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
-//			CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 300;
-//
-//			if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
-//			{
-//				if (!IPlayer.IsInRange(Target, 20))
-//					return;
-//
-//				if (!Caster.IsInRange(Target, 300))
-//					return;
-//
-//				int pSkill = Caster.GetSkillPointer(67);
-//
-//				if (pSkill && Target.IsValid())
-//				{
-//					ISkill xSkill((void*)pSkill);
-//					int nSkillGrade = xSkill.GetGrade();
-//					int Around = Target.GetObjectListAround(3);
-//
-//					while (Around)
-//					{
-//						ICharacter Object((void*)*(DWORD*)Around);
-//
-//						if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
-//						{
-//							if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.Offset, 128) && !CChar::IsGState((int)Object.Offset, 128)) {
-//							}
-//							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
-//							}
-//							else {
-//								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);
-//
-//								if (Object.GetType() == 0)
-//									nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAActivationPerGradeMultiPvP);
-//
-//								Caster.OktayDamageArea(Object, nDmg, 67);
-//
-//								if (Object.GetType() == 0 && Caster.GetID() != Object.GetID() && Object.GetID() != IPlayer.GetID())
-//								Object.AddFxToTarget("davi_ef129_05", 1, 0, 0);
-//
-//								if (Object.GetType() == 1)
-//									Object.AddFxToTarget("davi_ef129", 1, 0, 0);
-//							}
-//						}
-//
-//						Around = CBaseList::Pop((void*)Around);
-//					}
-//				}
-//			}
-//			else {
-//				if (Target.IsValid())
-//				{
-//					Target.CancelBuff(307);
-//					CheckShiny[(int)Target.GetOffset()].Target = 0;
-//				}
-//			}
-//		}
-//	}
+	//if (Target.IsValid() && IPlayer.IsValid() && CheckShiny.count((int)Target.GetOffset()))
+	//{
+	//	if (CheckShiny.find((int)Target.GetOffset())->second.Delay >= GetTickCount())
+	//		return;
+
+	//	if (CheckShiny.find((int)Target.GetOffset())->second.Target && Target.IsBuff(307))
+	//	{
+	//		ICharacter Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
+	//		CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 300;
+
+	//		if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
+	//		{
+	//			if (!IPlayer.IsInRange(Target, 20))
+	//				return;
+
+	//			if (!Caster.IsInRange(Target, 300))
+	//				return;
+
+	//			int pSkill = Caster.GetSkillPointer(67);
+
+	//			if (pSkill && Target.IsValid())
+	//			{
+	//				ISkill xSkill((void*)pSkill);
+	//				int nSkillGrade = xSkill.GetGrade();
+	//				int Around = Target.GetObjectListAround(3);
+
+	//				while (Around)
+	//				{
+	//					ICharacter Object((void*)*(DWORD*)Around);
+
+	//					if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
+	//					{
+	//						if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.Offset, 128) && !CChar::IsGState((int)Object.Offset, 128)) {
+	//						}
+	//						else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
+	//						}
+	//						else {
+	//							int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);
+
+	//							if (Object.GetType() == 0)
+	//								nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAActivationPerGradeMultiPvP);
+
+	//							Caster.OktayDamageArea(Object, nDmg, 67);
+
+	//							if (Object.GetType() == 0 && Caster.GetID() != Object.GetID() && Object.GetID() != IPlayer.GetID())
+	//							Object.AddFxToTarget("davi_ef129_05", 1, 0, 0);
+
+	//							if (Object.GetType() == 1)
+	//								Object.AddFxToTarget("davi_ef129", 1, 0, 0);
+	//						}
+	//					}
+
+	//					Around = CBaseList::Pop((void*)Around);
+	//				}
+	//			}
+	//		}
+	//		else {
+	//			if (Target.IsValid())
+	//			{
+	//				Target.CancelBuff(307);
+	//				CheckShiny[(int)Target.GetOffset()].Target = 0;
+	//			}
+	//		}
+	//	}
+	//}
 //}
 //
 //void __fastcall ActivateShiny(ICharacter IPlayer, int pPacket, int pPos)
 //{
-//	int nTargetID = 0; char bType = 0; void *pTarget = 0;
-//	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
-//
-//	if (bType == 0 && nTargetID)
-//		pTarget = CPlayer::FindPlayer(nTargetID);
-//
-//	if (bType == 1 && nTargetID)
-//		pTarget = CMonster::FindMonster(nTargetID);
-//
-//	if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
-//		return;
-//
-//	ICharacter Target(pTarget);
-//
-//	if (pTarget && IPlayer.IsValid() && Target.IsValid() && CheckShiny.count((int)Target.GetOffset()))
-//	{
-//		if (CheckShiny.find((int)Target.GetOffset())->second.Delay >= GetTickCount())
-//		{
-//			CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-//			return;
-//		}
-//
-//		if (CheckShiny.find((int)Target.GetOffset())->second.Target && Target.IsBuff(307))
-//		{
-//			ICharacter Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
-//			CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 500;
-//
-//			if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
-//			{
-//				if (!IPlayer.IsInRange(Target, 20))
-//				{
-//					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-//					return;
-//				}
-//
-//				if (!Caster.IsInRange(Target, 20))
-//				{
-//					CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-//					return;
-//				}
-//
-//				int pSkill = Caster.GetSkillPointer(67);
-//
-//				if (pSkill && Target.IsValid())
-//				{
-//					ISkill xSkill((void*)pSkill);
-//					int nSkillGrade = xSkill.GetGrade();
-//					int Around = Target.GetObjectListAround(3);
-//
-//					while (Around)
-//					{
-//						ICharacter Object((void*)*(DWORD*)Around);
-//
-//						if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
-//						{
-//							if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.Offset, 128) && !CChar::IsGState((int)Object.Offset, 128)) {
-//							}
-//							else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
-//							}
-//							else {
-//								int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);
-//
-//								if (Object.GetType() == 0)
-//									nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAActivationPerGradeMultiPvP);
-//
-//								Caster.OktayDamageArea(Object, nDmg, 67);
-//
-//								if (Object.GetType() == 0 && Caster.GetID() != Object.GetID() && Object.GetID() != IPlayer.GetID())
-//									Object.AddFxToTarget("davi_ef129_05", 1, 0, 0);
-//
-//								if (Object.GetType() == 1)
-//									Object.AddFxToTarget("davi_ef129", 1, 0, 0);
-//							}
-//						}
-//
-//						Around = CBaseList::Pop((void*)Around);
-//					}
-//				}
-//			}
-//			else {
-//				if (Target.IsValid())
-//				{
-//					Target.CancelBuff(307);
-//					CheckShiny[(int)Target.GetOffset()].Target = 0;
-//				}
-//			}
-//		}
-//	}
-//	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+	//int nTargetID = 0; char bType = 0; void *pTarget = 0;
+	//CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+
+	//if (bType == 0 && nTargetID)
+	//	pTarget = CPlayer::FindPlayer(nTargetID);
+
+	//if (bType == 1 && nTargetID)
+	//	pTarget = CMonster::FindMonster(nTargetID);
+
+	//if (bType >= 2 || !pTarget || pTarget == IPlayer.GetOffset())
+	//	return;
+
+	//ICharacter Target(pTarget);
+
+	//if (pTarget && IPlayer.IsValid() && Target.IsValid() && CheckShiny.count((int)Target.GetOffset()))
+	//{
+	//	if (CheckShiny.find((int)Target.GetOffset())->second.Delay >= GetTickCount())
+	//	{
+	//		CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+	//		return;
+	//	}
+
+	//	if (CheckShiny.find((int)Target.GetOffset())->second.Target && Target.IsBuff(307))
+	//	{
+	//		ICharacter Caster(CheckShiny.find((int)Target.GetOffset())->second.Target);
+	//		CheckShiny[(int)Target.GetOffset()].Delay = GetTickCount() + 500;
+
+	//		if (IPlayer.IsValid() && Caster.IsValid() && Target.IsValid())
+	//		{
+	//			if (!IPlayer.IsInRange(Target, 20))
+	//			{
+	//				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+	//				return;
+	//			}
+
+	//			if (!Caster.IsInRange(Target, 20))
+	//			{
+	//				CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+	//				return;
+	//			}
+
+	//			int pSkill = Caster.GetSkillPointer(67);
+
+	//			if (pSkill && Target.IsValid())
+	//			{
+	//				ISkill xSkill((void*)pSkill);
+	//				int nSkillGrade = xSkill.GetGrade();
+	//				int Around = Target.GetObjectListAround(3);
+
+	//				while (Around)
+	//				{
+	//					ICharacter Object((void*)*(DWORD*)Around);
+
+	//					if (Object.IsValid() && Caster.IsValid() && IPlayer.IsValid() && Target.IsValid() && (*(int(__thiscall **)(int, int, DWORD))(*(DWORD *)Caster.GetOffset() + 176))((int)Caster.GetOffset(), (int)Object.GetOffset(), 0))
+	//					{
+	//						if (Target.GetType() == 0 && CChar::IsGState((int)IPlayer.Offset, 128) && !CChar::IsGState((int)Object.Offset, 128)) {
+	//						}
+	//						else if (Target.GetType() == 0 && CChar::IsGState((int)Target.Offset, 256) && Object.GetID() != Target.GetID()) {
+	//						}
+	//						else {
+	//							int nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvE) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvE) + (nSkillGrade*LAActivationPerGradeMultiPvE);
+
+	//							if (Object.GetType() == 0)
+	//								nDmg = (Caster.GetMagic()*LAActivationBaseDmgMultiPvP) + (CChar::GetInt((int)Caster.GetOffset())*LAActivationIntMultiPvP) + (nSkillGrade*LAActivationPerGradeMultiPvP);
+
+	//							Caster.OktayDamageArea(Object, nDmg, 67);
+
+	//							if (Object.GetType() == 0 && Caster.GetID() != Object.GetID() && Object.GetID() != IPlayer.GetID())
+	//								Object.AddFxToTarget("davi_ef129_05", 1, 0, 0);
+
+	//							if (Object.GetType() == 1)
+	//								Object.AddFxToTarget("davi_ef129", 1, 0, 0);
+	//						}
+	//					}
+
+	//					Around = CBaseList::Pop((void*)Around);
+	//				}
+	//			}
+	//		}
+	//		else {
+	//			if (Target.IsValid())
+	//			{
+	//				Target.CancelBuff(307);
+	//				CheckShiny[(int)Target.GetOffset()].Target = 0;
+	//			}
+	//		}
+	//	}
+	//}
+	//CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 //}
 //
 //void __fastcall LightningArrow(ICharacter IPlayer, int pPacket, int pPos)

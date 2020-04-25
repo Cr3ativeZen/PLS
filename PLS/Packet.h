@@ -316,7 +316,8 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
 				{
-					//ActivateShiny(IPlayer, PACKET, pPos);
+					CMage mage((void*)Player);
+					mage.ActivateShiny(PACKET, pPos);
 					// no return here because it still needs to execute the proper skill.
 				}
 
@@ -539,6 +540,64 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						mage.SoulDestruction(PACKET, pPos);
 						return;
 					}
+					case SKILL_MAGE_FIRESTORM:
+					{
+						mage.FireStorm(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_THUNDERSTORM:
+					{
+						mage.ThunderStorm(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_ICESTORM:
+					{
+						mage.IceStorm(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_SUMMONS:
+					{
+						mage.Summons(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_PURIFICATION:
+					{
+						mage.Purification(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_THUNDERBOLT:
+					{
+						mage.Thunderbolt(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_FLAMEINJECTION:
+					{
+						mage.FlameInjection(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_ICICLE:
+					{
+						mage.Icicle();
+						return;
+					}
+					case SKILL_MAGE_FIREBALL:
+					{
+						mage.Fireball(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_ICEARROWPACKET:
+					{
+						mage.IceArrow(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_LIGHTNINGARROW:
+					{
+						mage.LightningArrow(PACKET, pPos);
+						return;
+
+					}
+
+
 					}
 					break;
 				}
@@ -1176,13 +1235,13 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 
 	if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
 	{
-		if (CheckIceArrow.count(IPlayer.GetPID()) && CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
+		if (IConfig::CheckIceArrow.count(IPlayer.GetPID()) && IConfig::CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
 		{
 			IPlayer.SystemMessage("Invalid skill prepare time detected!", TEXTCOLOR_RED);
 			return;
 		}
 
-		if (CheckIceArrow.count(IPlayer.GetPID()) && CheckIceArrow.find(IPlayer.GetPID())->second.Cooldown > GetTickCount())
+		if (IConfig::CheckIceArrow.count(IPlayer.GetPID()) && IConfig::CheckIceArrow.find(IPlayer.GetPID())->second.Cooldown > GetTickCount())
 		{
 			IPlayer.SystemMessage("Invalid skill cooldown time detected!", TEXTCOLOR_RED);
 			return;

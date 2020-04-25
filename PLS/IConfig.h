@@ -6,8 +6,14 @@
 
 class IConfig
 {
-	IConfig();
-	~IConfig();
+	IConfig()
+	{
+
+	}
+	~IConfig()
+	{
+
+	}
 public:
 	static IConfig& GetInstance()
 	{
@@ -96,21 +102,6 @@ public:
 		TEXTCOLOR_PINK = RGB(255, 155, 255),
 	};
 
-
-	struct SkillCalc
-	{
-		int character;
-		int skill_id;
-		int str;
-		int agi;
-		int inte;
-		int wis;
-		int damageC;
-		int base_damage;
-		int per_grade_dmg;
-
-	};
-
 	struct ConfigIceArrow
 	{
 		DWORD Cooldown;
@@ -123,22 +114,24 @@ public:
 		DWORD Delay;
 	};
 
-	struct SkillCalculations
-	{
-
-	};
-
 
 	static std::map<int, ConfigIceArrow> CheckIceArrow;
 	static std::map<int, ConfigShiny> CheckShiny;
 
 	static std::map<int, PlayerContinueSkill> CheckContinueSkill;
+	static std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
+
 	static std::map<int, CallCheck>CallOfEvasionOTP;
 	static std::map<int, CallCheck>CallOfDefense;
-
 	static std::map<int, CallCheck>CallOfPhysicalAttack;
 	static std::map<int, CallCheck>CallOfRecovery;
-	static std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
+
+	static std::map<int, PlayerContinueIceStorm> CheckContinueIceStorm;
+	static std::map<int, PlayerContinueFireStorm> CheckContinueFireStorm;
+	static std::map<int, PlayerContinueThunderStorm> CheckContinueThunderStorm;
+	static std::map<int, int> MageMICheck;
+
+
 	static int AEBaseDmgMultiPvE;
 	static int AEAgiMultiPvE;
 	static int AEStrMultiPvE;

@@ -201,7 +201,6 @@ public:
 
 	void __fastcall ResetContinueSkill();
 	void __fastcall ResetFarContinueSkill();
-	void __fastcall ResetRuptureContinueSkill();
 	void __fastcall ResetContinueIceStorm();
 	void __fastcall ResetContinueThunderStorm();
 	void __fastcall ResetContinueFireStorm();

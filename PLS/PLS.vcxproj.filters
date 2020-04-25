@@ -5,14 +5,316 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ThirdJobSkills">
+      <UniqueIdentifier>{5a6b454f-b96b-4754-8a2b-a627ddcd6933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SecondJobSkills">
+      <UniqueIdentifier>{7f85073a-7954-4611-a9b2-6224a9585f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\FirstJobSkills">
+      <UniqueIdentifier>{4acb6728-29f4-4284-8d57-fcbe0c2cdc0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\EverythingElse">
+      <UniqueIdentifier>{500f673f-63c9-4a38-b961-90ed80ef7d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\EggSkills">
+      <UniqueIdentifier>{b82ad2eb-ba2d-4791-8bc0-2509a40d0739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Nirvana">
+      <UniqueIdentifier>{da1a3e07-bde8-4ecd-8d06-d5bfffc61e0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ThirdJobSkills\Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
     <Filter Include="Characters">
       <UniqueIdentifier>{e4c19218-0f9a-4484-aa6c-14e7ad97b419}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{3b6bca38-e3c4-44f1-af2d-71c43657c2c1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrowExplosion.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowRain.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="CombativeSpirit.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningSlashThief.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ResetContinueSkill.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinBlade.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="VirulentArrow.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="WrathOfHeaven.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowSlash.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinSlash.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordDance.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ProvocationOfBlow.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="TherapeuticTouch.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Icicle.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="FlameInjection.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Thunderbolt.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="IceArrow.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningArrow.h">
+      <Filter>Header Files\ThirdJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinAttack.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ArmorBreaker.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="TwinBladeStrike.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="AnkleAmputate.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="FatalWound.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalBlow.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="SuicidalBlow.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Rupture.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="VitalStrike.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerfulUpwardSlash.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="BrutalAttack.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="HalfSwing.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="LifeAbsorption.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ChainLightning.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ThunderStorm.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="IceStorm.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="FireStorm.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Summons.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ShockWave.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Amnesia.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="BlowUpArrow.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffRemover.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Calls.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Cure.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="FocusShot.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="FlamyArrow.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Heal.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldAttack.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Sacrifice.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="Purification.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="PassiveAttack.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="MuscleSolidation.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningSlash.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="MysteriousArrow.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="TranscendentalBlow.h">
+      <Filter>Header Files\FirstJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="CanAttack.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="ChatCommand.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="D4Instance.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalDamage.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="IItem.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="InstaConfig.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="IQuest.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="ISkill.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterTick.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateProperty.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="PKKill.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerFunctions.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="Summon.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="WhirlwindFeather.h">
+      <Filter>Header Files\EggSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EggThunderbolt.h">
+      <Filter>Header Files\EggSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="RevolveAttack.h">
+      <Filter>Header Files\EggSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="BloodSuction.h">
+      <Filter>Header Files\EggSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="OneHitStrike.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowsoftheMaster.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="MassiveFire.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="SpiritOfTheArrows.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="TheBoomofEarth.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="ThewaveofEarth.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoutOfDefense.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="ShoutOfFightingSpirit.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="Punishment.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="ReleasingTheEnergy.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="Incapacitation.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="Bombing.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="StrikeOfGod.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="DestroyingArmor.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="CriticalStrike.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="CriticalDiffusion.h">
+      <Filter>Header Files\Nirvana</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecuteSkill.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="SoulDestruction.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerfulWideningWound.h">
+      <Filter>Header Files\SecondJobSkills</Filter>
+    </ClInclude>
+    <ClInclude Include="SendMail.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
     <ClInclude Include="CArcher.h">
       <Filter>Characters</Filter>
     </ClInclude>
@@ -33,48 +335,6 @@
     </ClInclude>
     <ClInclude Include="ICharacter.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CanAttack.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ChatCommand.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="D4Instance.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ExecuteSkill.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="FinalDamage.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ISkill.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="IQuest.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterTick.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Packet.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="PKKill.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="SendMail.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerFunctions.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="UpdateProperty.h">
-      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

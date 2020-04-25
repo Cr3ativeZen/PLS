@@ -316,7 +316,8 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
 				{
-					//ActivateShiny(IPlayer, PACKET, pPos);
+					CMage mage((void*)Player);
+					mage.ActivateShiny(PACKET, pPos);
 					// no return here because it still needs to execute the proper skill.
 				}
 
@@ -539,6 +540,64 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						mage.SoulDestruction(PACKET, pPos);
 						return;
 					}
+					case SKILL_MAGE_FIRESTORM:
+					{
+						mage.FireStorm(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_THUNDERSTORM:
+					{
+						mage.ThunderStorm(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_ICESTORM:
+					{
+						mage.IceStorm(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_SUMMONS:
+					{
+						mage.Summons(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_PURIFICATION:
+					{
+						mage.Purification(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_THUNDERBOLT:
+					{
+						mage.Thunderbolt(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_FLAMEINJECTION:
+					{
+						mage.FlameInjection(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_ICICLE:
+					{
+						mage.Icicle();
+						return;
+					}
+					case SKILL_MAGE_FIREBALL:
+					{
+						mage.Fireball(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_ICEARROWPACKET:
+					{
+						mage.IceArrow(PACKET, pPos);
+						return;
+					}
+					case SKILL_MAGE_LIGHTNINGARROW:
+					{
+						mage.LightningArrow(PACKET, pPos);
+						return;
+
+					}
+
+
 					}
 					break;
 				}
@@ -688,39 +747,39 @@ void PacketUseItem(__int32 Player, ICharacter IPlayer, void* pPacket, int pPos)
 			}
 		}
 
-		//if (Itemx.CheckIndex() == /*ScrollItemID*/)
-		//{
-		//	if (!IPlayer.IsBuff(60) && !IPlayer.IsBuff(61) && !IPlayer.IsBuff(62) && !IPlayer.IsBuff(63) && !IPlayer.IsBuff(64) && !IPlayer.IsBuff(51) && !IPlayer.IsBuff(52) && !IPlayer.IsBuff(54) && !IPlayer.IsBuff(56) && !IPlayer.IsBuff(57))
-		//	{
-		//		IPlayer.Buff(60, 7200, 5);
-		//		IPlayer.Buff(61, 7200, 10);
-		//		IPlayer.Buff(62, 7200, 5);
-		//		IPlayer.Buff(63, 7200, 10);
-		//		IPlayer.Buff(64, 7200, 5);
-		//		IPlayer.Buff(51, 7200, 10);
-		//		IPlayer.Buff(52, 7200, 10);
-		//		IPlayer.Buff(54, 7200, 5);
-		//		IPlayer.Buff(56, 7200, 10);
-		//		IPlayer.Buff(57, 7200, 5);
+		if (Itemx.CheckIndex() == ScrollItemID)
+		{
+			if (!IPlayer.IsBuff(60) && !IPlayer.IsBuff(61) && !IPlayer.IsBuff(62) && !IPlayer.IsBuff(63) && !IPlayer.IsBuff(64) && !IPlayer.IsBuff(51) && !IPlayer.IsBuff(52) && !IPlayer.IsBuff(54) && !IPlayer.IsBuff(56) && !IPlayer.IsBuff(57))
+			{
+				IPlayer.Buff(60, 7200, 5);
+				IPlayer.Buff(61, 7200, 10);
+				IPlayer.Buff(62, 7200, 5);
+				IPlayer.Buff(63, 7200, 10);
+				IPlayer.Buff(64, 7200, 5);
+				IPlayer.Buff(51, 7200, 10);
+				IPlayer.Buff(52, 7200, 10);
+				IPlayer.Buff(54, 7200, 5);
+				IPlayer.Buff(56, 7200, 10);
+				IPlayer.Buff(57, 7200, 5);
 
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 60);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 61);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 63);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 64);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 65);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 67);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 68);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 69);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 70);
-		//		IPlayer.RemoveBuffIcon(0, 0, 0, 71);
-		//		IPlayer.SetBuffIcon(7200, 0, 0, ScrollItemIconKey);
-		//	}
-		//	else
-		//	{
-		//		IPlayer.SystemMessage("Your scrolls and potions are still active!", TEXTCOLOR_RED);
-		//		return;
-		//	}
-		//}
+				IPlayer.RemoveBuffIcon(0, 0, 0, 60);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 61);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 63);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 64);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 65);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 67);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 68);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 69);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 70);
+				IPlayer.RemoveBuffIcon(0, 0, 0, 71);
+				IPlayer.SetBuffIcon(7200, 0, 0, ScrollItemIconKey);
+			}
+			else
+			{
+				IPlayer.SystemMessage("Your scrolls and potions are still active!", TEXTCOLOR_RED);
+				return;
+			}
+		}
 
 		if (Itemx.CheckIndex() == InstanceResetScrollID)
 		{
@@ -1165,7 +1224,7 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 
 
 
-	if (IPlayer.GetClass() == 2 && SkillID == 16 /*&& FocusShotON == true*/)
+	if (IPlayer.GetClass() == 2 && SkillID == 16 && FocusShotON == true)
 	{
 		int pSkill = IPlayer.GetSkillPointer(16);
 		if (pSkill)
@@ -1174,15 +1233,15 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 		}
 	}
 
-	if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 /*&& IceArrowON == true*/)
+	if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23 && IceArrowON == true)
 	{
-		if (CheckIceArrow.count(IPlayer.GetPID()) && CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
+		if (IConfig::CheckIceArrow.count(IPlayer.GetPID()) && IConfig::CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
 		{
 			IPlayer.SystemMessage("Invalid skill prepare time detected!", TEXTCOLOR_RED);
 			return;
 		}
 
-		if (CheckIceArrow.count(IPlayer.GetPID()) && CheckIceArrow.find(IPlayer.GetPID())->second.Cooldown > GetTickCount())
+		if (IConfig::CheckIceArrow.count(IPlayer.GetPID()) && IConfig::CheckIceArrow.find(IPlayer.GetPID())->second.Cooldown > GetTickCount())
 		{
 			IPlayer.SystemMessage("Invalid skill cooldown time detected!", TEXTCOLOR_RED);
 			return;
@@ -2221,35 +2280,35 @@ void PacketAnimalUseSkill(ICharacter IPlayer, void* pPacket, int pPos)
 			CooldownCheck = EggCooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
 
 
-		//if (SkillID == 101)
-		//{
-		//	//ActivateShiny(IPlayer, PACKET, pPos);
-		//}
+		if (SkillID == 101)
+		{
+			//ActivateShiny(IPlayer, PACKET, pPos);
+		}
 
-		//if (SkillID == 113 && RevolveAttackON == true)
-		//{
-		//	RevolveAttack(IPlayer);
-		//	return;
-		//}
+		if (SkillID == 113 && RevolveAttackON == true)
+		{
+			RevolveAttack(IPlayer);
+			return;
+		}
 
-		//if (SkillID == 114 && WhirlwindFeatherON == true)
-		//{
-		//	//WhirlwindFeather(IPlayer);
-		//	return;
-		//}
+		if (SkillID == 114 && WhirlwindFeatherON == true)
+		{
+			//WhirlwindFeather(IPlayer);
+			return;
+		}
 
-		//if (SkillID == 115 && BloodSuctionON == true)
-		//{
-		//	//BloodSuction(IPlayer, PACKET, pPos);
-		//	return;
-		//}
+		if (SkillID == 115 && BloodSuctionON == true)
+		{
+			BloodSuction(IPlayer, PACKET, pPos);
+			return;
+		}
 
 
-		//if (SkillID == 116 && EggThunderboltON == true)
-		//{
-		//	//EggThunderbolt(IPlayer);
-		//	return;
-		//}
+		if (SkillID == 116 && EggThunderboltON == true)
+		{
+			//EggThunderbolt(IPlayer);
+			return;
+		}
 	}
 }
 

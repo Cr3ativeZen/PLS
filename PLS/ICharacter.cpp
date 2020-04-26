@@ -10,8 +10,10 @@
 #pragma warning (disable : 4018)
 
 ICharacter::ICharacter(void *Offset)
+	:
+	Offset(Offset)
 {
-	this->Offset = Offset;
+
 }
 
 ICharacter::~ICharacter()
@@ -1837,6 +1839,7 @@ void __fastcall ICharacter::ResetFarContinueSkill()
 {
 	if (IsOnline())
 	{
+
 		IConfig::CheckFarContinueSkill[GetPID()].PlayerTarget = 0;
 		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillID = 0;
 		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillCount = 0;
@@ -1884,17 +1887,17 @@ void __fastcall ICharacter::ResetContinueFireStorm()
 	}
 }
 
-int ICharacter::CalculateFormula(int character, int skill_id, int skill_grade, bool is_mob)
+int ICharacter::CalculateFormula(int skill_id, int skill_grade, bool is_mob)
 {
 	int value = 0;
 	std::map<std::pair<int, int>, IConfig::SkillFormulas>::iterator skills;
 
-	skills = IConfig::SkillCalc.find({ character,skill_id });
+	skills = IConfig::SkillCalc.find({ GetClass(),skill_id });
 
-	if (skills == IConfig::SkillCalc.end())//if skill is not found
+	if (skills == IConfig::SkillCalc.end())                                                             //if skill is not found
 		return 0;
 
-	switch (character)
+	switch (GetClass())
 	{
 	case CLASS_MAGE:
 	{
@@ -1902,6 +1905,14 @@ int ICharacter::CalculateFormula(int character, int skill_id, int skill_grade, b
 		break;
 	}
 	case CLASS_KNIGHT:
+	{
+		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.wis) + (GetAgiTotal() * skills->second.inte) + (skill_grade * skills->second.damage_per_grade);
+		
+		if (skill_id == 17 || skill_id == 38)
+			value = value * ((skills->second.per_deathblow/100) * GetDeathBlow());
+
+		break;
+	}
 	case CLASS_ARCHER:
 	{
 		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.wis) + (GetAgiTotal() * skills->second.inte) + (skill_grade * skills->second.damage_per_grade);
@@ -1910,48 +1921,151 @@ int ICharacter::CalculateFormula(int character, int skill_id, int skill_grade, b
 	default:
 		return 0;
 	}
+
 	if (!is_mob)
 		value *= (skills->second.pvp_reduction/100);
 
 	return value;
 }
 
-void ICharacter::SkillOnTarget(int character, int skill_id, int pPacket, int pPos)
+void ICharacter::SkillOnTargetPrep(int skill_id, int pPacket, int pPos,bool selftarget)
 {
 	ISkill ISkill((void*)GetSkillPointer(skill_id));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() ||ISkill.GetGrade())
 		return;
 
-	bool selftargetable = false;
+
 	int nTargetID = 0;
 	char bType = 0;
 
 	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
 
-	RAII raii(nTargetID, bType);
+	//RAII raii(nTargetID, bType);
 
-	if (!raii.found ||(!selftargetable && raii.pTarget == GetOffset()))
-		return;
+	//if (!raii.found ||(!selftarget && raii.pTarget == GetOffset()))
+	//	return;
 
-	ICharacter Target(raii.pTarget);
+	//ICharacter Target(raii.pTarget);
+
+
+
+	//if (!IsInRange(Target, 20))
+	//	return;
+
+
+	//if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+	//{
+	//	//if damage not found,deal 0 dmg
+	//	//if dot damage not found not execute a debuff
+	//	if (CheckHit(Target, 0))
+	//	{
+	//		Target.Buff(8, 10, 0);
+	//		SetDirection(Target);
+	//		_ShowBattleAnimation(Target, 4);
+	//	}
+	//	else
+	//		_ShowBattleMiss(Target, 4);
+	//}
+
+	//DecreaseMana(ISkill.DecreaseMana());
+
+	
+}
+
+bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target)
+{
+	bool flag = false;
+
+
+	if (!IsInRange(Target, 20))
+		return flag;
 
 
 	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
 	{
-		//if damage not found,deal 0 dmg
-		//if dot damage not found not execute a debuff
-		if (CheckHit(Target, 0))
+		switch (GetClass())
 		{
-			Target.Buff(8, 10, 0);
-			SetDirection(Target);
-			_ShowBattleAnimation(Target, 4);
+			case CLASS_MAGE:
+			{
+				OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
+				_ShowBattleAnimation(Target, ISkill.GetIndex());
+				flag = true;
+				break;
+			}
+			case CLASS_ARCHER:
+			case CLASS_KNIGHT:
+			{
+				if (CheckHit(Target, 0))
+				{
+					OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
+					_ShowBattleAnimation(Target, ISkill.GetIndex());
+					flag = true;
+				}
+				else
+				{
+					_ShowBattleMiss(Target, ISkill.GetIndex());
+				}
+				break;
+			}
+			default:
+				break;
 		}
-		else
-			_ShowBattleMiss(Target, 4);
+
 	}
-
-	DecreaseMana(ISkill.DecreaseMana());
-
-	
+	return flag;
 }
+
+
+
+//ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_POWERFULUPWARDSLASH));
+	//int nSkillGrade = ISkill.GetGrade();
+
+	//if (!nSkillGrade)
+	//	return;
+
+	//int nTargetID = 0; char bType = 0; void* pTarget = 0;
+	//CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+	//int nMana = ISkill.DecreaseMana();
+
+	//if (bType == 0 && nTargetID)
+	//	pTarget = CPlayer::FindPlayer(nTargetID);
+
+	//if (bType == 1 && nTargetID)
+	//	pTarget = CMonster::FindMonster(nTargetID);
+
+
+	//if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
+	//	return;
+
+
+	//ICharacter Target(pTarget);
+
+	//if (!IsInRange(Target, 20))
+	//{
+	//	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
+	//	return;
+	//}
+
+	//if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+	//{
+	//	if (CheckHit(Target, 20))
+	//	{
+	//		//int nDmg = (GetAttack() * PUSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * PUSAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * PUSStrMultiPvE) + (nSkillGrade * PUSPerGradeMultiPvE);
+	//		int nDmg = 5000;
+	//		if (Target.GetType() == 0)
+	//			nDmg = 5000;
+
+	//		OktayDamageSingle(Target, nDmg, 16);
+	//		_ShowBattleAnimation(Target, 16);
+	//		DecreaseMana(nMana);
+	//		AddDeathBlow(1);
+
+	//	}
+	//	else
+	//	{
+	//		_ShowBattleMiss(Target, 16);
+	//		DecreaseMana(nMana);
+	//	}
+	//}
+	//CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);

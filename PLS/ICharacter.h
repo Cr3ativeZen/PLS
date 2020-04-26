@@ -222,12 +222,15 @@ public:
 	void __fastcall ResetContinueIceStorm();
 	void __fastcall ResetContinueThunderStorm();
 	void __fastcall ResetContinueFireStorm();
-	int CalculateFormula(int character,int skill_id, int skill_grade, bool is_mob);
+	int CalculateFormula(int skill_id, int skill_grade, bool is_mob);
 
 	void SkillCheck(int character, int skill_id, int pPacket, int pPos);                      //Checks if target is attackable/buffable.
-	void SkillOnTarget(int character, int skill_id, int pPacket, int pPos);
+	void SkillOnTargetPrep(int skill_id, int pPacket, int pPos,bool selftarget);
 	void SkillNoTarget(int character, int skill_id);
 	//, int additonal_otp, bool damage_over_time, bool always_hit,bool self_cast,bool pve_aoe
+
+
+	bool DamageSingle(ISkill ISkill,ICharacter Target);
 
 };
 #endif

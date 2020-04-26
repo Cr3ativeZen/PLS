@@ -37,10 +37,31 @@ public:
 		int damage_per_grade;
 		int pvp_reduction;
 		bool enabled;
+		int per_deathblow;
 
 	};
 
-	static IConfig CONFIG;
+	struct RawValues
+	{
+		int type;
+		bool is_pve;
+		bool is_pvp;
+		bool is_dot_pve;
+		bool is_dot_pvp;
+		bool is_selfcast;
+		bool is_selfheal;
+
+	};
+
+	struct SkillSetup
+	{
+		int targets_pve;
+		int targets_pvp;
+		int buffID;
+		int buffValue;
+
+	};
+
 
 
 	struct PlayerContinueSkill
@@ -152,6 +173,7 @@ public:
 	static std::map<int, PlayerContinueFireStorm> CheckContinueFireStorm;
 	static std::map<int, PlayerContinueThunderStorm> CheckContinueThunderStorm;
 	static std::map<int, int> MageMICheck;
+	static std::map < std::pair<int, int>, RawValues> sklllconfiguration;
 
 
 	static int AEBaseDmgMultiPvE;

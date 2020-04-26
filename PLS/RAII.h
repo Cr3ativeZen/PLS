@@ -7,7 +7,7 @@ class RAII
 public:
 	RAII(int nTargetID,int bType)
 	:
-	found(true)
+	pTarget(0)
 
 	{
 		switch (bType)
@@ -23,25 +23,21 @@ public:
 				break;
 			}
 		default:
-		{
-			found = false;
-			break;
-		}
+			{
+				break;
+			}
 		}
 
-		if (!pTarget)
-			found = false;
 
 	}
 
 	~RAII()
 	{
-		if(!found)
-			CSkill::ObjectRelease(pTarget, (int)pTarget);
+		if(!pTarget)
+			CSkill::ObjectRelease(pTarget, (int)pTarget + 352);
 	}
 
 	void* pTarget;
-	bool found;
 };
 
 #endif

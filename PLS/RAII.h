@@ -5,11 +5,16 @@
 class RAII
 {
 public:
-	RAII(int nTargetID,int bType)
+	RAII(int pPacket,int pPos)
 	:
 	pTarget(0)
 
 	{
+		int nTargetID = 0;
+		char bType = 0;
+
+		CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+
 		switch (bType)
 		{
 		case TYPE_PLAYER:

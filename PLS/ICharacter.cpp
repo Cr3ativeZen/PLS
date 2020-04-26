@@ -989,7 +989,7 @@ int ICharacter::_ShowBattleMiss(ICharacter Target, int skillID)
 		else if ( !CChar::IsGState((int)this->GetOffset(),128) && !CChar::IsGState((int)this->GetOffset(),1024) && CSMap::IsOnTile(*(void **)((int)this->GetOffset()+ 320), (int)this->GetOffset()+ 332, 131072)  || !CChar::IsGState((int)this->GetOffset(),128) && !CChar::IsGState((int)this->GetOffset(),1024) && *(DWORD*)((int)this->GetOffset() + 28) == Target.GetID() )
 			return 0;
 		else
-			return CChar::WriteInSight(this->GetOffset(), 0x3f, "bddbbwwb", skillID, this->GetID(), Target.GetID(), Target.GetType(), 1, 0, 0, false);
+			return CChar::WriteInSight(this->GetOffset(), 0x3f, "bddbbwwbd", skillID, this->GetID(), Target.GetID(), Target.GetType(), 1, 0, 0, false,0);
 	} else {
 		return 0;
 	}
@@ -1973,99 +1973,147 @@ void ICharacter::SkillOnTargetPrep(int skill_id, int pPacket, int pPos,bool self
 	
 }
 
-bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target)
+bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,bool check_hit)
 {
 	bool flag = false;
 
+	int mana = ISkill.DecreaseMana();
 
 	if (!IsInRange(Target, 20))
 		return flag;
 
 
-	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
+	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
 	{
+
+		if (check_hit&&CheckHit(Target, 0))
+		{
+			OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
+			if (self_anim)
+				_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
+			else
+				_ShowBattleAnimation(Target, ISkill.GetIndex());
+			flag = true;
+		}
+		else if (!check_hit)
+		{
+			OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
+			if (self_anim)
+				_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
+			else
+				_ShowBattleAnimation(Target, ISkill.GetIndex());
+
+			flag = true;
+		}
+		else
+		{
+			_ShowBattleMiss(Target, ISkill.GetIndex());
+		}
+
 		switch (GetClass())
 		{
 			case CLASS_MAGE:
 			{
-				OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
-				_ShowBattleAnimation(Target, ISkill.GetIndex());
-				flag = true;
 				break;
 			}
 			case CLASS_ARCHER:
+			{
+				break;
+			}
 			case CLASS_KNIGHT:
 			{
-				if (CheckHit(Target, 0))
+				switch (ISkill.GetIndex())
 				{
-					OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
-					_ShowBattleAnimation(Target, ISkill.GetIndex());
+					case SKILL_KNIGHT_POWERFULUPWARDSLASH:
+					{
+						if(flag)
+							AddDeathBlow(1);
+						break;
+					}
+					case SKILL_KNIGHT_BRUTALATTACK:
+					{
+						RemoveDeathBlow(GetDeathBlow());
+						break;
+					}
+					case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
+					{
+						if (Target.IsValid() && Target.GetType() == TYPE_MONSTER)
+							CMonsterReal::AddHostility(Target.GetOffset(), (int)GetOffset(), CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex() * 3);
+
+						mana = ISkill.GetGrade() + 30;
+
+						break;
+					}
+					default:
+					{
+						break;
+					}
+				}
+
+				break;
+			}
+			default:
+			{
+				break;
+			}
+		}
+
+	}
+	DecreaseMana(mana);
+
+	return flag;
+}
+
+bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, int mob_amount,bool self_anim,bool check_hit)
+{
+	int count = 0;
+	bool flag = false;
+
+	if (!IsInRange(Target, 20))
+		return flag;
+
+	DamageSingle(ISkill, Target, self_anim,check_hit);
+
+
+	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
+	{
+		while (Around && count < mob_amount)
+		{
+			ICharacter Object((void*)*(DWORD*)Around);
+
+			if (Object.GetOffset() != Target.GetOffset() && Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+			{
+				if (check_hit && CheckHit(Target, 0))
+				{
+					OktayDamageArea(Object, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Object.GetType()), ISkill.GetIndex());
+					flag = true;
+				}
+				else if (!check_hit)
+				{
+					OktayDamageArea(Object, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Object.GetType()), ISkill.GetIndex());
 					flag = true;
 				}
 				else
 				{
 					_ShowBattleMiss(Target, ISkill.GetIndex());
+					flag = true;
 				}
-				break;
 			}
-			default:
-				break;
+
+			Around = CBaseList::Pop((void*)Around);
+			count++;
 		}
-
+		if (self_anim && flag)
+			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
+		else if(flag)
+			_ShowBattleAnimation(Target, ISkill.GetIndex());
 	}
+
+
+	if (ISkill.GetIndex() == SKILL_KNIGHT_HALFSWING && flag)
+		AddDeathBlow(1);
+
 	return flag;
+
+
 }
-
-
-
-//ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_POWERFULUPWARDSLASH));
-	//int nSkillGrade = ISkill.GetGrade();
-
-	//if (!nSkillGrade)
-	//	return;
-
-	//int nTargetID = 0; char bType = 0; void* pTarget = 0;
-	//CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
-	//int nMana = ISkill.DecreaseMana();
-
-	//if (bType == 0 && nTargetID)
-	//	pTarget = CPlayer::FindPlayer(nTargetID);
-
-	//if (bType == 1 && nTargetID)
-	//	pTarget = CMonster::FindMonster(nTargetID);
-
-
-	//if (bType >= 2 || !pTarget || pTarget == GetOffset() || GetCurMp() < nMana)
-	//	return;
-
-
-	//ICharacter Target(pTarget);
-
-	//if (!IsInRange(Target, 20))
-	//{
-	//	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
-	//	return;
-	//}
-
-	//if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
-	//{
-	//	if (CheckHit(Target, 20))
-	//	{
-	//		//int nDmg = (GetAttack() * PUSBaseDmgMultiPvE) + (CChar::GetDex((int)GetOffset()) * PUSAgiMultiPvE) + (CChar::GetStr((int)GetOffset()) * PUSStrMultiPvE) + (nSkillGrade * PUSPerGradeMultiPvE);
-	//		int nDmg = 5000;
-	//		if (Target.GetType() == 0)
-	//			nDmg = 5000;
-
-	//		OktayDamageSingle(Target, nDmg, 16);
-	//		_ShowBattleAnimation(Target, 16);
-	//		DecreaseMana(nMana);
-	//		AddDeathBlow(1);
-
-	//	}
-	//	else
-	//	{
-	//		_ShowBattleMiss(Target, 16);
-	//		DecreaseMana(nMana);
-	//	}
-	//}
-	//CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);

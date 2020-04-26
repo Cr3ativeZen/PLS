@@ -224,13 +224,13 @@ public:
 	void __fastcall ResetContinueFireStorm();
 	int CalculateFormula(int skill_id, int skill_grade, bool is_mob);
 
-	void SkillCheck(int character, int skill_id, int pPacket, int pPos);                      //Checks if target is attackable/buffable.
 	void SkillOnTargetPrep(int skill_id, int pPacket, int pPos,bool selftarget);
 	void SkillNoTarget(int character, int skill_id);
 	//, int additonal_otp, bool damage_over_time, bool always_hit,bool self_cast,bool pve_aoe
 
 
-	bool DamageSingle(ISkill ISkill,ICharacter Target);
+	bool DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,bool check_hit);
+	bool DamageMultiple(ISkill ISkill, ICharacter Target,int Around, int mob_amount, bool self_anim,bool check_hit);
 
 };
 #endif

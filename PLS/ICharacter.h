@@ -22,16 +22,6 @@ public:
 	virtual ~ICharacter();
 
 
-
-	enum Targets
-	{
-		pve_only = 0,
-		pvp_only = 1,
-		pve_pvp = 2,
-
-	};
-
-
 	void *GetOffset();
 	int IsOnline();
 	void Announcement(std::string msg, int color);
@@ -216,21 +206,14 @@ public:
 	int GetWisTotal();
 	int GetAgiTotal();
 
+	std::string Int2String(int value);
 
-	void __fastcall ResetContinueSkill();
-	void __fastcall ResetFarContinueSkill();
-	void __fastcall ResetContinueIceStorm();
-	void __fastcall ResetContinueThunderStorm();
-	void __fastcall ResetContinueFireStorm();
-	int CalculateFormula(int skill_id, int skill_grade, bool is_mob);
-
-	void SkillOnTargetPrep(int skill_id, int pPacket, int pPos,bool selftarget);
-	void SkillNoTarget(int character, int skill_id);
-	//, int additonal_otp, bool damage_over_time, bool always_hit,bool self_cast,bool pve_aoe
-
-
+	int CalculateFormula(ISkill ISkill, ICharacter Target);
+	bool BuffOnSkill(ISkill ISkill,ICharacter Target);
 	bool DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,bool check_hit);
 	bool DamageMultiple(ISkill ISkill, ICharacter Target,int Around, int mob_amount, bool self_anim,bool check_hit);
+
+	void __fastcall ResetFarContinueSkill();
 
 };
 #endif

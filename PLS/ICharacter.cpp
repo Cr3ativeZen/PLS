@@ -157,9 +157,9 @@ void ICharacter::Teleport(int Map, int X, int Y)
 		if (CChar::IsGState((int)this->GetOffset(),2))
 			this->Revive();
 
-		int *GetSetXY = new int[1];
+		int *GetSetXY = new int[2];
 			GetSetXY[0] = X;
-	GetSetXY[1] = Y;
+			GetSetXY[1] = Y;
 		CPlayer::Teleport((int)this->GetOffset(), Map, (int)GetSetXY, 0, 1);
 		delete[] GetSetXY;
 	}
@@ -1814,85 +1814,20 @@ int ICharacter::GetAgiTotal()
 	return CChar::GetDex((int)this->GetOffset());
 }
 
-void __fastcall ICharacter::ResetContinueSkill()
+std::string ICharacter::Int2String(int value)
 {
-	if (this->IsOnline())
-	{
-		if (this->IsValid() && this->IsBuff(300))
-			return;
-
-		if (IConfig::CheckContinueSkill.count(this->GetPID()))
-		{
-			IConfig::CheckContinueSkill[this->GetPID()].PlayerX = 0;
-			IConfig::CheckContinueSkill[this->GetPID()].PlayerY = 0;
-			IConfig::CheckContinueSkill[this->GetPID()].PlayerTarget = 0;
-			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillGrade = 0;
-			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillID = 0;
-			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillDelay = 0;
-			IConfig::CheckContinueSkill[this->GetPID()].PlayerSkillCount = 0;
-			this->CouldntExecuteSkill();
-		}
-	}
+	std::stringstream ss;
+	ss << value;
+	std::string str = ss.str();
+	return str;
 }
 
-void __fastcall ICharacter::ResetFarContinueSkill()
-{
-	if (IsOnline())
-	{
-
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerTarget = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerDamage = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillGrade = 0;
-		IConfig::CheckFarContinueSkill[GetPID()].CasterOffset = 0;
-	}
-}
-
-
-void __fastcall ICharacter::ResetContinueIceStorm()
-{
-	if (IsOnline())
-	{
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerTarget = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckContinueIceStorm[GetPID()].PlayerSkillGrade = 0;
-	}
-}
-
-void __fastcall ICharacter::ResetContinueThunderStorm()
-{
-	if (IsOnline())
-	{
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerTarget = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckContinueThunderStorm[GetPID()].PlayerSkillGrade = 0;
-	}
-}
-
-void __fastcall ICharacter::ResetContinueFireStorm()
-{
-	if (IsOnline())
-	{
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerTarget = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillID = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillCount = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillDelay = 0;
-		IConfig::CheckContinueFireStorm[GetPID()].PlayerSkillGrade = 0;
-	}
-}
-
-int ICharacter::CalculateFormula(int skill_id, int skill_grade, bool is_mob)
+int ICharacter::CalculateFormula(ISkill ISkill,ICharacter Target)
 {
 	int value = 0;
 	std::map<std::pair<int, int>, IConfig::SkillFormulas>::iterator skills;
 
-	skills = IConfig::SkillCalc.find({ GetClass(),skill_id });
+	skills = IConfig::SkillCalc.find({ GetClass(),ISkill.GetIndex() });
 
 	if (skills == IConfig::SkillCalc.end())                                                             //if skill is not found
 		return 0;
@@ -1901,76 +1836,109 @@ int ICharacter::CalculateFormula(int skill_id, int skill_grade, bool is_mob)
 	{
 	case CLASS_MAGE:
 	{
-		value = skills->second.base_damage + (GetMagic() * skills->second.damageC) + (GetWisTotal() * skills->second.wis) + (GetIntTotal() * skills->second.inte) + (skill_grade * skills->second.damage_per_grade);
+		value = skills->second.base_damage + (GetMagic() * skills->second.damageC) + (GetWisTotal() * skills->second.wis) + (GetIntTotal() * skills->second.inte) + (ISkill.GetGrade() * skills->second.damage_per_grade);
 		break;
 	}
 	case CLASS_KNIGHT:
 	{
-		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.wis) + (GetAgiTotal() * skills->second.inte) + (skill_grade * skills->second.damage_per_grade);
+		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.str) + (GetAgiTotal() * skills->second.agi) + (ISkill.GetGrade() * skills->second.damage_per_grade);
 		
-		if (skill_id == 17 || skill_id == 38)
-			value = value * ((skills->second.per_deathblow/100) * GetDeathBlow());
-
+		switch (ISkill.GetIndex())
+		{
+			case SKILL_KNIGHT_BRUTALATTACK:
+			case SKILL_KNIGHT_SPINSLASH:
+			{
+				value = value + (value * skills->second.per_deathblow / 100) * GetDeathBlow();
+				break;
+			}
+		}
 		break;
 	}
 	case CLASS_ARCHER:
 	{
-		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.wis) + (GetAgiTotal() * skills->second.inte) + (skill_grade * skills->second.damage_per_grade);
+		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.wis) + (GetAgiTotal() * skills->second.inte) + (ISkill.GetGrade() * skills->second.damage_per_grade);
+		
+		switch (ISkill.GetIndex())
+		{
+			case SKILL_ARCHER_FOCUSSHOT:
+			{
+				int time = GetTickCount() - IConfig::CheckFocus[GetPID()];
+				if (time > 1000)
+				{
+					if (time >= 2900)
+						value = value * 1;
+					else if (time >= 2600)
+						value = static_cast<int>(value * 0.9);
+					else if (time >= 2300)
+						value = static_cast<int>(value * 0.85);
+					else if (time >= 1700)
+						value = static_cast<int>(value * 0.8);
+					else
+						value = static_cast<int>(value * 0.75);
+				}
+				else
+				{
+					return 0;
+				}
+				break;
+			}
+		}
+
+			
+		
 		break;
 	}
 	default:
 		return 0;
 	}
 
-	if (!is_mob)
-		value *= (skills->second.pvp_reduction/100);
+	if (Target.GetType() == TYPE_PLAYER)
+		value = value - (value * skills->second.pvp_reduction / 100);
 
 	return value;
 }
 
-void ICharacter::SkillOnTargetPrep(int skill_id, int pPacket, int pPos,bool selftarget)
+
+
+bool ICharacter::BuffOnSkill(ISkill ISkill, ICharacter Target)
 {
-	ISkill ISkill((void*)GetSkillPointer(skill_id));
+	int value = 0;
+	std::map<std::pair<int, int>, IConfig::Debuff>::iterator skills;
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() ||ISkill.GetGrade())
-		return;
+	skills = IConfig::DebuffCalc.find({ GetClass(),ISkill.GetIndex() });
 
+	if (skills == IConfig::DebuffCalc.end())                                                             //if skill is not found
+		return false;
 
-	int nTargetID = 0;
-	char bType = 0;
-
-	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
-
-	//RAII raii(nTargetID, bType);
-
-	//if (!raii.found ||(!selftarget && raii.pTarget == GetOffset()))
-	//	return;
-
-	//ICharacter Target(raii.pTarget);
+	value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.str) + (GetAgiTotal() * skills->second.agi) + (ISkill.GetGrade() * skills->second.damage_per_grade);
+	//value = 5000;
+	if (Target.GetType() == TYPE_PLAYER)
+		value = value - (value * skills->second.pvp_reduction / 100);
 
 
+	int duration = ISkill.GetGrade() * skills->second.duration_per_grade + skills->second.duration;
 
-	//if (!IsInRange(Target, 20))
-	//	return;
+	Target.Buff(skills->second.buff_id, duration, value);
 
 
-	//if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 2))
-	//{
-	//	//if damage not found,deal 0 dmg
-	//	//if dot damage not found not execute a debuff
-	//	if (CheckHit(Target, 0))
-	//	{
-	//		Target.Buff(8, 10, 0);
-	//		SetDirection(Target);
-	//		_ShowBattleAnimation(Target, 4);
-	//	}
-	//	else
-	//		_ShowBattleMiss(Target, 4);
-	//}
+	switch (GetClass())
+	{
+	case CLASS_ARCHER:
+		switch (ISkill.GetIndex())
+		{
+			case SKILL_ARCHER_FLAMYARROW:
+			{
+				Target.AddFxToTarget("davi_M564_71", 1, 0, 0);
+				break;
+			}
+			default:
+				break;
+		}
+	default:
+		break;
+	}
 
-	//DecreaseMana(ISkill.DecreaseMana());
-
-	
+	return true;
 }
 
 bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,bool check_hit)
@@ -1988,7 +1956,9 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 
 		if (check_hit&&CheckHit(Target, 0))
 		{
-			OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
+			BuffOnSkill(ISkill, Target);
+
+			OktayDamageSingle(Target, CalculateFormula(ISkill, Target), ISkill.GetIndex());
 			if (self_anim)
 				_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 			else
@@ -1997,7 +1967,8 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 		}
 		else if (!check_hit)
 		{
-			OktayDamageSingle(Target, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex());
+			BuffOnSkill(ISkill, Target);
+			OktayDamageSingle(Target, CalculateFormula(ISkill,Target), ISkill.GetIndex());
 			if (self_anim)
 				_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 			else
@@ -2038,7 +2009,7 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 					case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
 					{
 						if (Target.IsValid() && Target.GetType() == TYPE_MONSTER)
-							CMonsterReal::AddHostility(Target.GetOffset(), (int)GetOffset(), CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Target.GetType()), ISkill.GetIndex() * 3);
+							CMonsterReal::AddHostility(Target.GetOffset(), (int)GetOffset(), CalculateFormula(ISkill, Target), ISkill.GetIndex() * 3);
 
 						mana = ISkill.GetGrade() + 30;
 
@@ -2085,13 +2056,23 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, in
 			{
 				if (check_hit && CheckHit(Target, 0))
 				{
-					OktayDamageArea(Object, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Object.GetType()), ISkill.GetIndex());
+					BuffOnSkill(ISkill, Target);
+					OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());
 					flag = true;
 				}
 				else if (!check_hit)
 				{
-					OktayDamageArea(Object, CalculateFormula(ISkill.GetIndex(), ISkill.GetGrade(), Object.GetType()), ISkill.GetIndex());
-					flag = true;
+					if (ISkill.GetGrade() != SKILL_MAGE_AMNESIA && GetClass() != CLASS_MAGE && Target.GetType() == TYPE_PLAYER)
+					{
+
+					}
+					else
+					{
+						BuffOnSkill(ISkill, Target);
+						OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());
+						flag = true;
+					}
+
 				}
 				else
 				{
@@ -2116,4 +2097,20 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, in
 	return flag;
 
 
+}
+
+
+void __fastcall ICharacter::ResetFarContinueSkill()
+{
+	if (IsOnline())
+	{
+
+		IConfig::CheckFarContinueSkill[GetPID()].PlayerTarget = 0;
+		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillID = 0;
+		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillCount = 0;
+		IConfig::CheckFarContinueSkill[GetPID()].PlayerDamage = 0;
+		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillDelay = 0;
+		IConfig::CheckFarContinueSkill[GetPID()].PlayerSkillGrade = 0;
+		IConfig::CheckFarContinueSkill[GetPID()].CasterOffset = 0;
+	}
 }

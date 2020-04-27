@@ -314,17 +314,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				}
 
-				if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
-				{
-					CMage mage((void*)Player);
-					mage.ActivateShiny(PACKET, pPos);
-					// no return here because it still needs to execute the proper skill.
-				}
-
-
-
-
-
+				//if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
+				//{
+				//	CMage mage((void*)Player);
+				//	mage.ActivateShiny(PACKET, pPos);
+				//	// no return here because it still needs to execute the proper skill.
+				//}
 				switch (IPlayer.GetClass())
 				{
 				case CLASS_KNIGHT:
@@ -332,168 +327,123 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					CKnight knight((void*)Player);
 					switch (SkillID)
 					{
-					case SKILL_KNIGHT_POWERFULUPWARDSLASH:
-					{
-						knight.PowerfulUpwardSlash(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_SPINSLASH:
-					{
-						knight.SpinSlash();
-						return;
-					}
-					case SKILL_KNIGHT_HALFSWING:
-					{
-						knight.HalfSwing(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_BRUTALATTACK:
-					{
-						knight.BrutalAttack(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_LIGHTNINGSLASH:
-					{
-						knight.LightningSlash(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
-					{
-						knight.PowerfulWideningWound(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_PROVOCATIONOFBLOW:
-					{
-						knight.ProvocationOfBlow(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_SACRIFICE:
-					{
-						knight.Sacrifice(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_SHIELDATTACK:
-					{
-						knight.ShieldAttack(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_SHOUTOFDEFENSE:
-					{
-						knight.ShoutOfDefense();
-						return;
-					}
-					case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
-					{
-						knight.ShoutOfFightingSpirit();
-						return;
-					}
-					case SKILL_KNIGHT_THEWAVEOFEARTH:
-					{
-						knight.TheWaveOfEarth();
-						return;
-					}
-					case SKILL_KNIGHT_THEBOOMOFEARTH:
-					{
-						knight.TheBoomOfEarth();
-						return;
-					}
-					case SKILL_KNIGHT_TRANSCENDENTALBLOW:
-					{
-						knight.TranscendentalBlow(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_SWORDDANCE:
-					{
-						knight.SwordDance(PACKET, pPos);
-						return;
-					}
-					case SKILL_KNIGHT_CALLOFEVASION:
-					{
-						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFEVASION);
-						return;
-					}
-					case SKILL_KNIGHT_CALLOFONTARGETPOINT:
-					{
-						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFONTARGETPOINT);
-						return;
-					}
-					case SKILL_KNIGHT_CALLOFPHYSICALATTACK:
-					{
-						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFPHYSICALATTACK);
-						return;
-					}
-					case SKILL_KNIGHT_CALLOFRECOVERY:
-					{
-						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFRECOVERY);
-						return;
-					}
-					case SKILL_KNIGHT_PURGECONDITIONS:
-					{
-						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_PURGECONDITIONS);
-						return;
-					}
-					case SKILL_KNIGHT_HEALASONE:
-					{
-						knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_HEALASONE);
-						return;
-					}
-
-					case SKILL_KNIGHT_CALLOFDEFENSE:
-					{
-						ICharacter Playere((void*)Player);
-
-						void* pSkill = (void*)Playere.GetSkillPointer(SKILL_KNIGHT_CALLOFDEFENSE);
-						if (Playere.IsValid())
+						case SKILL_KNIGHT_POWERFULUPWARDSLASH:
 						{
-							ISkill ISkill(pSkill);
-							int nSkillGrade = ISkill.GetGrade();
-							int Action = 0, Check = 0;
-							Check = (*(int(__thiscall**)(void*, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
+							knight.PowerfulUpwardSlash(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_HALFSWING:
+						{
+							knight.HalfSwing(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_BRUTALATTACK:
+						{
+							knight.BrutalAttack(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_LIGHTNINGSLASH:
+						{
+							knight.LightningSlash(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_SACRIFICE:
+						{
+							knight.Sacrifice(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_TRANSCENDENTALBLOW:
+						{
+							knight.TranscendentalBlow(PACKET, pPos);
+							return;
+						}
+						case SKILL_KNIGHT_CALLOFEVASION:
+						{
+							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFEVASION);
+							return;
+						}
+						case SKILL_KNIGHT_CALLOFONTARGETPOINT:
+						{
+							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFONTARGETPOINT);
+							return;
+						}
+						case SKILL_KNIGHT_CALLOFPHYSICALATTACK:
+						{
+							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFPHYSICALATTACK);
+							return;
+						}
+						case SKILL_KNIGHT_CALLOFRECOVERY:
+						{
+							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFRECOVERY);
+							return;
+						}
+						case SKILL_KNIGHT_PURGECONDITIONS:
+						{
+							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_PURGECONDITIONS);
+							return;
+						}
+						case SKILL_KNIGHT_HEALASONE:
+						{
+							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_HEALASONE);
+							return;
+						}
 
-							if (nSkillGrade && Check && Playere.IsValid())
+						case SKILL_KNIGHT_CALLOFDEFENSE:
+						{
+							ICharacter Playere((void*)Player);
+
+							void* pSkill = (void*)Playere.GetSkillPointer(SKILL_KNIGHT_CALLOFDEFENSE);
+							if (Playere.IsValid())
 							{
-								if (Playere.IsParty())
+								ISkill ISkill(pSkill);
+								int nSkillGrade = ISkill.GetGrade();
+								int Action = 0, Check = 0;
+								Check = (*(int(__thiscall**)(void*, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
+
+								if (nSkillGrade && Check && Playere.IsValid())
 								{
-									void* Party = (void*)CParty::FindParty(Playere.GetPartyID());
-
-									if (Party)
+									if (Playere.IsParty())
 									{
-										for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+										void* Party = (void*)CParty::FindParty(Playere.GetPartyID());
+
+										if (Party)
 										{
-											int Members = *(DWORD*)((void*)i);
-
-											if (CChar::IsNormal(Members) && Playere.IsValid())
+											for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 											{
-												CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
+												int Members = *(DWORD*)((void*)i);
 
-
-												ICharacter Member((void*)Members);
-
-												if (Playere.IsInRange(Member, IConfig::CallRANGE))
+												if (CChar::IsNormal(Members) && Playere.IsValid())
 												{
-													int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
+													CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
 
-													IConfig::CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
-													IConfig::CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
-													IConfig::CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
 
-													(*(void(__thiscall**)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
+													ICharacter Member((void*)Members);
+
+													if (Playere.IsInRange(Member, IConfig::CallRANGE))
+													{
+														int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
+
+														IConfig::CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
+														IConfig::CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
+														IConfig::CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
+
+														(*(void(__thiscall**)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
+													}
 												}
-											}
 
+											}
 										}
 									}
-								}
-								else
-								{
-									CChar::CancelAllBuff(Playere.GetOffset(), 28);
-									(*(void(__thiscall**)(int, int))(*(DWORD*)Player + 180))(Player, Check);
-								}
+									else
+									{
+										CChar::CancelAllBuff(Playere.GetOffset(), 28);
+										(*(void(__thiscall**)(int, int))(*(DWORD*)Player + 180))(Player, Check);
+									}
 
-								Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
+									Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
+								}
 							}
-						}
-						return;
+							return;
 					}
 
 					}
@@ -505,99 +455,33 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					CMage mage((void*)Player);
 					switch (SkillID)
 					{
-					case SKILL_MAGE_CURE:
-					{
-						mage.Cure(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_CURE2:
-					{
-						mage.Cure2(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_CURE3:
-					{
-						mage.Cure3(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_HEAL:
-					{
-						mage.Heal();
-						return;
-					}
-					case SKILL_MAGE_CHAINLIGHTNING:
-					{
-						mage.ChainLightning(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_AMNESIA:
-					{
-						mage.Amnesia(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_SOULDESTRUCTION:
-					{
-						mage.SoulDestruction(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_FIRESTORM:
-					{
-						mage.FireStorm(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_THUNDERSTORM:
-					{
-						mage.ThunderStorm(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_ICESTORM:
-					{
-						mage.IceStorm(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_SUMMONS:
-					{
-						mage.Summons(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_PURIFICATION:
-					{
-						mage.Purification(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_THUNDERBOLT:
-					{
-						mage.Thunderbolt(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_FLAMEINJECTION:
-					{
-						mage.FlameInjection(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_ICICLE:
-					{
-						mage.Icicle();
-						return;
-					}
-					case SKILL_MAGE_FIREBALL:
-					{
-						mage.Fireball(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_ICEARROWPACKET:
-					{
-						mage.IceArrow(PACKET, pPos);
-						return;
-					}
-					case SKILL_MAGE_LIGHTNINGARROW:
-					{
-						mage.LightningArrow(PACKET, pPos);
-						return;
-
-					}
-
-
+						case SKILL_MAGE_CURE:
+						case SKILL_MAGE_CURE2:
+						case SKILL_MAGE_CURE3:
+						{
+							mage.Cure(PACKET, pPos,SkillID);
+							return;
+						}
+						case SKILL_MAGE_HEAL:
+						{
+							mage.Heal();
+							return;
+						}
+						case SKILL_MAGE_AMNESIA:
+						{
+							mage.Amnesia(PACKET, pPos);
+							return;
+						}
+						case SKILL_MAGE_SUMMONS:
+						{
+							mage.Summons(PACKET, pPos);
+							return;
+						}
+						case SKILL_MAGE_PURIFICATION:
+						{
+							mage.Purification(PACKET, pPos);
+							return;
+						}
 					}
 					break;
 				}
@@ -631,35 +515,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						archer.FocusShot(PACKET, pPos);
 						return;
 					}
-					case SKILL_ARCHER_LIFEABSORPTION:
-					{
-						archer.LifeAbsorption(PACKET, pPos);
-						return;
-					}
 					case SKILL_ARCHER_MYSTERIOUSARROW:
 					{
 						archer.MysteriousArrow(PACKET, pPos);
-						return;
-					}
-					case SKILL_ARCHER_ARROWEXPLOSION:
-					{
-						archer.ArrowExplosion(PACKET, pPos);
-						return;
-					}
-
-					case SKILL_ARCHER_ARROWRAIN:
-					{
-						archer.ArrowRain(PACKET, pPos);
-						return;
-					}
-					case SKILL_ARCHER_VIRULENTARROW:
-					{
-						archer.VirulentArrow(PACKET, pPos);
-						return;
-					}
-					case SKILL_ARCHER_COMBATIVESPIRIT:
-					{
-						archer.CombativeSpirit(PACKET, pPos);
 						return;
 					}
 					}
@@ -1229,371 +1087,350 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 		int pSkill = IPlayer.GetSkillPointer(16);
 		if (pSkill)
 		{
-			CheckFocus[IPlayer.GetPID()] = GetTickCount();
+			IConfig::CheckFocus[IPlayer.GetPID()] = GetTickCount();
 		}
 	}
-
-	if (IPlayer.GetClass() == 1 && SkillID == 74 && IPlayer.GetSpecialty() == 23/* && IceArrowON == true*/)
-	{
-		if (IConfig::CheckIceArrow.count(IPlayer.GetPID()) && IConfig::CheckIceArrow.find(IPlayer.GetPID())->second.Delay > GetTickCount())
-		{
-			IPlayer.SystemMessage("Invalid skill prepare time detected!", TEXTCOLOR_RED);
-			return;
-		}
-
-		if (IConfig::CheckIceArrow.count(IPlayer.GetPID()) && IConfig::CheckIceArrow.find(IPlayer.GetPID())->second.Cooldown > GetTickCount())
-		{
-			IPlayer.SystemMessage("Invalid skill cooldown time detected!", TEXTCOLOR_RED);
-			return;
-		}
-	}
-
 
 }
 void PacketUseSkill(__int32 Player,ICharacter IPlayer, void* pPacket, int pPos)
 {
-	int SkillID = 0;
-	int PACKET = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
-	int pSkill = IPlayer.GetSkillPointer(SkillID);
-	bool check = false;
+	//int SkillID = 0;
+	//int PACKET = CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID);
+	//int pSkill = IPlayer.GetSkillPointer(SkillID);
+	//bool check = false;
 
-	IPlayer.Buff(313, 3, 0);
-	DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
+	//IPlayer.Buff(313, 3, 0);
+	//DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 
-	if (IPlayer.IsValid() && IPlayer.IsBuff(349))
-	{
-		IPlayer.DisableRiding();
-		return;
-	}
+	//if (IPlayer.IsValid() && IPlayer.IsBuff(349))
+	//{
+	//	IPlayer.DisableRiding();
+	//	return;
+	//}
 
-	if (Logs == true)
-	{
-		time_t now = time(0);
+	//if (Logs == true)
+	//{
+	//	time_t now = time(0);
 
-		char* dt = ctime(&now);
+	//	char* dt = ctime(&now);
 
-		std::string to_file = "------|Name: ";
-		to_file += IPlayer.GetName();
-		to_file += "------|Class: ";
-		to_file += Int2String(IPlayer.GetClass());
-		to_file += "------ | SkillID: ";
-		to_file += Int2String(SkillID) + " ";
-		to_file += dt;
-		WritePacketToFile(IPlayer, SkillLogs, to_file);
+	//	std::string to_file = "------|Name: ";
+	//	to_file += IPlayer.GetName();
+	//	to_file += "------|Class: ";
+	//	to_file += Int2String(IPlayer.GetClass());
+	//	to_file += "------ | SkillID: ";
+	//	to_file += Int2String(SkillID) + " ";
+	//	to_file += dt;
+	//	WritePacketToFile(IPlayer, SkillLogs, to_file);
 
-		if (CastProtection[IPlayer.GetPID()].animation_check == false && !(SkillID >= 88 && SkillID <= 94))
-		{
-			switch (IPlayer.GetClass())
-			{
-			case 0:
-			{
-				itt = std::find(Kn8WhiteListSkills.begin(), Kn8WhiteListSkills.end(), SkillID);
-				if (itt != Kn8WhiteListSkills.end())
-				{
+	//	if (CastProtection[IPlayer.GetPID()].animation_check == false && !(SkillID >= 88 && SkillID <= 94))
+	//	{
+	//		switch (IPlayer.GetClass())
+	//		{
+	//		case 0:
+	//		{
+	//			itt = std::find(Kn8WhiteListSkills.begin(), Kn8WhiteListSkills.end(), SkillID);
+	//			if (itt != Kn8WhiteListSkills.end())
+	//			{
 
-					check = true;
-				}
-				break;
+	//				check = true;
+	//			}
+	//			break;
 
-			}
-			case 1:
-			{
-				itt = std::find(MageWhiteListSkills.begin(), MageWhiteListSkills.end(), SkillID);
-				if (itt != MageWhiteListSkills.end())
-				{
+	//		}
+	//		case 1:
+	//		{
+	//			itt = std::find(MageWhiteListSkills.begin(), MageWhiteListSkills.end(), SkillID);
+	//			if (itt != MageWhiteListSkills.end())
+	//			{
 
-					check = true;
-				}
-				break;
+	//				check = true;
+	//			}
+	//			break;
 
-			}
-			case 2:
-			{
-				itt = std::find(ArcherWhiteListSkills.begin(), ArcherWhiteListSkills.end(), SkillID);
-				if (itt != ArcherWhiteListSkills.end())
-				{
+	//		}
+	//		case 2:
+	//		{
+	//			itt = std::find(ArcherWhiteListSkills.begin(), ArcherWhiteListSkills.end(), SkillID);
+	//			if (itt != ArcherWhiteListSkills.end())
+	//			{
 
-					check = true;
-				}
-				break;
+	//				check = true;
+	//			}
+	//			break;
 
-			}
-			default:
-				break;
-			}
+	//		}
+	//		default:
+	//			break;
+	//		}
 
-			if (check == false && IPlayer.GetClass() != 3 && SkillID != 1 && SkillID != 0)
-			{
-				IPlayer.SystemMessage("Hax Detected!", TEXTCOLOR_RED);
-				WritePacketToFile(IPlayer, SkillHacks, to_file);
-				IPlayer.Kick();
+	//		if (check == false && IPlayer.GetClass() != 3 && SkillID != 1 && SkillID != 0)
+	//		{
+	//			IPlayer.SystemMessage("Hax Detected!", TEXTCOLOR_RED);
+	//			WritePacketToFile(IPlayer, SkillHacks, to_file);
+	//			IPlayer.Kick();
 
-			}
-		}
-	}
+	//		}
+	//	}
+	//}
 
-	if (CastProtection[IPlayer.GetPID()].animation_check == true)
-	{
-		CastProtection[IPlayer.GetPID()].animation_check = false;
-		CastProtection[IPlayer.GetPID()].SkillID = 0;
-	}
+	//if (CastProtection[IPlayer.GetPID()].animation_check == true)
+	//{
+	//	CastProtection[IPlayer.GetPID()].animation_check = false;
+	//	CastProtection[IPlayer.GetPID()].SkillID = 0;
+	//}
 
-	if (SkillID == 74 && IPlayer.GetClass() == 1)
-	{
-		SkillID = 99;
-	}
+	//if (SkillID == 74 && IPlayer.GetClass() == 1)
+	//{
+	//	SkillID = 99;
+	//}
 
-	if (SkillID == 6 && IPlayer.GetClass() == 3 && IPlayer.IsBuff(329))
-	{
-		IPlayer.CancelBuff(329);
-		IPlayer.CancelBuff(40);
-		return;
-	}
+	//if (SkillID == 6 && IPlayer.GetClass() == 3 && IPlayer.IsBuff(329))
+	//{
+	//	IPlayer.CancelBuff(329);
+	//	IPlayer.CancelBuff(40);
+	//	return;
+	//}
 
-	if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
-	{
-		CdTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.CooldownConfig;
-		DelayTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.DelayConfig;
-	}
-
-
-	if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
-		CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
+	//if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
+	//{
+	//	CdTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.CooldownConfig;
+	//	DelayTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.DelayConfig;
+	//}
 
 
-	if ((IPlayer.IsBuff(5605) && (SkillID == 99 || SkillID == 74)))
-	{
-
-	}
-	else if (CooldownCheck > GetTickCount())
-	{
-
-		IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
-		return;
-
-	}
-	else
-	{
-		CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
-	}
+	//if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
+	//	CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
 
 
+	//if ((IPlayer.IsBuff(5605) && (SkillID == 99 || SkillID == 74)))
+	//{
 
+	//}
+	//else if (CooldownCheck > GetTickCount())
+	//{
 
-	if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
-	{
-		if (IPlayer.GetClass() == 1 && IPlayer.GetMap() == 21 && (SkillID == 43 || SkillID == 45 || SkillID == 48))
-			return;
+	//	IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
+	//	return;
 
-	}
-
-	if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
-	{
-		//ActivateShiny(IPlayer, PACKET, pPos);
-		// no return here because it still needs to execute the proper skill.
-	}
+	//}
+	//else
+	//{
+	//	CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
+	//}
 
 
 
 
+	//if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
+	//{
+	//	if (IPlayer.GetClass() == 1 && IPlayer.GetMap() == 21 && (SkillID == 43 || SkillID == 45 || SkillID == 48))
+	//		return;
 
-	switch (IPlayer.GetClass())
-	{
-	case CLASS_KNIGHT:
-	{
-		CKnight knight((void*)Player);
-		switch (SkillID)
-		{
-			case SKILL_KNIGHT_POWERFULUPWARDSLASH:
-			{
-				knight.PowerfulUpwardSlash(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_SPINSLASH:
-			{
-				knight.SpinSlash();
-				return;
-			}
-			case SKILL_KNIGHT_HALFSWING:
-			{
-				knight.HalfSwing(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_BRUTALATTACK:
-			{
-				knight.BrutalAttack(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_LIGHTNINGSLASH:
-			{
-				knight.LightningSlash(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
-			{
-				knight.PowerfulWideningWound(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_PROVOCATIONOFBLOW:
-			{
-				knight.ProvocationOfBlow(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_SACRIFICE:
-			{
-				knight.Sacrifice(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_SHIELDATTACK:
-			{
-				knight.ShieldAttack(PACKET, pPos);
-				return;
-			}
-			case SKILL_KNIGHT_SHOUTOFDEFENSE:
-			{
-				knight.ShoutOfDefense();
-				return;
-			}
-			case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
-			{
-				knight.ShoutOfFightingSpirit();
-				return;
-			}
-			case SKILL_KNIGHT_THEWAVEOFEARTH:
-			{
-				knight.TheWaveOfEarth();
-				return;
-			}
-			case SKILL_KNIGHT_THEBOOMOFEARTH:
-			{
-				knight.TheBoomOfEarth();
-				return;
-			}
-			case SKILL_KNIGHT_TRANSCENDENTALBLOW:
-			{
-				knight.TranscendentalBlow(PACKET, pPos);
-				return;
-			}
-			
-		}
-	break;
-	}
+	//}
 
-	case CLASS_MAGE:
-	{
-		CMage mage((void*)Player);
-		switch (SkillID)
-		{
-		case SKILL_MAGE_CURE:
-		{
-			mage.Cure(PACKET, pPos);
-			return;
-		}
-		case SKILL_MAGE_CURE2:
-		{
-			mage.Cure2(PACKET, pPos);
-			return;
-		}
-		case SKILL_MAGE_CURE3:
-		{
-			mage.Cure3(PACKET, pPos);
-			return;
-		}
-		case SKILL_MAGE_HEAL:
-		{
-			mage.Heal();
-			return;
-		}
-		case SKILL_MAGE_CHAINLIGHTNING:
-		{
-			mage.ChainLightning(PACKET, pPos);
-			return;
-		}
-		case SKILL_MAGE_AMNESIA:
-		{
-			mage.Amnesia(PACKET, pPos);
-			return;
-		}
-		case SKILL_MAGE_SOULDESTRUCTION:
-		{
-			mage.SoulDestruction(PACKET, pPos);
-			return;
-		}
-		}
-		break;
-	}
-	case CLASS_ARCHER:
-	{
-		CArcher archer((void*)Player);
-		switch (SkillID)
-		{
-		case SKILL_ARCHER_BLOWUPARROW:
-		{
-			archer.BlowUpArrow(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_FLAMYARROW:
-		{
-			archer.FlamyArrow(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_MUSCLESOLIDATION:
-		{
-			archer.MuscleSolidation();
-			return;
-		}
-		case SKILL_ARCHER_PASSIVEATTACK:
-		{
-			archer.PassiveAttack(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_FOCUSSHOT:
-		{
-			archer.FocusShot(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_LIFEABSORPTION:
-		{
-			archer.LifeAbsorption(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_MYSTERIOUSARROW:
-		{
-			archer.MysteriousArrow(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_ARROWEXPLOSION:
-		{
-			archer.ArrowExplosion(PACKET, pPos);
-			return;
-		}
+	//if (IPlayer.IsValid() && IPlayer.GetClass() == 1 && IPlayer.GetMap() != 21 && (SkillID == 4 || SkillID == 9 || SkillID == 23 || SkillID == 31 || SkillID == 42 || SkillID == 75))
+	//{
+	//	//ActivateShiny(IPlayer, PACKET, pPos);
+	//	// no return here because it still needs to execute the proper skill.
+	//}
 
-		case SKILL_ARCHER_ARROWRAIN:
-		{
-			archer.ArrowRain(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_VIRULENTARROW:
-		{
-			archer.VirulentArrow(PACKET, pPos);
-			return;
-		}
-		case SKILL_ARCHER_COMBATIVESPIRIT:
-		{
-			archer.CombativeSpirit(PACKET, pPos);
-			return;
-		}
-		}
 
-		break;
-	}
-	case CLASS_THIEF:
-	{
-		break;
-	}
-	default:
-		break;
-	}
+
+
+
+	//switch (IPlayer.GetClass())
+	//{
+	//case CLASS_KNIGHT:
+	//{
+	//	CKnight knight((void*)Player);
+	//	switch (SkillID)
+	//	{
+	//		case SKILL_KNIGHT_POWERFULUPWARDSLASH:
+	//		{
+	//			knight.PowerfulUpwardSlash(PACKET, pPos);
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_SPINSLASH:
+	//		{
+	//			knight.SpinSlash();
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_HALFSWING:
+	//		{
+	//			knight.HalfSwing(PACKET, pPos);
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_BRUTALATTACK:
+	//		{
+	//			knight.BrutalAttack(PACKET, pPos);
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_LIGHTNINGSLASH:
+	//		{
+	//			knight.LightningSlash(PACKET, pPos);
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
+	//		{
+	//			knight.PowerfulWideningWound(PACKET, pPos);
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_PROVOCATIONOFBLOW:
+	//		{
+	//			knight.ProvocationOfBlow(PACKET, pPos);
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_SACRIFICE:
+	//		{
+	//			knight.Sacrifice(PACKET, pPos);
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_SHOUTOFDEFENSE:
+	//		{
+	//			knight.ShoutOfDefense();
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_SHOUTOFFIGHTINGSPIRIT:
+	//		{
+	//			knight.ShoutOfFightingSpirit();
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_THEWAVEOFEARTH:
+	//		{
+	//			knight.TheWaveOfEarth();
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_THEBOOMOFEARTH:
+	//		{
+	//			knight.TheBoomOfEarth();
+	//			return;
+	//		}
+	//		case SKILL_KNIGHT_TRANSCENDENTALBLOW:
+	//		{
+	//			knight.TranscendentalBlow(PACKET, pPos);
+	//			return;
+	//		}
+	//		
+	//	}
+	//break;
+	//}
+
+	//case CLASS_MAGE:
+	//{
+	//	CMage mage((void*)Player);
+	//	switch (SkillID)
+	//	{
+	//	case SKILL_MAGE_CURE:
+	//	{
+	//		mage.Cure(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_MAGE_CURE2:
+	//	{
+	//		mage.Cure2(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_MAGE_CURE3:
+	//	{
+	//		mage.Cure3(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_MAGE_HEAL:
+	//	{
+	//		mage.Heal();
+	//		return;
+	//	}
+	//	case SKILL_MAGE_CHAINLIGHTNING:
+	//	{
+	//		mage.ChainLightning(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_MAGE_AMNESIA:
+	//	{
+	//		mage.Amnesia(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_MAGE_SOULDESTRUCTION:
+	//	{
+	//		mage.SoulDestruction(PACKET, pPos);
+	//		return;
+	//	}
+	//	}
+	//	break;
+	//}
+	//case CLASS_ARCHER:
+	//{
+	//	CArcher archer((void*)Player);
+	//	switch (SkillID)
+	//	{
+	//	case SKILL_ARCHER_BLOWUPARROW:
+	//	{
+	//		archer.BlowUpArrow(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_FLAMYARROW:
+	//	{
+	//		archer.FlamyArrow(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_MUSCLESOLIDATION:
+	//	{
+	//		archer.MuscleSolidation();
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_PASSIVEATTACK:
+	//	{
+	//		archer.PassiveAttack(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_FOCUSSHOT:
+	//	{
+	//		archer.FocusShot(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_LIFEABSORPTION:
+	//	{
+	//		archer.LifeAbsorption(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_MYSTERIOUSARROW:
+	//	{
+	//		archer.MysteriousArrow(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_ARROWEXPLOSION:
+	//	{
+	//		archer.ArrowExplosion(PACKET, pPos);
+	//		return;
+	//	}
+
+	//	case SKILL_ARCHER_ARROWRAIN:
+	//	{
+	//		archer.ArrowRain(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_VIRULENTARROW:
+	//	{
+	//		archer.VirulentArrow(PACKET, pPos);
+	//		return;
+	//	}
+	//	case SKILL_ARCHER_COMBATIVESPIRIT:
+	//	{
+	//		archer.CombativeSpirit(PACKET, pPos);
+	//		return;
+	//	}
+	//	}
+
+	//	break;
+	//}
+	//case CLASS_THIEF:
+	//{
+	//	break;
+	//}
+	//default:
+	//	break;
+	//}
 
 	////Knight Skills
 

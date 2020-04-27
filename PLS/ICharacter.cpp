@@ -1907,7 +1907,7 @@ bool ICharacter::BuffOnSkill(ISkill ISkill, ICharacter Target)
 
 	skills = IConfig::DebuffCalc.find({ GetClass(),ISkill.GetIndex() });
 
-	if (skills == IConfig::DebuffCalc.end())                                                             //if skill is not found
+	if (skills == IConfig::DebuffCalc.end())
 		return false;
 
 	value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.str) + (GetAgiTotal() * skills->second.agi) + (ISkill.GetGrade() * skills->second.damage_per_grade);
@@ -1929,6 +1929,7 @@ bool ICharacter::BuffOnSkill(ISkill ISkill, ICharacter Target)
 			case SKILL_ARCHER_FLAMYARROW:
 			{
 				Target.AddFxToTarget("davi_M564_71", 1, 0, 0);
+				Target.Buff(29, duration, value);
 				break;
 			}
 			default:
@@ -2006,15 +2007,6 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 						RemoveDeathBlow(GetDeathBlow());
 						break;
 					}
-					case SKILL_KNIGHT_POWERFULWIDENINGWOUND:
-					{
-						if (Target.IsValid() && Target.GetType() == TYPE_MONSTER)
-							CMonsterReal::AddHostility(Target.GetOffset(), (int)GetOffset(), CalculateFormula(ISkill, Target), ISkill.GetIndex() * 3);
-
-						mana = ISkill.GetGrade() + 30;
-
-						break;
-					}
 					default:
 					{
 						break;
@@ -2079,10 +2071,11 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, in
 					_ShowBattleMiss(Target, ISkill.GetIndex());
 					flag = true;
 				}
+				count++;
 			}
 
 			Around = CBaseList::Pop((void*)Around);
-			count++;
+
 		}
 		if (self_anim && flag)
 			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());

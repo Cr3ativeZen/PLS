@@ -19,7 +19,7 @@ void __fastcall CArcher::BlowUpArrow(int pPacket, int pPos)
 		DamageSingle(ISkill, Target, false, true);
 	else if (Target.GetType() == TYPE_MONSTER)
 	{
-		int Around = Target.GetObjectListAround(2);
+		int Around = Target.GetObjectListAround(1);
 		DamageMultiple(ISkill, Target, Around, 1, false, true);
 	}
 

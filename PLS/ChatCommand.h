@@ -68,7 +68,8 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	if (IPlayer.IsOnline() && cmd.substr(0, 10) == "/zenconfig" && IPlayer.GetAdmin() >= 8)
 	{
 		IPlayer.SystemMessage("Zen skill config reloaded successfully", TEXTCOLOR_GREEN);
-		ZenConfig();
+		//ZenConfig();
+		CONFIG.LoadSkillFormulas();
 	}
 
 	if (IPlayer.IsOnline() && cmd.substr(0, 11) == "/riftconfig" && IPlayer.GetAdmin() >= 8)

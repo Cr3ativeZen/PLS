@@ -188,7 +188,6 @@
     <ClCompile Include="ISkill.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PLS.cpp" />
-    <ClCompile Include="RAII.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

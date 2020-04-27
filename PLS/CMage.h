@@ -22,53 +22,16 @@ public:
 	}
 	//1st job skills
 
-	void __fastcall Cure(int pPacket, int pPos);
+	void __fastcall Cure(int pPacket, int pPos,int skill_id);
 	void __fastcall Heal();
-	void __fastcall Cure2(int pPacket, int pPos);
 	void __fastcall ShockWave(int pPacket, int pPos);
 
 
 	//2nd job CJB skills
-	void __fastcall Cure3(int pPacket, int pPos);
 	void __fastcall Amnesia(int pPacket, int pPos);
 	void __fastcall Purification(int pPacket, int pPos);
 	void __fastcall Summons(int pPacket, int pPos);
 
-
-	//2nd job Hermit skills
-
-	void __fastcall ChainLightning(int pPacket, int pPos);
-	void __fastcall SoulDestruction(int pPacket, int pPos);
-	void __fastcall ContinueFireStorm();
-	void __fastcall FireStorm(int pPacket, int pPos);
-	void __fastcall ContinueThunderStorm();
-	void __fastcall ThunderStorm(int pPacket, int pPos);
-	void __fastcall ContinueIceStorm();
-	void __fastcall IceStorm(int pPacket, int pPos);
-
-
-	//3rd job ascetic
-	void __fastcall Fireball(int pPacket, int pPos);
-
-	void __fastcall ContinueFlameInjection();
-	void __fastcall FlameInjection(int pPacket, int pPos);
-
-	void __fastcall ContinueIcicle();
-	void __fastcall Icicle();
-
-	void __fastcall Thunderbolt(int pPacket, int pPos);
-
-	void __fastcall StormActivateShiny(ICharacter Target);
-	void __fastcall ActivateShiny(int pPacket, int pPos);
-	void __fastcall LightningArrow(int pPacket, int pPos);
-	int __cdecl CMonsterMagicCreate(int Index, int Value, int Argument, int Arg, int Player, int Damage, int Time);
-	int __fastcall MagicTick(void* Monster, void* edx);
-
-	void __fastcall IceArrow(int pPacket, int pPos);
-
-
-	//3rd job MA
-	void __fastcall TherapeuticTouch(int pPacket, int pPos);
 
 
 };

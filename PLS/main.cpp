@@ -18,8 +18,6 @@
 #include <set>
 
 
- 
-
 std::string Int2String(int value)
 {
 	std::stringstream ss;
@@ -27,8 +25,6 @@ std::string Int2String(int value)
 	std::string str = ss.str();
 	return str;
 }
-
- 
 
 int String2Int(std::string String)
 {
@@ -206,7 +202,7 @@ std::map<int, int> CooldownTable;
 std::map<int, int> EggCooldownTable;
 
 std::map<int, DWORD> CODelay;
-std::map<int, int>CheckFocus;
+//std::map<int, int>CheckFocus;
 
 
 bool TradeSystemON = 0;
@@ -399,7 +395,7 @@ namespace Mautareta
 #include "IConfig.h"
 
 
-IConfig CONFIG = IConfig::GetInstance();
+
 
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {

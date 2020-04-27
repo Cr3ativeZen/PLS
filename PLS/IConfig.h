@@ -3,7 +3,7 @@
 
 #include <windows.h>
 #include <map>
-
+#include <string>
 
 //IConfig is a Singleton used for loading necessary variables from config files.
 class IConfig
@@ -37,21 +37,38 @@ public:
 		int damage_per_grade;
 		int pvp_reduction;
 		bool enabled;
+		int per_deathblow;
 
 	};
 
-	static IConfig CONFIG;
-
-
-	struct PlayerContinueSkill
+	struct Debuff
 	{
-		int PlayerX;
-		int PlayerY;
-		void* PlayerTarget;
-		int PlayerSkillGrade;
-		int PlayerSkillID;
-		DWORD PlayerSkillDelay;
-		int PlayerSkillCount;
+		int damageC;
+		int character;
+		int skill_id;
+		int buff_id;
+		int str;
+		int agi;
+		int wis;
+		int inte;
+		int base_damage;
+		int damage_per_grade;
+		int pvp_reduction;
+		int duration;
+		int duration_per_grade;
+		bool enabled;
+	};
+
+	struct Heals
+	{
+		int character;
+		int skill_id;
+		int wis;
+		int cast_max_hp_percent;
+		int target_max_hp_percent;
+		int base_heal;
+		int cast_heal_per_grade_percent;
+		int target_heal_per_grade_percent;
 	};
 
 	struct CallCheck
@@ -71,34 +88,6 @@ public:
 		int PlayerSkillCount;
 		int PlayerDamage;
 		void* CasterOffset;
-	};
-
-	struct PlayerContinueThunderStorm
-	{
-
-		void* PlayerTarget;
-		int PlayerSkillGrade;
-		int PlayerSkillID;
-		DWORD PlayerSkillDelay;
-		int PlayerSkillCount;
-	};
-
-	struct PlayerContinueIceStorm
-	{
-		void* PlayerTarget;
-		int PlayerSkillGrade;
-		int PlayerSkillID;
-		DWORD PlayerSkillDelay;
-		int PlayerSkillCount;
-	};
-
-	struct PlayerContinueFireStorm
-	{
-		void* PlayerTarget;
-		int PlayerSkillGrade;
-		int PlayerSkillID;
-		DWORD PlayerSkillDelay;
-		int PlayerSkillCount;
 	};
 
 	enum TextColor
@@ -121,54 +110,21 @@ public:
 		TEXTCOLOR_PINK = RGB(255, 155, 255),
 	};
 
-	struct ConfigIceArrow
-	{
-		DWORD Cooldown;
-		DWORD Delay;
-	};
-
-	struct ConfigShiny
-	{
-		void* Target;
-		DWORD Delay;
-	};
-
-
-	static std::map<int, ConfigIceArrow> CheckIceArrow;
-	static std::map<int, ConfigShiny> CheckShiny;
-
-
-	static std::map<std::pair<int, int>, SkillFormulas> SkillCalc;
-
-	static std::map<int, PlayerContinueSkill> CheckContinueSkill;
-	static std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
+	static int CallRANGE;
 
 	static std::map<int, CallCheck>CallOfEvasionOTP;
 	static std::map<int, CallCheck>CallOfDefense;
 	static std::map<int, CallCheck>CallOfPhysicalAttack;
 	static std::map<int, CallCheck>CallOfRecovery;
 
-	static std::map<int, PlayerContinueIceStorm> CheckContinueIceStorm;
-	static std::map<int, PlayerContinueFireStorm> CheckContinueFireStorm;
-	static std::map<int, PlayerContinueThunderStorm> CheckContinueThunderStorm;
-	static std::map<int, int> MageMICheck;
-
-
-	static int AEBaseDmgMultiPvE;
-	static int AEAgiMultiPvE;
-	static int AEStrMultiPvE;
-	static int AEPerGradeMultiPvE;
-
-	static int AEBaseDmgMultiPvP;
-	static int AEAgiMultiPvP;
-	static int AEStrMultiPvP;
-	static int AEPerGradeMultiPvP;
-
-	static bool ArrowExplosionON;
-	static bool ArrowRainON;
-	static int CallRANGE;
-
+	static std::map<std::pair<int, int>, SkillFormulas> SkillCalc;
+	static std::map<std::pair<int, int>, Debuff> DebuffCalc;
+	static std::map<std::pair<int, int>, Heals> HealCalc;
+	static std::map<int, int>CheckFocus;
+	static std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
 };
+
+extern IConfig CONFIG;
 
 #endif
 

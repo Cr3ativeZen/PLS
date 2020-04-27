@@ -7,22 +7,7 @@ int __fastcall Tick(void *Player, void *edx)
 	ICharacter IPlayer(Player);
 
 
-	if (IPlayer.IsOnline() && IConfig::CheckShiny.count((int)IPlayer.GetOffset()) && IConfig::CheckShiny.find((int)IPlayer.GetOffset())->second.Target && IPlayer.IsBuff(307) /*&& LightningArrowON == true*/)
-	{
-		ICharacter Caster(IConfig::CheckShiny.find((int)IPlayer.GetOffset())->second.Target);
 
-		if (!Caster.IsOnline())
-		{
-			IPlayer.CancelBuff(307);
-			IConfig::CheckShiny[(int)IPlayer.GetOffset()].Target = 0;
-		}
-
-		if (!IPlayer.IsValid())
-		{
-			IPlayer.CancelBuff(307);
-			IConfig::CheckShiny[(int)IPlayer.GetOffset()].Target = 0;
-		}
-	}
 
 
 
@@ -419,107 +404,6 @@ int __fastcall Tick(void *Player, void *edx)
 	{
 		IPlayer.SendGStateEx(IPlayer.GetGStateEx() + 16384);
 	}
-
-
-	switch (IPlayer.GetClass())
-	{
-	case CLASS_ARCHER:
-	{
-		CArcher archer((void*)Player);
-		if (archer.IsOnline() && archer.IsBuff(BUFF_ARROWEXPLOSIONUSE) && IConfig::ArrowExplosionON == true)
-		{
-			if (IConfig::CheckContinueSkill[archer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				archer.ContinueArrowExplosion();
-			}
-			break;
-		}
-
-		if (archer.IsOnline() && archer.IsBuff(BUFF_ARROWRAINUSE)&& IConfig::ArrowRainON == true)
-		{
-			if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				archer.ContinueArrowRain();
-			}
-			break;
-		}
-
-
-
-
-		break;
-	}
-	case CLASS_KNIGHT:
-	{
-		CKnight knight((void*)Player);
-		if (knight.IsOnline() && knight.IsBuff(BUFF_SWORDDANCEUSE) && knight.GetClass() == 0 /*&&SwordDanceON == true*/)
-		{
-			if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				knight.ContinueSwordDance();
-			}
-			break;
-		}
-		break;
-	}
-	case CLASS_MAGE:
-	{
-		CMage mage((void*)Player);
-		if (IPlayer.IsOnline() && IPlayer.IsBuff(BUFF_THUNDERSTORMUSE) && IPlayer.GetClass() == 1)
-		{
-			if (IConfig::CheckContinueThunderStorm[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				mage.ContinueThunderStorm();
-			}
-			break;
-		}
-
-		if (IPlayer.IsOnline() && IPlayer.IsBuff(BUFF_ICESTORMUSE) && IPlayer.GetClass() == 1)
-		{
-			if (IConfig::CheckContinueIceStorm[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				mage.ContinueIceStorm();
-			}
-			break;
-		}
-
-		if (IPlayer.IsOnline() && IPlayer.IsBuff(BUFF_FLAMEINJECTIONUSE)&& IPlayer.GetClass() == 1)
-		{
-			if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				mage.ContinueFlameInjection();
-			}
-			break;
-		}
-
-		if (IPlayer.IsOnline() && IPlayer.IsBuff(BUFF_ICICLEUSE) && IPlayer.GetClass() == 1)
-		{
-			if (IConfig::CheckContinueSkill[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				mage.ContinueIcicle();
-			}
-			break;
-		}
-
-		if (IPlayer.IsOnline() && IPlayer.IsBuff(BUFF_FIRESTORMUSE) && IPlayer.GetClass() == 1)
-		{
-			if (IConfig::CheckContinueFireStorm[IPlayer.GetPID()].PlayerSkillDelay < GetTickCount())
-			{
-				mage.ContinueFireStorm();
-			}
-			break;
-		}
-		break;
-	}
-	case CLASS_THIEF:
-	{
-
-
-	}
-
-	}
-
-
 
 
 	

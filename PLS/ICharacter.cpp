@@ -2040,7 +2040,7 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, in
 
 	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
 	{
-		while (Around && count < mob_amount)
+		while (Around && count < mob_amount)  //needs a remake i think
 		{
 			ICharacter Object((void*)*(DWORD*)Around);
 

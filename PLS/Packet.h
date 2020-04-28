@@ -184,6 +184,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				int pSkill = IPlayer.GetSkillPointer(SkillID);
 				bool check = false;
 
+
+
+
 				IPlayer.Buff(313, 3, 0);
 				DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
 
@@ -320,13 +323,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				//	mage.ActivateShiny(PACKET, pPos);
 				//	// no return here because it still needs to execute the proper skill.
 				//}
-				switch (IPlayer.GetClass())
+
+				std::map<std::pair<int, int>, bool>::iterator it;
+				it = IConfig::SkillEnabled.find({ IPlayer.GetClass(),SkillID });
+				if ((it != IConfig::SkillEnabled.end() && it->second))
 				{
-				case CLASS_KNIGHT:
-				{
-					CKnight knight((void*)Player);
-					switch (SkillID)
+
+					switch (IPlayer.GetClass())
 					{
+					case CLASS_KNIGHT:
+					{
+						CKnight knight((void*)Player);
+						switch (SkillID)
+						{
 						case SKILL_KNIGHT_POWERFULUPWARDSLASH:
 						{
 							knight.PowerfulUpwardSlash(PACKET, pPos);
@@ -353,24 +362,30 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							return;
 						}
 						case SKILL_KNIGHT_TRANSCENDENTALBLOW:
-						{
+						{   
 							knight.TranscendentalBlow(PACKET, pPos);
 							return;
 						}
+
 						case SKILL_KNIGHT_CALLOFEVASION:
 						{
+
 							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFEVASION);
 							return;
+
 						}
 						case SKILL_KNIGHT_CALLOFONTARGETPOINT:
 						{
+	
 							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFONTARGETPOINT);
 							return;
+
 						}
 						case SKILL_KNIGHT_CALLOFPHYSICALATTACK:
 						{
 							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFPHYSICALATTACK);
 							return;
+
 						}
 						case SKILL_KNIGHT_CALLOFRECOVERY:
 						{
@@ -390,6 +405,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 						case SKILL_KNIGHT_CALLOFDEFENSE:
 						{
+
 							ICharacter Playere((void*)Player);
 
 							void* pSkill = (void*)Playere.GetSkillPointer(SKILL_KNIGHT_CALLOFDEFENSE);
@@ -444,22 +460,22 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 								}
 							}
 							return;
+						}
+
+						}
+						break;
 					}
 
-					}
-					break;
-				}
-
-				case CLASS_MAGE:
-				{
-					CMage mage((void*)Player);
-					switch (SkillID)
+					case CLASS_MAGE:
 					{
+						CMage mage((void*)Player);
+						switch (SkillID)
+						{
 						case SKILL_MAGE_CURE:
 						case SKILL_MAGE_CURE2:
 						case SKILL_MAGE_CURE3:
 						{
-							mage.Cure(PACKET, pPos,SkillID);
+							mage.Cure(PACKET, pPos, SkillID);
 							return;
 						}
 						case SKILL_MAGE_HEAL:
@@ -480,56 +496,61 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						case SKILL_MAGE_PURIFICATION:
 						{
 							mage.Purification(PACKET, pPos);
+						}
+						case SKILL_MAGE_SHOCKWAVE:
+						{
+							mage.ShockWave(PACKET, pPos);
 							return;
 						}
+						}
+						break;
 					}
-					break;
-				}
-				case CLASS_ARCHER:
-				{
-					CArcher archer((void*)Player);
-					switch (SkillID)
+					case CLASS_ARCHER:
 					{
-					case SKILL_ARCHER_BLOWUPARROW:
-					{
-						archer.BlowUpArrow(PACKET, pPos);
-						return;
-					}
-					case SKILL_ARCHER_FLAMYARROW:
-					{
-						archer.FlamyArrow(PACKET, pPos);
-						return;
-					}
-					case SKILL_ARCHER_MUSCLESOLIDATION:
-					{
-						archer.MuscleSolidation();
-						return;
-					}
-					case SKILL_ARCHER_PASSIVEATTACK:
-					{
-						archer.PassiveAttack(PACKET, pPos);
-						return;
-					}
-					case SKILL_ARCHER_FOCUSSHOT:
-					{
-						archer.FocusShot(PACKET, pPos);
-						return;
-					}
-					case SKILL_ARCHER_MYSTERIOUSARROW:
-					{
-						archer.MysteriousArrow(PACKET, pPos);
-						return;
-					}
-					}
+						CArcher archer((void*)Player);
+						switch (SkillID)
+						{
+						case SKILL_ARCHER_BLOWUPARROW:
+						{
+							archer.BlowUpArrow(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_FLAMYARROW:
+						{
+							archer.FlamyArrow(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_MUSCLESOLIDATION:
+						{
+							archer.MuscleSolidation();
+							return;
+						}
+						case SKILL_ARCHER_PASSIVEATTACK:
+						{
+							archer.PassiveAttack(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_FOCUSSHOT:
+						{
+							archer.FocusShot(PACKET, pPos);
+							return;
+						}
+						case SKILL_ARCHER_MYSTERIOUSARROW:
+						{
+							archer.MysteriousArrow(PACKET, pPos);
+							return;
+						}
+						}
 
-					break;
-				}
-				case CLASS_THIEF:
-				{
-					break;
-				}
-				default:
-					break;
+						break;
+					}
+					case CLASS_THIEF:
+					{
+						break;
+					}
+					default:
+						break;
+					}
 				}
 			}
 			case PACKET_ANIMALUSESKILL:

@@ -2002,6 +2002,12 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 							AddDeathBlow(1);
 						break;
 					}
+					case SKILL_KNIGHT_HALFSWING:
+					{
+						if (flag)
+							AddDeathBlow(1);
+						break;
+					}
 					case SKILL_KNIGHT_BRUTALATTACK:
 					{
 						RemoveDeathBlow(GetDeathBlow());
@@ -2068,7 +2074,7 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, in
 				}
 				else
 				{
-					_ShowBattleMiss(Target, ISkill.GetIndex());
+					_ShowBattleMiss(Object, ISkill.GetIndex());
 					flag = true;
 				}
 				count++;

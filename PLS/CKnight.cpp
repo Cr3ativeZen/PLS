@@ -5,7 +5,7 @@ void __fastcall CKnight::BrutalAttack(int pPacket, int pPos)
 
 	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_BRUTALATTACK));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -80,7 +80,7 @@ void __fastcall CKnight::HalfSwing( int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_HALFSWING));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -100,7 +100,7 @@ void __fastcall CKnight::LightningSlash(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_LIGHTNINGSLASH));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -115,7 +115,7 @@ void __fastcall CKnight::LightningSlash(int pPacket, int pPos)
 	else if (Target.GetType() == TYPE_MONSTER)
 	{
 		int Around = Target.GetObjectListAround(1);
-		DamageMultiple(ISkill, Target, Around, 2, false,true);
+		DamageMultiple(ISkill, Target, Around, 1, false,true);
 	}
 
 
@@ -222,7 +222,7 @@ void __fastcall CKnight::PowerfulUpwardSlash(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_POWERFULUPWARDSLASH));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -293,7 +293,7 @@ void __fastcall CKnight::Sacrifice(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SACRIFICE));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -337,12 +337,11 @@ void __fastcall CKnight::Sacrifice(int pPacket, int pPos)
 	if (skills == IConfig::HealCalc.end())
 		return;
 
-	int hp_loss = skills->second.base_heal + (skills->second.wis * GetWisTotal()) +
+	int hp_loss = skills->second.base_heal + 
 		(skills->second.cast_max_hp_percent * (GetMaxHp() / 100) + (ISkill.GetGrade() * skills->second.cast_heal_per_grade_percent * (GetMaxHp() / 100)));
 
-	int target_heal = skills->second.base_heal + (skills->second.wis * GetWisTotal()) +
+	int target_heal = skills->second.base_heal + 
 		(skills->second.target_max_hp_percent * (Target.GetMaxHp() / 100) + (ISkill.GetGrade() * skills->second.target_heal_per_grade_percent * (GetMaxHp() / 100)));
-
 
 	if (Target.IsValid() && IsValid())
 	{
@@ -425,7 +424,7 @@ void __fastcall CKnight::TranscendentalBlow(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_TRANSCENDENTALBLOW));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -440,7 +439,7 @@ void __fastcall CKnight::TranscendentalBlow(int pPacket, int pPos)
 	else if (Target.GetType() == TYPE_MONSTER)
 	{
 		int Around = Target.GetObjectListAround(1);
-		DamageMultiple(ISkill, Target, Around, 3, false, true);
+		DamageMultiple(ISkill, Target, Around, 2, false, true);
 	}
 
 
@@ -538,7 +537,7 @@ void __fastcall CKnight::TranscendentalBlow(int pPacket, int pPos)
 	//	CSkill::ObjectRelease(Target.GetOffset(), (int)pTarget + 352);
 }
 
-void __fastcall CKnight::Calls(int pPacket, int pPos,int SkillID)
+void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 {
 	ISkill ISkill((void*)GetSkillPointer(SkillID));
 
@@ -546,7 +545,9 @@ void __fastcall CKnight::Calls(int pPacket, int pPos,int SkillID)
 
 	if (!nSkillGrade)
 		return;
-	
+
+
+
 
 	//Call of Evasion
 	if (SkillID == 27)
@@ -950,15 +951,26 @@ void __fastcall CKnight::Calls(int pPacket, int pPos,int SkillID)
 	//Call of heal
 	if (SkillID == 29)
 	{
+
+		std::map<std::pair<int, int>, IConfig::Heals>::iterator skills;
+
+		skills = IConfig::HealCalc.find({ GetClass(),ISkill.GetIndex() });
+
+		if (skills == IConfig::HealCalc.end())
+			return;
+
+		int self_heal = skills->second.base_heal +
+			(skills->second.cast_max_hp_percent * (GetMaxHp() / 100) + (ISkill.GetGrade() * skills->second.cast_heal_per_grade_percent * (GetMaxHp() / 100)));
+
 		if (IsValid())
 		{
+
 			if (IsParty())
 			{
 				void* Party = (void*)CParty::FindParty(GetPartyID());
 
 				if (Party)
 				{
-
 
 					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 					{
@@ -969,7 +981,10 @@ void __fastcall CKnight::Calls(int pPacket, int pPos,int SkillID)
 						{
 							if (IsInRange(IMembers, IConfig::CallRANGE))
 							{
-								IMembers.IncreaseHp(500);
+								int target_heal = skills->second.base_heal +
+									(skills->second.target_max_hp_percent * (IMembers.GetMaxHp() / 100) + (ISkill.GetGrade() * skills->second.target_heal_per_grade_percent * (GetMaxHp() / 100)));
+
+								IMembers.IncreaseHp(target_heal);
 								//IMembers.IncreaseHp(CallofHealBase + (IMembers.GetMaxHp() * CallofHealBasePercentage / 100) + (IMembers.GetMaxHp() * ISkill.GetGrade() * CallofHealPerGradePercentage / 100));
 								IMembers.AddFxToTarget("davi_M573_76_bhit", 1, 0, 1);
 							}
@@ -978,12 +993,14 @@ void __fastcall CKnight::Calls(int pPacket, int pPos,int SkillID)
 					_ShowBattleAnimation(GetOffset(), 29);
 
 				}
+				IncreaseHp(self_heal);
 			}
 			else
 			{
+
 				AddFxToTarget("davi_M573_76_bhit", 1, 0, 1);
 				//IncreaseHp(CallofHealBase + (GetMaxHp() * CallofHealBasePercentage / 100) + (GetMaxHp() * ISkill.GetGrade() * CallofHealPerGradePercentage / 100));
-				IncreaseHp(500);
+				IncreaseHp(self_heal);
 				_ShowBattleAnimation(GetOffset(), 29);
 			}
 		}

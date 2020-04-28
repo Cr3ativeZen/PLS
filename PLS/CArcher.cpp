@@ -5,7 +5,7 @@ void __fastcall CArcher::BlowUpArrow(int pPacket, int pPos)
 
 	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_BLOWUPARROW));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -134,7 +134,7 @@ void __fastcall CArcher::FlamyArrow(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_FLAMYARROW));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -226,10 +226,9 @@ void __fastcall CArcher::MuscleSolidation()
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_MUSCLESOLIDATION));
 
-	int nSkillGrade = ISkill.GetGrade();
-
-	if (!nSkillGrade)
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
+
 
 	_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 
@@ -246,7 +245,7 @@ void __fastcall CArcher::PassiveAttack(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_PASSIVEATTACK));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -301,7 +300,7 @@ void __fastcall CArcher::BuffRemover(int pPacket, int pPos)
 
 	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_BUFFREMOVER));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -333,7 +332,7 @@ void __fastcall CArcher::FocusShot(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_FOCUSSHOT));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -420,7 +419,7 @@ void __fastcall CArcher::MysteriousArrow(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_MYSTERIOUSARROW));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);

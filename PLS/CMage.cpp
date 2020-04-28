@@ -4,7 +4,7 @@ void __fastcall CMage::Cure(int pPacket, int pPos,int skill_id)
 {
 	ISkill ISkill((void*)GetSkillPointer(skill_id));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -61,12 +61,9 @@ void __fastcall CMage::Heal()
 
 	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_HEAL));
 
-	int nSkillGrade = ISkill.GetGrade();
-
-	if (!nSkillGrade)
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
-	int value = 0;
 	std::map<std::pair<int, int>, IConfig::Heals>::iterator skills;
 
 	skills = IConfig::HealCalc.find({ GetClass(),ISkill.GetIndex() });
@@ -90,7 +87,7 @@ void __fastcall CMage::ShockWave(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_SHOCKWAVE));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -184,7 +181,7 @@ void __fastcall CMage::Amnesia(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_AMNESIA));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -262,7 +259,7 @@ void __fastcall CMage::Purification(int pPacket, int pPos)
 {
 	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_PURIFICATION));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);
@@ -310,9 +307,9 @@ void __fastcall CMage::Purification(int pPacket, int pPos)
 
 void __fastcall CMage::Summons(int pPacket, int pPos)
 {
-	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_BRUTALATTACK));
+	ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_SUMMONS));
 
-	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana() || !ISkill.GetGrade())
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
 		return;
 
 	RAII raii(pPacket, pPos);

@@ -38,7 +38,7 @@ public:
 
 	~RAII()
 	{
-		if(!pTarget)
+		if(pTarget)
 			CSkill::ObjectRelease(pTarget, (int)pTarget + 352);
 	}
 

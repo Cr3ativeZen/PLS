@@ -4,6 +4,8 @@
 #include <windows.h>
 #include <map>
 #include <string>
+#include <set>
+#include <fstream>
 
 //IConfig is a Singleton used for loading necessary variables from config files.
 class IConfig
@@ -28,7 +30,7 @@ public:
 	{
 		int character;
 		int skill_id;
-		int damageC;
+		double damageC;
 		int str;
 		int agi;
 		int wis;
@@ -43,7 +45,7 @@ public:
 
 	struct Debuff
 	{
-		int damageC;
+		double damageC;
 		int character;
 		int skill_id;
 		int buff_id;
@@ -111,6 +113,7 @@ public:
 	};
 
 	static int CallRANGE;
+	static bool CallEnabled;
 
 	static std::map<int, CallCheck>CallOfEvasionOTP;
 	static std::map<int, CallCheck>CallOfDefense;
@@ -122,6 +125,8 @@ public:
 	static std::map<std::pair<int, int>, Heals> HealCalc;
 	static std::map<int, int>CheckFocus;
 	static std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
+
+	static std::map<std::pair<int, int>,bool> SkillEnabled;
 };
 
 extern IConfig CONFIG;

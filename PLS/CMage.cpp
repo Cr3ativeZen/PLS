@@ -26,6 +26,7 @@ void __fastcall CMage::Cure(int pPacket, int pPos,int skill_id)
 
 	int self_heal = skills->second.base_heal + (skills->second.wis * GetWisTotal()) +
 		(skills->second.cast_max_hp_percent * (GetMaxHp() / 100) + (ISkill.GetGrade() * skills->second.cast_heal_per_grade_percent * (GetMaxHp() / 100)));
+	self_heal /= 2;
 
 	int target_heal = skills->second.base_heal + (skills->second.wis * GetWisTotal()) +
 		(skills->second.target_max_hp_percent * (Target.GetMaxHp() / 100) + (ISkill.GetGrade() * skills->second.target_heal_per_grade_percent * (GetMaxHp() / 100)));

@@ -993,7 +993,6 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 					_ShowBattleAnimation(GetOffset(), 29);
 
 				}
-				IncreaseHp(self_heal);
 			}
 			else
 			{

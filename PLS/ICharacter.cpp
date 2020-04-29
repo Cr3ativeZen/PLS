@@ -2002,12 +2002,6 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 							AddDeathBlow(1);
 						break;
 					}
-					case SKILL_KNIGHT_HALFSWING:
-					{
-						if (flag)
-							AddDeathBlow(1);
-						break;
-					}
 					case SKILL_KNIGHT_BRUTALATTACK:
 					{
 						RemoveDeathBlow(GetDeathBlow());

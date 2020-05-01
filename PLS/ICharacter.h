@@ -211,7 +211,7 @@ public:
 	int CalculateFormula(ISkill ISkill, ICharacter Target);
 	bool BuffOnSkill(ISkill ISkill,ICharacter Target);
 	bool DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,bool check_hit);
-	bool DamageMultiple(ISkill ISkill, ICharacter Target,int Around, int mob_amount, bool self_anim,bool check_hit);
+	bool DamageMultiple(ISkill ISkill, ICharacter Target,int range, int mob_amount, bool self_anim,bool check_hit);
 
 	void __fastcall ResetFarContinueSkill();
 

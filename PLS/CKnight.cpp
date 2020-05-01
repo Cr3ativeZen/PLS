@@ -90,9 +90,8 @@ void __fastcall CKnight::HalfSwing( int pPacket, int pPos)
 
 	ICharacter Target(raii.pTarget);
 
-	int Around = Target.GetObjectListAround(1);
 
-	DamageMultiple(ISkill, Target, Around, 999,true,false);
+	DamageMultiple(ISkill, Target, 1, 999,true,false);
 
 }
 
@@ -114,8 +113,7 @@ void __fastcall CKnight::LightningSlash(int pPacket, int pPos)
 		DamageSingle(ISkill, Target, false, true);
 	else if (Target.GetType() == TYPE_MONSTER)
 	{
-		int Around = Target.GetObjectListAround(1);
-		DamageMultiple(ISkill, Target, Around, 1, false,true);
+		DamageMultiple(ISkill, Target, 1, 1, false,true);
 	}
 
 
@@ -438,8 +436,7 @@ void __fastcall CKnight::TranscendentalBlow(int pPacket, int pPos)
 		DamageSingle(ISkill, Target, false, true);
 	else if (Target.GetType() == TYPE_MONSTER)
 	{
-		int Around = Target.GetObjectListAround(1);
-		DamageMultiple(ISkill, Target, Around, 2, false, true);
+		DamageMultiple(ISkill, Target, 1, 2, false, true);
 	}
 
 

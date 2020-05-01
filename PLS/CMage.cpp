@@ -198,9 +198,8 @@ void __fastcall CMage::Amnesia(int pPacket, int pPos)
 		return;
 	}
 
-	int Around = Target.GetObjectListAround(3);
 
-	DamageMultiple(ISkill, Target, Around, 999, true, false);
+	DamageMultiple(ISkill, Target, 3, 999, true, false);
 
 	//ISkill ISkill((void*)GetSkillPointer(SKILL_MAGE_AMNESIA));
 

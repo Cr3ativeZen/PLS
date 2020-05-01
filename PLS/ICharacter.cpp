@@ -1959,6 +1959,7 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 		{
 			BuffOnSkill(ISkill, Target);
 
+			
 			OktayDamageSingle(Target, CalculateFormula(ISkill, Target), ISkill.GetIndex());
 			if (self_anim)
 				_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
@@ -2007,6 +2008,11 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 						RemoveDeathBlow(GetDeathBlow());
 						break;
 					}
+					//case SKILL_KNIGHT_HALFSWING:
+					//{
+					//	AddDeathBlow(1);
+					//	break;
+					//}
 					default:
 					{
 						break;
@@ -2027,7 +2033,7 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 	return flag;
 }
 
-bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, int mob_amount,bool self_anim,bool check_hit)
+bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int mob_amount,bool self_anim,bool check_hit)
 {
 	int count = 0;
 	bool flag = false;
@@ -2035,7 +2041,9 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, in
 	if (!IsInRange(Target, 20))
 		return flag;
 
-	DamageSingle(ISkill, Target, self_anim,check_hit);
+
+	int Around = Target.GetObjectListAround(range);
+	
 
 
 	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
@@ -2082,9 +2090,10 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int Around, in
 		else if(flag)
 			_ShowBattleAnimation(Target, ISkill.GetIndex());
 	}
+	bool check = DamageSingle(ISkill, Target, self_anim, check_hit);
 
 
-	if (ISkill.GetIndex() == SKILL_KNIGHT_HALFSWING && flag)
+	if (ISkill.GetIndex() == SKILL_KNIGHT_HALFSWING && check)
 		AddDeathBlow(1);
 
 	return flag;

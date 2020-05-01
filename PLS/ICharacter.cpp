@@ -1911,7 +1911,6 @@ bool ICharacter::BuffOnSkill(ISkill ISkill, ICharacter Target)
 		return false;
 
 	value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.str) + (GetAgiTotal() * skills->second.agi) + (ISkill.GetGrade() * skills->second.damage_per_grade);
-	//value = 5000;
 	if (Target.GetType() == TYPE_PLAYER)
 		value = value - (value * skills->second.pvp_reduction / 100);
 
@@ -1929,7 +1928,10 @@ bool ICharacter::BuffOnSkill(ISkill ISkill, ICharacter Target)
 			case SKILL_ARCHER_FLAMYARROW:
 			{
 				Target.AddFxToTarget("davi_M564_71", 1, 0, 0);
-				Target.Buff(29, duration, value);
+				if (Target.GetType() == TYPE_MONSTER)
+					Target.Buff(29, duration, value);
+				else
+					Target.Buff(skills->second.buff_id,duration,value);
 				break;
 			}
 			default:
@@ -1955,7 +1957,7 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
 	{
 
-		if (check_hit&&CheckHit(Target, 0))
+		if (check_hit&&CheckHit(Target, 15))
 		{
 			BuffOnSkill(ISkill, Target);
 
@@ -2054,7 +2056,7 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int
 
 			if (Object.GetOffset() != Target.GetOffset() && Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
 			{
-				if (check_hit && CheckHit(Target, 0))
+				if (check_hit && CheckHit(Target, 15))
 				{
 					BuffOnSkill(ISkill, Target);
 					OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());

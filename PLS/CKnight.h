@@ -6,17 +6,13 @@
 class CKnight : public ICharacter
 {
 public:
-	CKnight() : ICharacter()
-	{
-
-	}
 
 	CKnight(void* offset) :ICharacter(offset)
 	{
 
 	}
 
-	~CKnight()
+	virtual ~CKnight()
 	{
 
 	}
@@ -34,6 +30,10 @@ public:
 	//2nd job skills commander
 	void __fastcall Sacrifice(int pPacket, int pPos);
 	void __fastcall Calls(int pPacket, int pPos,int SkillID);
+
+	//3rd job skills God of Sword
+
+	void __fastcall SpinSlash();
 
 
 

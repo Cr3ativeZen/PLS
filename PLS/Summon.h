@@ -64,7 +64,7 @@ void BossDropDraw(ICharacter IMonster)
 			PlayerMap.erase(PlayerMapIt);
 		}
 
-		if (temp_bool==true&&IPlayer.IsOnline())
+		if (temp_bool == true && IPlayer.IsOnline())
 		{
 
 			dropsgiven--;

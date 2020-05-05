@@ -2010,11 +2010,6 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 						RemoveDeathBlow(GetDeathBlow());
 						break;
 					}
-					//case SKILL_KNIGHT_HALFSWING:
-					//{
-					//	AddDeathBlow(1);
-					//	break;
-					//}
 					default:
 					{
 						break;

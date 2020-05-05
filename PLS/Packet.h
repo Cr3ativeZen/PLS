@@ -402,6 +402,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_HEALASONE);
 							return;
 						}
+						case SKILL_KNIGHT_SPINSLASH:
+						{
+							knight.SpinSlash();
+							return;
+						}
 
 						case SKILL_KNIGHT_CALLOFDEFENSE:
 						{
@@ -496,6 +501,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						case SKILL_MAGE_PURIFICATION:
 						{
 							mage.Purification(PACKET, pPos);
+							return;
 						}
 						case SKILL_MAGE_SHOCKWAVE:
 						{

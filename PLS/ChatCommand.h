@@ -145,17 +145,6 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		return;
 	}
 
-	//if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/test"&&IPlayer.GetAdmin() >= 11)
-	//{
-	//	CPlayer::Write(IPlayer.GetOffset(), 68, "bbb", 43, 13, 0);
-	//	IPlayer.SystemMessage(Int2String(Undefined::sub_446FF0((int)IPlayer.GetOffset())),TEXTCOLOR_YELLOW);
-	//}
-
-
-	if (IPlayer.IsOnline())
-	{
-
-	}
 
 	if (IPlayer.IsOnline() && cmd.substr(0, 5) == "/puff" && IPlayer.GetAdmin() >= 8)
 	{

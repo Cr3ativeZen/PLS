@@ -14,9 +14,6 @@ public:
 	void* Offset;
 
 public:
-	ICharacter()
-	{
-	}
 
 	ICharacter(void* Object);
 	virtual ~ICharacter();
@@ -210,6 +207,8 @@ public:
 
 	int CalculateFormula(ISkill ISkill, ICharacter Target);
 	bool BuffOnSkill(ISkill ISkill,ICharacter Target);
+
+	//make them virtual
 	bool DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,bool check_hit);
 	bool DamageMultiple(ISkill ISkill, ICharacter Target,int range, int mob_amount, bool self_anim,bool check_hit);
 

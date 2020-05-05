@@ -6,17 +6,13 @@
 class CMage : public ICharacter
 {
 public:
-	CMage() : ICharacter()
-	{
-
-	}
 
 	CMage(void* offset) :ICharacter(offset)
 	{
 
 	}
 
-	~CMage()
+	virtual ~CMage()
 	{
 
 	}

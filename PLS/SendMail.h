@@ -11,14 +11,6 @@ int __fastcall SendMail(void* Player, void *edx, int a1, int a2, char* ReceiverN
 
 	char* dt = ctime(&now);
 
-	/*IPlayer.SystemMessage(ReceiverName, TEXTCOLOR_RED);
-	IPlayer.SystemMessage(Text, TEXTCOLOR_RED);
-	IPlayer.SystemMessage(Int2String(Index), TEXTCOLOR_BLUE);
-	IPlayer.SystemMessage(Int2String(a8), TEXTCOLOR_BLUE);
-	IPlayer.SystemMessage(Int2String(Amount), TEXTCOLOR_BLUE);
-	IPlayer.SystemMessage(Int2String(Price), TEXTCOLOR_BLUE);*/
-
-
 		std::string to_file = "MAIL IS SENT! ---SENT BY: ";
 		to_file += IPlayer.GetName();
 		to_file += "---ITEM SENT TO: ";

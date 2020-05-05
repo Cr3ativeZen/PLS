@@ -6,17 +6,14 @@
 class CArcher: public ICharacter
 {
 public:
-	CArcher() : ICharacter()
-	{
 
-	}
 
 	CArcher(void* offset) :ICharacter(offset)
 	{
 
 	}
 
-	~CArcher()
+	virtual ~CArcher()
 	{
 
 	}

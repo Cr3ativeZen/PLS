@@ -16,77 +16,6 @@ namespace MainServer
 		static void(__stdcall *Start)(int start) = (void(__stdcall*)(int start))0x00424A40;
 		static int(__thiscall*Stop)(int stop) = (int(__thiscall*)(int stop))0x00424BA0;
 }
-//
-//	static int(__thiscall *GetPalsyDamage)(int Player, int Target) = (int(__thiscall*)(int, int))0x0046C9F0;
-//	static int(__cdecl *UpdatePrtyPer)(int Player, int Type, int InOut, char Amount, int Value) = (int(__cdecl*)(int, int, int, char, int))0x0045B100;
-//	static int(__cdecl *UpdatePrtyPt)(int Player, int Type, int InOut, char Amount, int Value) = (int(__cdecl*)(int, int, int, char, int))0x00459840;
-//	static int(__cdecl *UpdateProperty)(int Player, int Type, int InOut, signed __int64 Exp) = (int(__cdecl*)(int, int, int, signed __int64))0x00458800;
-//	static int(__thiscall *AddWState)(int Player, char Type) = (int(__thiscall*)(int, char))0x00427BB0;
-//	static size_t(__thiscall *ProcessMsg)(void *Player, char *Msg) = (size_t(__thiscall*)(void*, char*))0x00460A50;
-//	static int(__cdecl *CountWarrelationPlayer)() = (int(__cdecl*)())0x0046E0D0;
-//	static int(__thiscall *SwitchStall)(void *Player, int Value) = (int(__thiscall*)(void*, int))0x0045F540;
-//	static void(__thiscall *OnTeleport)(void *Player, int Argument, int Value) = (void(__thiscall*)(void*, int, int))0x0045CE50;
-//	static int(__thiscall *GameStart)(void *Player) = (int(__thiscall*)(void*))0x00458270;
-//	static void *(__thiscall *SendCreate)(void *Player, int Object, void *Argument) = (void *(__thiscall*)(void*, int, void*))0x00451390;
-//	static int(__thiscall *CheckBlock)(int Player, int Object) = (int(__thiscall*)(int, int))0x00452130;
-//	static void(__cdecl *WriteInMap)(int Map, unsigned char Type, const char* Format, ...) = (void(__cdecl*)(int, unsigned char, const char*, ...))0x004509F0;
-//	static int(__cdecl *ScanPlayer)(int PID) = (int(__cdecl*)(int))0x00450790;
-//	static LONG(__thiscall *Hostility)(int Object, volatile LONG *lpAddend) = (LONG(__thiscall*)(int, volatile LONG*))0x00423980;
-//	static int(__thiscall *MLMAccumFee)(int Player, int Value) = (int(__thiscall*)(int, int))0x00467400;
-//	static int(__stdcall *SetEventCode)(signed int a1, int a2) = (int(__stdcall*)(signed int, int))0x0046BFD0;
-//	static int(__thiscall *GetMSpeed)(void *Player, int Value) = (int(__thiscall*)(void*, int))0x00452070;
-//	static void(__thiscall *DropItem)(int Player, int a2, int a3) = (void(__thiscall*)(int, int, int))0x0045D7E0;
-//	static void(__thiscall *DropItemONPKDie)(void *Player) = (void(__thiscall*)(void*))0x0046B890;
-//	static int(__thiscall *GetGuildName)(int Player) = (int(__thiscall*)(int))0x0046ACD0;
-//	static signed int(__thiscall *InitStat)(void *Player) = (signed int(__thiscall*)(void*))0x00465250;
-//	static int(__thiscall *TradeAgreed)(void *Player) = (int(__thiscall*)(void*))0x0045E720;
-//	static int(__thiscall *CancelTrade)(void *Player) = (int(__thiscall*)(void*))0x0045E3B0;
-//	static int(__thiscall *CutdownExp)(int Player, signed int expLoss) = (int(__thiscall*)(int, signed int))0x004643A0;
-//	static void(__cdecl *EventBuff)(int ID) = (void(__cdecl*)(int))0x0046B770;
-//	static signed int(__thiscall *RemoveItem)(void *Player, int Value, int Index, int Amount) = (signed int(__thiscall*)(void*, int, int, int))0x0045DA90;
-//	static int(__thiscall *BuyItemEx)(void *Player, char Npc, int Tax, int ItemSize, int pPacket, int pPos) = (int(__thiscall*)(void*, char, int, int, int, int))0x0045D2F0;
-//	static int(__thiscall *Imperial)(void *pPlayer, int MainItem, int Armor, int Stone, int Weapon, int NextStone) = (int(__thiscall*)(void*, int, int, int, int, int))0x0046F350;
-//	static void(__thiscall *EnforceItem)(void *pPlayer, int MixLevel, int ItemIndex, int DemonSword, int Item, int NextItem, char Stone) = (void(__thiscall*)(void*, int, int, int, int, int, char))0x0046E1B0;
-//	static int(__thiscall *_OutOfInven)(void *Player, int Item) = (int(__thiscall*)(void*, int))0x0045D140;
-//	static int(__thiscall *ChatCommand)(int Player, const char *Command) = (int(__thiscall*)(int, const char*))0x00461080;
-//	static int(__thiscall *RevivalSkill) (void *Player, int Argument, int Target) = (int(__thiscall*) (void*, int, int))0x00464750;
-//	static signed int(__thiscall *RevivalItem) (void *Player, int Argument) = (signed int(__thiscall*) (void*, int))0x00464950;
-//	static void(__cdecl *Write)(void *Player, unsigned char Type, const char* Format, ...) = (void(__cdecl*)(void*, unsigned char, const char*, ...))0x00452E60;
-//	static int(__thiscall *Attack)(void *Player, int Target, int TargetID) = (int(__thiscall*)(void*, int, int))0x0045C740;
-//	static signed int(__thiscall *Damage)(int Player, int Target, int Damage, int Argument, int Argument1, int Argument2, int Argument3) = (signed int(__thiscall*)(int, int, int, int, int, int, int))0x00451530;
-//	static int(__thiscall *Rest)(void *Player, int Value) = (int(__thiscall*)(void*, int))0x004642B0;
-//	static int(__thiscall *IsEState) (int Player, int Argument) = (int(__thiscall*) (int, int))0x0044A510;
-//	static int(__thiscall *SubEState) (int Player, int Argument) = (int(__thiscall*) (int, int))0x0044A4E0;
-//	static int(__cdecl *FindPlayerByName)(char Name) = (int(__cdecl*)(char))0x00450890;
-//	static void* (__cdecl* FindPlayer) (int nID) = (void* (__cdecl*) (int))0x00450810;
-//	static int(__thiscall *Teleport) (int Player, int Map, int X, int Y, int Z) = (int(__thiscall*) (int, int, int, int, int))0x0045CC90;
-//	static bool(__thiscall *IsWearBuffStandard)(int Player) = (bool(__thiscall*)(int))0x0046BD80;
-//	static int(__thiscall *IsWState)(int Player, char Argument) = (int(__thiscall*)(int, char))0x00427BE0;
-//	static int(__thiscall *SubWState)(int Player, char Argument) = (int(__thiscall*)(int, char))0x00428CD0;
-//	static int(__thiscall *GetObjectAround)(void *Value, int pPlayer, int Argument) = (int(__thiscall*)(void*, int, int))0x004935A0;
-//	static int(__thiscall *_InsertItem)(void *Player, int Argument, int Item) = (int(__thiscall*)(void*, int, int))0x0045DE10;
-//	static char(__thiscall *Process)(void *Player, int Packet, void *Argument, int Value) = (char(__thiscall*)(void*, int, void*, int))0x00452ED0;
-//	static void(__thiscall *ShowOffItem)(void *a, int a2, void *a3, int a4) = (void(__thiscall*)(void*, int, void*, int))0x0045E460;
-//	static int(__thiscall *MAILProcess)(void *a, int a2, int a3, int a4) = (int(__thiscall*)(void*, int, int, int))0x00468890;
-//	static int(__thiscall *FRDProcess)(void *a, int a2, void *a3, int a4) = (int(__thiscall*)(void*, int, void*, int))0x004675B0;
-//	static int(__thiscall *LevelUp)(void *Player) = (int(__thiscall*)(void*))0x0045CC00;
-//	static int(__thiscall *SaveAllProperty)(int Player, int Argument) = (int(__thiscall*)(int, int))0x004586A0;
-//	static int(__thiscall *LevelUpUnknown)(void *Player, int Argument) = (int(__thiscall*)(void*, int))0x0047FF00;
-//	static int(__thiscall *MLMPayMoney)(int Player, int Argument) = (int(__thiscall*)(int, int))0x00467080;
-//	static int(__thiscall *MLMLevelUp)(void *Player) = (int(__thiscall*)(void*))0x004674D0;
-//	static int(__thiscall *ExchangeDanjiToItem) (void *Player, int Value, int Argument) = (int(__thiscall*) (void*, int, int))0x0046D570;
-//	static int(__thiscall *ExchahgeItem) (void *Player, int Argument, int Value, int a4, int Index, int Amount) = (int(__thiscall*)(void*, int, int, int, int, int))0x00456AD0;
-//	static void(__thiscall *Transform)(void *Player, int Type, signed int Grade) = (void(__thiscall*)(void*, int, signed int))0x0046BA30;
-//	static void(__thiscall *FreeTransform)(void *Player) = (void(__thiscall*)(void*))0x0046BB90;
-//	static int(__thiscall *Tick)(void *Player) = (int(__thiscall*)(void*))0x00452620;
-//	static signed int(__thiscall *OnLoadPlayer)(void *Player, int Value) = (signed int(__thiscall*)(void*, int))0x00456C40;
-//	static int(__thiscall *LeaveParty)(int Player) = (int(__thiscall*)(int))0x0045FD70;
-//	//static signed int(__thiscall *CanAttack)(void *Player, int Target, int Value) = (signed int(__thiscall*)(void*, int, int))0x0046AE50;
-//	static int(__cdecl *WriteAll)(unsigned char Type, const char* Format, ...) = (int(__cdecl*)(unsigned char, const char*, ...))0x00450910;
-//	//static int(__thiscall *FindItem)(void *Player, int ItemIndex, int Amount) = (int(__thiscall*)(void*, int, int))0x0045D190;
-//	static int(__thiscall* SendMail)(void *Player, int a1, int a2, char *a3, const char* Text, int a4, int a5, int a6, int a7, int a8, int a9) = (int(__thiscall*)(void*, int, int, char *, const char*, int, int, int, int, int, int))0x00468280;
-//	//static void(__thiscall *Pick)(void* MapObject, int Player, int x, int y) = (void(__thiscall*)(void*, int, int, int))0x004938A0;
-//}
 
 namespace CSkill
 {
@@ -114,12 +43,7 @@ namespace CSkill
 	static void(__thiscall *ExecuteTransformSkill)(void *SkillPointer, signed int SkillID, int Argument, int Value) = (void(__thiscall*)(void*, signed int, int, int))0x0047FC90;
 	static int(__thiscall *SkillOnLoad)(int pSkill, signed int SkillID, int pPos) = (int(__thiscall*)(int, signed int, int))0x0047F6B0;
 	static int(__thiscall* Storm)(void* a, int a2, void* Player, int a4) = (int(__thiscall*)(void*, int, void*, int))0x004854D0;
-	//static int(__thiscall *Calls)(void *pSkill, int Player, int pPacket, int pPos) = (int(__thiscall*)(void*, int, int, int))0x0048A9A0;
 	static int(__thiscall *Behead)(void *pSkill, int Player, void *pPacket, int pPos) = (int(__thiscall*)(void*, int, void*, int))0x004813A0;
-	//static LONG(__thiscall *Heal)(int a3, int a4, int a5) = (LONG(__thiscall*)(int a3, int a4, int a5))0x00485970;
-	//static int(__thiscall *Cure)(int pSkill, int pPacket, int pPlayer, int pPos) = (int(__thiscall*)(int, int, int, int))0x00485B80;
-	//static int(__thiscall *GroupCure)(void *pSkill, int Player, int pPacket, int pPos) = (int(__thiscall*)(void*, int, int, int))0x004871C0;
-	//static int(__thiscall *sub_481750)(int a5, char *a6, unsigned int a7) = (int(__thiscall*)(int a5, char *a6, unsigned int a7))0x00481750;
 }
 
 namespace CPacket
@@ -141,7 +65,6 @@ namespace CChar
 	static int(__thiscall *GetMinAttack)(int Player) = (int(__thiscall*)(int))0x0043D9A0;
 	static int(__thiscall *IsMStateEx)(int Player, int Buff) = (int(__thiscall*)(int, int))0x00409310;
 	static int(__thiscall *GetHth)(int Player) = (int(__thiscall*)(int))0x0043BE60;
-	//static __int64(__thiscall *IsBState)(int Object, __int64 Value) = (__int64(__thiscall*)(int, __int64))0x00409720;
 	static int(__thiscall *GetWis)(int Player) = (int(__thiscall*)(int))0x0043BEE0;
 	static int(__thiscall *GetFatalDamage)(int Player, int Damage, int Argument, int Value) = (int(__thiscall*)(int, int, int, int))0x0043EAC0;
 	static int(__thiscall *GetMaxHp)(int Object) = (int(__thiscall*)(int))0x0043A200;
@@ -277,7 +200,6 @@ namespace CPlayer
 	static int(__thiscall *GetInvenSize)(void* Player) = (int(__thiscall*)(void*))0x00456720;
 	static int(__thiscall *GetMSpeed)(void *Player, int Value) = (int(__thiscall*)(void*, int))0x00452070;
 	static void(__thiscall *DropItem)(int Player, int a2, int a3) = (void(__thiscall*)(int, int, int))0x0045D7E0;
-	//static void(__thiscall *DropItemm)(void *Player, int a6) = (void(__thiscall*)(void* Player, int a6))0x0045D7E0;
 	static void(__thiscall *DropItemONPKDie)(void *Player) = (void(__thiscall*)(void*))0x0046B890;
 	static int(__thiscall *PKKill)(void* Player,int a5) = (int(__thiscall*)(void* Player,int a5))0x0046B0C0;
 	static int(__thiscall *GetGuildName)(int Player) = (int(__thiscall*)(int))0x0046ACD0;

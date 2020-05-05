@@ -4,9 +4,6 @@ public:
 	void* Offset;
 
 public:
-	IItem()
-	{
-	}
 
 	IItem(void* Object);
 	virtual ~IItem();

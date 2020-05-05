@@ -9,9 +9,6 @@ public:
 	void *Offset;
 
 public:
-	ISkill()
-	{
-	}
 
 	ISkill(void *Packet);
 	virtual ~ISkill();

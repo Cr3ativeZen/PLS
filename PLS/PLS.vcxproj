@@ -152,30 +152,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CanAttack.h" />
     <ClInclude Include="CArcher.h" />
     <ClInclude Include="ChatCommand.h" />
     <ClInclude Include="CKnight.h" />
     <ClInclude Include="CMage.h" />
-    <ClInclude Include="D4Instance.h" />
     <ClInclude Include="ExecuteSkill.h" />
-    <ClInclude Include="FinalDamage.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="IConfig.h" />
     <ClInclude Include="IItem.h" />
     <ClInclude Include="InstaConfig.h" />
     <ClInclude Include="IQuest.h" />
     <ClInclude Include="ISkill.h" />
-    <ClInclude Include="MonsterTick.h" />
     <ClInclude Include="Packet.h" />
-    <ClInclude Include="PKKill.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RAII.h" />
     <ClInclude Include="Resources.h" />
-    <ClInclude Include="SendMail.h" />
     <ClInclude Include="ServerFunctions.h" />
-    <ClInclude Include="Summon.h" />
-    <ClInclude Include="UpdateProperty.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CArcher.cpp" />

@@ -17,16 +17,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CanAttack.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="ChatCommand.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="D4Instance.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="FinalDamage.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
     <ClInclude Include="IItem.h">
@@ -41,15 +32,6 @@
     <ClInclude Include="ISkill.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterTick.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="UpdateProperty.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="PKKill.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="Packet.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
@@ -59,13 +41,7 @@
     <ClInclude Include="ServerFunctions.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="Summon.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="ExecuteSkill.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
-    <ClInclude Include="SendMail.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
     <ClInclude Include="CArcher.h">

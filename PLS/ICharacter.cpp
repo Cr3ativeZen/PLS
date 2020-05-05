@@ -1836,18 +1836,18 @@ int ICharacter::CalculateFormula(ISkill ISkill,ICharacter Target)
 	{
 	case CLASS_MAGE:
 	{
-		value = skills->second.base_damage + (GetMagic() * skills->second.damageC) + (GetWisTotal() * skills->second.wis) + (GetIntTotal() * skills->second.inte) + (ISkill.GetGrade() * skills->second.damage_per_grade);
+		value = skills->second.base_damage + (GetMagic() * skills->second.damageC) + (static_cast<long long>(GetWisTotal()) * skills->second.wis) + (static_cast<long long>(GetIntTotal()) * skills->second.inte) + (static_cast<long long>(ISkill.GetGrade()) * skills->second.damage_per_grade);
 		break;
 	}
 	case CLASS_KNIGHT:
 	{
-		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.str) + (GetAgiTotal() * skills->second.agi) + (ISkill.GetGrade() * skills->second.damage_per_grade);
+		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (static_cast<long long>(GetStrTotal()) * skills->second.str) + (static_cast<long long>(GetAgiTotal()) * skills->second.agi) + (static_cast<long long>(ISkill.GetGrade()) * skills->second.damage_per_grade);
 		
 		switch (ISkill.GetIndex())
 		{
 			case SKILL_KNIGHT_BRUTALATTACK:
 			case SKILL_KNIGHT_SPINSLASH:
-			{
+			{//
 				value = value + (value * skills->second.per_deathblow / 100) * GetDeathBlow();
 				break;
 			}
@@ -1856,7 +1856,7 @@ int ICharacter::CalculateFormula(ISkill ISkill,ICharacter Target)
 	}
 	case CLASS_ARCHER:
 	{
-		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.wis) + (GetAgiTotal() * skills->second.inte) + (ISkill.GetGrade() * skills->second.damage_per_grade);
+		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (static_cast<long long>(GetStrTotal()) * skills->second.wis) + (static_cast<long long>(GetAgiTotal()) * skills->second.inte) + (static_cast<long long>(ISkill.GetGrade()) * skills->second.damage_per_grade);
 		
 		switch (ISkill.GetIndex())
 		{
@@ -1910,7 +1910,7 @@ bool ICharacter::BuffOnSkill(ISkill ISkill, ICharacter Target)
 	if (skills == IConfig::DebuffCalc.end())
 		return false;
 
-	value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (GetStrTotal() * skills->second.str) + (GetAgiTotal() * skills->second.agi) + (ISkill.GetGrade() * skills->second.damage_per_grade);
+	value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (static_cast<long long>(GetStrTotal()) * skills->second.str) + (static_cast<long long>(GetAgiTotal()) * skills->second.agi) + (static_cast<long long>(ISkill.GetGrade()) * skills->second.damage_per_grade);
 	if (Target.GetType() == TYPE_PLAYER)
 		value = value - (value * skills->second.pvp_reduction / 100);
 

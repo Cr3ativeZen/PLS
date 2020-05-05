@@ -74,7 +74,7 @@ int __fastcall Tick(void *Player, void *edx)
 		{
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
-			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
 				int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
 
@@ -92,7 +92,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset() && Caster.IsValid())
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
@@ -110,7 +110,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfPhysicalAttack[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
 				int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 560);
 
@@ -129,7 +129,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfPhysicalAttack[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset() && Caster.IsValid())
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
@@ -150,7 +150,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
 				IPlayer.CancelBuff(73);
 
@@ -164,7 +164,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset() && Caster.IsValid())
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
@@ -181,7 +181,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfRecovery[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
 				IPlayer.CancelBuff(38);
 
@@ -194,7 +194,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfRecovery[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset()  && Caster.IsValid())
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
@@ -217,7 +217,7 @@ int __fastcall Tick(void *Player, void *edx)
 			void* CasterOffset = IConfig::CallOfDefense[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 
-			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
 				IPlayer.CancelBuff(28);
 			}
@@ -231,7 +231,7 @@ int __fastcall Tick(void *Player, void *edx)
 			int Check = 0;
 			void* pSkill = (void*)Caster.GetSkillPointer(19);
 
-			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset())
+			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset() && Caster.IsValid())
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{

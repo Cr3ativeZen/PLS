@@ -125,66 +125,6 @@ void __fastcall CKnight::Sacrifice(int pPacket, int pPos)
 			return;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-	//ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_SACRIFICE));
-
-	//int nSkillGrade = ISkill.GetGrade();
-
-	//if (!nSkillGrade)
-	//	return;
-
-	//int nTargetID = 0;
-	//char bType = 0;
-	//void* pTarget = 0;
-	//CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
-
-	//if (bType == 0 && nTargetID)
-	//	pTarget = CPlayer::FindPlayer(nTargetID);
-
-	//if (bType == 1)
-	//	return;
-
-	//if (bType >= 2 || !pTarget || pTarget == GetOffset())
-	//	return;
-
-	//ICharacter ITarget((void*)pTarget);
-
-
-
-	////double nHealAmountSacrifice = SacrificeBaseHeal + (ITarget.GetMaxHp() * SacrificeBasePercentageHeal / 100) + (ITarget.GetMaxHp() * (ISkill.GetGrade() * SacrificeHealPerGradePercentage / 100));
-	//double nHealAmountSacrifice = 1000.0;
-
-	////double nHpLossSacrifice = SacrificeBaseLoss + (GetMaxHp() * SacrificeBasePercentageLoss / 100) + (GetMaxHp() * (ISkill.GetGrade() * SacrificeLossPerGradePercentage / 100));
-	//double nHpLossSacrifice = 1000.0;
-
-
-	//if (pTarget && ITarget.IsValid() && IsValid())
-	//{
-	//	if (GetCurHp() - nHpLossSacrifice <= 0)
-	//	{
-	//		//SystemMessage("Your HP is too low to use this skill", TEXTCOLOR_RED);
-	//		SystemMessage("Your HP is too low to use this skill", RGB(255, 0, 0));
-
-	//	}
-	//	else
-	//	{
-	//		DecreaseHp(static_cast<int>(nHpLossSacrifice));
-	//		ITarget.IncreaseHp(static_cast<int>(nHealAmountSacrifice));
-	//		_ShowBattleAnimation(GetOffset(), SKILL_KNIGHT_SACRIFICE);
-
-	//	}
-	//}
-
 }
 
 void __fastcall CKnight::TranscendentalBlow(int pPacket, int pPos)
@@ -223,7 +163,7 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 
 
 	//Call of Evasion
-	if (SkillID == 27)
+	if (SkillID == SKILL_KNIGHT_CALLOFEVASION)
 	{
 		if (IsParty() && IsValid())
 		{
@@ -235,7 +175,14 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 				{
 					int Members = *(DWORD*)((void*)i);
 					ICharacter IMembers((void*)*(DWORD*)((void*)i));
+					int BuffValue = 0;
+					CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IMembers.GetOffset() + 364));
 					int Buff = CChar::FindBuff((int)IMembers.GetOffset(), 550);
+
+					if (Buff)
+						BuffValue = *(DWORD*)(Buff + 12);
+
+					CIOCriticalSection::Leave((void*)((char*)IMembers.GetOffset() + 364));
 
 					if (CChar::IsNormal(Members) && IsValid() && IMembers.GetClass() == CLASS_MAGE)
 					{
@@ -251,9 +198,14 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 								_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 								IMembers.AddFxToTarget("test_item_ef_09", 1, 0, 1);
 
-								IConfig::CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
-								IConfig::CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-								IConfig::CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
+
+
+								IConfig::CallCheck callCheck = IConfig::CallCheck();
+
+								callCheck.CasterOffset = GetOffset();
+								callCheck.ReciverOffset = IMembers.GetOffset();
+								callCheck.SkillID = SkillID;
+								IConfig::CallOfEvasionOTP[IMembers.GetPID()] = callCheck;
 
 							}
 						}
@@ -261,7 +213,7 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 						{
 							if (IsInRange(IMembers, IConfig::CallRANGE))
 							{
-								IMembers.RemoveEva(*(DWORD*)(Buff + 12));
+								IMembers.RemoveEva(BuffValue);
 								IMembers.CancelBuff(70);
 								IMembers.CancelBuff(550);
 
@@ -270,9 +222,13 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 								IMembers.Buff(70, 0, 0);
 								IMembers.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
 								IMembers.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
-								IConfig::CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
-								IConfig::CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-								IConfig::CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
+
+								IConfig::CallCheck callCheck = IConfig::CallCheck();
+
+								callCheck.CasterOffset = GetOffset();
+								callCheck.ReciverOffset = IMembers.GetOffset();
+								callCheck.SkillID = SkillID;
+								IConfig::CallOfEvasionOTP[IMembers.GetPID()] = callCheck;
 
 								IMembers.AddFxToTarget("test_item_ef_09", 1, 0, 1);
 								_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
@@ -281,14 +237,15 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 					}
 
 				}
+				CIOObject::Release(Party);
 			}
+
 		}
 	}
 
 	//Call of otp
-	if (SkillID == 31)
+	if (SkillID == SKILL_KNIGHT_CALLOFONTARGETPOINT)
 	{
-		int EvaBuff = 0;
 		if (IsValid())
 		{
 			if (IsParty())
@@ -301,74 +258,56 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 					{
 						int Members = *(DWORD*)((void*)i);
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
-						EvaBuff = CChar::FindBuff((int)IMembers.GetOffset(), 550);
+
+						int BuffValue = 0;
+						CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IMembers.GetOffset() + 364));
+						int Buff = CChar::FindBuff((int)IMembers.GetOffset(), 550);
+
+						if (Buff)
+							BuffValue = *(DWORD*)(Buff + 12);
+
+						CIOCriticalSection::Leave((void*)((char*)IMembers.GetOffset() + 364));
 
 						if (CChar::IsNormal(Members) && IsValid() && IMembers.GetClass() != CLASS_MAGE)
 						{
-							if (!IMembers.IsBuff(73))
+							if (IsInRange(IMembers, IConfig::CallRANGE))
 							{
-								if (IsInRange(IMembers, IConfig::CallRANGE))
-								{
-									if (IMembers.IsBuff(70) && IMembers.IsBuff(550))
-									{
-										IMembers.RemoveEva(*(DWORD*)(EvaBuff + 12));
-										IMembers.CancelBuff(70);
-										IMembers.CancelBuff(550);
-									}
-									IMembers.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
-									IConfig::CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
-									IConfig::CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-									IConfig::CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
-								}
-							}
-							else
-							{
-								if (IsInRange(IMembers, IConfig::CallRANGE))
-								{
-									if (IMembers.IsBuff(70) && IMembers.IsBuff(550))
-									{
-										IMembers.RemoveEva(*(DWORD*)(EvaBuff + 12));
-										IMembers.CancelBuff(70);
-										IMembers.CancelBuff(550);
-									}
-									IMembers.CancelBuff(73);
-									IMembers.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
-									IConfig::CallOfEvasionOTP[IMembers.GetPID()].CasterOffset = GetOffset();
-									IConfig::CallOfEvasionOTP[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-									IConfig::CallOfEvasionOTP[IMembers.GetPID()].SkillID = SkillID;
-								}
-							}
+								IMembers.CancelBuff(73);
+								IMembers.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
 
+								IConfig::CallCheck callCheck = IConfig::CallCheck();
+
+								callCheck.CasterOffset = GetOffset();
+								callCheck.ReciverOffset = IMembers.GetOffset();
+								callCheck.SkillID = SkillID;
+								IConfig::CallOfEvasionOTP[IMembers.GetPID()] = callCheck;
+							}
 						}
 					}
+					CIOObject::Release(Party);
 				}
 			}
 			else
 			{
-				EvaBuff = CChar::FindBuff((int)GetOffset(), 550);
+				int BuffValue = 0;
+				CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)GetOffset() + 364));
+				int Buff = CChar::FindBuff((int)GetOffset(), 560);
+
+				if (Buff)
+					BuffValue = *(DWORD*)(Buff + 12);
+
+				CIOCriticalSection::Leave((void*)((char*)GetOffset() + 364));
 				if (!IsBuff(73))
 				{
-					if (IsBuff(70) && IsBuff(550))
-					{
-						RemoveEva(*(DWORD*)(EvaBuff + 12));
-						CancelBuff(70);
-						CancelBuff(550);
-					}
-					Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+					this->Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
 					_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 					return;
 				}
 				else
 				{
-					if (IsBuff(70) && IsBuff(550))
-					{
-						RemoveEva(*(DWORD*)(EvaBuff + 12));
-						CancelBuff(70);
-						CancelBuff(550);
-					}
 					CancelBuff(73);
 
-					Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+					this->Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
 					_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 					return;
 				}
@@ -376,8 +315,8 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 		}
 	}
 
-	//Call of Recoveryy
-	if (SkillID == 23)
+	//Call of Recovery
+	if (SkillID == SKILL_KNIGHT_CALLOFRECOVERY)
 	{
 		if (IsValid())
 		{
@@ -395,24 +334,22 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 
 						if (CChar::IsNormal(Members) && IsValid())
 						{
+							IConfig::CallCheck callCheck = IConfig::CallCheck();
 							if (!IMembers.IsBuff(38))
 							{
 								if (IsInRange(IMembers, IConfig::CallRANGE))
 								{
-									if (IMembers.GetSpecialty() == 23 && IMembers.GetClass() == 1)
-									{
+									IConfig::CallCheck callCheck = IConfig::CallCheck();
+									if (IMembers.GetSpecialty() == 23 && IMembers.GetClass() == CLASS_MAGE)
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
-										IConfig::CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
-									}
 									else
-									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
-										IConfig::CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
-									}
+
+
+									callCheck.CasterOffset = GetOffset();
+									callCheck.ReciverOffset = IMembers.GetOffset();
+									callCheck.SkillID = SkillID;
+									IConfig::CallOfRecovery[IMembers.GetPID()] = callCheck;
 								}
 							}
 
@@ -422,25 +359,21 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 								{
 									IMembers.CancelBuff(38);
 									if (IMembers.GetSpecialty() == 23 && IMembers.GetClass() == 1)
-									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
-										IConfig::CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
-									}
 									else
-									{
 										IMembers.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
-										IConfig::CallOfRecovery[IMembers.GetPID()].CasterOffset = GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-										IConfig::CallOfRecovery[IMembers.GetPID()].SkillID = SkillID;
-									}
+
+									callCheck.CasterOffset = GetOffset();
+									callCheck.ReciverOffset = IMembers.GetOffset();
+									callCheck.SkillID = SkillID;
+									IConfig::CallOfRecovery[IMembers.GetPID()] = callCheck;
 								}
 
 							}
 						}
 
 					}
+					CIOObject::Release(Party);
 				}
 			}
 			else
@@ -464,7 +397,7 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 	}
 
 	//Call of physical attack
-	if (SkillID == 32)
+	if (SkillID == SKILL_KNIGHT_CALLOFPHYSICALATTACK)
 	{
 		if (IsValid())
 		{
@@ -478,7 +411,14 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 					{
 						int Members = *(DWORD*)((void*)i);
 						ICharacter IMembers((void*)*(DWORD*)((void*)i));
+						int BuffValue = 0;
+						CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IMembers.GetOffset() + 364));
 						int Buff = CChar::FindBuff((int)IMembers.GetOffset(), 560);
+
+						if (Buff)
+							BuffValue = *(DWORD*)(Buff + 12);
+
+						CIOCriticalSection::Leave((void*)((char*)IMembers.GetOffset() + 364));
 
 						if (CChar::IsNormal(Members) && IsValid())
 						{
@@ -491,9 +431,14 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 
 									IMembers.Buff(74, 0, 0);
 									IMembers.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
-									IConfig::CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = GetOffset();
-									IConfig::CallOfPhysicalAttack[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-									IConfig::CallOfPhysicalAttack[IMembers.GetPID()].SkillID = SkillID;
+
+									IConfig::CallCheck callCheck = IConfig::CallCheck();
+
+									callCheck.CasterOffset = GetOffset();
+									callCheck.ReciverOffset = IMembers.GetOffset();
+									callCheck.SkillID = SkillID;
+
+									IConfig::CallOfPhysicalAttack[IMembers.GetPID()] = callCheck;
 
 									_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 								}
@@ -502,8 +447,8 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 							{
 								if (IsInRange(IMembers, IConfig::CallRANGE))
 								{
-									IMembers.RemoveMinAttack(*(DWORD*)(Buff + 12));
-									IMembers.RemoveMaxAttack(*(DWORD*)(Buff + 12));
+									IMembers.RemoveMinAttack(BuffValue);
+									IMembers.RemoveMaxAttack(BuffValue);
 									IMembers.CancelBuff(74);
 									IMembers.CancelBuff(560);
 
@@ -512,11 +457,14 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 									IMembers.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 									IMembers.Buff(74, 0, 0);
 									IMembers.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
-									IConfig::CallOfPhysicalAttack[IMembers.GetPID()].CasterOffset = GetOffset();
-									IConfig::CallOfPhysicalAttack[IMembers.GetPID()].ReciverOffset = IMembers.GetOffset();
-									IConfig::CallOfPhysicalAttack[IMembers.GetPID()].SkillID = SkillID;
 
+									IConfig::CallCheck callCheck = IConfig::CallCheck();
 
+									callCheck.CasterOffset = GetOffset();
+									callCheck.ReciverOffset = IMembers.GetOffset();
+									callCheck.SkillID = SkillID;
+
+									IConfig::CallOfPhysicalAttack[IMembers.GetPID()] = callCheck;
 
 									_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 								}
@@ -524,11 +472,20 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 						}
 
 					}
+					CIOObject::Release(Party);
 				}
 			}
 			else
 			{
+
+				int BuffValue = 0;
+				CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)GetOffset() + 364));
 				int Buff = CChar::FindBuff((int)GetOffset(), 560);
+
+				if (Buff)
+					BuffValue = *(DWORD*)(Buff + 12);
+
+				CIOCriticalSection::Leave((void*)((char*)GetOffset() + 364));
 
 
 				if (!IsBuff(74))
@@ -546,8 +503,8 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 				}
 				else
 				{
-					RemoveMinAttack(*(DWORD*)(Buff + 12));
-					RemoveMaxAttack(*(DWORD*)(Buff + 12));
+					RemoveMinAttack(BuffValue);
+					RemoveMaxAttack(BuffValue);
 
 					CancelBuff(74);
 					CancelBuff(560);
@@ -568,7 +525,7 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 	}
 
 	//Call of heal
-	if (SkillID == 29)
+	if (SkillID == SKILL_KNIGHT_HEALASONE)
 	{
 
 		std::map<std::pair<int, int>, IConfig::Heals>::iterator skills;
@@ -609,7 +566,7 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 						}
 					}
 					_ShowBattleAnimation(GetOffset(), 29);
-
+					CIOObject::Release(Party);
 				}
 			}
 			else
@@ -621,8 +578,9 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 			}
 		}
 	}
+
 	//call of puri
-	if (SkillID == 28)
+	if (SkillID == SKILL_KNIGHT_PURGECONDITIONS)
 	{
 		int DebuffList[22] = { 7,8,11,15,26,29,39,81,85,86,87,88,89,90,91,92,93,94,105,4001,4002,790 };
 
@@ -680,7 +638,7 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 							}
 						}
 					}
-
+					CIOObject::Release(Party);
 				}
 			}
 			else

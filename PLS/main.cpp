@@ -137,6 +137,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
 		DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
+
 		DetourTransactionCommit();
 		break;
 	}

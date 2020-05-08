@@ -2039,52 +2039,51 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int
 		return flag;
 
 
-	int Around = Target.GetObjectListAround(range);
+
 	
 
 
 	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
 	{
-		while (Around && count < mob_amount)  //needs a remake i think
+		int Around = Target.GetObjectListAround(range);
+		while (Around)
 		{
-			ICharacter Object((void*)*(DWORD*)Around);
-
-			if (Object.GetOffset() != Target.GetOffset() && Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+			if (count < mob_amount) 
 			{
-				if (check_hit && CheckHit(Target, 15))
-				{
-					BuffOnSkill(ISkill, Target);
-					OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());
-					flag = true;
-				}
-				else if (!check_hit)
-				{
-					if (ISkill.GetGrade() != SKILL_MAGE_AMNESIA && GetClass() != CLASS_MAGE && Target.GetType() == TYPE_PLAYER)
-					{
+				ICharacter Object((void*)*(DWORD*)Around);
 
-					}
-					else
+				if (Object.GetOffset() != Target.GetOffset() && Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+				{
+					if (check_hit && CheckHit(Target, 15))
 					{
 						BuffOnSkill(ISkill, Target);
 						OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());
 						flag = true;
 					}
+					else if (!check_hit)
+					{
+						if (!(ISkill.GetGrade() != SKILL_MAGE_AMNESIA && GetClass() != CLASS_MAGE && Target.GetType() == TYPE_PLAYER))
+						{
+							BuffOnSkill(ISkill, Target);
+							OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());
+							flag = true;
+						}
 
+					}
+					else
+					{
+						_ShowBattleMiss(Object, ISkill.GetIndex());
+						flag = true;
+					}
+					count++;
 				}
-				else
-				{
-					_ShowBattleMiss(Object, ISkill.GetIndex());
-					flag = true;
-				}
-				count++;
 			}
-
 			Around = CBaseList::Pop((void*)Around);
 
 		}
 		if (self_anim && flag)
 			_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
-		else if(flag)
+		else if (flag)
 			_ShowBattleAnimation(Target, ISkill.GetIndex());
 	}
 	bool check = DamageSingle(ISkill, Target, self_anim, check_hit);

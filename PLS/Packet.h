@@ -40,10 +40,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 
 
-				if (SkillID == 74 && IPlayer.GetClass() == 1)
-				{
-					SkillID = 99;
-				}
+
 
 				if (SkillID == 6 && IPlayer.GetClass() == 3 && IPlayer.IsBuff(329))
 				{
@@ -59,14 +56,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 
 
-				if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)))
-					CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (SkillID * 1000000))->second;
+				if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (static_cast<long long>(SkillID) * 1000000)))
+					CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (static_cast<long long>(SkillID) * 1000000))->second;
 
 
-				if ((IPlayer.IsBuff(5605) && (SkillID == 99 || SkillID == 74)))
-				{
 
-				}
 				else if (CooldownCheck > GetTickCount())
 				{
 
@@ -76,7 +70,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 				else
 				{
-					CooldownTable[IPlayer.GetPID() + 4000000000 + (SkillID * 1000000)] = GetTickCount() + CdTime + DelayTime;
+					CooldownTable[IPlayer.GetPID() + 4000000000 + (static_cast<long long>(SkillID) * 1000000)] = GetTickCount() + CdTime + DelayTime;
 				}
 
 
@@ -210,15 +204,18 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 													{
 														int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
 
-														IConfig::CallOfDefense[Member.GetPID()].CasterOffset = IPlayer.GetOffset();
-														IConfig::CallOfDefense[Member.GetPID()].ReciverOffset = Member.GetOffset();
-														IConfig::CallOfDefense[Member.GetPID()].SkillID = nSkillGrade;
+														IConfig::CallCheck callCheck = IConfig::CallCheck();
 
+														callCheck.CasterOffset = IPlayer.GetOffset();
+														callCheck.ReciverOffset = Member.GetOffset();
+														callCheck.SkillID = nSkillGrade;
+														IConfig::CallOfDefense[Member.GetPID()] = callCheck;
 														(*(void(__thiscall**)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
 													}
 												}
 
 											}
+											CIOObject::Release(Party);
 										}
 									}
 									else
@@ -226,9 +223,9 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 										CChar::CancelAllBuff(Playere.GetOffset(), 28);
 										(*(void(__thiscall**)(int, int))(*(DWORD*)Player + 180))(Player, Check);
 									}
-
-									Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
 								}
+
+								Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
 							}
 							return;
 						}

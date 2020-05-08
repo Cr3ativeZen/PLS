@@ -7,9 +7,19 @@ int __fastcall Tick(void *Player, void *edx)
 
 	if (IPlayer.IsOnline() && !IPlayer.IsBuff(70) && IPlayer.IsBuff(550))
 	{
+		//int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
+
+
+		int BuffValue = 0;
+		CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IPlayer.GetOffset() + 364));
 		int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
 
-		IPlayer.RemoveEva(*(DWORD*)(Buff + 12));
+		if (Buff)
+			BuffValue = *(DWORD*)(Buff + 12);
+
+		CIOCriticalSection::Leave((void*)((char*)IPlayer.GetOffset() + 364));
+
+		IPlayer.RemoveEva(BuffValue);
 
 		IPlayer.CancelBuff(70);
 		IPlayer.CancelBuff(550);
@@ -17,10 +27,18 @@ int __fastcall Tick(void *Player, void *edx)
 
 	if (IPlayer.IsOnline() && !IPlayer.IsBuff(74) && IPlayer.IsBuff(560))
 	{
+		//int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 560);
+		int BuffValue = 0;
+		CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IPlayer.GetOffset() + 364));
 		int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 560);
 
-		IPlayer.RemoveMinAttack(*(DWORD*)(Buff + 12));
-		IPlayer.RemoveMaxAttack(*(DWORD*)(Buff + 12));
+		if (Buff)
+			BuffValue = *(DWORD*)(Buff + 12);
+
+		CIOCriticalSection::Leave((void*)((char*)IPlayer.GetOffset() + 364));
+
+		IPlayer.RemoveMinAttack(BuffValue);
+		IPlayer.RemoveMaxAttack(BuffValue);
 
 		IPlayer.CancelBuff(74);
 		IPlayer.CancelBuff(560);
@@ -31,11 +49,18 @@ int __fastcall Tick(void *Player, void *edx)
 
 	if (IPlayer.IsOnline() && !IPlayer.IsBuff(10) && IPlayer.IsBuff(500) && IPlayer.IsBuff(501))
 	{
+		int BuffValue = 0;
+		CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IPlayer.GetOffset() + 364));
 		int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 500);
-		int Buff2 = CChar::FindBuff((int)IPlayer.GetOffset(), 501);
 
-		IPlayer.RemoveMinPhysAttack(*(DWORD*)(Buff + 12));
-		IPlayer.RemoveMaxPhysAttack(*(DWORD*)(Buff2 + 12));
+		if (Buff)
+			BuffValue = *(DWORD*)(Buff + 12);
+
+		CIOCriticalSection::Leave((void*)((char*)IPlayer.GetOffset() + 364));
+
+
+		IPlayer.RemoveMinPhysAttack(BuffValue);
+		IPlayer.RemoveMaxPhysAttack(BuffValue);
 
 		IPlayer.CancelBuff(10);
 		IPlayer.CancelBuff(500);
@@ -45,22 +70,20 @@ int __fastcall Tick(void *Player, void *edx)
 
 
 
-	if (IPlayer.IsBuff(790))
-	{
-		int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 790);
-		if (IPlayer.GetCurHp() > 1000 && !(CChar::IsGState((int)IPlayer.GetOffset(), 2)))
-		{
-			IPlayer.DecreaseHp(*(DWORD*)(Buff + 12));
-		}
-
-	}
-
 	if (IPlayer.IsBuff(791))
 	{
+		int BuffValue = 0;
+		CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IPlayer.GetOffset() + 364));
 		int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 791);
+
+		if (Buff)
+			BuffValue = *(DWORD*)(Buff + 12);
+
+		CIOCriticalSection::Leave((void*)((char*)IPlayer.GetOffset() + 364));
+
 		if (IPlayer.GetCurHp() > 200 && !(CChar::IsGState((int)IPlayer.GetOffset(), 2)))
 		{
-			IPlayer.DecreaseHp(*(DWORD*)(Buff + 12));
+			IPlayer.DecreaseHp(BuffValue);
 		}
 
 	}
@@ -76,9 +99,17 @@ int __fastcall Tick(void *Player, void *edx)
 			ICharacter Caster(CasterOffset);
 			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
+				//int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
+				int BuffValue = 0;
+				CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IPlayer.GetOffset() + 364));
 				int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 550);
 
-				IPlayer.RemoveEva(*(DWORD*)(Buff + 12));
+				if (Buff)
+					BuffValue = *(DWORD*)(Buff + 12);
+
+				CIOCriticalSection::Leave((void*)((char*)IPlayer.GetOffset() + 364));
+
+				IPlayer.RemoveEva(BuffValue);
 
 				IPlayer.CancelBuff(70);
 				IPlayer.CancelBuff(550);
@@ -87,7 +118,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 		}
 		//evasion on
-		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == 27)
+		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == SKILL_KNIGHT_CALLOFEVASION)
 		{
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
@@ -112,10 +143,17 @@ int __fastcall Tick(void *Player, void *edx)
 
 			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
+				int BuffValue = 0;
+				CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IPlayer.GetOffset() + 364));
 				int Buff = CChar::FindBuff((int)IPlayer.GetOffset(), 560);
 
-				IPlayer.RemoveMinAttack(*(DWORD*)(Buff + 12));
-				IPlayer.RemoveMaxAttack(*(DWORD*)(Buff + 12));
+				if (Buff)
+					BuffValue = *(DWORD*)(Buff + 12);
+
+				CIOCriticalSection::Leave((void*)((char*)IPlayer.GetOffset() + 364));
+
+				IPlayer.RemoveMinAttack(BuffValue);
+				IPlayer.RemoveMaxAttack(BuffValue);
 
 				IPlayer.CancelBuff(74);
 				IPlayer.CancelBuff(560);
@@ -158,7 +196,7 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 
 		//otp on
-		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(73) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == 31)
+		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(73) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == SKILL_KNIGHT_CALLOFONTARGETPOINT)
 		{
 
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;

@@ -217,6 +217,7 @@ void __fastcall CMage::Summons(int pPacket, int pPos)
 						IMembers.Buff(4, 60, -50);
 					}
 				}
+				CIOObject::Release(Party);
 			}
 		}
 		else

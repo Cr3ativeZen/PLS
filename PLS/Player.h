@@ -56,11 +56,17 @@ int __fastcall Tick(void *Player, void *edx)
 		if (Buff)
 			BuffValue = *(DWORD*)(Buff + 12);
 
+		int BuffValue2 = 0;
+		int Buff2 = CChar::FindBuff((int)IPlayer.GetOffset(), 501);
+
+		if (Buff2)
+			BuffValue2 = *(DWORD*)(Buff2 + 12);
+
 		CIOCriticalSection::Leave((void*)((char*)IPlayer.GetOffset() + 364));
 
 
 		IPlayer.RemoveMinPhysAttack(BuffValue);
-		IPlayer.RemoveMaxPhysAttack(BuffValue);
+		IPlayer.RemoveMaxPhysAttack(BuffValue2);
 
 		IPlayer.CancelBuff(10);
 		IPlayer.CancelBuff(500);

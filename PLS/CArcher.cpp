@@ -54,6 +54,14 @@ void __fastcall CArcher::MuscleSolidation()
 	_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 
 
+	//Buff(10, 900, 0);
+	//Buff(500, 910, static_cast<int>(GetMinPhyAttack() * 0.10));
+	//Buff(501, 910, static_cast<int>(GetMaxPhyAttack() * 0.10));
+	//Buff(501, 910, static_cast<int>(GetMaxPhyAttack() * 0.10));
+
+	//AddMinPhysAttack(static_cast<int>(GetMinPhyAttack() * 0.10));
+	//AddMaxPhysAttack(static_cast<int>(GetMaxPhyAttack() * 0.10));
+
 	Buff(10, 900, 0);
 	Buff(500, 910, static_cast<int>(GetMinPhyAttack() * 0.10));
 	Buff(501, 910, static_cast<int>(GetMaxPhyAttack() * 0.10));

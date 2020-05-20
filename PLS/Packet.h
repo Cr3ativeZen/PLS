@@ -84,6 +84,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				}
 
 
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+
 				std::map<std::pair<int, int>, bool>::iterator it;
 				it = IConfig::SkillEnabled.find({ IPlayer.GetClass(),SkillID });
 				if ((it != IConfig::SkillEnabled.end() && it->second))

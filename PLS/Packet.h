@@ -83,8 +83,32 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				}
 
+				//8 4
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29 )
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
 
-				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29)
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 4)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 5)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 4)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 5)
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
@@ -96,6 +120,29 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 4)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 5)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 4)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 5)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
 
 				std::map<std::pair<int, int>, bool>::iterator it;
 				it = IConfig::SkillEnabled.find({ IPlayer.GetClass(),SkillID });
@@ -183,67 +230,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 						case SKILL_KNIGHT_CALLOFDEFENSE:
 						{
-
-							ICharacter Playere((void*)Player);
-
-							void* pSkill = (void*)Playere.GetSkillPointer(SKILL_KNIGHT_CALLOFDEFENSE);
-							if (Playere.IsValid())
-							{
-								ISkill ISkill(pSkill);
-								int nSkillGrade = ISkill.GetGrade();
-								int Action = 0, Check = 0;
-								Check = (*(int(__thiscall**)(void*, int))(*(DWORD*)pSkill + 80))(pSkill, Player);
-
-								if (nSkillGrade && Check && Playere.IsValid())
-								{
-									if (Playere.IsParty())
-									{
-										void* Party = (void*)CParty::FindParty(Playere.GetPartyID());
-
-										if (Party)
-										{
-											for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
-											{
-												int Members = *(DWORD*)((void*)i);
-
-												if (CChar::IsNormal(Members) && Playere.IsValid())
-												{
-													CChar::CancelAllBuff((void*)Members, *(DWORD*)(Check + 4));
-
-
-													ICharacter Member((void*)Members);
-
-													if (Playere.IsInRange(Member, IConfig::CallRANGE))
-													{
-														int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
-
-														IConfig::CallCheck callCheck = IConfig::CallCheck();
-
-														callCheck.CasterOffset = IPlayer.GetOffset();
-														callCheck.ReciverOffset = Member.GetOffset();
-														callCheck.SkillID = nSkillGrade;
-														IConfig::CallOfDefense[Member.GetPID()] = callCheck;
-														(*(void(__thiscall**)(DWORD, DWORD))(*(DWORD*)Members + 180))(Members, Buff);
-													}
-												}
-
-											}
-											CIOObject::Release(Party);
-										}
-									}
-									else
-									{
-										CChar::CancelAllBuff(Playere.GetOffset(), 28);
-										(*(void(__thiscall**)(int, int))(*(DWORD*)Player + 180))(Player, Check);
-									}
-								}
-
-								Playere._ShowBattleAnimation(Playere, ISkill.GetIndex());
-							}
+							knight.Calls((int)pPacket, pPos, SKILL_KNIGHT_CALLOFDEFENSE);
 							return;
 						}
 
-						}
+					}
 						break;
 					}
 

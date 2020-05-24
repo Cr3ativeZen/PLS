@@ -682,6 +682,83 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 		}
 
 	}
+
+
+	//call of defense
+	if (SkillID == SKILL_KNIGHT_CALLOFDEFENSE)
+	{
+		if (IsValid())
+		{
+			if (IsParty())
+			{
+				void* Party = (void*)CParty::FindParty(GetPartyID());
+
+				if (Party)
+				{
+					for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+					{
+						int Members = *(DWORD*)((void*)i);
+						ICharacter IMembers((void*)*(DWORD*)((void*)i));
+
+
+						if (CChar::IsNormal(Members) && IsValid())
+						{
+							IConfig::CallCheck callCheck = IConfig::CallCheck();
+							if (!IMembers.IsBuff(28))
+							{
+								if (IsInRange(IMembers, IConfig::CallRANGE))
+								{
+									IConfig::CallCheck callCheck = IConfig::CallCheck();
+									IMembers.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+
+
+									callCheck.CasterOffset = GetOffset();
+									callCheck.ReciverOffset = IMembers.GetOffset();
+									callCheck.SkillID = SkillID;
+									IConfig::CallOfDefense[IMembers.GetPID()] = callCheck;
+								}
+							}
+
+							else
+							{
+								if (IsInRange(IMembers, IConfig::CallRANGE))
+								{
+									IMembers.CancelBuff(28);
+
+									IMembers.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+
+									callCheck.CasterOffset = GetOffset();
+									callCheck.ReciverOffset = IMembers.GetOffset();
+									callCheck.SkillID = SkillID;
+									IConfig::CallOfDefense[IMembers.GetPID()] = callCheck;
+								}
+
+							}
+						}
+
+					}
+					CIOObject::Release(Party);
+				}
+			}
+			else
+			{
+				if (!IsBuff(28))
+				{
+					Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+					_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
+					return;
+				}
+				else
+				{
+					CancelBuff(28);
+
+					Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+					_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
+					return;
+				}
+			}
+		}
+	}
 }
 
 

@@ -44,9 +44,6 @@ int __fastcall Tick(void *Player, void *edx)
 		IPlayer.CancelBuff(560);
 	}
 
-
-
-
 	if (IPlayer.IsOnline() && !IPlayer.IsBuff(10) && IPlayer.IsBuff(500) && IPlayer.IsBuff(501))
 	{
 		int BuffValue = 0;
@@ -73,10 +70,7 @@ int __fastcall Tick(void *Player, void *edx)
 		IPlayer.CancelBuff(501);
 	}
 
-
-
-
-	if (IPlayer.IsBuff(791))
+	if (IPlayer.IsOnline() && IPlayer.IsBuff(791))
 	{
 		int BuffValue = 0;
 		CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)IPlayer.GetOffset() + 364));
@@ -102,6 +96,7 @@ int __fastcall Tick(void *Player, void *edx)
 		if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(550) && IPlayer.IsBuff(70))
 		{
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
+
 			ICharacter Caster(CasterOffset);
 			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
@@ -124,7 +119,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 		}
 		//evasion on
-		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == SKILL_KNIGHT_CALLOFEVASION)
+		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(550) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == SKILL_KNIGHT_CALLOFEVASION && IConfig::CallOfEvasionOTP.find(IPlayer.GetPID()) != IConfig::CallOfEvasionOTP.end())
 		{
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
@@ -133,10 +128,13 @@ int __fastcall Tick(void *Player, void *edx)
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
-					ISkill ISkill((void*)Caster.GetSkillPointer(27));
-					IPlayer.Buff(70, 0, 0);
-					IPlayer.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
-					IPlayer.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
+					ISkill ISkill((void*)Caster.GetSkillPointer(SKILL_KNIGHT_CALLOFEVASION));
+					if (ISkill.GetGrade())
+					{
+						IPlayer.Buff(70, 0, 0);
+						IPlayer.Buff(550, 9999999, (ISkill.GetGrade() - 1) * 5 + 10);
+						IPlayer.AddEva((ISkill.GetGrade() - 1) * 5 + 10);
+					}
 				}
 			}
 		}
@@ -168,7 +166,7 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 
 		//Copa on
-		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(560))
+		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(560) && IConfig::CallOfPhysicalAttack.find(IPlayer.GetPID()) != IConfig::CallOfPhysicalAttack.end())
 		{
 			void* CasterOffset = IConfig::CallOfPhysicalAttack[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
@@ -177,13 +175,15 @@ int __fastcall Tick(void *Player, void *edx)
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
-					ISkill ISkill((void*)Caster.GetSkillPointer(32));
+					ISkill ISkill((void*)Caster.GetSkillPointer(SKILL_KNIGHT_CALLOFPHYSICALATTACK));
+					if (ISkill.GetGrade())
+					{
+						IPlayer.AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
+						IPlayer.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
 
-					IPlayer.AddMinAttack((ISkill.GetGrade() - 1) * 25 + 50);
-					IPlayer.AddMaxAttack((ISkill.GetGrade() - 1) * 25 + 50);
-
-					IPlayer.Buff(74, 0, 0);
-					IPlayer.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
+						IPlayer.Buff(74, 0, 0);
+						IPlayer.Buff(560, 9999999, (ISkill.GetGrade() - 1) * 25 + 50);
+					}
 				}
 			}
 		}
@@ -197,12 +197,11 @@ int __fastcall Tick(void *Player, void *edx)
 			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
 				IPlayer.CancelBuff(73);
-
 			}
 		}
 
 		//otp on
-		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(73) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == SKILL_KNIGHT_CALLOFONTARGETPOINT)
+		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(73) && IConfig::CallOfEvasionOTP[IPlayer.GetPID()].SkillID == SKILL_KNIGHT_CALLOFONTARGETPOINT && IConfig::CallOfEvasionOTP.find(IPlayer.GetPID()) != IConfig::CallOfEvasionOTP.end())
 		{
 
 			void* CasterOffset = IConfig::CallOfEvasionOTP[IPlayer.GetPID()].CasterOffset;
@@ -212,8 +211,9 @@ int __fastcall Tick(void *Player, void *edx)
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
-					ISkill ISkill((void*)Caster.GetSkillPointer(31));
-					IPlayer.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
+					ISkill ISkill((void*)Caster.GetSkillPointer(SKILL_KNIGHT_CALLOFONTARGETPOINT));
+					if(ISkill.GetGrade())
+						IPlayer.Buff(73, 0, ((ISkill.GetGrade() - 1) * 5 + 10));
 				}
 			}
 		}
@@ -233,7 +233,7 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 
 		//cor on
-		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(38))
+		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(38) && IConfig::CallOfRecovery.find(IPlayer.GetPID()) != IConfig::CallOfRecovery.end())
 		{
 			void* CasterOffset = IConfig::CallOfRecovery[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
@@ -242,20 +242,24 @@ int __fastcall Tick(void *Player, void *edx)
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
 				{
-					ISkill ISkill((void*)Caster.GetSkillPointer(23));
-					if (IPlayer.GetSpecialty() == 23 && IPlayer.GetClass() == 1)
+					ISkill ISkill((void*)Caster.GetSkillPointer(SKILL_KNIGHT_CALLOFRECOVERY));
+					if (ISkill.GetGrade())
 					{
-						IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
-					}
-					else
-					{
-						IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
+						if (IPlayer.GetSpecialty() == 23 && IPlayer.GetClass() == 1)
+						{
+							IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 180 + 200));
+						}
+						else
+						{
+							IPlayer.Buff(38, 0, ((ISkill.GetGrade() - 1) * 50 + 50));
+						}
 					}
 				}
+
 			}
 		}
 
-		//codoff
+		//cod off
 		if (IPlayer.IsOnline() && IPlayer.IsParty() && IPlayer.IsBuff(28))
 		{
 			void* CasterOffset = IConfig::CallOfDefense[IPlayer.GetPID()].CasterOffset;
@@ -268,21 +272,17 @@ int __fastcall Tick(void *Player, void *edx)
 		}
 
 		//cod on
-		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28))
+		if (IPlayer.IsOnline() && IPlayer.IsParty() && !IPlayer.IsBuff(28) && IConfig::CallOfDefense.find(IPlayer.GetPID()) != IConfig::CallOfDefense.end())
 		{
+
 			void* CasterOffset = IConfig::CallOfDefense[IPlayer.GetPID()].CasterOffset;
 			ICharacter Caster(CasterOffset);
 			int Check = 0;
-			void* pSkill = (void*)Caster.GetSkillPointer(19);
-
-			if (IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset() && Caster.IsValid())
+			ISkill ISkill((void*)Caster.GetSkillPointer(SKILL_KNIGHT_CALLOFDEFENSE));
+			if (ISkill.GetGrade() && IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset() && Caster.IsValid())
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
-				{
-					Check = (*(int(__thiscall**)(void*, int))(*(DWORD*)pSkill + 80))(pSkill, (int)Caster.GetOffset());
-					int Buff = (*(int(__thiscall**)(DWORD))(*(DWORD*)Check + 20))(Check);
-					(*(void(__thiscall**)(DWORD, DWORD))(*(DWORD*)IPlayer.GetOffset() + 180))((DWORD)IPlayer.GetOffset(), Buff);
-				}
+					IPlayer.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
 			}
 		}
 	}

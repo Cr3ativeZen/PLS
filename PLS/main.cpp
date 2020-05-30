@@ -35,31 +35,9 @@ int String2Int(std::string String)
 }
 
 
-struct CheckConfigCooldown
-{
-	int CooldownConfig;
-	int DelayConfig;
-};
 
 
-enum ToFile
-{
-	SpeedHack = 1,
-	SkillLogs = 2,
-	Mails = 3,
-	WoodenBox = 4,
-	SkillHacks = 5
-};
 
-
-std::map<std::pair<void*, void*>, int> ::iterator boss;
-std::map<std::pair<void*, void*>, int>BossRNG;
-std::map<int, int> PlayerBlockCheck;
-std::map<int, DWORD> MonsterDisappear;
-
-
-std::map<int, CheckConfigCooldown> CheckCooldownConfig;
-std::map<int, int> CooldownTable;
 
 
 
@@ -95,7 +73,6 @@ enum TextColor
 #include "IItem.h"
 #include "ExecuteSkill.h"
 #include "ChatCommand.h"
-#include "InstaConfig.h"
 #include "Player.h"
 #include "Packet.h"
 #include "Resources.h"
@@ -107,7 +84,6 @@ enum TextColor
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
 	CIOServer::Start(Start, hostshort);
-	ZenConfig();
 
 	CONFIG.LoadSkillFormulas();
 	ConsoleWriteBlue("CreativeZen's DLL loaded successfully");

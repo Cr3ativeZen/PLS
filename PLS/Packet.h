@@ -30,7 +30,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 
 				IPlayer.Buff(313, 3, 0);
-				DWORD CdTime = 0, CooldownCheck = 0, DelayTime = 0;
+				DWORD CdTime = 0, casttime = 0;
 
 				if (IPlayer.IsValid() && IPlayer.IsBuff(349))
 				{
@@ -38,52 +38,65 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
+				std::map<std::pair<int, int>, IConfig::MySkills>::iterator ite;
+				ite = IConfig::SkillCastCheck.find({ IPlayer.GetClass(),SkillID });
 
-
-
-
-				if (SkillID == 6 && IPlayer.GetClass() == 3 && IPlayer.IsBuff(329))
-				{
-					IPlayer.CancelBuff(329);
-					IPlayer.CancelBuff(40);
-					return;
-				}
-
-				if (CheckCooldownConfig.count(SkillID + (IPlayer.GetClass() * 100)))
-				{
-					CdTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.CooldownConfig;
-					DelayTime = CheckCooldownConfig.find(SkillID + (IPlayer.GetClass() * 100))->second.DelayConfig;
-				}
-
-
-				if (CooldownTable.count(IPlayer.GetPID() + 4000000000 + (static_cast<long long>(SkillID) * 1000000)))
-					CooldownCheck = CooldownTable.find(IPlayer.GetPID() + 4000000000 + (static_cast<long long>(SkillID) * 1000000))->second;
-
-
-
-				else if (CooldownCheck > GetTickCount())
+				if (ite != IConfig::SkillCastCheck.end() && ite->second.enabled)
 				{
 
-					IPlayer.SystemMessage("Invalid skill time detected!", TEXTCOLOR_RED);
-					return;
+					if (ite->second.animation)
+					{
+
+						IPlayer.SystemMessage(Int2String(ite->second.casttime), TEXTCOLOR_RED);
+						std::map<int, IConfig::SkillCheck> ::iterator itsc;
+						itsc = IConfig::CastProtection.find(IPlayer.GetPID());
+
+						if (itsc == IConfig::CastProtection.end() || itsc->second.animation_check == false)
+						{
+							IPlayer.SystemMessage("Invalid skill cast time!", TEXTCOLOR_RED);
+							return;
+						}
+						else if (itsc->second.time_used + casttime < GetTickCount())
+						{
+							IPlayer.SystemMessage("Invalid skill cast time!", TEXTCOLOR_RED);
+							return;
+						}
+						else
+							itsc->second.animation_check = false;
+					}
+
+					std::map<std::pair<int, int>, DWORD>::iterator cdit;
+					cdit = IConfig::CooldownProtection.find({IPlayer.GetPID(), SkillID});
+
+					if (cdit != IConfig::CooldownProtection.end() && IConfig::CooldownProtection[{IPlayer.GetPID(), SkillID}] > GetTickCount())
+					{
+
+						IPlayer.SystemMessage("Invalid cooldown time!", TEXTCOLOR_RED);
+						return;
+					}
+					else
+					{
+						IConfig::CooldownProtection[{IPlayer.GetPID(), SkillID}] = GetTickCount() + ite->second.cooldown;
+					}
+
 
 				}
-				else
-				{
-					CooldownTable[IPlayer.GetPID() + 4000000000 + (static_cast<long long>(SkillID) * 1000000)] = GetTickCount() + CdTime + DelayTime;
-				}
 
 
 
+
+				//if (casttimeCheck + casttime > GetTickCount())
+				//{
+				//	IPlayer.SystemMessage("Invalid cast time detected!", TEXTCOLOR_RED);
+				//	return;
+				//}
 
 				if (IPlayer.IsValid() && !CChar::IsGState((int)IPlayer.GetOffset(), 512))
 				{
 					if (IPlayer.GetClass() == 1 && IPlayer.GetMap() == 21 && (SkillID == 43 || SkillID == 45 || SkillID == 48))
 						return;
-
 				}
 
-				//8 4
 				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29 )
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
@@ -342,11 +355,23 @@ void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos)
 	int ID = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "b", &SkillID, &ID);
 
-
-
-	if (IPlayer.GetClass() == 2 && SkillID == 16 /*&& FocusShotON == true*/)
+	std::map<std::pair<int, int>, IConfig::MySkills>::iterator it;
+	it = IConfig::SkillCastCheck.find({ IPlayer.GetClass(),SkillID});
+	
+	if (it != IConfig::SkillCastCheck.end() && it->second.animation && it->second.enabled)
 	{
-		int pSkill = IPlayer.GetSkillPointer(16);
+		IConfig::SkillCheck castCheck = IConfig::SkillCheck();
+		castCheck.animation_check = true;
+		castCheck.skillID = SkillID;
+		castCheck.time_used = GetTickCount();
+
+		IConfig::CastProtection[IPlayer.GetPID()] = castCheck;
+	}
+
+
+	if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_FOCUSSHOT)
+	{
+		int pSkill = IPlayer.GetSkillPointer(SKILL_ARCHER_FOCUSSHOT);
 		if (pSkill)
 		{
 			IConfig::CheckFocus[IPlayer.GetPID()] = GetTickCount();

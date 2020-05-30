@@ -11,6 +11,11 @@ void IConfig::LoadSkillFormulas()
 	IConfig::DebuffCalc.clear();
 	IConfig::HealCalc.clear();
 	IConfig::SkillEnabled.clear();
+	IConfig::SkillCastCheck.clear();
+
+
+
+
 	FILE* filez = fopen("./Skills/SkillFormulas.txt", "r");
 	if (filez != NULL)
 	{
@@ -113,8 +118,46 @@ void IConfig::LoadSkillFormulas()
 		fclose(filez);
 	}
 
+	FILE* file = fopen("./Configs/Cooldown.txt", "r");
+	if (file != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, file) != NULL)
+		{
+			int character = 0, skill_id = 0, casttime = 0, cooldown = 0;
 
-	//IConfig::CallEnabled = GetPrivateProfileIntA("Calls", "Enabled", 1, "./Skills/ZenSystem.txt");
+			if (sscanf(line, "(skill (class %d)(action %d)(delay %d)(cooldown %d))", &character, &skill_id, &casttime, &cooldown) == 4)
+			{
+				IConfig::SkillCastCheck[{character, skill_id}].cooldown = cooldown;
+				IConfig::SkillCastCheck[{character, skill_id}].casttime = casttime;
+				//IConfig::CheckCooldownConfig[{character, skill_id}].cooldown = cooldown;
+				//IConfig::CheckCooldownConfig[{character, skill_id}].delay = delay;
+			}
+		}
+		fclose(file);
+	}
+
+
+	FILE* filep = fopen("./Skills/SkillList.txt", "r");
+	if (filep != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, filep) != NULL)
+		{
+			int character = 0, skill_id = 0,animation = 0, enabled = 0;
+			if (sscanf(line, "(skill (class %d)(index %d)(has_animation %d)(enabled %d))", &character, &skill_id, &animation, &enabled) == 4)
+			{
+				IConfig::SkillCastCheck[{character, skill_id}].animation = animation;
+				IConfig::SkillCastCheck[{character, skill_id}].enabled = enabled;
+			}
+		}
+		fclose(filep);
+	}
+
+
+
+
+
 	IConfig::CallEnabled = true;
 }
 
@@ -139,6 +182,11 @@ std::map<int, IConfig::CallCheck>IConfig::CallOfDefense;
 std::map<int, IConfig::CallCheck>IConfig::CallOfPhysicalAttack;
 std::map<int, IConfig::CallCheck>IConfig::CallOfRecovery;
 
+
+std::map<int, IConfig::SkillCheck> IConfig::CastProtection;
+std::map<std::pair<int, int>, DWORD> IConfig::CooldownProtection;
+
+std::map<std::pair<int, int>, IConfig::MySkills> IConfig::SkillCastCheck;
 std::map<std::pair<int, int>,bool> IConfig::SkillEnabled;
 
 

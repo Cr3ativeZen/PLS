@@ -6,8 +6,10 @@
 #include <string>
 #include <set>
 #include <fstream>
+#include <vector>
 
 //IConfig is a Singleton used for loading necessary variables from config files.
+
 class IConfig
 {
 	IConfig()
@@ -92,6 +94,23 @@ public:
 		void* CasterOffset;
 	};
 
+	struct SkillCheck
+	{
+		bool animation_check;
+		int skillID;
+		DWORD time_used;
+
+	};
+
+	struct MySkills
+	{
+		int animation;
+		int enabled;
+		int cooldown;
+		int casttime;
+	};
+
+
 	enum TextColor
 	{
 		TEXTCOLOR_GENERAL = RGB(255, 255, 255),
@@ -127,6 +146,12 @@ public:
 	static std::map<int, PlayerFarContinueSkill> CheckFarContinueSkill;
 
 	static std::map<std::pair<int, int>,bool> SkillEnabled;
+
+	static std::map<int, SkillCheck> CastProtection;
+	//PID,SkillID,Cooldown
+	static std::map<std::pair<int,int>, DWORD> CooldownProtection;
+	static std::map<std::pair<int, int>, MySkills> SkillCastCheck;
+
 };
 
 extern IConfig CONFIG;

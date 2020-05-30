@@ -160,7 +160,6 @@
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="IConfig.h" />
     <ClInclude Include="IItem.h" />
-    <ClInclude Include="InstaConfig.h" />
     <ClInclude Include="IQuest.h" />
     <ClInclude Include="ISkill.h" />
     <ClInclude Include="Packet.h" />

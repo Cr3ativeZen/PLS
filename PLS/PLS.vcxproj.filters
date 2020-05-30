@@ -23,9 +23,6 @@
     <ClInclude Include="IItem.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
-    <ClInclude Include="InstaConfig.h">
-      <Filter>Header Files\EverythingElse</Filter>
-    </ClInclude>
     <ClInclude Include="IQuest.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>

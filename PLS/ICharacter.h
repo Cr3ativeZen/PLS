@@ -7,6 +7,7 @@
 #include "IConfig.h"
 #include "RAII.h"
 #include <string>
+
 class ICharacter
 {
 

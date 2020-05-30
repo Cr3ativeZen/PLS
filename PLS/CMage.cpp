@@ -124,7 +124,7 @@ void __fastcall CMage::Amnesia(int pPacket, int pPos)
 	}
 
 
-	DamageMultiple(ISkill, Target, 3, 999, true, false);
+	DamageMultiple(ISkill, Target, 4, 999, true, false);
 
 }
 

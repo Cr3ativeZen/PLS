@@ -130,8 +130,6 @@ void IConfig::LoadSkillFormulas()
 			{
 				IConfig::SkillCastCheck[{character, skill_id}].cooldown = cooldown;
 				IConfig::SkillCastCheck[{character, skill_id}].casttime = casttime;
-				//IConfig::CheckCooldownConfig[{character, skill_id}].cooldown = cooldown;
-				//IConfig::CheckCooldownConfig[{character, skill_id}].delay = delay;
 			}
 		}
 		fclose(file);
@@ -154,7 +152,29 @@ void IConfig::LoadSkillFormulas()
 		fclose(filep);
 	}
 
+	FILE* filer = fopen("./Systems/ZenRewards.txt", "r");
+	if (filer != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, filer) != NULL)
+		{
+			int boss_id = 0, item_id = 0, item_amount = 0, prefix = 0, rolls = 0, chance = 0;
+			if (sscanf(line, "(reward (boss_id %d)(item_id %d)(item_amount %d)(chance %d)(rolls %d)(prefix %d))", &boss_id, &item_id,&item_amount,&prefix,&rolls,&chance) == 6)
+			{
+				IConfig::Rewards rew = IConfig::Rewards();
 
+				rew.item_id = item_id;
+				rew.item_amount = item_amount;
+				rew.prefix = prefix;
+				rew.rolls = rolls;
+				rew.chance = chance;
+
+
+				IConfig::BossRewards[boss_id].push_back(rew);
+			}
+		}
+		fclose(filer);
+	}
 
 
 
@@ -188,6 +208,7 @@ std::map<std::pair<int, int>, DWORD> IConfig::CooldownProtection;
 
 std::map<std::pair<int, int>, IConfig::MySkills> IConfig::SkillCastCheck;
 std::map<std::pair<int, int>,bool> IConfig::SkillEnabled;
-
+std::map<void*, std::map<void*, int>>IConfig::BossRNG;
+std::map<int, std::vector<IConfig::Rewards>> IConfig::BossRewards;
 
 extern IConfig CONFIG = IConfig::GetInstance();

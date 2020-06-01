@@ -95,7 +95,7 @@ void __fastcall CArcher::BuffRemover(int pPacket, int pPos)
 	ICharacter Target(raii.pTarget);
 
 
-	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
+	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0) && IsInRange(Target,7))
 	{
 		Target.CancelBuff(282);
 		Target.CancelBuff(283);

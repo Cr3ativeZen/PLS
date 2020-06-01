@@ -62,6 +62,12 @@
     <ClInclude Include="RAII.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="SummonDie.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="FinalDamage.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">

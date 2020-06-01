@@ -1950,7 +1950,7 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 
 	int mana = ISkill.DecreaseMana();
 
-	if (!IsInRange(Target, 20))
+	if (!IsInRange(Target, 7))
 		return flag;
 
 
@@ -2035,13 +2035,8 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int
 	int count = 0;
 	bool flag = false;
 
-	if (!IsInRange(Target, 20))
+	if (!IsInRange(Target, 7))
 		return flag;
-
-
-
-	
-
 
 	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
 	{

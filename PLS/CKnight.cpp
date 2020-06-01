@@ -110,7 +110,7 @@ void __fastcall CKnight::Sacrifice(int pPacket, int pPos)
 	int target_heal = skills->second.base_heal + 
 		(skills->second.target_max_hp_percent * (Target.GetMaxHp() / 100) + (ISkill.GetGrade() * skills->second.target_heal_per_grade_percent * (GetMaxHp() / 100)));
 
-	if (Target.IsValid() && IsValid())
+	if (Target.IsValid() && IsValid() && IsInRange(Target,7))
 	{
 		if (GetCurHp() - hp_loss <= 0)
 		{

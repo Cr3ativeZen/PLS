@@ -157,6 +157,7 @@
     <ClInclude Include="CKnight.h" />
     <ClInclude Include="CMage.h" />
     <ClInclude Include="ExecuteSkill.h" />
+    <ClInclude Include="FinalDamage.h" />
     <ClInclude Include="ICharacter.h" />
     <ClInclude Include="IConfig.h" />
     <ClInclude Include="IItem.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="RAII.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="ServerFunctions.h" />
+    <ClInclude Include="SummonDie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CArcher.cpp" />

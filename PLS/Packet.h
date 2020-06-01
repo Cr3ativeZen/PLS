@@ -26,11 +26,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				int pSkill = IPlayer.GetSkillPointer(SkillID);
 				bool check = false;
 
-
-
-
 				IPlayer.Buff(313, 3, 0);
-				DWORD CdTime = 0, casttime = 0;
 
 				if (IPlayer.IsValid() && IPlayer.IsBuff(349))
 				{
@@ -43,20 +39,15 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 				if (ite != IConfig::SkillCastCheck.end() && ite->second.enabled)
 				{
+					DWORD casttime = IConfig::SkillCastCheck[{IPlayer.GetClass(), SkillID}].casttime;
+
+					std::map<int, IConfig::SkillCheck> ::iterator itsc;
+					itsc = IConfig::CastProtection.find(IPlayer.GetPID());
 
 					if (ite->second.animation)
 					{
 
-						IPlayer.SystemMessage(Int2String(ite->second.casttime), TEXTCOLOR_RED);
-						std::map<int, IConfig::SkillCheck> ::iterator itsc;
-						itsc = IConfig::CastProtection.find(IPlayer.GetPID());
-
 						if (itsc == IConfig::CastProtection.end() || itsc->second.animation_check == false)
-						{
-							IPlayer.SystemMessage("Invalid skill cast time!", TEXTCOLOR_RED);
-							return;
-						}
-						else if (itsc->second.time_used + casttime < GetTickCount())
 						{
 							IPlayer.SystemMessage("Invalid skill cast time!", TEXTCOLOR_RED);
 							return;
@@ -64,6 +55,13 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						else
 							itsc->second.animation_check = false;
 					}
+
+					if (itsc != IConfig::CastProtection.end() && casttime + itsc->second.time_used > GetTickCount())
+					{
+						IPlayer.SystemMessage("Invalid skill cast time!", TEXTCOLOR_RED);
+						return;
+					}
+
 
 					std::map<std::pair<int, int>, DWORD>::iterator cdit;
 					cdit = IConfig::CooldownProtection.find({IPlayer.GetPID(), SkillID});
@@ -75,10 +73,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						return;
 					}
 					else
-					{
 						IConfig::CooldownProtection[{IPlayer.GetPID(), SkillID}] = GetTickCount() + ite->second.cooldown;
-					}
-
 
 				}
 

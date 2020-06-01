@@ -34,7 +34,7 @@ void __fastcall CMage::Cure(int pPacket, int pPos,int skill_id)
 
 
 
-	if (Target.IsValid() && IsValid())
+	if (Target.IsValid() && IsValid()  && IsInRange(Target,7))
 	{
 		if (Target.GetOffset() == GetOffset())
 		{

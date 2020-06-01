@@ -110,6 +110,15 @@ public:
 		int casttime;
 	};
 
+	struct Rewards
+	{
+		int item_id;
+		int item_amount;
+		int rolls;
+		int chance;
+		int prefix;
+	};
+
 
 	enum TextColor
 	{
@@ -151,7 +160,8 @@ public:
 	//PID,SkillID,Cooldown
 	static std::map<std::pair<int,int>, DWORD> CooldownProtection;
 	static std::map<std::pair<int, int>, MySkills> SkillCastCheck;
-
+	static std::map<void*, std::map<void*,int>>BossRNG;
+	static std::map<int, std::vector<Rewards>> BossRewards;
 };
 
 extern IConfig CONFIG;

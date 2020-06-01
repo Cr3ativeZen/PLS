@@ -77,7 +77,8 @@ enum TextColor
 #include "Packet.h"
 #include "Resources.h"
 #include "IConfig.h"
-
+#include "SummonDie.h"
+#include "FinalDamage.h"
 
 
 
@@ -113,6 +114,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
 		DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
+		//DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
+		//DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
 
 		DetourTransactionCommit();
 		break;
@@ -126,6 +129,9 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
 		DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
+		//DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
+		//DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
+
 		DetourTransactionCommit();
 		break;
 	}

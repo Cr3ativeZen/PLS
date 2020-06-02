@@ -708,8 +708,16 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 							{
 								if (IsInRange(IMembers, IConfig::CallRANGE))
 								{
+									
 									IConfig::CallCheck callCheck = IConfig::CallCheck();
-									IMembers.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+									//IMembers.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+									int Value = ((ISkill.GetGrade() - 1) * 7) + 16;
+									int Value2 = ((ISkill.GetGrade() - 1) * 3) + 12;
+									CChar::CancelAllBuff(IMembers.GetOffset(), 28);
+									int AddBuff = CBuff::CreateBuff(28, 0, Value, Value2);
+									(*(int(__thiscall**)(int, int))(*(DWORD*)IMembers.GetOffset() + 180))((int)IMembers.GetOffset(), AddBuff);
+
+
 
 
 									callCheck.CasterOffset = GetOffset();
@@ -723,9 +731,15 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 							{
 								if (IsInRange(IMembers, IConfig::CallRANGE))
 								{
-									IMembers.CancelBuff(28);
+									//IMembers.CancelBuff(28);
 
-									IMembers.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+									//IMembers.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+
+									int Value = ((ISkill.GetGrade() - 1) * 7) + 16;
+									int Value2 = ((ISkill.GetGrade() - 1) * 3) + 12;
+									CChar::CancelAllBuff(IMembers.GetOffset(), 28);
+									int AddBuff = CBuff::CreateBuff(28, 0, Value, Value2);
+									(*(int(__thiscall**)(int, int))(*(DWORD*)IMembers.GetOffset() + 180))((int)IMembers.GetOffset(), AddBuff);
 
 									callCheck.CasterOffset = GetOffset();
 									callCheck.ReciverOffset = IMembers.GetOffset();
@@ -744,15 +758,21 @@ void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
 			{
 				if (!IsBuff(28))
 				{
-					Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+					int Value = ((ISkill.GetGrade() - 1) * 7) + 16;
+					int Value2 = ((ISkill.GetGrade() - 1) * 3) + 12;
+					CChar::CancelAllBuff(GetOffset(), 28);
+					int AddBuff = CBuff::CreateBuff(28, 0, Value, Value2);
+					(*(int(__thiscall**)(int, int))(*(DWORD*)GetOffset() + 180))((int)GetOffset(), AddBuff);
 					_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 					return;
 				}
 				else
 				{
-					CancelBuff(28);
-
-					Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+					int Value = ((ISkill.GetGrade() - 1) * 7) + 16;
+					int Value2 = ((ISkill.GetGrade() - 1) * 3) + 12;
+					CChar::CancelAllBuff(GetOffset(), 28);
+					int AddBuff = CBuff::CreateBuff(28, 0, Value, Value2);
+					(*(int(__thiscall**)(int, int))(*(DWORD*)GetOffset() + 180))((int)GetOffset(), AddBuff);
 					_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
 					return;
 				}

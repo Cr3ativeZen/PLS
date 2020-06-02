@@ -267,7 +267,7 @@ int __fastcall Tick(void *Player, void *edx)
 
 			if (IPlayer.GetPartyID() != Caster.GetPartyID() || !IPlayer.IsInRange(Caster, IConfig::CallRANGE) || !Caster.IsValid() && IPlayer.GetOffset() != Caster.GetOffset())
 			{
-				IPlayer.CancelBuff(28);
+				CChar::CancelAllBuff(IPlayer.GetOffset(), 28);
 			}
 		}
 
@@ -282,7 +282,13 @@ int __fastcall Tick(void *Player, void *edx)
 			if (ISkill.GetGrade() && IPlayer.GetPartyID() == Caster.GetPartyID() && IPlayer.GetOffset() != Caster.GetOffset() && Caster.IsValid())
 			{
 				if (IPlayer.IsInRange(Caster, IConfig::CallRANGE))
-					IPlayer.Buff(28, 0, ((ISkill.GetGrade() - 1) * 7) + 16);
+				{
+					int Value = ((ISkill.GetGrade() - 1) * 7) + 16;
+					int Value2 = ((ISkill.GetGrade() - 1) * 3) + 12;
+					CChar::CancelAllBuff(IPlayer.GetOffset(), 28);
+					int AddBuff = CBuff::CreateBuff(28, 0, Value, Value2);
+					(*(int(__thiscall**)(int, int))(*(DWORD*)IPlayer.GetOffset() + 180))((int)IPlayer.GetOffset(), AddBuff);
+				}
 			}
 		}
 	}

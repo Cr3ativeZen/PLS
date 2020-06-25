@@ -81,7 +81,6 @@ enum TextColor
 #include "FinalDamage.h"
 
 
-
 void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
 	CIOServer::Start(Start, hostshort);
@@ -114,8 +113,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
 		DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
-		//DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
-		//DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
+		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
+		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
 
 		DetourTransactionCommit();
 		break;
@@ -129,8 +128,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
 		DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
-		//DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
-		//DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
+		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
+		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
 
 		DetourTransactionCommit();
 		break;

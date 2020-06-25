@@ -215,6 +215,12 @@ public:
 
 
 
+	void InsertItem(int index, int prefix, int amount, int argument);
+	bool IsInventoryFull();
+	//void TeleportMonster(int map, int x, int y);
+
+
+
 	void __fastcall ResetFarContinueSkill();
 
 };

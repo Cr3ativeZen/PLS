@@ -149,5 +149,29 @@ void __fastcall CArcher::MysteriousArrow(int pPacket, int pPos)
 
 }
 
+void __fastcall CArcher::ArrowDrizzle()
+{
+		ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_ARROWDRIZZLE));
+	
+		//SystemMessage("YIKES", RGB(255, 155, 255));
+	
+		if (!ISkill.GetGrade() || GetCurMp() < 150 + (ISkill.GetGrade() * (50 * (ISkill.GetGrade() - 1))))
+			return;
+	
+		if (IsValid())
+		{
+			int Around = GetObjectListAround(4);
+			while (Around)
+			{
+				ICharacter Object((void*)*(DWORD*)Around);
+				if (Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+					OktayDamageArea(Object, CalculateFormula(ISkill, Object), SKILL_ARCHER_ARROWDRIZZLE);
+				Around = CBaseList::Pop((void*)Around);
+			}
+			//Teleport(GetMap(), GetX()+1, GetY()+1);
+			_ShowBattleAnimation(GetOffset(), SKILL_ARCHER_ARROWRAIN);
+			DecreaseMana(150 + (ISkill.GetGrade() * (50 * (ISkill.GetGrade() - 1))));
+		}
+}
 
 

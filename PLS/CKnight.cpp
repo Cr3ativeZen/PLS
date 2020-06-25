@@ -144,10 +144,31 @@ void __fastcall CKnight::TranscendentalBlow(int pPacket, int pPos)
 	if (Target.GetType() == TYPE_PLAYER)
 		DamageSingle(ISkill, Target, false, true);
 	else if (Target.GetType() == TYPE_MONSTER)
-	{
 		DamageMultiple(ISkill, Target, 1, 2, false, true);
-	}
 
+}
+
+void __fastcall CKnight::CoalescenceOfRuin(int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_COALESCENCEOFRUIN));
+
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
+		return;
+
+	RAII raii(pPacket, pPos);
+
+	if (!raii.pTarget || raii.pTarget == GetOffset())
+		return;
+
+	ICharacter Target(raii.pTarget);
+
+	if (Target.GetType() == TYPE_PLAYER)
+		DamageSingle(ISkill, Target, false, true);
+	else if (Target.GetType() == TYPE_MONSTER)
+	{
+		DamageMultiple(ISkill, Target, 3, 999, false, false);
+		AddFxToTarget("TI_SK_06", 1, 0, 0);
+	}
 }
 
 void __fastcall CKnight::Calls(int pPacket, int pPos, int SkillID)
@@ -814,3 +835,37 @@ void __fastcall CKnight::SpinSlash()
 		}
 	}
 }
+
+//void __fastcall CKnight::TheBoomOfEarth()
+//{
+//	ISkill ISkill((void*)GetSkillPointer(SKILL_KNIGHT_THEBOOMOFEARTH));
+//
+//	SystemMessage("YIKES", RGB(255, 155, 255));
+//
+//	if (!ISkill.GetGrade() || GetCurMp() < 200+(ISkill.GetGrade() * (2 +(ISkill.GetGrade()-1))) || CPlayer::IsWState((int)GetOffset(), 12))
+//		return;
+//
+//	if (IsValid())
+//	{
+//		if (CPlayer::IsWState((int)GetOffset(), 12))
+//			return;
+//
+//		int Around = GetObjectListAround(3);
+//
+//		while (Around)
+//		{
+//			ICharacter Object((void*)*(DWORD*)Around);
+//			if (Object.IsValid() && IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Object.GetOffset(), 0))
+//			{
+//				Object.SetX(GetX());
+//				Object.SetY(GetY());
+//				Object.SetZ(GetZ());
+//				Object.Buff(7, 2 * ISkill.GetGrade(), 0);
+//			}
+//			Around = CBaseList::Pop((void*)Around);
+//		}
+//		Teleport(GetMap(), GetX()+1, GetY()+1);
+//		_ShowBattleAnimation(GetOffset(), ISkill.GetIndex());
+//		DecreaseMana(200 + (ISkill.GetGrade() * (2 + (ISkill.GetGrade() - 1))));
+//	}
+//}

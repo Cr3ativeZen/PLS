@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CArcher.h" />
+    <ClInclude Include="CDungeon.h" />
     <ClInclude Include="ChatCommand.h" />
     <ClInclude Include="CKnight.h" />
     <ClInclude Include="CMage.h" />
@@ -172,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CArcher.cpp" />
+    <ClCompile Include="CDungeon.cpp" />
     <ClCompile Include="CKnight.cpp" />
     <ClCompile Include="CMage.cpp" />
     <ClCompile Include="ICharacter.cpp" />

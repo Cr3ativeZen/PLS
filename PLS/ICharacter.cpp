@@ -165,6 +165,19 @@ void ICharacter::Teleport(int Map, int X, int Y)
 	}
 }
 
+//void ICharacter::TeleportMonster(int map, int x, int y)
+//{
+//	if (this->IsValid() && x > 0 && y > 0)
+//	{
+//
+//		int* GetSetXY = new int[2];
+//		GetSetXY[0] = x;
+//		GetSetXY[1] = y;
+//		CPlayer::Teleport((int)this->GetOffset(), map, (int)GetSetXY, 0, 1);
+//		delete[] GetSetXY;
+//	}
+//}
+
 void ICharacter::Kick()
 {
 	if (this->IsOnline())
@@ -1705,9 +1718,9 @@ int ICharacter::MaxInventorySize()
 	if (this->IsOnline())
 	{
 		int Size = 72;
-		if (this->IsBuff(172)) Size += 36;
-		if (this->IsBuff(173)) Size += 36;
-		if (this->IsBuff(174)) Size += 36;
+		if (this->IsBuff(1528)) Size += 36;
+		if (this->IsBuff(1529)) Size += 36;
+		if (this->IsBuff(1530)) Size += 36;
 		return Size;
 	}
 
@@ -1785,10 +1798,6 @@ std::string ICharacter::GetIP()
 	return Check;
 }
 
-
-//OktayDamageArea(Object,(GetAttack()*VABaseDmgMultiPvP) + (CChar::GetDex((int)GetOffset())*VAAgiMultiPvP) + (CChar::GetStr((int)GetOffset())*VAStrMultiPvP) + (nSkillGrade*VAPerGradeMultiPvP), 50);
-//int nDmg = (GetMagic() * SoulDestructionBaseDmgMultiPvE) + (CChar::GetWis((int)GetOffset()) * SoulDestructionWisMultiPvE) + (ISkill.GetGrade() * SoulDestructionPerGradeMultiPvE);
-
 int ICharacter::GetStrTotal()
 {
 	return CChar::GetStr((int)this->GetOffset());
@@ -1847,7 +1856,7 @@ int ICharacter::CalculateFormula(ISkill ISkill,ICharacter Target)
 		{
 			case SKILL_KNIGHT_BRUTALATTACK:
 			case SKILL_KNIGHT_SPINSLASH:
-			{//
+			{
 				value = value + (value * skills->second.per_deathblow / 100) * GetDeathBlow();
 				break;
 			}
@@ -1923,23 +1932,42 @@ bool ICharacter::BuffOnSkill(ISkill ISkill, ICharacter Target)
 	switch (GetClass())
 	{
 	case CLASS_ARCHER:
-		switch (ISkill.GetIndex())
 		{
-			case SKILL_ARCHER_FLAMYARROW:
+			switch (ISkill.GetIndex())
 			{
-				Target.AddFxToTarget("davi_M564_71", 1, 0, 0);
-				if (Target.GetType() == TYPE_MONSTER)
-					Target.Buff(29, duration, value);
-				else
-					Target.Buff(skills->second.buff_id,duration,value);
-				break;
-			}
+				case SKILL_ARCHER_FLAMYARROW:
+				{
+					Target.AddFxToTarget("davi_M564_71", 1, 0, 0);
+					if (Target.GetType() == TYPE_MONSTER)
+						Target.Buff(29, duration, value);
+					else
+						Target.Buff(skills->second.buff_id, duration, value);
+					break;
+				}
 			default:
 				break;
+			}
+			break;
 		}
-	default:
-		break;
+
+	case CLASS_KNIGHT:
+		{
+		switch (ISkill.GetIndex())
+			{
+				case SKILL_KNIGHT_COALESCENCEOFRUIN:
+				{
+					//Target.AddFxToTarget("TI_SK_06", 1, 0, 0);
+					break;
+				}
+				default:
+					break;
+			}
+			break;
+		}
+		default:
+			break;
 	}
+
 
 	return true;
 }
@@ -1950,7 +1978,7 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 
 	int mana = ISkill.DecreaseMana();
 
-	if (!IsInRange(Target, 7))
+	if (!IsInRange(Target, 9))
 		return flag;
 
 
@@ -2035,7 +2063,7 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int
 	int count = 0;
 	bool flag = false;
 
-	if (!IsInRange(Target, 7))
+	if (!IsInRange(Target, 9))
 		return flag;
 
 	if (IsValid() && Target.IsValid() && (*(int(__thiscall**)(int, int, DWORD))(*(DWORD*)GetOffset() + 176))((int)GetOffset(), (int)Target.GetOffset(), 0))
@@ -2051,7 +2079,7 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int
 				{
 					if (check_hit && CheckHit(Target, 15))
 					{
-						BuffOnSkill(ISkill, Target);
+						BuffOnSkill(ISkill, Object);
 						OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());
 						flag = true;
 					}
@@ -2059,7 +2087,7 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int
 					{
 						if (!(ISkill.GetGrade() != SKILL_MAGE_AMNESIA && GetClass() != CLASS_MAGE && Target.GetType() == TYPE_PLAYER))
 						{
-							BuffOnSkill(ISkill, Target);
+							BuffOnSkill(ISkill, Object);
 							OktayDamageArea(Object, CalculateFormula(ISkill, Target), ISkill.GetIndex());
 							flag = true;
 						}
@@ -2090,6 +2118,18 @@ bool ICharacter::DamageMultiple(ISkill ISkill, ICharacter Target, int range, int
 	return flag;
 
 
+}
+
+void ICharacter::InsertItem(int index, int prefix, int amount, int argument)
+{
+	if(!IsInventoryFull())
+		CItem::InsertItem((int)Offset, 0, index, prefix, amount, argument);
+	
+}
+
+bool ICharacter::IsInventoryFull()
+{
+	return CPlayer::GetInvenSize(Offset) > MaxInventorySize();
 }
 
 

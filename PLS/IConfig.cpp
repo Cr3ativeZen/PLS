@@ -1,6 +1,5 @@
 #include "IConfig.h"
 #include "ServerFunctions.h"
-
 void IConfig::LoadConfigs()
 {
 }
@@ -12,7 +11,8 @@ void IConfig::LoadSkillFormulas()
 	IConfig::HealCalc.clear();
 	IConfig::SkillEnabled.clear();
 	IConfig::SkillCastCheck.clear();
-
+	IConfig::Setup.clear();
+	IConfig::BossRewards.clear();
 
 
 
@@ -158,8 +158,8 @@ void IConfig::LoadSkillFormulas()
 		char line[BUFSIZ];
 		while (fgets(line, sizeof line, filer) != NULL)
 		{
-			int boss_id = 0, item_id = 0, item_amount = 0, prefix = 0, rolls = 0, chance = 0;
-			if (sscanf(line, "(reward (boss_id %d)(item_id %d)(item_amount %d)(chance %d)(rolls %d)(prefix %d))", &boss_id, &item_id,&item_amount,&prefix,&rolls,&chance) == 6)
+			int boss_id = 0, item_id = 0, item_amount = 0, prefix = 0, rolls = 0, chance = 0, min_damage = 0, min_percent_damage = 0, max_drops = 0, max_drop_per_player = 0, max_players = 0;
+			if (sscanf(line, "(reward (boss_id %d)(item_id %d)(item_amount %d)(chance %d)(rolls %d)(prefix %d))", &boss_id, &item_id,&item_amount,&chance,&rolls,&prefix) == 6)
 			{
 				IConfig::Rewards rew = IConfig::Rewards();
 
@@ -172,13 +172,52 @@ void IConfig::LoadSkillFormulas()
 
 				IConfig::BossRewards[boss_id].push_back(rew);
 			}
+			if (sscanf(line, "(setup (boss_id %d)(min_damage %d)(min_percent_damage %d)(max_drops %d)(max_drop_per_player %d)(max_players %d))", &boss_id, &min_damage, &min_percent_damage, &max_drops, &max_drop_per_player, &max_players) == 6)
+			{
+				IConfig::BossSetup setup = IConfig::BossSetup();
+
+				setup.min_damage = min_damage;
+				setup.min_percent_damage = min_percent_damage;
+				setup.max_drops = max_drops;
+				setup.max_per_player = max_drop_per_player;
+				setup.max_players = max_players;
+
+				IConfig::Setup.insert({ boss_id,setup });
+			}
 		}
 		fclose(filer);
 	}
 
+	/*FILE* fileinstance = fopen("./Systems/ZenInstance.txt", "r");
+	if (fileinstance != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, fileinstance) != NULL)
+		{
+			int id = 0, min_players = 0, max_players = 0, min_level = 0, max_level = 0, cooldown = 0, time = 0, waves_amount = 0, quest_id = 0, startX = 0, startY = 0, startZ = 0;
+			int instance_id = 0, wave_id = 0, is_boss_wave = 0, mini_boss_id = 0, mini_boss_spawn_chance = 0, monster_id = 0, x = 0, y = 0, z = 0;
+			if (sscanf(line, "(instance (id %d)(min_players %d)(max_players %d)(min_level %d)(max_level %d)(waves_amount %d)(cooldown %d)(time %d)(quest_id %d)(startX %d)(startY %d)(startZ %d))", &id, &min_players, &max_players, &min_level, &max_level, &waves_amount, &cooldown, &time, &quest_id, &startX, &startY, &startZ) == 12)
+			{
+				ConsoleWriteBlue("dfwsedfwefwefwefwefwe");
+				IConfig::dungeon_vector.push_back(CDungeon(id, min_players, max_players, min_level, max_level, waves_amount, cooldown, time, quest_id, startX, startY, startZ));
+
+			}
 
 
-	IConfig::CallEnabled = true;
+
+
+			if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(z %d)(monster_id %d))", &instance_id,&wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance,&x,&y,&z,&monster_id) == 9)\
+			{
+				CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, CDungeon::Point(x, y, z), monster_id);
+
+			}
+		}
+
+		fclose(fileinstance);
+
+	}*/
+
+	//IConfig::CallEnabled = true;
 }
 
 
@@ -210,5 +249,7 @@ std::map<std::pair<int, int>, IConfig::MySkills> IConfig::SkillCastCheck;
 std::map<std::pair<int, int>,bool> IConfig::SkillEnabled;
 std::map<void*, std::map<void*, int>>IConfig::BossRNG;
 std::map<int, std::vector<IConfig::Rewards>> IConfig::BossRewards;
+std::map<int,IConfig::BossSetup> IConfig::Setup;
+std::vector<CDungeon> IConfig::dungeon_vector;
 
 extern IConfig CONFIG = IConfig::GetInstance();

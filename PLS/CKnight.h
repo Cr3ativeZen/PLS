@@ -20,6 +20,7 @@ public:
 	//1st job skills
 	void __fastcall LightningSlash(int pPacket, int pPos);
 	void __fastcall TranscendentalBlow(int pPacket, int pPos);
+	void __fastcall CoalescenceOfRuin(int pPacket,int pPos);
 
 
 	//2nd job skills vagabond
@@ -36,6 +37,8 @@ public:
 	void __fastcall SpinSlash();
 
 
+	//4th job for General
+	//void __fastcall TheBoomOfEarth();
 
 
 

@@ -30,6 +30,7 @@ public:
 	//2nd job skills expert archer
 	void __fastcall FocusShot(int pPacket, int pPos);
 	void __fastcall MysteriousArrow(int pPacket, int pPos);
+	void __fastcall ArrowDrizzle();
 };
 
 #endif

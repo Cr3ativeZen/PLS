@@ -68,6 +68,9 @@
     <ClInclude Include="FinalDamage.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
+    <ClInclude Include="CDungeon.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">
@@ -98,6 +101,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IConfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CDungeon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

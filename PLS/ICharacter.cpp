@@ -6,6 +6,7 @@
 #include <sstream>
 #include <time.h>
 #include "ICharacter.h"
+#include "ServerFunctions.h"
 #pragma warning (disable : 4244)
 #pragma warning (disable : 4018)
 

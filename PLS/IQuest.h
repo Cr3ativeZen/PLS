@@ -1,5 +1,6 @@
 #ifndef _IQUEST_H
 #define _IQUEST_H
+#include "Resources.h"
 class IQuest
 {
 	public:

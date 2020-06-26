@@ -3,7 +3,7 @@
 #define _SERVERFUNCTIONS_H_
 
 #include <windows.h>
-#include "ISkill.h"
+#include "Resources.h"
 static BOOL(__cdecl *ConsoleWriteBlue)(const char* text, ...) = (BOOL(__cdecl*)(const char* text, ...))0x00432860;
 
 namespace CIOServer

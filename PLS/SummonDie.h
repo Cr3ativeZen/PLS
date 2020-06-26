@@ -1,5 +1,6 @@
 #ifndef SUMMONDIE_H_
 #define SUMMONDIE_H_
+#include "Resources.h"
 void BossDropDraw(ICharacter IMonster);
 bool Roll(unsigned int chance);
 int RollPlayer(unsigned int player_amount);

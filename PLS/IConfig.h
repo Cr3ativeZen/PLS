@@ -8,12 +8,12 @@
 #include <unordered_set>
 #include <fstream>
 #include <vector>
+#include "Resources.h"
 #include "CDungeon.h"
 
+class CDungeon;
 
 //Here temporarlly till i figure it out -.-
-
-
 
 
 

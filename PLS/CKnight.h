@@ -1,6 +1,5 @@
 #ifndef _CKNIGHT_H_
 #define _CKNIGHT_H_
-
 #include "ICharacter.h"
 
 class CKnight : public ICharacter

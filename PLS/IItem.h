@@ -1,3 +1,4 @@
+#include "Resources.h"
 class IItem
 {
 public:

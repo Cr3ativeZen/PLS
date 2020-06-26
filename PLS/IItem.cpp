@@ -1,7 +1,7 @@
 #include <windows.h>
 #include "IItem.h"
+#include "ServerFunctions.h"
 #include "ICharacter.h"
-
 IItem::IItem(void* Offset)
 {
 	this->Offset = Offset;

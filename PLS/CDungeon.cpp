@@ -1,4 +1,6 @@
-#include "IConfig.h"
+#include "CDungeon.h"
+
+
 
 CDungeon::CDungeon():
 	dungeon_id(0),
@@ -14,11 +16,11 @@ CDungeon::CDungeon():
 	quest_id(0),
 	startX(0),
 	startY(0),
-	startZ(0)
+	map(0)
 {
 }
 
-CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY, int startZ):
+CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY, int map):
 	dungeon_id(dungeon_id),
 	min_players(min_players),
 	max_players(max_players),
@@ -32,7 +34,7 @@ CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_lev
 	quest_id(quest_id),
 	startX(startX),
 	startY(startY),
-	startZ(startZ)
+	map(map)
 {
 }
 
@@ -43,6 +45,74 @@ void CDungeon::SummonMonsters()
 void CDungeon::CheckEnterLimitsForParty()
 {
 }
+
+void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator it)
+{
+
+
+	if (IPlayer.IsParty())
+	{
+		if (!CParty::IsHead(CParty::FindParty(IPlayer.GetPartyID()), (int)IPlayer.GetOffset()))
+		{
+			IPlayer.SystemMessage("You are not a party leader!", IConfig::TEXTCOLOR_RED);
+			return;
+		}
+
+		if (CheckIfOk(IPlayer, it))
+		{
+			void* Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
+			if (Party)
+			{
+				for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+				{
+					ICharacter IMembers((void*)*(DWORD*)((void*)i));
+					IMembers.Teleport(it->second.map, it->second.startX, it->second.startY);
+					IMembers.SystemMessage("Instance started, Good Luck and Have Fun!", IConfig::TEXTCOLOR_ORANGE);
+
+
+				}
+
+				CIOObject::Release(Party);
+			}
+		}
+		else
+		{
+			IPlayer.SystemMessage("SOMETHING IS WRONG", IConfig::TEXTCOLOR_RED);
+		}
+
+
+	}
+	else
+	{
+		IPlayer.SystemMessage("You are not in party!", IConfig::TEXTCOLOR_RED);
+		return;
+	}
+}
+
+bool CDungeon::CheckIfOk(ICharacter IPlayer, std::map<int, CDungeon>::iterator it)
+{
+	int counter = 0, check = 0;
+	void* Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
+
+	if (Party)
+	{
+		for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
+		{
+			ICharacter IMembers((void*)*(DWORD*)((void*)i));
+			check++;
+			if ((IMembers.GetLevel() >= it->second.min_level && IMembers.GetLevel() <= it->second.max_level))
+				counter++;
+
+
+		}
+
+		CIOObject::Release(Party);
+	}
+
+	return counter == check;
+}
+
+
 
 
 

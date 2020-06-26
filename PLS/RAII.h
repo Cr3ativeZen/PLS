@@ -1,5 +1,6 @@
 #ifndef _RAII_H_
 #define _RAII_H_
+
 #include "Resources.h"
 #include "ServerFunctions.h"
 class RAII

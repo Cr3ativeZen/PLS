@@ -2,7 +2,6 @@
 #define _CMAGE_H_
 
 #include "ICharacter.h"
-
 class CMage : public ICharacter
 {
 public:

@@ -1,6 +1,6 @@
 #ifndef _ISKILL_H
 #define _ISKILL_H
-#include "ServerFunctions.h"
+#include "Resources.h"
 
 class ISkill
 {

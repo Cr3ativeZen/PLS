@@ -1,6 +1,6 @@
 #ifndef _PLAYER_H
 #define _PLAYER_H
-#include "Packet.h"
+#include "Resources.h"
 int __fastcall Tick(void *Player, void *edx)
 {
 	ICharacter IPlayer(Player);

@@ -1,8 +1,9 @@
 #ifndef CDUNGEON_H_
 #define CDUNGEON_H_
+#include "Resources.h"
+#include "ICharacter.h"
 
-#include "IConfig.h"
-
+class ICharacter;
 
 class CDungeon
 {
@@ -10,12 +11,13 @@ public:
 
 	CDungeon();
 
-	CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY, int startZ);
+	CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY, int map);
 
 
 	void SummonMonsters();
 	void CheckEnterLimitsForParty();
-	//void TeleportIn(ICharacter IPlayer);
+	void TeleportIn(ICharacter IPlayer,std::map<int,CDungeon>::iterator it);
+	bool CheckIfOk(ICharacter IPlayer, std::map<int, CDungeon>::iterator it);
 	//void GiveAwayRewards();
 	void TeleportAway();
 
@@ -60,7 +62,7 @@ public:
 
 	int min_level;
 	int max_level;
-	int startX, startY, startZ;
+	int startX, startY, map;
 	int quest_id;
 
 	int waves_amount;

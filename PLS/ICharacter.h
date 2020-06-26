@@ -1,12 +1,11 @@
 #ifndef _ICHARACTER_H
 #define _ICHARACTER_H
-
 #include <iostream>
-#include "ServerFunctions.h"
-#include "Resources.h"
-#include "IConfig.h"
-#include "RAII.h"
 #include <string>
+#include "Resources.h"
+#include "RAII.h"
+#include "ISkill.h"
+#include "IConfig.h"
 
 class ICharacter
 {
@@ -224,4 +223,6 @@ public:
 	void __fastcall ResetFarContinueSkill();
 
 };
+#else 
+#pragma message("ICharacter.h superfluously included")
 #endif

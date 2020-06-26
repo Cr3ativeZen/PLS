@@ -1,3 +1,5 @@
+
+#include "Resources.h"
 int __fastcall FinalDamage(void* Target, void* edx, int Player, int Damage, int Argument)
 {
 	ICharacter IPlayer((void*)Player);

@@ -35,36 +35,6 @@ int String2Int(std::string String)
 }
 
 
-
-
-
-
-
-
-
-enum TextColor
-{
-	TEXTCOLOR_GENERAL = RGB(255, 255, 255),
-	TEXTCOLOR_INFOMSG = RGB(70, 227, 232),
-	TEXTCOLOR_SHUTDOWN = RGB(240, 116, 15),
-	TEXTCOLOR_ORANGE = RGB(255, 128, 64),
-	TEXTCOLOR_BLUE = RGB(0, 128, 255),
-	TEXTCOLOR_YELLOW = RGB(255, 255, 128),
-	TEXTCOLOR_RED = RGB(255, 0, 0),
-	TEXTCOLOR_PARTY = RGB(210, 64, 0),
-	TEXTCOLOR_GUILD = RGB(10, 255, 229),
-	TEXTCOLOR_ALLIANCE = RGB(128, 128, 192),
-	TEXTCOLOR_GREEN = RGB(0, 255, 0),
-	TEXTCOLOR_DARKGREEN = RGB(0, 170, 0),
-	TEXTCOLOR_FAILED = RGB(250, 210, 0),
-	TEXTCOLOR_CLASSMATE = RGB(0, 128, 0),
-	TEXTCOLOR_PUPIL = RGB(255, 128, 64),
-	TEXTCOLOR_PINK = RGB(255, 155, 255),
-};
-
-
-
-
 #pragma pack(1)
 #include <string>
 #include "ServerFunctions.h"
@@ -79,6 +49,7 @@ enum TextColor
 #include "IConfig.h"
 #include "SummonDie.h"
 #include "FinalDamage.h"
+#include "CDungeon.h"
 
 
 void __fastcall Start(int Start, void *edx, u_short hostshort)

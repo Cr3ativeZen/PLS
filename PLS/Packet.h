@@ -1,11 +1,12 @@
 #ifndef PACKET_H
 #define PACKET_H
-
-
+#include "Resources.h"
+#include "ICharacter.h"
+#include "IConfig.h"
+#include "CDungeon.h"
+#include "ExecuteSkill.h"
 void PacketSkillAnimation(ICharacter IPlayer, void* pPacket, int pPos);
 void PacketAcceptQuest(ICharacter IPlayer, void* pPacket, int pPos);
-bool CompareDungVec(CDungeon first, CDungeon second);
-
 
 
 void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int pPos)
@@ -51,7 +52,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 						if (itsc == IConfig::CastProtection.end() || itsc->second.animation_check == false)
 						{
-							IPlayer.SystemMessage("Invalid skill cast time!", TEXTCOLOR_RED);
+							IPlayer.SystemMessage("Invalid skill cast time!", IConfig::TEXTCOLOR_RED);
 							return;
 						}
 						else
@@ -60,7 +61,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 					if (itsc != IConfig::CastProtection.end() && casttime + itsc->second.time_used > GetTickCount())
 					{
-						IPlayer.SystemMessage("Invalid skill cast time!", TEXTCOLOR_RED);
+						IPlayer.SystemMessage("Invalid skill cast time!", IConfig::TEXTCOLOR_RED);
 						return;
 					}
 
@@ -71,7 +72,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					if (cdit != IConfig::CooldownProtection.end() && IConfig::CooldownProtection[{IPlayer.GetPID(), SkillID}] > GetTickCount())
 					{
 
-						IPlayer.SystemMessage("Invalid cooldown time!", TEXTCOLOR_RED);
+						IPlayer.SystemMessage("Invalid cooldown time!", IConfig::TEXTCOLOR_RED);
 						return;
 					}
 					else
@@ -148,7 +149,7 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				it = IConfig::SkillEnabled.find({ IPlayer.GetClass(),SkillID });
 				if ((it != IConfig::SkillEnabled.end() && it->second))
 				{
-					IPlayer.SystemMessage("inside switch", TEXTCOLOR_RED);
+					IPlayer.SystemMessage("inside switch", IConfig::TEXTCOLOR_RED);
 					switch (IPlayer.GetClass())
 					{
 						
@@ -402,16 +403,13 @@ void PacketAcceptQuest(ICharacter IPlayer, void* pPacket, int pPos)
 	int ID = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "d", &ID);
 	ID = ID >> 16;
-	//IPlayer.SystemMessage(Int2String(ID), TEXTCOLOR_RED);
-
-
-
 
 	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [index = ID](const auto& c) {return c.second.quest_id == index; });
-	IPlayer.SystemMessage(Int2String(ID), TEXTCOLOR_RED);
+	IPlayer.SystemMessage(Int2String(ID), IConfig::TEXTCOLOR_RED);
 	if (it != IConfig::dungeon_map.end())
 	{
-		//it->second.TeleportIn(IPlayer);
+		it->second.TeleportIn(IPlayer,it);
+
 
 	}
 	

@@ -1,6 +1,5 @@
 #ifndef CHATCOMMAND_H_
 #define CHATCOMMAND_H_
-#include <sql.h>
 void __fastcall ChatCommand(int Player, void *edx, const char *command)
 {
 	if (!strlen(command))

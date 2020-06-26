@@ -111,7 +111,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CIOServer::Start, Start);
 		DetourAttach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
 		DetourAttach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
-		DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
+		//DetourAttach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
@@ -126,7 +126,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CIOServer::Start, Start);
 		DetourDetach(&(PVOID&)MainServer::Stop, Hooked_MainServer_Stop);
 		DetourDetach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
-		DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
+		//DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);

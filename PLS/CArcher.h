@@ -31,6 +31,9 @@ public:
 	void __fastcall FocusShot(int pPacket, int pPos);
 	void __fastcall MysteriousArrow(int pPacket, int pPos);
 	void __fastcall ArrowDrizzle();
+
+	//3rd job skills imperial general
+	void __fastcall VirulentArrow(int pPacket, int pPos);
 };
 
 #endif

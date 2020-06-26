@@ -1,5 +1,6 @@
 #include "IConfig.h"
 #include "ServerFunctions.h"
+#include <fstream>
 void IConfig::LoadConfigs()
 {
 }
@@ -13,7 +14,7 @@ void IConfig::LoadSkillFormulas()
 	IConfig::SkillCastCheck.clear();
 	IConfig::Setup.clear();
 	IConfig::BossRewards.clear();
-
+	IConfig::dungeon_map.clear();
 
 
 	FILE* filez = fopen("./Skills/SkillFormulas.txt", "r");
@@ -188,9 +189,11 @@ void IConfig::LoadSkillFormulas()
 		fclose(filer);
 	}
 
-	/*FILE* fileinstance = fopen("./Systems/ZenInstance.txt", "r");
+
+	FILE* fileinstance = fopen("./Systems/ZenInstance.txt", "r");
 	if (fileinstance != NULL)
 	{
+		std::vector<CDungeon> temp;
 		char line[BUFSIZ];
 		while (fgets(line, sizeof line, fileinstance) != NULL)
 		{
@@ -199,8 +202,8 @@ void IConfig::LoadSkillFormulas()
 			if (sscanf(line, "(instance (id %d)(min_players %d)(max_players %d)(min_level %d)(max_level %d)(waves_amount %d)(cooldown %d)(time %d)(quest_id %d)(startX %d)(startY %d)(startZ %d))", &id, &min_players, &max_players, &min_level, &max_level, &waves_amount, &cooldown, &time, &quest_id, &startX, &startY, &startZ) == 12)
 			{
 				ConsoleWriteBlue("dfwsedfwefwefwefwefwe");
-				IConfig::dungeon_vector.push_back(CDungeon(id, min_players, max_players, min_level, max_level, waves_amount, cooldown, time, quest_id, startX, startY, startZ));
-
+				CDungeon kekw(id, min_players, max_players, min_level, max_level, waves_amount, cooldown, time, quest_id, startX, startY, startZ);
+				IConfig::dungeon_map[id] = kekw;
 			}
 
 
@@ -208,15 +211,14 @@ void IConfig::LoadSkillFormulas()
 
 			if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(z %d)(monster_id %d))", &instance_id,&wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance,&x,&y,&z,&monster_id) == 9)\
 			{
-				CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, CDungeon::Point(x, y, z), monster_id);
+			//	CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, CDungeon::Point(x, y, z), monster_id);
 
 			}
 		}
 
 		fclose(fileinstance);
 
-	}*/
-
+	}
 	//IConfig::CallEnabled = true;
 }
 
@@ -250,6 +252,6 @@ std::map<std::pair<int, int>,bool> IConfig::SkillEnabled;
 std::map<void*, std::map<void*, int>>IConfig::BossRNG;
 std::map<int, std::vector<IConfig::Rewards>> IConfig::BossRewards;
 std::map<int,IConfig::BossSetup> IConfig::Setup;
-std::vector<CDungeon> IConfig::dungeon_vector;
+std::map<int, CDungeon> IConfig::dungeon_map;
 
 extern IConfig CONFIG = IConfig::GetInstance();

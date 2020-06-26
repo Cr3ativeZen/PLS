@@ -174,4 +174,21 @@ void __fastcall CArcher::ArrowDrizzle()
 		}
 }
 
+void __fastcall CArcher::VirulentArrow(int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_VIRULENTARROW));
+
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
+		return;
+
+	RAII raii(pPacket, pPos);
+
+	if (!raii.pTarget || raii.pTarget == GetOffset())
+		return;
+
+	ICharacter Target(raii.pTarget);
+
+	DamageMultiple(ISkill, Target, 4, 999, true, false);
+}
+
 

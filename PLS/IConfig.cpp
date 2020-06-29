@@ -200,24 +200,28 @@ void IConfig::LoadSkillFormulas()
 			int instance_id = 0, wave_id = 0, is_boss_wave = 0, mini_boss_id = 0, mini_boss_spawn_chance = 0, monster_id = 0, x = 0, y = 0, z = 0;
 			if (sscanf(line, "(instance (id %d)(min_players %d)(max_players %d)(min_level %d)(max_level %d)(waves_amount %d)(cooldown %d)(time %d)(quest_id %d)(startX %d)(startY %d)(map %d))", &id, &min_players, &max_players, &min_level, &max_level, &waves_amount, &cooldown, &time, &quest_id, &startX, &startY, &map) == 12)
 			{
-				ConsoleWriteBlue("dfwsedfwefwefwefwefwe");
 				CDungeon kekw(id, min_players, max_players, min_level, max_level, waves_amount, cooldown, time, quest_id, startX, startY, map);
 				IConfig::dungeon_map[id] = kekw;
 			}
 
 
 
-
-			if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(z %d)(monster_id %d))", &instance_id,&wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance,&x,&y,&z,&monster_id) == 9)\
+			
+			if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(z %d)(monster_id %d))", &instance_id,&wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance,&x,&y,&z,&monster_id) == 9)
 			{
-			//	CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, CDungeon::Point(x, y, z), monster_id);
-
+				CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, CDungeon::Point(x, y, z), monster_id);
+				auto p = std::find_if(dungeon_map.begin(), dungeon_map.end(), [id = instance_id](const auto& d) {return d.second.dungeon_id == id; });
+				if (p != dungeon_map.end())
+				{
+					p->second.waves_map.insert({ wave_id,summon });
+				}
 			}
 		}
 
 		fclose(fileinstance);
 
 	}
+
 	//IConfig::CallEnabled = true;
 }
 

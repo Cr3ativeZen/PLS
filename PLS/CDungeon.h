@@ -3,6 +3,7 @@
 #include "Resources.h"
 #include "ICharacter.h"
 
+
 class ICharacter;
 
 class CDungeon

@@ -1,6 +1,5 @@
 #include "CDungeon.h"
-
-
+#include "Summon.h"
 
 CDungeon::CDungeon():
 	dungeon_id(0),
@@ -40,6 +39,8 @@ CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_lev
 
 void CDungeon::SummonMonsters()
 {
+	ICharacter IMonster((void*)MonsterSummon(0, 0, 237682, 285268, 500, 1, 0,0));
+	IMonster.Blob();
 }
 
 void CDungeon::CheckEnterLimitsForParty()
@@ -67,6 +68,7 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 				{
 					ICharacter IMembers((void*)*(DWORD*)((void*)i));
 					IMembers.Teleport(it->second.map, it->second.startX, it->second.startY);
+					IMembers.ScreenTime(it->second.instance_time);
 					IMembers.SystemMessage("Instance started, Good Luck and Have Fun!", IConfig::TEXTCOLOR_ORANGE);
 
 
@@ -74,6 +76,7 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 
 				CIOObject::Release(Party);
 			}
+			SummonMonsters();
 		}
 		else
 		{

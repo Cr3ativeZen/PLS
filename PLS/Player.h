@@ -5,6 +5,9 @@ int __fastcall Tick(void *Player, void *edx)
 {
 	ICharacter IPlayer(Player);
 
+
+
+
 	//if (IPlayer.IsOnline() && !IPlayer.IsBuff(70) && IPlayer.IsBuff(550))
 	//{
 	//	int BuffValue = 0;

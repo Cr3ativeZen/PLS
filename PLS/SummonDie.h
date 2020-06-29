@@ -1,6 +1,8 @@
 #ifndef SUMMONDIE_H_
 #define SUMMONDIE_H_
 #include "Resources.h"
+
+
 void BossDropDraw(ICharacter IMonster);
 bool Roll(unsigned int chance);
 int RollPlayer(unsigned int player_amount);
@@ -14,6 +16,7 @@ int __fastcall SummonDie(int Monster, void* edx, int Arg, int Arg1, int Arg2, in
 
 	return CMonsterMaguniMaster::Die(Monster, Arg, Arg1, Arg2, Arg3);
 }
+
 
 
 

@@ -169,6 +169,7 @@
     <ClInclude Include="RAII.h" />
     <ClInclude Include="Resources.h" />
     <ClInclude Include="ServerFunctions.h" />
+    <ClInclude Include="Summon.h" />
     <ClInclude Include="SummonDie.h" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +184,7 @@
     <ClCompile Include="ISkill.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PLS.cpp" />
+    <ClCompile Include="Summon.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

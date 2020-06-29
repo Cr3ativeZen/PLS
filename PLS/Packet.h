@@ -149,7 +149,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 				it = IConfig::SkillEnabled.find({ IPlayer.GetClass(),SkillID });
 				if ((it != IConfig::SkillEnabled.end() && it->second))
 				{
-					IPlayer.SystemMessage("inside switch", IConfig::TEXTCOLOR_RED);
 					switch (IPlayer.GetClass())
 					{
 						
@@ -338,10 +337,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						}
 						}
 
-						break;
-					}
-					case CLASS_THIEF:
-					{
 						break;
 					}
 					default:

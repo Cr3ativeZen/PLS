@@ -3,9 +3,7 @@
 #include "Resources.h"
 #include "ICharacter.h"
 
-
 class ICharacter;
-
 class CDungeon
 {
 public:
@@ -21,28 +19,29 @@ public:
 	bool CheckIfOk(ICharacter IPlayer, std::map<int, CDungeon>::iterator it);
 	//void GiveAwayRewards();
 	void TeleportAway();
+	void DeleteMob(int offset);
 
 
 	struct Point
 	{
-		Point(int x, int y, int z) :
+		Point(int x, int y) :
 			x(x),
-			y(y),
-			z(z)
+			y(y)
 		{
 		}
-		int x, y, z;
+		int x, y;
 	};
 
 	struct DungSummon
 	{
-		DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, int mini_boss_spawn_chance, Point xyz, int monster_id) :
+		DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id,int monster_amount) :
 			dungeon_id(dungeon_id),
 			wave_id(wave_id),
 			is_boss_wave(is_boss_wave),
 			mini_boss_id(mini_boss_id),
 			mini_boss_spawn_chance(mini_boss_spawn_chance),
-			xyz(xyz)
+			xy(xy),
+			monster_amount(monster_amount)
 		{
 			//mob_id_vec.push_back(vec.begin(), vec.end());
 			mob_id_vec.push_back(monster_id);
@@ -51,9 +50,10 @@ public:
 		int wave_id;
 		bool is_boss_wave;
 		int mini_boss_id;
-		int mini_boss_spawn_chance;
+		unsigned int mini_boss_spawn_chance;
+		int monster_amount;
 		std::vector<int> mob_id_vec;
-		Point xyz;
+		Point xy;
 
 	};
 
@@ -74,7 +74,9 @@ public:
 	bool is_running;
 
 	std::map<int, DungSummon> waves_map;
+	std::vector<int> mobs_alive;
 
 };
+
 #endif
 

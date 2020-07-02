@@ -116,6 +116,12 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 29 && IPlayer.GetY() >> 13 == 28)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
 				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29)
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
@@ -145,6 +151,50 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
 				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 29 && IPlayer.GetY() >> 13 == 28)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 29 && IPlayer.GetY() >> 13 == 28)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 4)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 5)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 4)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 5)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+
 				std::map<std::pair<int, int>, bool>::iterator it;
 				it = IConfig::SkillEnabled.find({ IPlayer.GetClass(),SkillID });
 				if ((it != IConfig::SkillEnabled.end() && it->second))
@@ -400,13 +450,8 @@ void PacketAcceptQuest(ICharacter IPlayer, void* pPacket, int pPos)
 	ID = ID >> 16;
 
 	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [index = ID](const auto& c) {return c.second.quest_id == index; });
-	IPlayer.SystemMessage(Int2String(ID), IConfig::TEXTCOLOR_RED);
 	if (it != IConfig::dungeon_map.end())
-	{
 		it->second.TeleportIn(IPlayer,it);
-
-
-	}
 	
 }
 

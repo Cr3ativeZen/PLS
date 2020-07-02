@@ -14,10 +14,9 @@ int __fastcall SummonDie(int Monster, void* edx, int Arg, int Arg1, int Arg2, in
 	if (IConfig::BossRewards.count(IMonster.GetMobIndex()))
 		BossDropDraw(IMonster);
 
-	for (auto it=IConfig::dungeon_map.begin() ;it!= IConfig::dungeon_map.end();++it)
-	{
-		it->second.DeleteMob(Monster);
-	}
+	if(IMonster.GetMap() == CDungeon::map_id)
+		for (auto it=IConfig::dungeon_map.begin() ;it!= IConfig::dungeon_map.end();++it)
+			it->second.DeleteMob(Monster);
 
 
 	return CMonsterMaguniMaster::Die(Monster, Arg, Arg1, Arg2, Arg3);

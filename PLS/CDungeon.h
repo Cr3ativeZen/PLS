@@ -10,7 +10,7 @@ public:
 
 	CDungeon();
 
-	CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY, int map);
+	CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY);
 
 
 	void SummonMonsters();
@@ -63,7 +63,7 @@ public:
 
 	int min_level;
 	int max_level;
-	int startX, startY, map;
+	int startX, startY;
 	int quest_id;
 
 	int waves_amount;
@@ -72,10 +72,11 @@ public:
 	int instance_cooldown;
 	int instance_time;         //check timer function(hook it)
 	bool is_running;
-
+	
 	std::map<int, DungSummon> waves_map;
 	std::vector<int> mobs_alive;
-
+	static int enter_buff_id;
+	static int map_id;
 };
 
 #endif

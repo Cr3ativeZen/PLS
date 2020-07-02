@@ -7,6 +7,21 @@ int __fastcall Tick(void *Player, void *edx)
 
 
 
+	if (IPlayer.GetMap() == CDungeon::map_id && IPlayer.IsBuff(CDungeon::enter_buff_id) && CChar::IsGState((int)IPlayer.GetOffset(), 2))
+		IPlayer.Revive();
+
+
+	if (IPlayer.IsBuff(CDungeon::enter_buff_id) && IPlayer.GetMap() != CDungeon::map_id)
+	{
+		//IPlayer.SystemMessage("YIKES", IConfig::TEXTCOLOR_BLUE);
+		auto it = IConfig::dungeon_map.find(IPlayer.GetBuffValue(CDungeon::enter_buff_id));
+		if (it != IConfig::dungeon_map.end())
+			IPlayer.Teleport(CDungeon::map_id, it->second.startX, it->second.startY);
+	}
+
+
+
+
 
 	//if (IPlayer.IsOnline() && !IPlayer.IsBuff(70) && IPlayer.IsBuff(550))
 	//{

@@ -3,7 +3,8 @@
 #include <random>
 
 
-
+int CDungeon::enter_buff_id = 200;
+int CDungeon::map_id = 7;
 
 CDungeon::CDungeon():
 	dungeon_id(0),
@@ -18,12 +19,11 @@ CDungeon::CDungeon():
 	current_wave(0),
 	quest_id(0),
 	startX(0),
-	startY(0),
-	map(0)
+	startY(0)
 {
 }
 
-CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY, int map):
+CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY):
 	dungeon_id(dungeon_id),
 	min_players(min_players),
 	max_players(max_players),
@@ -36,8 +36,7 @@ CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_lev
 	current_wave(0),
 	quest_id(quest_id),
 	startX(startX),
-	startY(startY),
-	map(map)
+	startY(startY)
 {
 }
 
@@ -47,17 +46,21 @@ void CDungeon::SummonMonsters()
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(1, 1000);
 	current_wave++;
+
+	if (current_wave == waves_amount)
+		TeleportAway();
+
 	auto it = waves_map.find(current_wave);
 	if (it != waves_map.end())
 	{
 		for (int i = 0; i < it->second.monster_amount; i++)
 		{
-			mobs_alive.push_back(MonsterSummon(0, map, it->second.xy.x, it->second.xy.y, it->second.mob_id_vec.front(), 1, 0, 0));
+			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mob_id_vec.front(), 1, 0, 0));
 		}
 		if (dist(dev) <it->second.mini_boss_spawn_chance)
 		{
 			CPlayer::WriteInMap(0, 0xFF, "dsd", 247, "Mini-boss spawned!", 1);
-			mobs_alive.push_back(MonsterSummon(0, map, it->second.xy.x, it->second.xy.y, it->second.mini_boss_id, 1, 0, 0));
+			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mini_boss_id, 1, 0, 0));
 		}
 	}
 }
@@ -86,10 +89,10 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 				for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 				{
 					ICharacter IMembers((void*)*(DWORD*)((void*)i));
-					IMembers.Teleport(it->second.map, it->second.startX, it->second.startY);
+					IMembers.Teleport(CDungeon::map_id, it->second.startX, it->second.startY);
 					IMembers.ScreenTime(it->second.instance_time);
-					IMembers.SystemMessage("Instance started, Good Luck and Have Fun!", IConfig::TEXTCOLOR_ORANGE);
-
+					IMembers.SystemMessage("Instance started, Good Luck and Have Fun!", IConfig::TEXTCOLOR_BLUE);
+					IMembers.Buff(CDungeon::enter_buff_id, it->second.instance_time, dungeon_id);
 
 				}
 

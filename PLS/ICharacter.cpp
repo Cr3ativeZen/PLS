@@ -1824,6 +1824,20 @@ int ICharacter::GetAgiTotal()
 	return CChar::GetDex((int)this->GetOffset());
 }
 
+int ICharacter::GetBuffValue(int buff_id)
+{
+	int buff_value = 0;
+	CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)GetOffset() + 364));
+	int buff = CChar::FindBuff((int)GetOffset(), buff_id);
+
+	if (buff)
+		buff_value = *(DWORD*)(buff + 12);
+
+	CIOCriticalSection::Leave((void*)((char*)GetOffset() + 364));
+
+	return buff_value;
+}
+
 std::string ICharacter::Int2String(int value)
 {
 	std::stringstream ss;

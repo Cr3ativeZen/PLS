@@ -202,6 +202,7 @@ public:
 	int GetIntTotal();
 	int GetWisTotal();
 	int GetAgiTotal();
+	int GetBuffValue(int buff_id);
 
 	std::string Int2String(int value);
 

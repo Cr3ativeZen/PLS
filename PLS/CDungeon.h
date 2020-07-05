@@ -14,12 +14,14 @@ public:
 
 
 	void SummonMonsters();
-	void TeleportIn(ICharacter IPlayer,std::map<int,CDungeon>::iterator it);
-	bool CheckIfOk(ICharacter IPlayer, std::map<int, CDungeon>::iterator it);
+	void TeleportIn(ICharacter IPlayer);
+	bool CheckIfOk(ICharacter IPlayer);
 	//void GiveAwayRewards();
-	void TeleportAway();
+	void TeleportAway(bool successful);
 	void DeleteMob(int offset);
 	void LeaveInstance(void* offset);
+	void BlobAllMobs();
+	void WriteToParty(const char* str);
 
 
 	struct Point
@@ -65,6 +67,7 @@ public:
 	int max_level;
 	int startX, startY;
 	int quest_id;
+	int end_instance_time;
 
 	int waves_amount;
 	int current_wave;
@@ -79,6 +82,7 @@ public:
 	static int enter_buff_id;
 	static int cd_buff_id;
 	static int map_id;
+
 };
 
 #endif

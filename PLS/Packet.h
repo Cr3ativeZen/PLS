@@ -385,6 +385,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							archer.FocusShot(PACKET, pPos);
 							return;
 						}
+						//case SKILL_ARCHER_ARROWEXPLOSION:
+						//{
+						//	archer.ArrowExplosion(PACKET, pPos);
+						//	return;
+						//}
 						}
 
 						break;
@@ -461,10 +466,9 @@ void PacketAcceptQuest(ICharacter IPlayer, void* pPacket, int pPos)
 	int ID = 0;
 	CPacket::Read((char*)pPacket, (char*)pPos, "d", &ID);
 	ID = ID >> 16;
-
-	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [index = ID](const auto& c) {return c.second.quest_id == index; });
+	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [index = ID](const auto& c) {return c.second.quest_id == index;  });
 	if (it != IConfig::dungeon_map.end())
-		it->second.TeleportIn(IPlayer,it);
+		it->second.TeleportIn(IPlayer);
 	
 }
 

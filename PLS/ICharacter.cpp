@@ -373,7 +373,7 @@ void ICharacter::BoxMsg(std::string msg)
 		CPlayer::Write(this->GetOffset(), 0xFF, "ds", 249, msg.c_str());
 }
 
-const char *ICharacter::GetName()
+std::string ICharacter::GetName()
 {
 	if (this->IsOnline())
 		return (const char*)((int)this->GetOffset() + 32);
@@ -2041,7 +2041,7 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 				{
 					case SKILL_THIEF_SHADOWSLASH:
 					{
-						mana = static_cast<long long>(230 + (((GetLevel() + ISkill.GetGrade()) * ISkill.GetGrade()) * 0.63));
+						mana = 230 + ((static_cast<long long>(GetLevel()) + ISkill.GetGrade()) * ISkill.GetGrade()) * 0.63;
 						break;
 					}
 				}
@@ -2053,7 +2053,17 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 			}
 			case CLASS_ARCHER:
 			{
+				switch (ISkill.GetIndex())
+				{
+					case SKILL_ARCHER_ARROWEXPLOSION:
+					{
+						mana = 20 + (GetLevel() * 4);
+						Target.AddFxToTarget("davi_ef131_04",1,0,0);
+						break;
+					}
+				}
 				break;
+				
 			}
 			case CLASS_KNIGHT:
 			{

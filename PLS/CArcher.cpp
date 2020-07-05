@@ -188,7 +188,26 @@ void __fastcall CArcher::VirulentArrow(int pPacket, int pPos)
 
 	ICharacter Target(raii.pTarget);
 
-	DamageMultiple(ISkill, Target, 4, 999, true, false);
+	DamageMultiple(ISkill, Target, 4, 999, false, false);
+}
+
+void __fastcall CArcher::ArrowExplosion(int pPacket, int pPos)
+{
+	
+	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_ARROWEXPLOSION));
+
+	if (!ISkill.GetGrade() || GetCurMp() < 20 + (GetLevel() * 4))
+		return;
+
+	RAII raii(pPacket, pPos);
+
+	if (!raii.pTarget || raii.pTarget == GetOffset())
+		return;
+
+	ICharacter Target(raii.pTarget);
+
+	DamageMultiple(ISkill, Target, 4, 999, false, false);
+
 }
 
 

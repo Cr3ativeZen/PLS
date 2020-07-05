@@ -56,7 +56,7 @@ public:
 	int IsBuff(int id);
 	int GetLevel();
 	void BoxMsg(std::string msg);
-	const char *GetName();
+	std:: string GetName();
 	int GetSkillPointer(int SkillID);
 	void AddMinAttack(int amount);
 	void RemoveMinAttack(int amount);

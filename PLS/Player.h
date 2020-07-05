@@ -7,17 +7,32 @@ int __fastcall Tick(void *Player, void *edx)
 
 
 
-	if (IPlayer.GetMap() == CDungeon::map_id && IPlayer.IsBuff(CDungeon::enter_buff_id) && CChar::IsGState((int)IPlayer.GetOffset(), 2))
-		IPlayer.Revive();
+	//if (IPlayer.GetMap() == CDungeon::map_id && IPlayer.IsBuff(CDungeon::enter_buff_id) && CChar::IsGState((int)IPlayer.GetOffset(), 2))
+	//	IPlayer.Revive();
 
-
-	if (IPlayer.IsBuff(CDungeon::enter_buff_id) && IPlayer.GetMap() != CDungeon::map_id)
+	if (IPlayer.IsBuff(CDungeon::enter_buff_id))
 	{
-		//IPlayer.SystemMessage("YIKES", IConfig::TEXTCOLOR_BLUE);
-		auto it = IConfig::dungeon_map.find(IPlayer.GetBuffValue(CDungeon::enter_buff_id));
-		if (it != IConfig::dungeon_map.end())
-			IPlayer.Teleport(CDungeon::map_id, it->second.startX, it->second.startY);
+		if (IPlayer.GetMap() != CDungeon::map_id)
+		{
+			//IPlayer.SystemMessage("YIKES", IConfig::TEXTCOLOR_BLUE);
+			auto it = IConfig::dungeon_map.find(IPlayer.GetBuffValue(CDungeon::enter_buff_id));
+			if (it != IConfig::dungeon_map.end())
+				IPlayer.Teleport(CDungeon::map_id, it->second.startX, it->second.startY);
+		}
+
+		if (IPlayer.GetMap() == CDungeon::map_id && !IPlayer.IsParty())
+		{
+			auto it = IConfig::dungeon_map.find(IPlayer.GetBuffValue(CDungeon::enter_buff_id));
+			if (it != IConfig::dungeon_map.end())
+				IPlayer.Buff(CDungeon::cd_buff_id, it->second.cd_buff_id, 0);
+
+			IPlayer.CancelBuff(CDungeon::enter_buff_id);
+			IPlayer.Teleport(0, 257362, 259147);
+		}
 	}
+	else if (!IPlayer.IsBuff(CDungeon::enter_buff_id) && IPlayer.GetMap() == CDungeon::map_id)
+		IPlayer.Teleport(0, 257362, 259147);
+
 
 
 

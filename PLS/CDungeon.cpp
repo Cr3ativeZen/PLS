@@ -3,7 +3,7 @@
 #include <random>
 
 
-int CDungeon::enter_buff_id = 200;
+int CDungeon::enter_buff_id = 202;
 int CDungeon::cd_buff_id = 201;
 int CDungeon::map_id = 7;
 
@@ -20,7 +20,8 @@ CDungeon::CDungeon():
 	current_wave(0),
 	quest_id(0),
 	startX(0),
-	startY(0)
+	startY(0),
+	end_instance_time(0)
 {
 }
 
@@ -37,7 +38,8 @@ CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_lev
 	current_wave(0),
 	quest_id(quest_id),
 	startX(startX),
-	startY(startY)
+	startY(startY),
+	end_instance_time(0)
 {
 }
 
@@ -49,7 +51,7 @@ void CDungeon::SummonMonsters()
 
 	current_wave++;
 	if (current_wave == waves_amount +1)
-		TeleportAway();
+		TeleportAway(true);
 
 	auto it = waves_map.find(current_wave);
 	if (it != waves_map.end())
@@ -59,10 +61,12 @@ void CDungeon::SummonMonsters()
 
 		if (dist(dev) <it->second.mini_boss_spawn_chance)
 		{
-			if(it->second.is_boss_wave)
-				CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Boss Spawned!", 1);
+			if (it->second.is_boss_wave)
+				//CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Boss Spawned!", 1);
+				WriteToParty("Boss Spawned");
 			else
-				CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Mini-boss spawned!", 1);
+				//CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Mini-boss spawned!", 1);
+				WriteToParty("Mimi-Boss Spawned");
 
 			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mini_boss_id, 1, 0, 0));
 		}
@@ -70,17 +74,13 @@ void CDungeon::SummonMonsters()
 
 }
 
-
-
-void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator it)
+void CDungeon::TeleportIn(ICharacter IPlayer)
 {
-
-
 	if (IPlayer.IsParty())
 	{
 		if (!CParty::IsHead(CParty::FindParty(IPlayer.GetPartyID()), (int)IPlayer.GetOffset()))
 		{
-			IPlayer.SystemMessage("You are not a party leader!", IConfig::TEXTCOLOR_RED);
+			IPlayer.SystemMessage("You need to be leader to start Instance!", IConfig::TEXTCOLOR_RED);
 			return;
 		}
 		if (is_running)
@@ -89,7 +89,7 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 			return;
 		}
 
-		if (CheckIfOk(IPlayer, it))
+		if (CheckIfOk(IPlayer))
 		{
 			void* Party = (void*)CParty::FindParty(IPlayer.GetPartyID());
 			if (Party)
@@ -97,22 +97,19 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 				for (int i = CParty::GetPlayerList(Party); i; i = CBaseList::Pop((void*)i))
 				{
 					ICharacter IMembers((void*)*(DWORD*)((void*)i));
-					IMembers.Teleport(CDungeon::map_id, it->second.startX, it->second.startY);
-					IMembers.ScreenTime(it->second.instance_time);
+					IMembers.Teleport(CDungeon::map_id, startX, startY);
+					IMembers.ScreenTime(instance_time);
 					IMembers.SystemMessage("Instance started, Good Luck and Have Fun!", IConfig::TEXTCOLOR_BLUE);
-					IMembers.Buff(CDungeon::enter_buff_id, it->second.instance_time, dungeon_id);
+					IMembers.Buff(CDungeon::enter_buff_id, instance_time, dungeon_id);
 					player_party.insert(IMembers.GetOffset());
 
 				}
 
 				CIOObject::Release(Party);
 			}
+			end_instance_time = GetTickCount() + static_cast<long long>(instance_time) * 1000;
 			is_running = true;
 			SummonMonsters();
-		}
-		else
-		{
-			IPlayer.SystemMessage("SOMETHING IS WRONG", IConfig::TEXTCOLOR_RED);
 		}
 
 
@@ -124,7 +121,7 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 	}
 }
 
-bool CDungeon::CheckIfOk(ICharacter IPlayer, std::map<int, CDungeon>::iterator it)
+bool CDungeon::CheckIfOk(ICharacter IPlayer)
 {
 
 	if (waves_amount != waves_map.size() || waves_amount == 0)
@@ -141,23 +138,38 @@ bool CDungeon::CheckIfOk(ICharacter IPlayer, std::map<int, CDungeon>::iterator i
 		{
 			ICharacter IMembers((void*)*(DWORD*)((void*)i));
 			check++;
-			if ((IMembers.GetLevel() >= it->second.min_level && IMembers.GetLevel() <= it->second.max_level) /*&& !IMembers.IsBuff(CDungeon::cd_buff_id)*/)
+			if ((IMembers.GetLevel() >= min_level && IMembers.GetLevel() <= max_level))
 				counter++;
+			else
+			{
+				std::string str = "Player " + IMembers.GetName();
+				str += " is either too low or too high lvl to join the Instance!";
+				IPlayer.SystemMessage(str, IConfig::TEXTCOLOR_RED);
+			}
 
+			if (!IMembers.IsBuff(CDungeon::cd_buff_id))
+				counter++;
+			else
+			{
+				int time = IMembers.GetBuffRemain(CDungeon::cd_buff_id)/60;
+				std::string str = "Player " + IMembers.GetName();
+				if (time > 0)
+					str += " has a " + std::to_string(time) + " minutes cooldown on Instance!";
+				else
+					str += " has less than a minute cooldown for instance!";
+
+				IPlayer.SystemMessage(str, IConfig::TEXTCOLOR_RED);
+			}
 
 		}
 
 		CIOObject::Release(Party);
 	}
 
-	return counter == check;
+	return counter == 2*check;
 }
 
-
-
-
-
-void CDungeon::TeleportAway()
+void CDungeon::TeleportAway(bool successful)
 {
 	for (auto it = player_party.begin(); it != player_party.end();)
 	{
@@ -168,14 +180,22 @@ void CDungeon::TeleportAway()
 			IMember.Teleport(0, 257362, 259147);
 			IMember.CancelBuff(CDungeon::enter_buff_id);
 			IMember.Buff(CDungeon::cd_buff_id, instance_cooldown, 0);
-			IMember.SystemMessage("Instance finished!", IConfig::TEXTCOLOR_GREEN);
+
+			if(successful)
+				IMember.SystemMessage("Instance finished!", IConfig::TEXTCOLOR_GREEN);
+			else
+				IMember.SystemMessage("Instance failed!", IConfig::TEXTCOLOR_RED);
 			IMember.CloseScreenTime();
 
 		}
 		player_party.erase(it++);
 	}
+	if (!successful)
+		BlobAllMobs();
+
 	is_running = false;
 	current_wave = 0;
+
 }
 
 void CDungeon::DeleteMob(int offset)
@@ -210,8 +230,9 @@ void CDungeon::LeaveInstance(void* offset)
 			}
 			player_party.erase(it++);
 		}
-
-		//Blob mobs, set instance is_running to false ( add new function)
+		BlobAllMobs();
+		is_running = false;
+		current_wave = 0;
 	}
 	else
 	{
@@ -221,9 +242,39 @@ void CDungeon::LeaveInstance(void* offset)
 			IPlayer.Teleport(0, 257362, 259147);
 			IPlayer.CancelBuff(CDungeon::enter_buff_id);
 			IPlayer.Buff(CDungeon::cd_buff_id, instance_cooldown, 0);
-			IPlayer.SystemMessage("Your left instance party", IConfig::TEXTCOLOR_RED);
+			IPlayer.SystemMessage("You left instance party", IConfig::TEXTCOLOR_RED);
 			IPlayer.CloseScreenTime();
 		}
 		player_party.erase(offset);
+	}
+}
+
+void CDungeon::BlobAllMobs()
+{
+	if (mobs_alive.empty())
+		return;
+
+	for (auto it = mobs_alive.begin(); it != mobs_alive.end();)
+	{
+		ICharacter IMonster((void*)*it);
+		if (IMonster.IsValid())
+		{
+			IMonster.Blob();
+		}
+		it = mobs_alive.erase(it);
+	}
+}
+
+void CDungeon::WriteToParty(const char* str)
+{
+	if (player_party.empty())
+		return;
+
+	for (auto it = player_party.begin(); it != player_party.end();++it)
+	{
+		ICharacter IMember(*it);
+
+		if (IMember.IsOnline())
+			CPlayer::Write(IMember.GetOffset(), 0x3c, "ss", "InstanceSystem", str);
 	}
 }

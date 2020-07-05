@@ -83,6 +83,9 @@
     <ClInclude Include="OnTimer.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
+    <ClInclude Include="Logout.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">

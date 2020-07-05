@@ -32,12 +32,10 @@ public:
 		return config;
 	}
 
+
+
 	void LoadConfigs();
-
-	void LoadInstanceSystem();
-
-	void LoadSkillFormulas();
-
+	bool LoadInstanceConfig();
 
 	struct SkillFormulas
 	{

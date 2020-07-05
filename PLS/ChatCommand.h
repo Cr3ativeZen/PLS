@@ -13,13 +13,16 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 	if (IPlayer.IsOnline() && cmd.substr(0, 10) == "/zenconfig" && IPlayer.GetAdmin() >= 8)
 	{
 		IPlayer.SystemMessage("Zen skill config reloaded successfully", IConfig::TEXTCOLOR_GREEN);
-		CONFIG.LoadSkillFormulas();
+		CONFIG.LoadConfigs();
 	}
 
-	if (IPlayer.IsOnline() && cmd.substr(0, 12) == "/zeninstance" && IPlayer.GetAdmin() >= 8)
+	if (IPlayer.IsOnline() && cmd.substr(0, 9) == "/zeninsta" && IPlayer.GetAdmin() >= 8)
 	{
-		IPlayer.SystemMessage("Zen instance config reloaded successfully", IConfig::TEXTCOLOR_GREEN);
-		CONFIG.LoadInstanceSystem();
+
+		if(CONFIG.LoadInstanceConfig())
+			IPlayer.SystemMessage("Zen instance config reloaded successfully", IConfig::TEXTCOLOR_GREEN);
+		else
+			IPlayer.SystemMessage("Can't reload instance while it's running!", IConfig::TEXTCOLOR_RED);
 	}
 
 	CPlayer::ChatCommand(Player, command);

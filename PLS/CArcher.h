@@ -32,6 +32,7 @@ public:
 
 	//3rd job skills imperial general
 	void __fastcall VirulentArrow(int pPacket, int pPos);
+	void __fastcall ArrowExplosion(int pPacket, int pPos);
 };
 
 #endif

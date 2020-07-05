@@ -179,6 +179,8 @@ namespace CConsole
 
 namespace CPlayer
 {
+	//static int(__thiscall* GameRestart)() = (int(__thiscall*)())0x004585B0;
+	static void(__thiscall *GameRestart)(void* Player) = (void(__thiscall*)(void*))0x004585B0;
 	static void(__thiscall *CPlayer__AskParty)(int a5) = (void(__thiscall*)(int a5))0x0045FA90;
 	static int(__thiscall *GetPalsyDamage)(int Player, int Target) = (int(__thiscall*)(int, int))0x0046C9F0;
 	static int(__cdecl *UpdatePrtyPer)(int Player, int Type, int InOut, char Amount, int Value) = (int(__cdecl*)(int, int, int, char, int))0x0045B100;

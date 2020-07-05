@@ -2,6 +2,45 @@
 #include "IConfig.h"
 void IConfig::LoadConfigs()
 {
+	LoadInstanceSystem();
+	LoadSkillFormulas();
+}
+void IConfig::LoadInstanceSystem()
+{
+	IConfig::dungeon_map.clear();
+
+	FILE* fileinstance = fopen("./Systems/ZenInstance.txt", "r");
+	if (fileinstance != NULL)
+	{
+		std::vector<CDungeon> temp;
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, fileinstance) != NULL)
+		{
+			int id = 0, min_players = 0, max_players = 0, min_level = 0, max_level = 0, cooldown = 0, time = 0, waves_amount = 0, quest_id = 0, startX = 0, startY = 0;
+			int instance_id = 0, wave_id = 0, is_boss_wave = 0, mini_boss_id = 0, mini_boss_spawn_chance = 0, monster_id = 0, x = 0, y = 0, monster_amount = 0;
+			if (sscanf(line, "(instance (id %d)(min_players %d)(max_players %d)(min_level %d)(max_level %d)(waves_amount %d)(cooldown %d)(time %d)(quest_id %d)(startX %d)(startY %d))", &id, &min_players, &max_players, &min_level, &max_level, &waves_amount, &cooldown, &time, &quest_id, &startX, &startY) == 11)
+			{
+				CDungeon kekw(id, min_players, max_players, min_level, max_level, waves_amount, cooldown, time, quest_id, startX, startY);
+				IConfig::dungeon_map[id] = kekw;
+			}
+
+
+
+
+			if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(monster_id %d)(monster_amount %d))", &instance_id, &wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance, &x, &y, &monster_id, &monster_amount) == 9)
+			{
+				CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, CDungeon::Point(x, y), monster_id, monster_amount);
+				auto p = std::find_if(dungeon_map.begin(), dungeon_map.end(), [id = instance_id](const auto& d) {return d.second.dungeon_id == id; });
+				if (p != dungeon_map.end())
+				{
+					p->second.waves_map.insert({ wave_id,summon });
+				}
+			}
+		}
+
+		fclose(fileinstance);
+
+	}
 }
 
 void IConfig::LoadSkillFormulas()
@@ -13,7 +52,7 @@ void IConfig::LoadSkillFormulas()
 	IConfig::SkillCastCheck.clear();
 	IConfig::Setup.clear();
 	IConfig::BossRewards.clear();
-	IConfig::dungeon_map.clear();
+
 
 
 	FILE* filez = fopen("./Skills/SkillFormulas.txt", "r");
@@ -186,40 +225,6 @@ void IConfig::LoadSkillFormulas()
 			}
 		}
 		fclose(filer);
-	}
-
-
-	FILE* fileinstance = fopen("./Systems/ZenInstance.txt", "r");
-	if (fileinstance != NULL)
-	{
-		std::vector<CDungeon> temp;
-		char line[BUFSIZ];
-		while (fgets(line, sizeof line, fileinstance) != NULL)
-		{
-			int id = 0, min_players = 0, max_players = 0, min_level = 0, max_level = 0, cooldown = 0, time = 0, waves_amount = 0, quest_id = 0, startX = 0, startY = 0;
-			int instance_id = 0, wave_id = 0, is_boss_wave = 0, mini_boss_id = 0, mini_boss_spawn_chance = 0, monster_id = 0, x = 0, y = 0, monster_amount = 0;
-			if (sscanf(line, "(instance (id %d)(min_players %d)(max_players %d)(min_level %d)(max_level %d)(waves_amount %d)(cooldown %d)(time %d)(quest_id %d)(startX %d)(startY %d))", &id, &min_players, &max_players, &min_level, &max_level, &waves_amount, &cooldown, &time, &quest_id, &startX, &startY) == 11)
-			{
-				CDungeon kekw(id, min_players, max_players, min_level, max_level, waves_amount, cooldown, time, quest_id, startX, startY);
-				IConfig::dungeon_map[id] = kekw;
-			}
-
-
-
-			
-			if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(monster_id %d)(monster_amount %d))", &instance_id,&wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance,&x,&y,&monster_id,&monster_amount) == 9)
-			{
-				CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, CDungeon::Point(x, y), monster_id, monster_amount);
-				auto p = std::find_if(dungeon_map.begin(), dungeon_map.end(), [id = instance_id](const auto& d) {return d.second.dungeon_id == id; });
-				if (p != dungeon_map.end())
-				{
-					p->second.waves_map.insert({ wave_id,summon });
-				}
-			}
-		}
-
-		fclose(fileinstance);
-
 	}
 
 	//IConfig::CallEnabled = true;

@@ -101,7 +101,7 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 					IMembers.ScreenTime(it->second.instance_time);
 					IMembers.SystemMessage("Instance started, Good Luck and Have Fun!", IConfig::TEXTCOLOR_BLUE);
 					IMembers.Buff(CDungeon::enter_buff_id, it->second.instance_time, dungeon_id);
-					player_party.insert(IMembers.GetID());
+					player_party.insert(IMembers.GetOffset());
 
 				}
 
@@ -161,7 +161,7 @@ void CDungeon::TeleportAway()
 {
 	for (auto it = player_party.begin(); it != player_party.end();)
 	{
-		ICharacter IMember(CPlayer::FindPlayer(*it));
+		ICharacter IMember(*it);
 
 		if (IMember.IsOnline())
 		{
@@ -191,7 +191,7 @@ void CDungeon::DeleteMob(int offset)
 		SummonMonsters();
 }
 
-void CDungeon::LeaveInstance(int id)
+void CDungeon::LeaveInstance(void* offset)
 {
 	
 	if ((int)player_party.size() - 1 < min_players)
@@ -199,7 +199,7 @@ void CDungeon::LeaveInstance(int id)
 		int playerID = 0;
 		for (auto it = player_party.begin(); it != player_party.end();)
 		{
-			ICharacter IMember(CPlayer::FindPlayer(*it));
+			ICharacter IMember(*it);
 			if (IMember.IsOnline())
 			{
 				IMember.Teleport(0, 257362, 259147);
@@ -215,7 +215,7 @@ void CDungeon::LeaveInstance(int id)
 	}
 	else
 	{
-		ICharacter IPlayer(CPlayer::FindPlayer(id));
+		ICharacter IPlayer(offset);
 		if (IPlayer.IsOnline())
 		{
 			IPlayer.Teleport(0, 257362, 259147);
@@ -224,6 +224,6 @@ void CDungeon::LeaveInstance(int id)
 			IPlayer.SystemMessage("Your left instance party", IConfig::TEXTCOLOR_RED);
 			IPlayer.CloseScreenTime();
 		}
-		player_party.erase(id);
+		player_party.erase(offset);
 	}
 }

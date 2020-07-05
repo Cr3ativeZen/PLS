@@ -34,6 +34,8 @@ public:
 
 	void LoadConfigs();
 
+	void LoadInstanceSystem();
+
 	void LoadSkillFormulas();
 
 

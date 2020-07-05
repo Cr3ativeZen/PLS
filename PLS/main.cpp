@@ -60,7 +60,7 @@ void __fastcall Start(int Start, void *edx, u_short hostshort)
 {
 	CIOServer::Start(Start, hostshort);
 
-	CONFIG.LoadSkillFormulas();
+	CONFIG.LoadConfigs();
 	ConsoleWriteBlue("CreativeZen's DLL loaded successfully");
 	Sleep(500);
 

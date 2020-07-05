@@ -389,6 +389,19 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 
 						break;
 					}
+					case CLASS_THIEF:
+					{
+						CThief thief((void*)Player);
+						switch (SkillID)
+						{
+						case SKILL_THIEF_SHADOWSLASH:
+						{
+							thief.ShadowSlash(PACKET, pPos);
+							return;
+						}
+						}
+						break;
+					}
 					default:
 						break;
 					}

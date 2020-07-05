@@ -51,6 +51,7 @@ int String2Int(std::string String)
 #include "FinalDamage.h"
 #include "CDungeon.h"
 #include "Summon.h"
+#include "LeaveParty.h"
 
 
 void __fastcall Start(int Start, void *edx, u_short hostshort)
@@ -87,6 +88,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CPlayer::Process, Packet);
 		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
 		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
+		DetourAttach(&(PVOID&)CPlayer::LeaveParty, LeaveParty);
 
 		DetourTransactionCommit();
 		break;
@@ -100,9 +102,10 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CPlayer::ChatCommand, ChatCommand);
 		DetourDetach(&(PVOID&)CPlayer::Tick, Tick);
 		DetourDetach(&(PVOID&)CPlayer::Process, Packet);
-		DetourAttach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
-		DetourAttach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
-
+		DetourDetach(&(PVOID&)CChar::GetFinalDamage, FinalDamage);
+		DetourDetach(&(PVOID&)CMonsterMaguniMaster::Die, SummonDie);
+		DetourDetach(&(PVOID&)CPlayer::LeaveParty, LeaveParty);
+		
 		DetourTransactionCommit();
 		break;
 	}

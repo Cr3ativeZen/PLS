@@ -157,6 +157,7 @@
     <ClInclude Include="ChatCommand.h" />
     <ClInclude Include="CKnight.h" />
     <ClInclude Include="CMage.h" />
+    <ClInclude Include="CThief.h" />
     <ClInclude Include="ExecuteSkill.h" />
     <ClInclude Include="FinalDamage.h" />
     <ClInclude Include="ICharacter.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="IItem.h" />
     <ClInclude Include="IQuest.h" />
     <ClInclude Include="ISkill.h" />
+    <ClInclude Include="LeaveParty.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RAII.h" />
@@ -177,6 +179,7 @@
     <ClCompile Include="CDungeon.cpp" />
     <ClCompile Include="CKnight.cpp" />
     <ClCompile Include="CMage.cpp" />
+    <ClCompile Include="CThief.cpp" />
     <ClCompile Include="ICharacter.cpp" />
     <ClCompile Include="IConfig.cpp" />
     <ClCompile Include="IItem.cpp" />

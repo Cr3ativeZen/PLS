@@ -224,6 +224,4 @@ public:
 	void __fastcall ResetFarContinueSkill();
 
 };
-#else 
-#pragma message("ICharacter.h superfluously included")
 #endif

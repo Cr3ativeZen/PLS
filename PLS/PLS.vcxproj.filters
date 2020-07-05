@@ -74,6 +74,12 @@
     <ClInclude Include="Summon.h">
       <Filter>Header Files\EverythingElse</Filter>
     </ClInclude>
+    <ClInclude Include="LeaveParty.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
+    <ClInclude Include="CThief.h">
+      <Filter>Characters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">
@@ -111,6 +117,9 @@
     </ClCompile>
     <ClCompile Include="Summon.cpp">
       <Filter>Header Files\EverythingElse</Filter>
+    </ClCompile>
+    <ClCompile Include="CThief.cpp">
+      <Filter>Characters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

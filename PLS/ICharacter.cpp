@@ -1912,6 +1912,11 @@ int ICharacter::CalculateFormula(ISkill ISkill,ICharacter Target)
 		
 		break;
 	}
+	case CLASS_THIEF:
+	{
+		value = skills->second.base_damage + (GetAttack() * skills->second.damageC) + (static_cast<long long>(GetStrTotal()) * skills->second.str) + (static_cast<long long>(GetAgiTotal()) * skills->second.agi) + (static_cast<long long>(ISkill.GetGrade()) * skills->second.damage_per_grade);
+		break;
+	}
 	default:
 		return 0;
 	}
@@ -2030,6 +2035,18 @@ bool ICharacter::DamageSingle(ISkill ISkill,ICharacter Target,bool self_anim,boo
 
 		switch (GetClass())
 		{
+			case CLASS_THIEF:
+			{
+				switch (ISkill.GetIndex())
+				{
+					case SKILL_THIEF_SHADOWSLASH:
+					{
+						mana = static_cast<long long>(230 + (((GetLevel() + ISkill.GetGrade()) * ISkill.GetGrade()) * 0.63));
+						break;
+					}
+				}
+				break;
+			}
 			case CLASS_MAGE:
 			{
 				break;

@@ -14,7 +14,7 @@ void __fastcall LeaveParty(int Player)
 
 		auto it = IConfig::dungeon_map.find(instance_id);
 		if(it != IConfig::dungeon_map.end())
-			it->second.LeaveInstance(IPlayer.GetOffset());
+			it->second.LeaveInstance(IPlayer.GetID());
 
 
 		//if party.size < min_players

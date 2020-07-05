@@ -16,6 +16,14 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		CONFIG.LoadSkillFormulas();
 	}
 
+	if (IPlayer.IsOnline() && cmd.substr(0, 6) == "/yikes" && IPlayer.GetAdmin() >= 8)
+	{
+		IPlayer.SystemMessage(Int2String(IPlayer.GetPID()), IConfig::TEXTCOLOR_GREEN);
+		IPlayer.SystemMessage(Int2String((int)CPlayer::FindPlayer(IPlayer.GetPID())), IConfig::TEXTCOLOR_GREEN);
+		//CONFIG.LoadSkillFormulas();
+		ICharacter pepe(CPlayer::FindPlayer(IPlayer.GetID()));
+		pepe.SystemMessage("YOPYOPYOP", IConfig::TEXTCOLOR_BLUE);
+	}
 
 	CPlayer::ChatCommand(Player, command);
 }

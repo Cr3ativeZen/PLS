@@ -1853,7 +1853,7 @@ int ICharacter::CalculateFormula(ISkill ISkill,ICharacter Target)
 
 	skills = IConfig::SkillCalc.find({ GetClass(),ISkill.GetIndex() });
 
-	if (skills == IConfig::SkillCalc.end())                                                             //if skill is not found
+	if (skills == IConfig::SkillCalc.end())
 		return 0;
 
 	switch (GetClass())

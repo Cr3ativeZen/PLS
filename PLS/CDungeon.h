@@ -19,7 +19,7 @@ public:
 	//void GiveAwayRewards();
 	void TeleportAway();
 	void DeleteMob(int offset);
-	void LeaveInstance(void* Offset);
+	void LeaveInstance(int id);
 
 
 	struct Point
@@ -75,7 +75,7 @@ public:
 	
 	std::map<int, DungSummon> waves_map;
 	std::vector<int> mobs_alive;
-	std::set<void*> player_party;
+	std::set<int> player_party;
 	static int enter_buff_id;
 	static int cd_buff_id;
 	static int map_id;

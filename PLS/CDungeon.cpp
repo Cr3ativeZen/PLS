@@ -55,15 +55,14 @@ void CDungeon::SummonMonsters()
 	if (it != waves_map.end())
 	{
 		for (int i = 0; i < it->second.monster_amount; i++)
-		{
 			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mob_id_vec.front(), 1, 0, 0));
-		}
+
 		if (dist(dev) <it->second.mini_boss_spawn_chance)
 		{
 			if(it->second.is_boss_wave)
-				CPlayer::WriteInMap(0, 0xFF, "dsd", 247, "Boss Spawned!", 1);
+				CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Boss Spawned!", 1);
 			else
-				CPlayer::WriteInMap(0, 0xFF, "dsd", 247, "Mini-boss spawned!", 1);
+				CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Mini-boss spawned!", 1);
 
 			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mini_boss_id, 1, 0, 0));
 		}
@@ -102,7 +101,7 @@ void CDungeon::TeleportIn(ICharacter IPlayer, std::map<int, CDungeon>::iterator 
 					IMembers.ScreenTime(it->second.instance_time);
 					IMembers.SystemMessage("Instance started, Good Luck and Have Fun!", IConfig::TEXTCOLOR_BLUE);
 					IMembers.Buff(CDungeon::enter_buff_id, it->second.instance_time, dungeon_id);
-					player_party.insert(IMembers.GetOffset());
+					player_party.insert(IMembers.GetID());
 
 				}
 
@@ -162,7 +161,7 @@ void CDungeon::TeleportAway()
 {
 	for (auto it = player_party.begin(); it != player_party.end();)
 	{
-		ICharacter IMember(*it);
+		ICharacter IMember(CPlayer::FindPlayer(*it));
 
 		if (IMember.IsOnline())
 		{
@@ -170,11 +169,13 @@ void CDungeon::TeleportAway()
 			IMember.CancelBuff(CDungeon::enter_buff_id);
 			IMember.Buff(CDungeon::cd_buff_id, instance_cooldown, 0);
 			IMember.SystemMessage("Instance finished!", IConfig::TEXTCOLOR_GREEN);
+			IMember.CloseScreenTime();
 
 		}
 		player_party.erase(it++);
 	}
 	is_running = false;
+	current_wave = 0;
 }
 
 void CDungeon::DeleteMob(int offset)
@@ -190,37 +191,39 @@ void CDungeon::DeleteMob(int offset)
 		SummonMonsters();
 }
 
-void CDungeon::LeaveInstance(void* Offset)
+void CDungeon::LeaveInstance(int id)
 {
 	
 	if ((int)player_party.size() - 1 < min_players)
 	{
 		int playerID = 0;
-		for(auto it = player_party.begin();it!= player_party.end();++it)
+		for (auto it = player_party.begin(); it != player_party.end();)
 		{
-			ICharacter IMember(*it);
+			ICharacter IMember(CPlayer::FindPlayer(*it));
 			if (IMember.IsOnline())
 			{
 				IMember.Teleport(0, 257362, 259147);
 				IMember.CancelBuff(CDungeon::enter_buff_id);
 				IMember.Buff(CDungeon::cd_buff_id, instance_cooldown, 0);
 				IMember.SystemMessage("Your party was either destroyed or had too low amount of players to continue", IConfig::TEXTCOLOR_RED);
+				IMember.CloseScreenTime();
 			}
-			player_party.erase(*it);
+			player_party.erase(it++);
 		}
 
 		//Blob mobs, set instance is_running to false ( add new function)
 	}
 	else
 	{
-		ICharacter IPlayer(Offset);
+		ICharacter IPlayer(CPlayer::FindPlayer(id));
 		if (IPlayer.IsOnline())
 		{
 			IPlayer.Teleport(0, 257362, 259147);
 			IPlayer.CancelBuff(CDungeon::enter_buff_id);
 			IPlayer.Buff(CDungeon::cd_buff_id, instance_cooldown, 0);
 			IPlayer.SystemMessage("Your left instance party", IConfig::TEXTCOLOR_RED);
+			IPlayer.CloseScreenTime();
 		}
-		player_party.erase(Offset);
+		player_party.erase(id);
 	}
 }

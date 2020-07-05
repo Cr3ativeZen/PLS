@@ -80,6 +80,9 @@
     <ClInclude Include="CThief.h">
       <Filter>Characters</Filter>
     </ClInclude>
+    <ClInclude Include="OnTimer.h">
+      <Filter>Header Files\EverythingElse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PLS.cpp">

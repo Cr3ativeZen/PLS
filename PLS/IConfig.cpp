@@ -191,7 +191,7 @@ void IConfig::LoadConfigs()
 
 bool IConfig::LoadInstanceConfig()
 {
-
+	IConfig::dungeon_map.clear();
 	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [](const auto& d) {return d.second.is_running; });
 
 	if (it == IConfig::dungeon_map.end())
@@ -261,6 +261,6 @@ std::map<std::pair<int, int>,bool> IConfig::SkillEnabled;
 std::map<void*, std::map<void*, int>>IConfig::BossRNG;
 std::map<int, std::vector<IConfig::Rewards>> IConfig::BossRewards;
 std::map<int,IConfig::BossSetup> IConfig::Setup;
-std::map<int, CDungeon> IConfig::dungeon_map;
+extern std::map<int, CDungeon> dungeon_map;
 
 extern IConfig CONFIG = IConfig::GetInstance();

@@ -469,7 +469,13 @@ void PacketAcceptQuest(ICharacter IPlayer, void* pPacket, int pPos)
 	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [index = ID](const auto& c) {return c.second.quest_id == index;  });
 	if (it != IConfig::dungeon_map.end())
 		it->second.TeleportIn(IPlayer);
-	
+	//for(auto it = IConfig::dungeon_map.begin();it!= IConfig::dungeon_map.end();++it)
+	//	if (it->second.quest_id = ID)
+	//	{
+	//		it->second.SummonMonsters();
+	//		break;
+	//	}
+
 }
 
 #endif

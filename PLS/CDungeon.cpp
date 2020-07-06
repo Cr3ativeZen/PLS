@@ -3,7 +3,7 @@
 #include <random>
 
 
-int CDungeon::enter_buff_id = 202;
+int CDungeon::enter_buff_id = 188;
 int CDungeon::cd_buff_id = 201;
 int CDungeon::map_id = 7;
 
@@ -57,7 +57,7 @@ void CDungeon::SummonMonsters()
 	if (it != waves_map.end())
 	{
 		for (int i = 0; i < it->second.monster_amount; i++)
-			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mob_id_vec.front(), 1, 0, 0));
+			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.monster_id, 1, 0, 0));
 
 		if (dist(dev) <it->second.mini_boss_spawn_chance)
 		{
@@ -66,7 +66,7 @@ void CDungeon::SummonMonsters()
 				WriteToParty("Boss Spawned");
 			else
 				//CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Mini-boss spawned!", 1);
-				WriteToParty("Mimi-Boss Spawned");
+				WriteToParty("Mini-Boss Spawned");
 
 			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mini_boss_id, 1, 0, 0));
 		}
@@ -151,7 +151,7 @@ bool CDungeon::CheckIfOk(ICharacter IPlayer)
 				counter++;
 			else
 			{
-				int time = IMembers.GetBuffRemain(CDungeon::cd_buff_id)/60;
+				int time = IMembers.GetBuffRemain(CDungeon::cd_buff_id) / 60;
 				std::string str = "Player " + IMembers.GetName();
 				if (time > 0)
 					str += " has a " + std::to_string(time) + " minutes cooldown on Instance!";
@@ -165,6 +165,8 @@ bool CDungeon::CheckIfOk(ICharacter IPlayer)
 
 		CIOObject::Release(Party);
 	}
+	else
+		return false;
 
 	return counter == 2*check;
 }

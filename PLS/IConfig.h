@@ -184,9 +184,9 @@ public:
 	static std::map<int,BossSetup> Setup;
 
 
-	static std::map<int,CDungeon> dungeon_map;
-};
 
+};
+extern std::map<int, CDungeon> dungeon_map;
 extern IConfig CONFIG;
 
 

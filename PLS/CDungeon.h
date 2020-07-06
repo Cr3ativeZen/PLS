@@ -43,10 +43,10 @@ public:
 			mini_boss_id(mini_boss_id),
 			mini_boss_spawn_chance(mini_boss_spawn_chance),
 			xy(xy),
-			monster_amount(monster_amount)
+			monster_amount(monster_amount),
+			monster_id(monster_id)
 		{
 			//mob_id_vec.push_back(vec.begin(), vec.end());
-			mob_id_vec.push_back(monster_id);
 		}
 		int dungeon_id;
 		int wave_id;
@@ -54,7 +54,7 @@ public:
 		int mini_boss_id;
 		unsigned int mini_boss_spawn_chance;
 		int monster_amount;
-		std::vector<int> mob_id_vec;
+		int monster_id;
 		Point xy;
 
 	};

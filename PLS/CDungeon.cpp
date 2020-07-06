@@ -4,7 +4,7 @@
 
 
 int CDungeon::enter_buff_id = 188;
-int CDungeon::cd_buff_id = 201;
+int CDungeon::cd_buff_id = 189;
 int CDungeon::map_id = 7;
 
 CDungeon::CDungeon():
@@ -62,10 +62,8 @@ void CDungeon::SummonMonsters()
 		if (dist(dev) <it->second.mini_boss_spawn_chance)
 		{
 			if (it->second.is_boss_wave)
-				//CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Boss Spawned!", 1);
 				WriteToParty("Boss Spawned");
 			else
-				//CPlayer::WriteInMap(CDungeon::map_id, 0xFF, "dsd", 247, "Mini-boss spawned!", 1);
 				WriteToParty("Mini-Boss Spawned");
 
 			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.mini_boss_id, 1, 0, 0));
@@ -200,17 +198,21 @@ void CDungeon::TeleportAway(bool successful)
 
 }
 
-void CDungeon::DeleteMob(int offset)
+bool CDungeon::DeleteMob(int offset)
 {
+	bool ret = false;
 	for (auto it = mobs_alive.begin();it!= mobs_alive.end();++it)
 		if (*it == offset)
 		{
 			mobs_alive.erase(it);
+			ret = true;
 			break;
 		}
 
-	if(mobs_alive.empty())
+	if (ret && mobs_alive.empty())
 		SummonMonsters();
+
+	return ret;
 }
 
 void CDungeon::LeaveInstance(void* offset)

@@ -261,6 +261,6 @@ std::map<std::pair<int, int>,bool> IConfig::SkillEnabled;
 std::map<void*, std::map<void*, int>>IConfig::BossRNG;
 std::map<int, std::vector<IConfig::Rewards>> IConfig::BossRewards;
 std::map<int,IConfig::BossSetup> IConfig::Setup;
-extern std::map<int, CDungeon> dungeon_map;
+std::map<int, CDungeon> IConfig::dungeon_map;
 
 extern IConfig CONFIG = IConfig::GetInstance();

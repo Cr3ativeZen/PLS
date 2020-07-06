@@ -18,7 +18,7 @@ public:
 	bool CheckIfOk(ICharacter IPlayer);
 	//void GiveAwayRewards();
 	void TeleportAway(bool successful);
-	void DeleteMob(int offset);
+	bool DeleteMob(int offset);
 	void LeaveInstance(void* offset);
 	void BlobAllMobs();
 	void WriteToParty(const char* str);

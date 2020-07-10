@@ -2169,6 +2169,11 @@ void ICharacter::InsertItem(int index, int prefix, int amount, int argument)
 	
 }
 
+int ICharacter::GetEquippedWeaponIndex()
+{
+	return GetBuffValue(WEAPON_INDEX_BUFF);
+}
+
 bool ICharacter::IsInventoryFull()
 {
 	return CPlayer::GetInvenSize(Offset) > MaxInventorySize();

@@ -93,10 +93,23 @@ void __fastcall CMage::ShockWave(int pPacket, int pPos)
 
 	RAII raii(pPacket, pPos);
 
+	char bType = 0;
+	int nTargetID = 0;
+
+	CPacket::Read((char*)pPacket, (char*)pPos, "bd", &bType, &nTargetID);
+
 	if (!raii.pTarget || raii.pTarget == GetOffset())
 		return;
 
 	ICharacter Target(raii.pTarget);
+
+	//(*(void(__thiscall**)(void*, int, int, int, int, int))(*(DWORD*)GetOffset() + 84))(
+	//	GetOffset(),
+	//	nTargetID,
+	//	(int)raii.pTarget,
+	//	100,
+	//	100,
+	//	100);
 
 	DamageSingle(ISkill, Target, false, false);
 

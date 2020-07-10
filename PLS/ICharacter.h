@@ -216,6 +216,7 @@ public:
 
 
 	void InsertItem(int index, int prefix, int amount, int argument);
+	int GetEquippedWeaponIndex();
 	bool IsInventoryFull();
 	//void TeleportMonster(int map, int x, int y);
 

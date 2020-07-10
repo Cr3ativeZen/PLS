@@ -175,7 +175,7 @@ bool IItem::IsWeaponMixed()
 
 bool IItem::IsItemEquipped()
 {
-	if (CItem::IsState((int)this->GetOffset(), 1))
+	if (CItem::IsState((int)this->GetOffset(), ITEM_PUTON))
 	{
 		return 1;
 	}

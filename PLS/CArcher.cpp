@@ -146,6 +146,7 @@ void __fastcall CArcher::MysteriousArrow(int pPacket, int pPos)
 	ICharacter Target(raii.pTarget);
 
 	DamageSingle(ISkill, Target, false, true);
+	//DamageMultiple(ISkill, Target, 2, 3, false, true);
 
 }
 

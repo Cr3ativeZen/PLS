@@ -139,5 +139,31 @@
 
 
 
+//ETC
+
+#define WEAPON_INDEX_BUFF 1513
+
+#define ITEM_PUTON          0x00000001
+#define ITEM_SETGEM         0x00000002
+#define ITEM_ONTRADE        0x00000004
+#define ITEM_CHEAT          0x00000008
+#define ITEM_STORAGE        0x00000010
+#define ITEM_TRANSFORM      0x00000020
+#define ITEM_PROTECTED      0x00000040
+#define ITEM_OWN            0x00000080
+#define ITEM_MIX_DARK       0x00000100
+#define ITEM_MIX_SAINT      0x00000200
+#define ITEM_MIX_FLAME      0x00000400
+#define ITEM_MIX_ICE        0x00000800
+#define ITEM_MIX_LIGHT      0x00001000
+#define ITEM_MIX_POISON     0x00002000
+#define ITEM_MIX_PARAL      0x00004000
+#define ITEM_MIX_POWER      0x00008000
+#define ITEM_MIX_TECH       0x00010000
+#define ITEM_MIX_FANTA      0x00020000
+#define ITEM_MIX_BLOOD      0x00040000
+#define ITEM_MIX_LEVEL1     0x00080000
+#define ITEM_MIX_LEVEL2     0x00100000
+
 #endif // _RESOURCES_H_
 

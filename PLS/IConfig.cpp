@@ -83,6 +83,126 @@ void IConfig::LoadSkillFormulas()
 		}
 		fclose(filez);
 	}
+
+
+	FILE* file = fopen("./Configs/Cooldown.txt", "r");
+	if (file != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, file) != NULL)
+		{
+			int character = 0, skill_id = 0, casttime = 0, cooldown = 0;
+
+			if (sscanf(line, "(skill (class %d)(action %d)(delay %d)(cooldown %d))", &character, &skill_id, &casttime, &cooldown) == 4)
+			{
+				IConfig::SkillCastCheck[{character, skill_id}].cooldown = cooldown;
+				IConfig::SkillCastCheck[{character, skill_id}].casttime = casttime;
+			}
+		}
+		fclose(file);
+	}
+
+
+	FILE* filep = fopen("./Skills/SkillList.txt", "r");
+	if (filep != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, filep) != NULL)
+		{
+			int character = 0, skill_id = 0,animation = 0, enabled = 0;
+			if (sscanf(line, "(skill (class %d)(index %d)(has_animation %d)(enabled %d))", &character, &skill_id, &animation, &enabled) == 4)
+			{
+				IConfig::SkillCastCheck[{character, skill_id}].animation = animation;
+				IConfig::SkillCastCheck[{character, skill_id}].enabled = enabled;
+			}
+		}
+		fclose(filep);
+	}
+
+	FILE* filer = fopen("./Systems/ZenRewards.txt", "r");
+	if (filer != NULL)
+	{
+		char line[BUFSIZ];
+		while (fgets(line, sizeof line, filer) != NULL)
+		{
+			int boss_id = 0, item_id = 0, item_amount = 0, prefix = 0, rolls = 0, chance = 0, min_damage = 0, min_percent_damage = 0, max_drops = 0, max_drop_per_player = 0, max_players = 0;
+			if (sscanf(line, "(reward (boss_id %d)(item_id %d)(item_amount %d)(chance %d)(rolls %d)(prefix %d))", &boss_id, &item_id, &item_amount, &chance, &rolls, &prefix) == 6)
+			{
+				IConfig::Rewards rew = IConfig::Rewards();
+
+				rew.item_id = item_id;
+				rew.item_amount = item_amount;
+				rew.prefix = prefix;
+				rew.rolls = rolls;
+				rew.chance = chance;
+
+
+				IConfig::BossRewards[boss_id].push_back(rew);
+			}
+			if (sscanf(line, "(setup (boss_id %d)(min_damage %d)(min_percent_damage %d)(max_drops %d)(max_drop_per_player %d)(max_players %d))", &boss_id, &min_damage, &min_percent_damage, &max_drops, &max_drop_per_player, &max_players) == 6)
+			{
+				IConfig::BossSetup setup = IConfig::BossSetup();
+
+				setup.min_damage = min_damage;
+				setup.min_percent_damage = min_percent_damage;
+				setup.max_drops = max_drops;
+				setup.max_per_player = max_drop_per_player;
+				setup.max_players = max_players;
+
+				IConfig::Setup.insert({ boss_id,setup });
+			}
+		}
+		fclose(filer);
+	}
+
+	//IConfig::CallEnabled = true;
+}
+
+bool IConfig::LoadInstanceConfig()
+{
+	IConfig::dungeon_map.clear();
+	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [](const auto& d) {return d.second.is_running; });
+
+	if (it == IConfig::dungeon_map.end())
+	{
+		FILE* fileinstance = fopen("./Systems/ZenInstance.txt", "r");
+		if (fileinstance != NULL)
+		{
+			std::vector<CDungeon> temp;
+			char line[BUFSIZ];
+			while (fgets(line, sizeof line, fileinstance) != NULL)
+			{
+				int id = 0, min_players = 0, max_players = 0, min_level = 0, max_level = 0, cooldown = 0, time = 0, waves_amount = 0, quest_id = 0, startX = 0, startY = 0;
+				int instance_id = 0, wave_id = 0, is_boss_wave = 0, mini_boss_id = 0, mini_boss_spawn_chance = 0, monster_id = 0, x = 0, y = 0, monster_amount = 0;
+				if (sscanf(line, "(instance (id %d)(min_players %d)(max_players %d)(min_level %d)(max_level %d)(waves_amount %d)(cooldown %d)(time %d)(quest_id %d)(startX %d)(startY %d))", &id, &min_players, &max_players, &min_level, &max_level, &waves_amount, &cooldown, &time, &quest_id, &startX, &startY) == 11)
+				{
+					CDungeon kekw(id, min_players, max_players, min_level, max_level, waves_amount, cooldown, time, quest_id, startX, startY);
+					IConfig::dungeon_map[id] = kekw;
+				}
+
+
+
+
+				if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(monster_id %d)(monster_amount %d))", &instance_id, &wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance, &x, &y, &monster_id, &monster_amount) == 9)
+				{
+					CDungeon::DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, x, y, monster_id, monster_amount);
+					auto p = std::find_if(dungeon_map.begin(), dungeon_map.end(), [id = instance_id](const auto& d) {return d.second.dungeon_id == id; });
+					if (p != dungeon_map.end())
+					{
+						p->second.waves_map.insert({ wave_id,summon });
+					}
+					else
+					{
+						CDungeon::Spawn temp(x, y, monster_id, monster_amount);
+						p->second.waves_map[wave_id].wave_vec.push_back(temp);
+					}
+				}
+			}
+			fclose(fileinstance);
+		}
+		return true;
+	}
+	return false;
 }
 
 

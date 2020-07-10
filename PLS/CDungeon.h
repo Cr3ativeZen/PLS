@@ -1,0 +1,103 @@
+#ifndef CDUNGEON_H_
+#define CDUNGEON_H_
+#include "Resources.h"
+#include "ICharacter.h"
+
+class ICharacter;
+class CDungeon
+{
+public:
+
+	CDungeon();
+
+	CDungeon(int dungeon_id, int min_players, int max_players, int min_level, int max_level, int waves_amount, int instance_cooldown, int instance_time, int quest_id, int startX, int startY);
+
+
+	void SummonMonsters();
+	void TeleportIn(ICharacter IPlayer);
+	bool CheckIfOk(ICharacter IPlayer);
+	//void GiveAwayRewards();
+	void TeleportAway(bool successful);
+	bool DeleteMob(int offset);
+	void LeaveInstance(void* offset);
+	void BlobAllMobs();
+	void WriteToParty(const char* str);
+
+
+	struct Point
+	{
+		Point(int x, int y) :
+			x(x),
+			y(y)
+		{
+		}
+		int x, y;
+	};
+	struct Spawn
+	{
+		Spawn(int x, int y,int monster_id,int monster_amount) :
+			x(x),
+			y(y),
+			monster_id(monster_id),
+			monster_amount(monster_amount)
+		{
+
+		}
+
+			int x,
+				y,
+				monster_id,
+				monster_amount;
+	};
+
+	struct DungSummon
+	{
+		DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, int x, int y, int monster_id, int monster_amount) :
+			dungeon_id(dungeon_id),
+			wave_id(wave_id),
+			is_boss_wave(is_boss_wave),
+			mini_boss_id(mini_boss_id),
+			mini_boss_spawn_chance(mini_boss_spawn_chance)
+		{
+			Spawn temp(x, y, monster_id, monster_amount);
+			wave_vec.push_back(temp);
+			//mob_id_vec.push_back(vec.begin(), vec.end());
+		}
+		int dungeon_id;
+		int wave_id;
+		bool is_boss_wave;
+		int mini_boss_id;
+		unsigned int mini_boss_spawn_chance;
+		//int monster_amount;
+		std::vector<Spawn> wave_vec;
+
+	};
+
+	int dungeon_id;
+	int min_players;
+	int max_players;
+
+	int min_level;
+	int max_level;
+	int startX, startY;
+	int quest_id;
+	int end_instance_time;
+
+	int waves_amount;
+	int current_wave;
+
+	int instance_cooldown;
+	int instance_time;         //check timer function(hook it)
+	bool is_running;
+	
+	std::map<int, DungSummon> waves_map;
+	std::vector<int> mobs_alive;
+	std::set<void*> player_party;
+	static int enter_buff_id;
+	static int cd_buff_id;
+	static int map_id;
+
+};
+
+#endif
+

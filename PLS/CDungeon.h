@@ -26,28 +26,13 @@ public:
 
 	struct Point
 	{
-		Point(int x, int y) :
-			x(x),
-			y(y)
-		{
-		}
+		Point(int x, int y);
 		int x, y;
 	};
 
 	struct DungSummon
 	{
-		DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id,int monster_amount) :
-			dungeon_id(dungeon_id),
-			wave_id(wave_id),
-			is_boss_wave(is_boss_wave),
-			mini_boss_id(mini_boss_id),
-			mini_boss_spawn_chance(mini_boss_spawn_chance),
-			xy(xy),
-			monster_amount(monster_amount),
-			monster_id(monster_id)
-		{
-			//mob_id_vec.push_back(vec.begin(), vec.end());
-		}
+		DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id, int monster_amount);
 		int dungeon_id;
 		int wave_id;
 		bool is_boss_wave;
@@ -82,7 +67,6 @@ public:
 	static int enter_buff_id;
 	static int cd_buff_id;
 	static int map_id;
-
 };
 
 #endif

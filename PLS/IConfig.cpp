@@ -191,7 +191,9 @@ void IConfig::LoadConfigs()
 
 bool IConfig::LoadInstanceConfig()
 {
+	//instance_mod_on = static_cast<bool>(GetPrivateProfileIntA("ZenInstance", "OnOFF", 1, "./Systems/ZenSystem.txt"));
 	IConfig::dungeon_map.clear();
+
 	auto it = std::find_if(IConfig::dungeon_map.begin(), IConfig::dungeon_map.end(), [](const auto& d) {return d.second.is_running; });
 
 	if (it == IConfig::dungeon_map.end())
@@ -199,6 +201,7 @@ bool IConfig::LoadInstanceConfig()
 		FILE* fileinstance = fopen("./Systems/ZenInstance.txt", "r");
 		if (fileinstance != NULL)
 		{
+
 			std::vector<CDungeon> temp;
 			char line[BUFSIZ];
 			while (fgets(line, sizeof line, fileinstance) != NULL)

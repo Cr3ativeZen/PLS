@@ -20,14 +20,6 @@ int __cdecl MonsterSummon(int Player, int Map, int X, int Y, int Index, int Amou
 		Undefined::CreateMonsterValue((void*)0x4E1820, (int)&Argument, (int)&Index);
 		int GetCheck = Undefined::Check((int)0x4E1820, (int)&Value);
 
-		/*CIOCriticalSection::Enter((struct _RTL_CRITICAL_SECTION*)((int)GetOffset() + 364));
-		int buff = CChar::FindBuff((int)GetOffset(), buff_id);
-
-		if (buff)
-			buff_value = *(DWORD*)(buff + 12);
-
-		CIOCriticalSection::Leave((void*)((char*)GetOffset() + 364));*/
-
 		if (*(DWORD*)(void*)&Argument == *(DWORD*)GetCheck)
 		{
 			CIOCriticalSection::Leave((void*)0x4E182C);

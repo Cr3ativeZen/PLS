@@ -94,7 +94,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourAttach(&(PVOID&)CPlayer::LeaveParty, LeaveParty);
 		DetourAttach(&(PVOID&)CCalendar::OnTimer, OnTimer);
 		DetourAttach(&(PVOID&)CPlayer::GameRestart, GameRestart);
-
 		DetourTransactionCommit();
 		break;
 	}
@@ -112,7 +111,6 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 		DetourDetach(&(PVOID&)CPlayer::LeaveParty, LeaveParty);
 		DetourDetach(&(PVOID&)CCalendar::OnTimer, OnTimer);
 		DetourDetach(&(PVOID&)CPlayer::GameRestart, GameRestart);
-
 		DetourTransactionCommit();
 		break;
 	}

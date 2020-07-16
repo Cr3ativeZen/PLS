@@ -4,6 +4,31 @@
 #include "ICharacter.h"
 
 class ICharacter;
+
+
+struct Point
+{
+	Point(int x, int y);
+	int x, y;
+};
+
+struct DungSummon
+{
+	DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id, int monster_amount,std::string message_on_spawn);
+	int dungeon_id;
+	int wave_id;
+	bool is_boss_wave;
+	int mini_boss_id;
+	unsigned int mini_boss_spawn_chance;
+	int monster_amount;
+	int monster_id;
+	Point xy;
+
+	std::string message_on_spawn;
+
+};
+
+
 class CDungeon
 {
 public:
@@ -24,25 +49,7 @@ public:
 	void WriteToParty(const char* str);
 
 
-	struct Point
-	{
-		Point(int x, int y);
-		int x, y;
-	};
 
-	struct DungSummon
-	{
-		DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id, int monster_amount);
-		int dungeon_id;
-		int wave_id;
-		bool is_boss_wave;
-		int mini_boss_id;
-		unsigned int mini_boss_spawn_chance;
-		int monster_amount;
-		int monster_id;
-		Point xy;
-
-	};
 
 	int dungeon_id;
 	int min_players;

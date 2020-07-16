@@ -43,13 +43,13 @@ CDungeon::CDungeon(int dungeon_id, int min_players, int max_players, int min_lev
 {
 }
 
-CDungeon::Point::Point(int x, int y) :
+Point::Point(int x, int y) :
 	x(x),
 	y(y)
 {
 }
 
-CDungeon::DungSummon::DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id, int monster_amount) :
+DungSummon::DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id, int monster_amount , std::string message_on_spawn) :
 	dungeon_id(dungeon_id),
 	wave_id(wave_id),
 	is_boss_wave(is_boss_wave),
@@ -57,7 +57,8 @@ CDungeon::DungSummon::DungSummon(int dungeon_id, int wave_id, bool is_boss_wave,
 	mini_boss_spawn_chance(mini_boss_spawn_chance),
 	xy(xy),
 	monster_amount(monster_amount),
-	monster_id(monster_id)
+	monster_id(monster_id),
+	message_on_spawn(message_on_spawn)
 {
 	//mob_id_vec.push_back(vec.begin(), vec.end());
 }
@@ -77,6 +78,8 @@ void CDungeon::SummonMonsters()
 	{
 		for (int i = 0; i < it->second.monster_amount; i++)
 			mobs_alive.push_back(MonsterSummon(0, CDungeon::map_id, it->second.xy.x, it->second.xy.y, it->second.monster_id, 1, 0, 0));
+
+		WriteToParty(it->second.message_on_spawn.c_str());
 
 		if (dist(dev) <it->second.mini_boss_spawn_chance)
 		{

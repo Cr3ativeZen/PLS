@@ -13,10 +13,6 @@
 
 class CDungeon;
 
-//Here temporarlly till i figure it out -.-
-
-
-
 //IConfig is a Singleton used for loading necessary variables from config files.
 
 class IConfig

@@ -16,10 +16,12 @@ public:
 
 	}
 
+	void __fastcall DanceOfKilling();
 
 	//3rd job Unearthly Ghost
 
 	void __fastcall ShadowSlash(int pPacket, int pPos);
+	
 };
 
 

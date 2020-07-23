@@ -86,37 +86,35 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						return;
 				}
 
+				//0,6 0,8 2,8
+
+
 				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29 )
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
 				}
 
-				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 4)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
-
-				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 5)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
-
-				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 4)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
-
-				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 5)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
 
 				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 29 && IPlayer.GetY() >> 13 == 28)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 0 && IPlayer.GetY() >> 13 == 6)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 0 && IPlayer.GetY() >> 13 == 8)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 2 && IPlayer.GetY() >> 13 == 8)
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
@@ -128,35 +126,31 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 4)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
-
-				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 5)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
-
-				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 4)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
-
-				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 5)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
 
 				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 29 && IPlayer.GetY() >> 13 == 28)
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
 				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 0 && IPlayer.GetY() >> 13 == 6)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 0 && IPlayer.GetY() >> 13 == 8)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
+				if (IPlayer.GetClass() == CLASS_KNIGHT && SkillID == SKILL_KNIGHT_SPINSLASH && IPlayer.GetX() >> 13 == 2 && IPlayer.GetY() >> 13 == 8)
+				{
+					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
+					return;
+				}
+
 
 				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 29 && IPlayer.GetY() >> 13 == 28)
 				{
@@ -170,29 +164,24 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 					return;
 				}
 
-				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 4)
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 0 && IPlayer.GetY() >> 13 == 6)
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
 				}
 
-				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 8 && IPlayer.GetY() >> 13 == 5)
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 0 && IPlayer.GetY() >> 13 == 8)
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
 				}
 
-				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 4)
+				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 2 && IPlayer.GetY() >> 13 == 8)
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
 					return;
 				}
 
-				if (IPlayer.GetClass() == CLASS_ARCHER && SkillID == SKILL_ARCHER_VIRULENTARROW && IPlayer.GetX() >> 13 == 9 && IPlayer.GetY() >> 13 == 5)
-				{
-					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
-					return;
-				}
 
 
 				std::map<std::pair<int, int>, bool>::iterator it;
@@ -385,6 +374,16 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							archer.FocusShot(PACKET, pPos);
 							return;
 						}
+						//case SKILL_ARCHER_PAIN:
+						//{
+						//	archer.Pain(PACKET, pPos);
+						//	return;
+						//}
+						//case SKILL_ARCHER_POISONARROW:
+						//{
+						//	archer.PoisonArrow(PACKET, pPos);
+						//	return;
+						//}
 						//case SKILL_ARCHER_ARROWEXPLOSION:
 						//{
 						//	archer.ArrowExplosion(PACKET, pPos);
@@ -404,6 +403,11 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							thief.ShadowSlash(PACKET, pPos);
 							return;
 						}
+						//case SKILL_THIEF_DANCEOFKILLING:
+						//{
+						//	thief.DanceOfKilling();
+						//	return;
+						//}
 						}
 						break;
 					}

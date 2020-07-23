@@ -8,13 +8,17 @@ class ICharacter;
 
 struct Point
 {
-	Point(int x, int y);
+	Point(int x, int y,int monster_id,int monster_amount);
 	int x, y;
+	int monster_id;
+	int monster_amount;
+
 };
 
 struct DungSummon
 {
 	DungSummon(int dungeon_id, int wave_id, bool is_boss_wave, int mini_boss_id, unsigned int mini_boss_spawn_chance, Point xy, int monster_id, int monster_amount,std::string message_on_spawn);
+	void AddMonsterToVector(Point xy);
 	int dungeon_id;
 	int wave_id;
 	bool is_boss_wave;
@@ -23,11 +27,10 @@ struct DungSummon
 	int monster_amount;
 	int monster_id;
 	Point xy;
-
+	std::vector<Point> monsters;
 	std::string message_on_spawn;
 
 };
-
 
 class CDungeon
 {

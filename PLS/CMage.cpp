@@ -102,16 +102,23 @@ void __fastcall CMage::ShockWave(int pPacket, int pPos)
 		return;
 
 	ICharacter Target(raii.pTarget);
+	//DamageSingle(ISkill, Target, false, false);
+	//(*(int (__thiscall **)(int, int, int))(*(DWORD *)Target.GetOffset() + 72))((int)Target.GetOffset(), nTargetID, 5000);
+	_ShowBattleAnimation(Target, SKILL_MAGE_SHOCKWAVE);
+	(*(void(__cdecl**)(void*, int, int, int))(*(DWORD*)raii.pTarget + 0x58))(raii.pTarget, 7, 0, 1300);
 
-	//(*(void(__thiscall**)(void*, int, int, int, int, int))(*(DWORD*)GetOffset() + 84))(
-	//	GetOffset(),
+
+
+
+	//(*(void(__thiscall**)(void*, int, int, int, int, int))(*(DWORD*)ISkill.GetOffset() + 84))(
+	//	ISkill.GetOffset(),
 	//	nTargetID,
-	//	(int)raii.pTarget,
-	//	100,
-	//	100,
-	//	100);
+	//	(int)Target.GetOffset(),
+	//	10000,
+	//	3,
+	//	700);
 
-	DamageSingle(ISkill, Target, false, false);
+	
 
 
 }

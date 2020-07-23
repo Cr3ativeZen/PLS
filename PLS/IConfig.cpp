@@ -28,7 +28,7 @@ void IConfig::LoadConfigs()
 			int target_heal_per_grade_percent = 0;
 			
 
-
+			//optimization needed for maps, also use unordered map instead.
 			if (sscanf(line, "(skill_damage (class %d)(skill_id %d)(base_damage %d)(damageC %f)(wis %d)(inte %d)(damage_per_grade %d)(pvp_reduction %d)(enabled %d))", &character, &skill_id, &base_damage, &damageC, &wis, &inte, &damage_per_grade, &pvp_reduction, &enabled) == 9)
 			{
 				IConfig::SkillCalc[{character, skill_id}].damageC = damageC;
@@ -215,18 +215,29 @@ bool IConfig::LoadInstanceConfig()
 					IConfig::dungeon_map[id] = kekw;
 				}
 
-
-
-
-				if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(monster_id %d)(monster_amount %d)(message_on_spawn %[^\t\n]))", &instance_id, &wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance, &x, &y, &monster_id, &monster_amount, &message_on_spawn) == 10)
+				if (sscanf(line, "(wave (instance_id %d)(wave_id %d)(is_boss_wave %d)(mini_boss_id %d)(mini_boss_spawn_chance %d)(x %d)(y %d)(monster_id %d)(monster_amount %d)(message_on_spawn \"%[^\t\n]\"))", &instance_id, &wave_id, &is_boss_wave, &mini_boss_id, &mini_boss_spawn_chance, &x, &y, &monster_id, &monster_amount, &message_on_spawn) == 10)
 				{
-					DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, Point(x, y), monster_id, monster_amount,std::string(message_on_spawn));
+					DungSummon summon(instance_id, wave_id, is_boss_wave, mini_boss_id, mini_boss_spawn_chance, Point(x, y,monster_id,monster_amount), monster_id, monster_amount,std::string(message_on_spawn));
 					auto p = std::find_if(dungeon_map.begin(), dungeon_map.end(), [id = instance_id](const auto& d) {return d.second.dungeon_id == id; });
 					if (p != dungeon_map.end())
 					{
 						p->second.waves_map.insert({ wave_id,summon });
 					}
 				}
+				if (sscanf(line, "(additional_mobs (instance_id %d)(wave_id %d)(x %d)(y %d)(monster_id %d)(monster_amount %d))", &instance_id, &wave_id, &x, &y, &monster_id, &monster_amount) == 6)
+				{
+					auto p = std::find_if(dungeon_map.begin(), dungeon_map.end(), [id = instance_id](const auto& d) {return d.second.dungeon_id == id; });
+					if (p != dungeon_map.end())
+					{
+						auto it = p->second.waves_map.find(wave_id);
+						if (it != p->second.waves_map.end())
+						{
+							it->second.AddMonsterToVector(Point(x,y,monster_id,monster_amount));
+						}
+					}
+
+				}
+
 			}
 			fclose(fileinstance);
 		}

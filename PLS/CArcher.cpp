@@ -1,5 +1,22 @@
 #include "CArcher.h"
 
+void __fastcall CArcher::PoisonArrow(int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_POISONARROW));
+
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
+		return;
+
+	RAII raii(pPacket, pPos);
+
+	if (!raii.pTarget || raii.pTarget == GetOffset())
+		return;
+
+	ICharacter Target(raii.pTarget);
+
+	DamageSingle(ISkill, Target, false, true);
+}
+
 void __fastcall CArcher::BlowUpArrow(int pPacket, int pPos)
 {
 
@@ -77,6 +94,23 @@ void __fastcall CArcher::PassiveAttack(int pPacket, int pPos)
 
 	DamageSingle(ISkill, Target, false, true);
 
+}
+
+void __fastcall CArcher::Pain(int pPacket, int pPos)
+{
+	ISkill ISkill((void*)GetSkillPointer(SKILL_ARCHER_PAIN));
+
+	if (!ISkill.GetGrade() || GetCurMp() < ISkill.DecreaseMana())
+		return;
+
+	RAII raii(pPacket, pPos);
+
+	if (!raii.pTarget || raii.pTarget == GetOffset())
+		return;
+
+	ICharacter Target(raii.pTarget);
+
+	DamageSingle(ISkill, Target, false, false);
 }
 
 void __fastcall CArcher::BuffRemover(int pPacket, int pPos)

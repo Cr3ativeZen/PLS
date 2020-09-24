@@ -106,7 +106,8 @@ void __fastcall CMage::ShockWave(int pPacket, int pPos)
 	//(*(int (__thiscall **)(int, int, int))(*(DWORD *)Target.GetOffset() + 72))((int)Target.GetOffset(), nTargetID, 5000);
 	_ShowBattleAnimation(Target, SKILL_MAGE_SHOCKWAVE);
 	(*(void(__cdecl**)(void*, int, int, int))(*(DWORD*)raii.pTarget + 0x58))(raii.pTarget, 7, 0, 1300);
-
+	(*(void(__thiscall**)(void*, void*))(*(DWORD*)raii.pTarget + 0x50))(raii.pTarget, GetOffset());
+	CChar::WriteInSight(this->GetOffset(), 63, "bddbbwwbd", SKILL_MAGE_SHOCKWAVE, this->GetID(), Target.GetID(), 1, 1, 500, 200, TYPE_MONSTER, 0);
 
 
 
@@ -120,6 +121,11 @@ void __fastcall CMage::ShockWave(int pPacket, int pPos)
 
 	
 
+
+}
+
+void __fastcall CMage::IceRestriction(int pPacket, int pPos)
+{
 
 }
 

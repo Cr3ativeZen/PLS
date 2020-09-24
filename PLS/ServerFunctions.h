@@ -44,6 +44,11 @@ namespace CSkill
 	static int(__thiscall *SkillOnLoad)(int pSkill, signed int SkillID, int pPos) = (int(__thiscall*)(int, signed int, int))0x0047F6B0;
 	static int(__thiscall* Storm)(void* a, int a2, void* Player, int a4) = (int(__thiscall*)(void*, int, void*, int))0x004854D0;
 	static int(__thiscall *Behead)(void *pSkill, int Player, void *pPacket, int pPos) = (int(__thiscall*)(void*, int, void*, int))0x004813A0;
+
+
+	
+	static int(__thiscall* sub_4833D0)(void* pSkill, int a2, int a3) = (int(__thiscall*)(void*, int, int))0x004833D0;
+	static int(__thiscall* sub_483230)(void* pPlayer) = (int(__thiscall*)(void*))0x004833D0;
 }
 
 namespace CPacket

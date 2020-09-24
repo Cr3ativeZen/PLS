@@ -86,9 +86,6 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 						return;
 				}
 
-				//0,6 0,8 2,8
-
-
 				if (IPlayer.GetClass() == CLASS_MAGE && SkillID == SKILL_MAGE_AMNESIA && IPlayer.GetX() >> 13 == 28 && IPlayer.GetY() >> 13 == 29 )
 				{
 					IPlayer.SystemMessage("Skill is disabled on this map!", RGB(255, 0, 0));
@@ -315,16 +312,21 @@ void __fastcall Packet(__int32 Player, void *edx, int packet, void *pPacket, int
 							mage.Purification(PACKET, pPos);
 							return;
 						}
-						//case SKILL_MAGE_SHOCKWAVE:
-						//{
-						//	mage.ShockWave(PACKET, pPos);
-						//	return;
-						//}
+						case SKILL_MAGE_SHOCKWAVE:
+						{
+							mage.ShockWave(PACKET, pPos);
+							return;
+						}
 						case SKILL_MAGE_AMNESIA:
 						{
 							mage.Amnesia(PACKET, pPos);
 							return;
 						}
+						//case SKILL_MAGE_ICERESTRICTION:
+						//{
+						//	mage.IceRestriction(PACKET, pPos);
+						//	return;
+						//}
 						}
 						break;
 					}

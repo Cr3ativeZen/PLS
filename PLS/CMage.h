@@ -20,6 +20,7 @@ public:
 	void __fastcall Cure(int pPacket, int pPos,int skill_id);
 	void __fastcall Heal();
 	void __fastcall ShockWave(int pPacket, int pPos);
+	void __fastcall IceRestriction(int pPacket, int pPos);
 
 
 	//2nd job CJB skills

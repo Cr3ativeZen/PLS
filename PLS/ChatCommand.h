@@ -15,6 +15,10 @@ void __fastcall ChatCommand(int Player, void *edx, const char *command)
 		IPlayer.SystemMessage("Zen skill config reloaded successfully", IConfig::TEXTCOLOR_GREEN);
 		CONFIG.LoadConfigs();
 	}
+	if (IPlayer.IsOnline() && cmd.substr(0, 4) == "/atk" && IPlayer.GetAdmin() >= 8)
+	{
+		IPlayer.AddMinMagicAttack(IPlayer.GetMaxMagAttack() - IPlayer.GetMinMagAttack());
+	}
 
 	if (IPlayer.IsOnline() && cmd.substr(0, 9) == "/zeninsta" && IPlayer.GetAdmin() >= 8)
 	{
